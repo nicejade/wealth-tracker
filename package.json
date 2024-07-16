@@ -1,0 +1,47 @@
+{
+  "name": "wealth-tracker",
+  "description": "生财有迹（Wealth Tracker）是一款专注于个人资产分析的应用程序。其核心功能是：全面记录并展示用户的资产状况，帮助用户清晰地了解财务现状；结合每种资产的特性和当前经济环境，利用 AI 技术进行分析，并提供适宜的财务建议。",
+  "version": "1.0.0",
+  "scripts": {
+    "prettier": "prettier --write \"{client,server}/**/**/*.{svelte,js,ts,jsx,tsx,css,scss,vue}\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/**.{js,json,pcss,vue,css,scss}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "printWidth": 100,
+    "proseWrap": "never",
+    "tabWidth": 2,
+    "bracketSameLine": true,
+    "htmlWhitespaceSensitivity": "ignore",
+    "vueIndentScriptAndStyle": true
+  },
+  "keywords": [
+    "Wealth Tracker",
+    "生财有迹",
+    "Svelte",
+    "TailwindCSS",
+    "Vite",
+    "Flowbite",
+    "Axios",
+    "Day.js",
+    "Node.js",
+    "Fastify",
+    "SQLite3",
+    "Sequelize"
+  ]
+}

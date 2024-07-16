@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  wealth-tracker:
+    image: wealth-tracker
+    container_name: wealth-tracker
+    ports:
+      - '8888:8888'
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+volumes:
+  data:

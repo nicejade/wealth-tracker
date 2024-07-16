@@ -1,0 +1,11 @@
+.regular-btn {
+  @apply w-28 rounded-full border border-gray-300 bg-white px-4 py-2 text-base font-bold text-gray-600 hover:bg-gray-100 md:text-sm;
+}
+
+.custom-input {
+  @apply w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-600 caret-link focus:border-transparent focus:outline-none focus:ring-1 focus:ring-link md:text-sm;
+}
+
+.social-link {
+  @apply inline-flex rounded-md p-2 leading-5 hover:bg-gray-100;
+}

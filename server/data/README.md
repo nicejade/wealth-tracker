@@ -1,0 +1,3 @@
+- File Name: wealth_tracker.sqlite
+- Database Type: Sqlite
+- Func Description: Storing data

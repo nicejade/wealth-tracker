@@ -1,0 +1,9 @@
+node_modules
+
+client
+
+*.log
+*.sqlite
+
+Dockerfile
+docker-compose.yml

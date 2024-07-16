@@ -1,0 +1,33 @@
+@import url('./tailwind');
+@import url('./apply');
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  background-color: #ffffff;
+}
+
+#app {
+  min-height: 100vh;
+  font-family: STXihei, '华文细黑', 'Microsoft YaHei', '微软雅黑';
+}
+
+a {
+  transition: color 0.2s ease 0.2s;
+}
+a:hover {
+  color: #f59e0b;
+}
+
+svg {
+  display: inline-block;
+}
+
+.gradient-text {
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #f59e0b, #ff4582, #0ea5e9);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
