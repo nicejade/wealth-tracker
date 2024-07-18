@@ -12,6 +12,7 @@ client/.routify
 server/public
 
 # Datebase
+server/dist
 server/data/*.sqlite
 
 # local env files

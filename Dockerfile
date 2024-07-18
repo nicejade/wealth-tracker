@@ -1,27 +1,22 @@
-# 使用官方 Node.js 镜像
-FROM node:20.5.1-alpine
+# Use the official Node.js image
+FROM node:lts-alpine3.20
 
-# 全局安装 tsx
-RUN npm install -g tsx
-
-# 设置工作目录
+# Set WORKDIR
 WORKDIR /app
 
-# 复制 package.json 文件
-COPY ./server/package.json ./
+# Install server side dependencies
+COPY ./server/package.json /app
+RUN npm i --only=production
 
-# 安装生产依赖
-RUN npm install
+# Copy server side code to WORKDIR
+COPY ./server/dist /app/dist
+COPY ./server/public /app/public
 
-# 复制 server 代码到工作目录
-COPY ./server /app/server
-
-# 暴露应用的端口
+# Expose app port
 EXPOSE 8888
 
-# 定义数据库文件路径
+# Define database file path
 VOLUME ["/app/data"]
 
-# 启动后端服务
-WORKDIR /app
-CMD ["npx", "tsx", "server/src/index.ts"]
+# Auto exec Node.js APP
+CMD ["node", "dist/index.js"]

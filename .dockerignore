@@ -1,9 +1,24 @@
 node_modules
+pnpm-lock.yaml
 
 client
+server
+
+!server/package.json
+!server/dist
+!server/public
 
 *.log
 *.sqlite
 
+.git
+.gitignore
+.DS_Store
+*.sh
+
+**/*.ts
+
 Dockerfile
 docker-compose.yml
+
+LICENSE
