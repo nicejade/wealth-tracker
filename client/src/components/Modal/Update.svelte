@@ -51,9 +51,9 @@
     const rawDateTime = dayjs(params.raw_data, 'YYYY-MM-DD')
     const nowDateTime = dayjs(params.datetime, 'YYYY-MM-DD')
     const isValidDate = nowDateTime.isValid()
-    if (isUpdate && !isValidDate) {
-      return (datetimeError = '您输入的时间格式不合法')
-    }
+
+    datetimeError = !isValidDate ? '您输入的时间格式不合法' : ''
+    if (datetimeError) return
 
     const isEarlier = rawDateTime.isBefore(nowDateTime)
     datetimeError = isUpdate && isEarlier ? '' : '更新时间不能早于原始时间'
@@ -106,12 +106,12 @@
 <div
   id="update-modal"
   tabindex="-1"
-  class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
-  <div class="relative w-full h-full max-w-lg md:max-w-md md:h-auto">
+  class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0 md:h-full">
+  <div class="relative h-full w-full max-w-lg md:h-auto md:max-w-md">
     <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow mt-16 pb-8">
+    <div class="relative mt-16 rounded-lg bg-white pb-8 shadow">
       <!-- Modal header -->
-      <div class="flex items-center justify-between p-5 border-b rounded-t">
+      <div class="flex items-center justify-between rounded-t border-b p-5">
         <h3 class="flex items-center text-lg font-medium text-gray-900 md:text-base">
           <SvgIcon name="adjustment" width={30} height={30} color="#1e293b" />
           {isUpdate ? '更新财富' : '新增财富'}
@@ -119,15 +119,15 @@
         <button
           type="button"
           on:click={closeModal}
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+          class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900">
           <SvgIcon name="close" width={30} height={30} />
           <span class="sr-only">Close modal</span>
         </button>
       </div>
       <!-- Modal body -->
-      <div class="flex flex-col justify-center items-center p-6">
+      <div class="flex flex-col items-center justify-center p-6">
         <div
-          class="flex flex-row items-center justify-between w-full pb-4 text-base md:flex-wrap md:text-sm">
+          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-type" class="w-56 text-base font-bold md:pb-2 md:text-sm">类型</label>
           <input
             type="text"
@@ -139,7 +139,7 @@
             required />
         </div>
         <div
-          class="flex flex-row items-center justify-between w-full pb-4 text-base md:flex-wrap md:text-sm">
+          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-currency" class="w-56 text-base font-bold md:pb-2 md:text-sm">
             币种
           </label>
@@ -153,7 +153,7 @@
             required />
         </div>
         <div
-          class="flex flex-row items-center justify-between w-full pb-4 text-base md:flex-wrap md:text-sm">
+          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-currency" class="w-56 text-base font-bold md:pb-2 md:text-sm">
             风险
           </label>
@@ -166,7 +166,7 @@
           </div>
         </div>
         <div
-          class="flex flex-row items-center justify-between w-full pb-4 text-base md:flex-wrap md:text-sm">
+          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-currency" class="w-56 text-base font-bold md:pb-2 md:text-sm">
             流动性
           </label>
@@ -178,14 +178,14 @@
               on:selected={onHandleLiquiditySelect} />
           </div>
         </div>
-        <div class="inline-flex items-center justify-center w-full pb-4">
-          <hr class="w-full h-px my-4 bg-gray-200 border-0" />
-          <span class="absolute px-3 font-medium text-gray -translate-x-1/2 bg-white left-1/2">
+        <div class="inline-flex w-full items-center justify-center pb-4">
+          <hr class="my-4 h-px w-full border-0 bg-gray-200" />
+          <span class="text-gray absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium">
             以上为低频更新内容
           </span>
         </div>
         <div
-          class="flex flex-row items-center justify-between w-full pb-4 text-base md:flex-wrap md:text-sm">
+          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-amount" class="w-56 text-base font-bold md:pb-2 md:text-sm">
             金额
           </label>
@@ -199,7 +199,7 @@
             required />
         </div>
         <div
-          class="flex flex-row items-center justify-between w-full pb-4 text-base md:flex-wrap md:text-sm">
+          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-datetime" class="w-56 text-base font-bold md:pb-2 md:text-sm">
             时间
           </label>
@@ -212,13 +212,13 @@
               placeholder="请填写时间"
               on:input={() => validateDatetimeInput(items)}
               required />
-            {#if datetimeError && isUpdate}
+            {#if datetimeError}
               <p class="text-mark text-sm">{datetimeError}</p>
             {/if}
           </div>
         </div>
         <div
-          class="flex flex-row items-center justify-between w-full pb-4 text-base md:flex-wrap md:text-sm">
+          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-note" class="w-56 text-base font-bold md:pb-2 md:text-sm">备注</label>
           <input
             type="text"
@@ -229,7 +229,7 @@
             required />
         </div>
       </div>
-      <div class="flex justify-center items-center">
+      <div class="flex items-center justify-center">
         <button type="button" on:click={onConfirmClick} class="regular-btn">确定</button>
       </div>
     </div>
