@@ -52,6 +52,20 @@ export default {
       data: params,
     })
   },
+  put: function (url, params, op) {
+    return requestHandle({
+      method: 'PUT',
+      url: url,
+      data: params,
+    })
+  },
+  delete: function (url, params, op) {
+    return requestHandle({
+      method: 'DELETE',
+      url: url,
+      data: params,
+    })
+  },
   get: function (url, params, op) {
     return requestHandle({
       method: 'get',

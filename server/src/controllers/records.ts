@@ -1,6 +1,6 @@
-import { Record } from './../models/record'
+import { Record } from '../models/records'
 
-export const getRecords = async (_, reply) => {
+export const get = async (_, reply) => {
   try {
     const data = await Record.findAll()
     return reply.send(data)

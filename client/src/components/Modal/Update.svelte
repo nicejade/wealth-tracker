@@ -4,7 +4,7 @@
   import { Modal } from 'flowbite'
   import SvgIcon from '../SvgIcon.svelte'
   import CustomSelect from './../Select.svelte'
-  import { create, update } from './../../helper/apis'
+  import { createAssets, updateAssets } from './../../helper/apis'
   import { ACTION_TYPES, ASSETS_RISK_ARR, ASSETS_LIQUIDITY_ARR } from './../../helper/constant'
   import { alert } from './../../stores'
   import type { ModalOptions } from 'flowbite'
@@ -82,9 +82,9 @@
     }
     try {
       if (action === ACTION_TYPES.create) {
-        await create(items)
+        await createAssets(items)
       } else {
-        await update(items)
+        await updateAssets(items)
       }
       dispatch('confirm', items)
       modal.hide()

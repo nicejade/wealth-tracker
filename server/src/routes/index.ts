@@ -1,7 +1,7 @@
-import { create, update, getAssets, destroy } from '../controllers/assets'
-import { getRecords } from '../controllers/record'
+import assets from './assets'
+import records from './records'
 
-export const routes = [
+const routes = [
   {
     method: 'GET',
     url: '/api/heart',
@@ -9,29 +9,6 @@ export const routes = [
       reply.send({ hello: 'world ! 🎉' })
     },
   },
-  {
-    method: 'POST',
-    url: '/api/create',
-    handler: create,
-  },
-  {
-    method: 'POST',
-    url: '/api/update',
-    handler: update,
-  },
-  {
-    method: 'POST',
-    url: '/api/destroy',
-    handler: destroy,
-  },
-  {
-    method: 'GET',
-    url: '/api/getAssets',
-    handler: getAssets,
-  },
-  {
-    method: 'GET',
-    url: '/api/getRecords',
-    handler: getRecords,
-  },
 ]
+
+export default [...routes, ...assets, ...records]

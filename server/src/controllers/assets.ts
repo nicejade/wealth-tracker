@@ -1,5 +1,5 @@
 import { Assets } from './../models/assets'
-import { Record } from './../models/record'
+import { Record } from '../models/records'
 
 export const create = async (request, reply) => {
   const params = request?.body
@@ -17,6 +17,18 @@ export const create = async (request, reply) => {
     const assets = await Assets.create(options)
     await Record.create(assets.dataValues)
     return reply.send(assets)
+  } catch (error: any) {
+    return reply.code(400).send({
+      statusCode: 400,
+      message: error.message,
+    })
+  }
+}
+
+export const get = async (_, reply) => {
+  try {
+    const data = await Assets.findAll()
+    return reply.send(data)
   } catch (error: any) {
     return reply.code(400).send({
       statusCode: 400,
@@ -52,23 +64,11 @@ export const update = async (request, reply) => {
   }
 }
 
-export const getAssets = async (_, reply) => {
-  try {
-    const data = await Assets.findAll()
-    return reply.send(data)
-  } catch (error: any) {
-    return reply.code(400).send({
-      statusCode: 400,
-      message: error.message,
-    })
-  }
-}
-
 export const destroy = async (request, reply) => {
-  const { id = '' } = request?.body
+  const { type = '' } = request?.body
   try {
     const data = await Assets.destroy({
-      where: { id },
+      where: { type },
     })
     return reply.send(data)
   } catch (error: any) {

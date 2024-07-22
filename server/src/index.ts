@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv'
 // Fix Bug: [fetch is not defined](Ubuntu16 Cannot Upgrade Node to v18.*)
 import 'isomorphic-fetch'
 import * as register from './register'
-import { routes } from './routes'
+import routes from './routes'
 import { sequelize } from './models/index'
 
 dotenv.config()
@@ -27,7 +27,6 @@ const connect2sqlite = () => {
 
 const start = async () => {
   try {
-    // connect to MongoDB
     connect2sqlite()
 
     // register routes

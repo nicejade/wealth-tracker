@@ -3,7 +3,7 @@
   import dayjs from 'dayjs'
   import Header from '../components/Header.svelte'
   import Footer from '../components/Footer.svelte'
-  import TableWidget from '../components/TableWidget.svelte'
+  import TableWidget from '../components/ChartWidget/TableWidget.svelte'
   import AreaChart from '../components/ChartWidget/AreaChart.svelte'
   import DonutChart from '../components/ChartWidget/DonutChart.svelte'
   import UpdateModal from '../components/Modal/Update.svelte'
@@ -76,7 +76,7 @@
 </script>
 
 <Header />
-<div class="w-full flex flex-col items-center justify-center space-y-8">
+<div class="flex w-full flex-col items-center justify-center space-y-8">
   <TableWidget options={rawWealthArr} on:edit={handleEdit} on:add={handleAdd} />
   {#if rawWealthArr.length}
     <DonutChart sources={rawWealthArr}></DonutChart>
