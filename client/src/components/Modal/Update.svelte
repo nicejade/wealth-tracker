@@ -4,7 +4,7 @@
   import { Modal } from 'flowbite'
   import SvgIcon from '../SvgIcon.svelte'
   import CustomSelect from './../Select.svelte'
-  import { createAssets, updateAssets } from './../../helper/apis'
+  import { createAssets, updateAssets, updateRecords } from './../../helper/apis'
   import { ACTION_TYPES, ASSETS_RISK_ARR, ASSETS_LIQUIDITY_ARR } from './../../helper/constant'
   import { alert } from './../../stores'
   import type { ModalOptions } from 'flowbite'
@@ -83,8 +83,12 @@
     try {
       if (action === ACTION_TYPES.create) {
         await createAssets(items)
-      } else {
+      }
+      if (action === ACTION_TYPES.update) {
         await updateAssets(items)
+      }
+      if (action === ACTION_TYPES.change) {
+        await updateRecords(items)
       }
       dispatch('confirm', items)
       modal.hide()
@@ -114,7 +118,7 @@
       <div class="flex items-center justify-between rounded-t border-b p-5">
         <h3 class="flex items-center text-lg font-medium text-gray-900 md:text-base">
           <SvgIcon name="adjustment" width={30} height={30} color="#1e293b" />
-          {isUpdate ? '更新财富' : '新增财富'}
+          {isUpdate ? '更新资产记录' : '新增资产账户'}
         </h3>
         <button
           type="button"
@@ -135,7 +139,7 @@
             disabled={isUpdate}
             bind:value={items.type}
             class="custom-input"
-            placeholder="请填写类型"
+            placeholder="如银行卡，⚠️名称不可变更"
             required />
         </div>
         <div

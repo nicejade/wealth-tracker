@@ -10,6 +10,7 @@ export const DEFAULT_THEME = 'light'
 export const ACTION_TYPES = {
   create: 'create-account',
   update: 'update-account',
+  change: 'change-record',
 }
 
 const dayOffsetArr = [7, 28, 98, 364]

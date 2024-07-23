@@ -51,7 +51,7 @@
     fetchDatabase()
   }
 
-  const handleEdit = (event) => {
+  const handleUpate = (event) => {
     currentWealthItem = event.detail
     updateActionType = ACTION_TYPES.update
     isShowUpdateModal = true
@@ -77,7 +77,7 @@
 
 <Header />
 <div class="flex w-full flex-col items-center justify-center space-y-8">
-  <TableWidget options={rawWealthArr} on:edit={handleEdit} on:add={handleAdd} />
+  <TableWidget options={rawWealthArr} on:update={handleUpate} on:add={handleAdd} />
   {#if rawWealthArr.length}
     <DonutChart sources={rawWealthArr}></DonutChart>
     <AreaChart sources={rawRecordsArr}></AreaChart>
