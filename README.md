@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://niceshare.site/" target="_blank">
     <img width="120"
-    src="https://github.com/nicejade/wealth-tracker/blob/main/client/public/logo.png?raw=true">
+    src="https://lovejade.oss-cn-shenzhen.aliyuncs.com/wealth-tracker-logo.png">
   </a>
 </p>
 
@@ -41,7 +41,7 @@
 
 <br />
 
-![生财有迹 - 效果预览](https://raw.githubusercontent.com/nicejade/wealth-tracker/main/client/public/wealth-tracker_mockup.png)
+![生财有迹 - 效果预览](https://lovejade.oss-cn-shenzhen.aliyuncs.com/wealth-tracker_mockup.png)
 
 ## 项目愿景
 
