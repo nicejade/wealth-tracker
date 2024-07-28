@@ -11,7 +11,7 @@ export default async (fastify) => {
   }
 
   return await fastify
-    .register(import('@fastify/helmet'), { global: true })
+    .register(import('@fastify/helmet'), { global: true, contentSecurityPolicy: false })
     .register(import('@fastify/cookie'))
     .register(import('@fastify/rate-limit'), rateLimitOptions)
     .register(import('fastify-xml-body-parser'))
