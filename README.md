@@ -68,6 +68,8 @@
 
 **使用 [docker compose](https://docs.docker.com/compose/)**：
 
+创建一个 `docker-compose.yml` 文件，并在其中定义服务（其中 version: '3' 指定了 Docker Compose 文件的版本；您可以根据实际情况进行调整）：
+
 ```yaml
 version: '3.8'
 
@@ -85,6 +87,12 @@ volumes:
   data:
 ```
 
+在包含 `docker-compose.yml` 文件的目录中，运行以下命令启动服务：
+
+```bash
+docker-compose up -d
+```
+
 这将在后台启动服务，并且效果与下面的 `docker run` 命令相同。使用 Docker Compose 可以更方便地管理多个容器，并且配置更易读和维护。
 
 **或者 docker run**：
@@ -95,11 +103,39 @@ docker run -d -p 8888:8888 -v "$(pwd)/data:/app/data" nicejade/wealth-tracker
 
 如果您在本地部署，只需打开网址——[http://localhost:8888](http://localhost:8888/) 即可访问。如果在服务器运行，可通过 http://[Server-IP]:8888 来访问，您也可以指定其他端口。
 
-### 使用 Node.js
+### 采用 [pm2](https://pm2.keymetrics.io/) 部署
 
 ```bash
 # clone project
 git clone https://github.com/nicejade/wealth-tracker.git
+
+cd wealth-tracker
+
+# install & run for client
+cd client && pnpm i && pnpm start
+# install & run for srever
+cd server && pnpm i && pnpm start
+
+# globally install pm2
+npm i pm2 -g
+
+# start your service
+pm2 start "npx tsx server/src/index.ts" --name "wealth-tracker"
+```
+
+当然，您也可以使用配置文件（`ecosystem.config.js`）来启动应用，运行如下命令即可：
+
+```bash
+pm2 start ecosystem.config.js
+```
+
+### 基于 Node.js 运行
+
+```bash
+# clone project
+git clone https://github.com/nicejade/wealth-tracker.git
+
+cd wealth-tracker
 
 # install & run for client
 cd client && pnpm i && pnpm start
