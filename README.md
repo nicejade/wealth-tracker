@@ -60,7 +60,11 @@
 
 ## 先决条件
 
-说明用户在安装和使用前，需要准备的一些先决条件，譬如：您需要安装或升级 [Node.js](https://nodejs.org/en/)（>= `16.*`），推荐使用 [Pnpm](https://pnpm.io/) 或 [Yarn](https://www.jeffjade.com/2017/12/30/135-npm-vs-yarn-detial-memo/) 作为首选包管理工具。
+说明用户在安装和使用前，需要准备的一些先决条件，譬如：您需要安装或升级 [Node.js](https://nodejs.org/en/)（>= `16.*`），推荐使用 [Pnpm](https://pnpm.io/) 或 [Yarn](https://www.jeffjade.com/2017/12/30/135-npm-vs-yarn-detial-memo/) 作为首选包管理工具。本项目采用 pnpm（利用其 workspace 功能）结合 [Lerna@8.1](https://lerna.js.org/) 来管理项目依赖，以实现更高效的包管理和工作流程。为确保您的开发环境与项目要求一致，建议您全局安装这两个工具：
+
+```bash
+npm install -g pnpm lerna
+```
 
 ## 如何使用？
 
@@ -105,29 +109,30 @@ docker run -d -p 8888:8888 -v "$(pwd)/data:/app/data" nicejade/wealth-tracker
 
 ### 采用 [pm2](https://pm2.keymetrics.io/) 部署
 
+PM2 是一个强大的生产环境进程管理器，它不仅支持通过命令行启动应用，还可以使用配置文件（通常名为 `ecosystem.config.js`）来管理复杂的部署场景。为了简化部署流程并确保一致性，本项目已将所有必要的 PM2 配置和启动命令封装到了 npm 脚本中：
+
 ```bash
 # clone project
 git clone https://github.com/nicejade/wealth-tracker.git
 
 cd wealth-tracker
 
-# install & run for client
-cd client && pnpm i && pnpm start
-# install & run for srever
-cd server && pnpm i && pnpm start
+# install dependencies(client & server)
+pnpm i
 
 # globally install pm2
 npm i pm2 -g
 
 # start your service
-pm2 start "npx tsx server/src/index.ts" --name "wealth-tracker"
+npm run deploy
 ```
 
-当然，您也可以使用配置文件（`ecosystem.config.js`）来启动应用，运行如下命令即可：
+除了 `deploy` 命令，项目还提供了其他几个常用的 `npm` 脚本：
 
-```bash
-pm2 start ecosystem.config.js
-```
+- `npm run start`: 使用 PM2 启动应用；
+- `npm run stop`: 停止 PM2 管理的应用；
+- `npm run restart`: 重启应用；
+- `npm run logs`: 查看应用日志；
 
 ### 基于 Node.js 运行
 
@@ -137,11 +142,12 @@ git clone https://github.com/nicejade/wealth-tracker.git
 
 cd wealth-tracker
 
-# install & run for client
-cd client && pnpm i && pnpm start
+# install dependencies(client & server)
+pnpm i
 
-# install & run for srever
-cd server && pnpm i && pnpm start
+cd client && npm start
+
+cd server && npm start
 ```
 
 本项目客户端采用 [Svelte](https://svelte.dev/) 框架，基于 [Vite](https://vitejs.dev/) 所构建，默认 `5173` 端口，只需打开网址—— [http://localhost:5173](http://localhost:5173) 即可访问。
