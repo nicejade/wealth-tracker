@@ -27,7 +27,7 @@
 
   const fetchWealth = async () => {
     try {
-      rawWealthArr = await getAssets()
+      rawWealthArr = (await getAssets()) as any[]
     } catch (error) {
       console.error('Error Fetching Wealth:', error)
     }
@@ -35,9 +35,9 @@
 
   const fetchRecords = async () => {
     try {
-      rawRecordsArr = await getRecords()
+      rawRecordsArr = (await getRecords()) as any[]
       const cureentWealthArr = rawWealthArr.map((item) => {
-        item.raw_data = item.datetime
+        item.rawDatetime = item.datetime
         item.datetime = dayjs().format('YYYY-MM-DD')
         return item
       })

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher } from 'svelte'
   import dayjs from 'dayjs'
+  import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
   import { Modal } from 'flowbite'
   import SvgIcon from '../SvgIcon.svelte'
   import CustomSelect from './../Select.svelte'
@@ -8,6 +9,8 @@
   import { ACTION_TYPES, ASSETS_RISK_ARR, ASSETS_LIQUIDITY_ARR } from './../../helper/constant'
   import { alert } from './../../stores'
   import type { ModalOptions } from 'flowbite'
+
+  dayjs.extend(isSameOrBefore)
 
   const dispatch = createEventDispatcher()
   const MODAL_KEY = 'update-modal'
@@ -48,15 +51,21 @@
   })
 
   const validateDatetimeInput = (params) => {
-    const rawDateTime = dayjs(params.raw_data, 'YYYY-MM-DD')
-    const nowDateTime = dayjs(params.datetime, 'YYYY-MM-DD')
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/
+    const isValidFormat = dateRegex.test(params.datetime)
+    if (!isValidFormat) {
+      return (datetimeError = '请输入有效的日期格式（YYYY-MM-DD）')
+    }
+
+    const nowDateTime = dayjs(items.datetime, 'YYYY-MM-DD')
     const isValidDate = nowDateTime.isValid()
+    if (!isValidDate) return (datetimeError = '您输入的时间格式不合法')
 
-    datetimeError = !isValidDate ? '您输入的时间格式不合法' : ''
-    if (datetimeError) return
-
-    const isEarlier = rawDateTime.isBefore(nowDateTime)
-    datetimeError = isUpdate && isEarlier ? '' : '更新时间不能早于原始时间'
+    if (isUpdate) {
+      const rawDateTime = dayjs(params.rawDatetime, 'YYYY-MM-DD')
+      const isEarlier = rawDateTime.isSameOrBefore(nowDateTime, 'day')
+      return (datetimeError = isEarlier ? '' : '更新时间不能早于原始时间')
+    }
   }
 
   const genRiskActive = (risk) => {
