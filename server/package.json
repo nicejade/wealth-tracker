@@ -7,7 +7,9 @@
   "scripts": {
     "start": "npx tsx src/index.ts",
     "dev": "npm run watch",
-    "watch": "npx tsx watch src/index.ts"
+    "build": "npx tsc",
+    "watch": "npx tsx watch src/index.ts",
+    "deploy": "pm2 start ecosystem.config.js --env production"
   },
   "dependencies": {
     "@fastify/cookie": "^8.3.0",

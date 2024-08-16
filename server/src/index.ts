@@ -39,7 +39,7 @@ const start = async () => {
 
     await register.default(fastify)
     const address = await fastify.listen({
-      port: 8888,
+      port: process.env.PORT ? parseInt(process.env.PORT, 10) : 8888,
       host: '0.0.0.0',
     })
     fastify.log.info(`server listening on ${address}`)

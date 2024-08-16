@@ -4,11 +4,14 @@
   "version": "1.2.0",
   "scripts": {
     "build:client": "lerna run build --scope=client",
-    "start": "npm run build:client && pm2 start ecosystem.config.js",
+    "build:server": "lerna run build --scope=server",
+    "build": "npm run build:client && npm run build:server",
+    "docker": "npm run build && docker build -t wealth-tracker .",
+    "start": "npm run build && pm2 start ecosystem.config.js",
     "stop": "pm2 stop wealth-tracker",
     "restart": "pm2 restart wealth-tracker",
     "logs": "pm2 logs wealth-tracker",
-    "deploy": "npm run build:client && pm2 start ecosystem.config.js production",
+    "deploy": "npm run build && lerna run deploy --scope=server",
     "prettier": "prettier --write \"{client,server}/**/**/*.{svelte,js,ts,jsx,tsx,css,scss}\""
   },
   "husky": {

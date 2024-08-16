@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install server side dependencies
 COPY ./server/package.json /app
-RUN npm i --only=production
+RUN npm i --omit=dev
 
 # Copy server side code to WORKDIR
 COPY ./server/dist /app/dist
