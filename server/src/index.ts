@@ -2,14 +2,11 @@ import fs from 'fs/promises'
 import path from 'path'
 import Fastify from 'fastify'
 import fastifyStatic from '@fastify/static'
-import dotenv from 'dotenv'
 // Fix Bug: [fetch is not defined](Ubuntu16 Cannot Upgrade Node to v18.*)
 import 'isomorphic-fetch'
 import * as register from './register'
 import routes from './routes'
 import { sequelize } from './models/index'
-
-dotenv.config()
 
 const fastify = Fastify({ logger: true })
 
