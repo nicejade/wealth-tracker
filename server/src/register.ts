@@ -18,6 +18,6 @@ export default async (fastify) => {
     .register(require('@fastify/multipart'))
     .ready((err) => {
       if (err) console.log(`Something Error @Start：${err}`)
-      console.log('应无所住，而生其心。')
+      console.log('all is well. Good things are about to happen.')
     })
 }
