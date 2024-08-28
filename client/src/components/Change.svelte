@@ -40,7 +40,7 @@
     {:else if value < 0}
       ↓{Math.abs(value).toFixed(2)}{unit}
     {:else}
-      --
+      ±0%
     {/if}
   </span>
   {#if equalHeight}

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import Header from '../components/Header.svelte'
+  import Footer from '../components/Footer.svelte'
   import DetailTable from '../components/DetailTable.svelte'
   import UpdateModal from '../components/Modal/Update.svelte'
   import { getRecords, destroyRecords } from '../helper/apis'
@@ -46,7 +47,7 @@
 </script>
 
 <Header />
-<div class="flex w-full flex-col items-center justify-center space-y-8">
+<div class="flex w-full flex-col items-center justify-center">
   <DetailTable options={rawRecordsArr} on:change={handleChange} on:destroy={destroyChange} />
 </div>
 
@@ -57,3 +58,4 @@
     on:confirm={handleChangeConfirm}
     on:close={handleChangeClose} />
 {/if}
+<Footer />

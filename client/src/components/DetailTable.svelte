@@ -25,7 +25,7 @@
   }
 </script>
 
-<Card size="xl" class="mb-4 w-full max-w-none overflow-x-scroll pb-0 2xl:col-span-2">
+<Card size="xl" class="w-full max-w-none overflow-x-scroll pb-0 2xl:col-span-2">
   <div class="flex justify-between">
     <Caption title="记录详情"></Caption>
   </div>

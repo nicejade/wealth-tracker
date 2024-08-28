@@ -1,6 +1,5 @@
 <script>
   import { createEventDispatcher } from 'svelte'
-  import { goto } from '@roxi/routify'
   import dayjs from 'dayjs'
   import {
     Button,
@@ -21,10 +20,6 @@
 
   $: totalWealth = options.reduce((sum, item) => sum + item.amount, 0).toFixed(2)
 
-  const onDetailClick = () => {
-    $goto('/detail')
-  }
-
   const onUpdateClick = (elem) => {
     dispatch('update', elem)
   }
@@ -41,7 +36,7 @@
 <Card size="xl" class="w-full max-w-none overflow-x-scroll 2xl:col-span-2">
   <div class="mb-2 flex justify-between">
     <Caption title="记录财富"></Caption>
-    <button on:click={onDetailClick} class="regular-btn hover:text-brand text-sm">查阅详情</button>
+    <a href="/detail" class="regular-btn hover:text-brand text-center text-sm">查阅详情</a>
   </div>
   <Table hoverable={true} striped={true} class="divide-y last:border-b-0">
     <TableHead>
@@ -49,7 +44,7 @@
       <TableHeadCell>金额</TableHeadCell>
       <TableHeadCell>时间</TableHeadCell>
       <TableHeadCell>币种</TableHeadCell>
-      <TableHeadCell>
+      <TableHeadCell class="flex justify-center">
         <Button size="sm" outline on:click={onAddClick}>
           <span class="text-mark hover:text-brand">新增</span>
         </Button>
@@ -62,15 +57,14 @@
           <TableBodyCell>{item.amount}</TableBodyCell>
           <TableBodyCell>{item.datetime}</TableBodyCell>
           <TableBodyCell>{item.currency}</TableBodyCell>
-          <TableBodyCell>
+          <TableBodyCell class="flex justify-center">
             <Button
               size="sm"
-              class="hover:text-brand text-black"
               outline
               on:click={() => {
                 onUpdateClick(item)
               }}>
-              更新
+              <span class="hover:text-brand text-black">更新</span>
             </Button>
           </TableBodyCell>
         </TableBodyRow>
@@ -82,7 +76,7 @@
         </TableBodyCell>
         <TableBodyCell>{dayjs().format('YYYY-MM-DD')}</TableBodyCell>
         <TableBodyCell>CNY</TableBodyCell>
-        <TableBodyCell>
+        <TableBodyCell class="flex justify-center">
           <Button size="sm" outline on:click={onFightClick}>
             <span class="text-mark hover:text-brand">加油</span>
           </Button>

@@ -6,7 +6,7 @@
   let appThemeMode = DEFAULT_THEME
 
   onMount(() => {
-    appThemeMode = localStorage.getItem('theme-mode')
+    appThemeMode = localStorage.getItem('theme-mode') || DEFAULT_THEME
     updateAppTheme()
   })
 
@@ -38,17 +38,6 @@
       title="Twitter">
       <SvgIcon name="x" width={20} height={20} color="#212121" />
     </a>
-    <a
-      href="https://github.com/nicejade/wealth-tracker"
-      target="_blank"
-      rel="noopener"
-      title="Github"
-      class="inline-flex w-full items-center rounded-full bg-gray-900 px-6 py-3 text-sm
-      leading-4 text-white hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-0 focus:ring-gray-800
-      focus:ring-offset-2 md:hidden md:w-auto md:rounded-full md:px-3 md:focus:ring-2">
-      <SvgIcon name="githubx" width={20} height={20} color="#ffffff" />
-      <strong class="ml-2 font-semibold">GitHub</strong>
-    </a>
     <button
       on:click={onToggleTheme}
       class="ring-offset-background focus-visible:ring-ring hover:text-accent-foreground inline-flex
@@ -61,6 +50,17 @@
       {/if}
       <span class="sr-only">Toggle Theme</span>
     </button>
+    <a
+      href="https://github.com/nicejade/wealth-tracker"
+      target="_blank"
+      rel="noopener"
+      title="Github"
+      class="inline-flex w-full items-center rounded-full bg-gray-900 px-6 py-3 text-sm
+      leading-4 text-white hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-0 focus:ring-gray-800
+      focus:ring-offset-2 md:hidden md:w-auto md:rounded-full md:px-3 md:focus:ring-2">
+      <SvgIcon name="githubx" width={20} height={20} color="#ffffff" />
+      <strong class="ml-2 font-semibold">GitHub</strong>
+    </a>
   </nav>
 </header>
 
