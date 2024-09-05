@@ -1,8 +1,8 @@
 export default async (fastify) => {
   const rateLimitOptions = {
-    max: 10,
+    max: 600,
     ban: 10,
-    timeWindow: 1000 * 60 * 60 * 24,
+    timeWindow: 1000 * 60,
     hook: 'preHandler',
     keyGenerator: (request) => {
       console.log(`request.headers：`, request.headers)
