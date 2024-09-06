@@ -33,7 +33,9 @@
   }
 </script>
 
-<Card size="xl" class="hide-scrollbar w-full max-w-none overflow-x-scroll 2xl:col-span-2">
+<Card
+  size="xl"
+  class="hide-scrollbar w-full max-w-none overflow-x-scroll shadow-none 2xl:col-span-2">
   <div class="mb-2 flex justify-between">
     <Caption title="记录财富"></Caption>
     <a href="/detail" class="regular-btn hover:text-brand text-center text-sm">查阅详情</a>

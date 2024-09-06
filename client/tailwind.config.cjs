@@ -1,15 +1,33 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
-  content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/flowbite/**/*.js'],
+  content: [
+    './src/**/*.{html,js,svelte,ts}',
+    './node_modules/flowbite/**/*.js',
+    './node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}',
+  ],
   purge: {
     enabled: true,
-    content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/flowbite/**/*.js'],
+    content: [
+      './src/**/*.{html,js,svelte,ts}',
+      './node_modules/flowbite/**/*.js',
+      './node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}',
+    ],
   },
   theme: {
     screens: {
       sm: { max: '640px' },
       md: { max: '768px' },
+    },
+    borderRadius: {
+      none: '0',
+      sm: '0.125rem',
+      DEFAULT: '0.25rem',
+      DEFAULT: '4px',
+      md: '0.375rem',
+      lg: '0.5rem',
+      full: '9999px',
+      large: '12px',
     },
     colors: {
       brand: {

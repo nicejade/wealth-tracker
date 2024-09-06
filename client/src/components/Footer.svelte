@@ -4,7 +4,7 @@
   import { SOCIAL_LINKS } from './../helper/constant'
 </script>
 
-<div class="flex h-20 items-center justify-between">
+<div class="my-6 flex items-center justify-between">
   <div class="flex items-start space-x-3">
     <FooterCopyright
       href="https://www.jeffjade.com/"

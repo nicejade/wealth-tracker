@@ -27,7 +27,7 @@
 
 <Card
   size="xl"
-  class="customized-scrollbar w-full max-w-none overflow-x-scroll pb-0 2xl:col-span-2">
+  class="customized-scrollbar w-full max-w-none overflow-x-scroll shadow-none 2xl:col-span-2">
   <div class="flex justify-between">
     <Caption title="记录详情"></Caption>
   </div>

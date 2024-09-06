@@ -41,10 +41,10 @@
   }
 </script>
 
-<Card size="xl" class="h-fit">
+<Card size="xl" class="h-fit shadow-none">
   <Caption title="财富占比" subtitle="目前财富状况"></Caption>
   <Chart {options}></Chart>
-  <div class="flex items-center flex-wrap justify-start my-4 pt-4 sm:pt-6 lg:justify-evenly">
+  <div class="my-6 flex flex-wrap items-center justify-start pt-4 sm:pt-6 lg:justify-evenly">
     {#each percentages as item (item.name)}
       <SmallPanel title={item.name} subtitle={`${item.value}%`} />
     {/each}

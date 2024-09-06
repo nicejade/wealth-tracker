@@ -90,7 +90,7 @@
   }
 </script>
 
-<Card size="xl" class="w-full max-w-none 2xl:col-span-2">
+<Card size="xl" class="w-full max-w-none shadow-none 2xl:col-span-2">
   <Caption title="财富趋势" {subtitle}>
     <CustomSelect
       options={DATE_EXTENT_ARR}

@@ -192,7 +192,7 @@
           </div>
         </div>
         <div class="inline-flex w-full items-center justify-center pb-4">
-          <hr class="my-4 h-px w-full border-0 bg-gray-200" />
+          <hr class="my-6 h-px w-full border-0 bg-gray-200" />
           <span class="text-gray absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium">
             以上为低频更新内容
           </span>
