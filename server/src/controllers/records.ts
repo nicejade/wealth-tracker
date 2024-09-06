@@ -1,9 +1,23 @@
 import { Record } from '../models/records'
 
-export const get = async (_, reply) => {
+export const get = async (request, reply) => {
   try {
-    const data = await Record.findAll()
-    return reply.send(data)
+    const { size = 10, page = 1 } = request.query
+    const limit = parseInt(size as string, 10)
+    const offset = (parseInt(page as string, 10) - 1) * limit
+
+    const { count, rows: data } = await Record.findAndCountAll({
+      limit,
+      offset,
+      order: [['created', 'DESC']],
+    })
+
+    return reply.send({
+      total: count,
+      page: parseInt(page as string, 10),
+      size: limit,
+      data,
+    })
   } catch (error: any) {
     return reply.code(400).send({
       statusCode: 400,
