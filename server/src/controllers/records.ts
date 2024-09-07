@@ -2,15 +2,22 @@ import { Record } from '../models/records'
 
 export const get = async (request, reply) => {
   try {
-    const { size = 10, page = 1 } = request.query
-    const limit = parseInt(size as string, 10)
-    const offset = (parseInt(page as string, 10) - 1) * limit
+    const { size = 0, page = 1 } = request.query
+    const limit: number = parseInt(size as string, 10)
+    const offset: number = (parseInt(page as string, 10) - 1) * limit
 
-    const { count, rows: data } = await Record.findAndCountAll({
-      limit,
-      offset,
-      order: [['created', 'DESC']],
-    })
+    let queryOptions = {
+      order: [['created', 'DESC']] as [string, string][],
+    }
+
+    if (limit > 0) {
+      queryOptions = {
+        ...queryOptions,
+        limit: limit,
+        offset: offset,
+      } as { order: [string, string][]; limit: number; offset: number }
+    }
+    const { count, rows: data } = await Record.findAndCountAll(queryOptions)
 
     return reply.send({
       total: count,

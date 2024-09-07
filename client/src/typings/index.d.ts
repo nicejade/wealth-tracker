@@ -34,28 +34,9 @@ export interface SelectItem {
   disabled?: boolean
 }
 
-export interface StepperItem {
-  title: string
-  desc: string
-}
-
-export interface RecognizeResult {
-  text: string
-  words: Array
-  lines: Array
-}
-
-/* Gemini AI Parts */
-
-export interface GeminiParams {
-  query: string
-  history: Array
-}
-
-export interface GeminiItem {
-  role: string
-  text?: string
-  time?: number
-  prompt?: string
-  prompts?: Array
+export interface RecordsItem {
+  page?: number
+  size?: number
+  total?: number
+  data?: any[]
 }

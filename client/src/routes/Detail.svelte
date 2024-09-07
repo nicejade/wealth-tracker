@@ -9,13 +9,7 @@
   import { getRecords, destroyRecords } from '../helper/apis'
   import { ACTION_TYPES } from './../helper/constant'
   import { notice } from '../stores'
-
-  interface RecordsItem {
-    page?: number
-    size?: number
-    total?: number
-    data?: any[]
-  }
+  import type { RecordsItem } from '../typings'
 
   let page: number = 1
   let size: number = 10
@@ -26,7 +20,7 @@
   let updateActionType = ACTION_TYPES.change
 
   $: {
-    page = parseInt($params.page, 10)
+    page = parseInt($params.page, 10) || page
     fetchRecords()
   }
 

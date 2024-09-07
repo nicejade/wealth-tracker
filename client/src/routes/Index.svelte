@@ -9,6 +9,7 @@
   import UpdateModal from '../components/Modal/Update.svelte'
   import { getAssets, getRecords } from '../helper/apis'
   import { ACTION_TYPES } from './../helper/constant'
+  import type { RecordsItem } from '../typings'
 
   let rawWealthArr = []
   let rawRecordsArr = []
@@ -35,7 +36,8 @@
 
   const fetchRecords = async () => {
     try {
-      rawRecordsArr = (await getRecords()) as any[]
+      const result: RecordsItem = await getRecords()
+      rawRecordsArr = result.data
       const cureentWealthArr = rawWealthArr.map((item) => {
         item.rawDatetime = item.datetime
         item.datetime = dayjs().format('YYYY-MM-DD')
