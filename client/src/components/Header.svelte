@@ -81,7 +81,7 @@
         <span class="w-16 overflow-hidden text-ellipsis text-nowrap">{langName}</span>
         <SvgIcon name="chevron-down" width={20} height={20} color="#212121" />
       </div>
-      <Dropdown class="w-28 drop-shadow-sm" arrow>
+      <Dropdown class="w-28 drop-shadow-sm" arrow trigger="hover">
         {#each LANG_ARR as item (item)}
           <DropdownItem
             on:click={() => {
