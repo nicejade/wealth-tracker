@@ -100,7 +100,7 @@
     <CustomSelect
       options={dateExtentArr}
       active={DATE_ACTIVE}
-      width="w-40"
+      listboxClass="w-40"
       on:selected={onHandleSelect} />
     <Change value={stageChangePercent} since="" class="justify-end font-medium" />
   </Caption>

@@ -2,7 +2,7 @@
   export let options: Array<any>
   export let active: number = 0
   export let label: string = ''
-  export let width: string = 'w-36'
+  export let listboxClass: string = 'w-36'
 
   import { createEventDispatcher } from 'svelte'
   import {
@@ -32,7 +32,7 @@
   {#if label}
     <label for="custom-select" class="font-medium">{label}</label>
   {/if}
-  <Listbox bind:value={selectedItem} let:open class={width}>
+  <Listbox bind:value={selectedItem} let:open class={listboxClass}>
     <div class="relative">
       <ListboxButton
         class="relative h-10 w-full cursor-pointer rounded-lg border border-solid bg-white pl-3 pr-10 text-left hover:bg-gray-100 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm dark:hover:bg-gray-900">

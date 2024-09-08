@@ -187,7 +187,7 @@
             <CustomSelect
               options={localizedRiskArr}
               active={genRiskActive(items.risk)}
-              width="w-full"
+              listboxClass="w-full"
               on:selected={onHandleRiskSelect} />
           </div>
         </div>
@@ -200,7 +200,7 @@
             <CustomSelect
               options={localizedLiquidityArr}
               active={genLiquidityActive(items.liquidity)}
-              width="w-full"
+              listboxClass="w-full"
               on:selected={onHandleLiquiditySelect} />
           </div>
         </div>
