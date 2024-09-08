@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher } from 'svelte'
   import dayjs from 'dayjs'
+  import { _ } from 'svelte-i18n'
   import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
   import { Modal } from 'flowbite'
   import SvgIcon from '../SvgIcon.svelte'
@@ -30,6 +31,16 @@
   }
 
   $: isUpdate = action === ACTION_TYPES.update
+
+  $: localizedRiskArr = ASSETS_RISK_ARR.map((item) => ({
+    name: $_(item.key),
+    value: item.value,
+  }))
+
+  $: localizedLiquidityArr = ASSETS_LIQUIDITY_ARR.map((item) => ({
+    name: $_(item.key),
+    value: item.value,
+  }))
 
   onMount(() => {
     const $targetEl = document.getElementById(MODAL_KEY)
@@ -127,7 +138,7 @@
       <div class="flex items-center justify-between rounded-t border-b p-5">
         <h3 class="flex items-center text-lg font-medium text-gray-900 md:text-base">
           <SvgIcon name="adjustment" width={30} height={30} color="#1e293b" />
-          {isUpdate ? '更新资产记录' : '新增资产账户'}
+          {isUpdate ? $_('updateAssetRecords') : $_('newAssetAccount')}
         </h3>
         <button
           type="button"
@@ -141,20 +152,22 @@
       <div class="flex flex-col items-center justify-center p-6">
         <div
           class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
-          <label for="update-type" class="w-56 text-base font-bold md:pb-2 md:text-sm">类型</label>
+          <label for="update-type" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+            {$_('category')}
+          </label>
           <input
             type="text"
             id="update-type"
             disabled={isUpdate}
             bind:value={items.type}
             class="custom-input"
-            placeholder="如银行卡，⚠️名称不可变更"
+            placeholder={$_('fillCategoryTip')}
             required />
         </div>
         <div
           class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-currency" class="w-56 text-base font-bold md:pb-2 md:text-sm">
-            币种
+            {$_('currency')}
           </label>
           <input
             type="text"
@@ -162,17 +175,17 @@
             disabled={isUpdate}
             bind:value={items.currency}
             class="custom-input"
-            placeholder="请填写币种"
+            placeholder={$_('fillCurrencyTip')}
             required />
         </div>
         <div
           class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-currency" class="w-56 text-base font-bold md:pb-2 md:text-sm">
-            风险
+            {$_('risk')}
           </label>
           <div class="w-full">
             <CustomSelect
-              options={ASSETS_RISK_ARR}
+              options={localizedRiskArr}
               active={genRiskActive(items.risk)}
               width="w-full"
               on:selected={onHandleRiskSelect} />
@@ -181,11 +194,11 @@
         <div
           class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-currency" class="w-56 text-base font-bold md:pb-2 md:text-sm">
-            流动性
+            {$_('liquidity')}
           </label>
           <div class="w-full">
             <CustomSelect
-              options={ASSETS_LIQUIDITY_ARR}
+              options={localizedLiquidityArr}
               active={genLiquidityActive(items.liquidity)}
               width="w-full"
               on:selected={onHandleLiquiditySelect} />
@@ -194,13 +207,13 @@
         <div class="inline-flex w-full items-center justify-center pb-4">
           <hr class="my-6 h-px w-full border-0 bg-gray-200" />
           <span class="text-gray absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium">
-            以上为低频更新内容
+            {$_('lowFrequencyTip')}
           </span>
         </div>
         <div
           class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-amount" class="w-56 text-base font-bold md:pb-2 md:text-sm">
-            金额
+            {$_('amount')}
           </label>
           <input
             type="number"
@@ -208,13 +221,13 @@
             id="update-amount"
             bind:value={items.amount}
             class="custom-input"
-            placeholder="请填写金额"
+            placeholder={$_('fillAmountTip')}
             required />
         </div>
         <div
           class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-datetime" class="w-56 text-base font-bold md:pb-2 md:text-sm">
-            时间
+            {$_('datetime')}
           </label>
           <div class="w-full">
             <input
@@ -222,7 +235,7 @@
               id="update-datetime"
               bind:value={items.datetime}
               class="custom-input"
-              placeholder="请填写时间"
+              placeholder={$_('fillDateTip')}
               on:input={() => validateDatetimeInput(items)}
               required />
             {#if datetimeError}

@@ -11,6 +11,7 @@
     TableHead,
     TableHeadCell,
   } from 'flowbite-svelte'
+  import { _ } from 'svelte-i18n'
   import Caption from './Caption.svelte'
 
   export let options = []
@@ -29,17 +30,17 @@
   size="xl"
   class="customized-scrollbar w-full max-w-none overflow-x-scroll shadow-none 2xl:col-span-2">
   <div class="flex justify-between">
-    <Caption title="记录详情"></Caption>
+    <Caption title={$_('recordDetails')}></Caption>
   </div>
   <Table hoverable={true} striped={true} class="divide-y last:border-b-0">
     <TableHead>
-      <TableHeadCell class="min-w-24">账户类型</TableHeadCell>
-      <TableHeadCell>金额</TableHeadCell>
-      <TableHeadCell>时间</TableHeadCell>
-      <TableHeadCell>币种</TableHeadCell>
-      <TableHeadCell>更新日期</TableHeadCell>
-      <TableHeadCell>更新记录</TableHeadCell>
-      <TableHeadCell>销毁记录</TableHeadCell>
+      <TableHeadCell class="min-w-24">{$_('accountType')}</TableHeadCell>
+      <TableHeadCell>{$_('amount')}</TableHeadCell>
+      <TableHeadCell>{$_('datetime')}</TableHeadCell>
+      <TableHeadCell>{$_('currency')}</TableHeadCell>
+      <TableHeadCell>{$_('updateDate')}</TableHeadCell>
+      <TableHeadCell>{$_('modifyRecord')}</TableHeadCell>
+      <TableHeadCell>{$_('destroyRecord')}</TableHeadCell>
     </TableHead>
     <TableBody tableBodyClass="py-4">
       {#each options as item (item.id)}
@@ -57,7 +58,7 @@
               on:click={() => {
                 onChangeClick(item)
               }}>
-              修改
+              {$_('modify')}
             </Button>
           </TableBodyCell>
           <TableBodyCell>
@@ -68,7 +69,7 @@
               on:click={() => {
                 onDestroyClick(item)
               }}>
-              销毁
+              {$_('destroy')}
             </Button>
           </TableBodyCell>
         </TableBodyRow>

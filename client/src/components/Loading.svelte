@@ -1,10 +1,10 @@
 <script lang="ts">
-  export let text: string = 'AI 正在生成回复，请稍后'
+  export let text: string = ''
 </script>
 
-<div class="flex items-center justify-center w-full">
-  <span class="md:text-sm text-brand">{text}</span>
-  <div class="mx-2 balls">
+<div class="flex w-full items-center justify-center">
+  <span class="text-brand md:text-sm">{text}</span>
+  <div class="balls mx-2">
     <div />
     <div />
     <div />

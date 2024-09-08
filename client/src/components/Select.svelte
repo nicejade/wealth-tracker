@@ -17,8 +17,10 @@
   import { deepClone } from '../helper/utils'
 
   const dispatch = createEventDispatcher()
-  let selectedItem: SelectItem = options[active]
-  let selectedItemCopy: SelectItem = deepClone(selectedItem)
+
+  $: selectedItem = options[active] as SelectItem
+
+  $: selectedItemCopy = deepClone(selectedItem) as SelectItem
 
   $: if (selectedItem?.name !== selectedItemCopy?.name) {
     selectedItemCopy = deepClone(selectedItem)

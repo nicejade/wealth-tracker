@@ -1,24 +1,48 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { Dropdown, DropdownItem } from 'flowbite-svelte'
+  import { locale } from 'svelte-i18n'
   import SvgIcon from './SvgIcon.svelte'
-  import { TITLE, DEFAULT_THEME } from './../helper/constant'
+  import { language } from '../stores'
+  import {
+    TITLE,
+    DEFAULT_LANG,
+    DEFAULT_THEME,
+    LANG_ARR,
+    STORAGE_THEME,
+    STORAGE_LANG,
+  } from './../helper/constant'
 
-  let appThemeMode = DEFAULT_THEME
+  let theme: string = localStorage.getItem(STORAGE_THEME) || DEFAULT_THEME
+  let lang: string = localStorage.getItem(STORAGE_LANG) || DEFAULT_LANG
+  let langName: string = ''
+
+  $: if (lang) {
+    langName = LANG_ARR.find((item) => {
+      return item.value === lang
+    }).name
+    locale.set(lang)
+    language.set(lang)
+    localStorage.setItem(STORAGE_LANG, lang)
+  }
 
   onMount(() => {
-    appThemeMode = localStorage.getItem('theme-mode') || DEFAULT_THEME
     updateAppTheme()
   })
 
   const updateAppTheme = () => {
-    const isDarkMode = !(appThemeMode === DEFAULT_THEME)
+    const isDarkMode = !(theme === DEFAULT_THEME)
     document.querySelector('html').style.filter = isDarkMode ? 'invert(1) hue-rotate(180deg)' : ''
   }
 
   const onToggleTheme = () => {
-    appThemeMode = appThemeMode === DEFAULT_THEME ? 'dark' : DEFAULT_THEME
+    theme = theme === DEFAULT_THEME ? 'dark' : DEFAULT_THEME
     updateAppTheme()
-    localStorage.setItem('theme-mode', appThemeMode)
+    localStorage.setItem(STORAGE_THEME, theme)
+  }
+
+  const handleDropdownClick = (item) => {
+    lang = item.value
   }
 </script>
 
@@ -43,13 +67,32 @@
       class="ring-offset-background focus-visible:ring-ring hover:text-accent-foreground inline-flex
       items-center justify-center whitespace-nowrap rounded-md p-2 text-sm font-medium leading-5 outline-none
       transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
-      {#if appThemeMode === 'light'}
+      {#if theme === 'light'}
         <SvgIcon name="light" width={20} height={20} color="#212121" />
       {:else}
         <SvgIcon name="dark" width={20} height={20} color="#212121" />
       {/if}
       <span class="sr-only">Toggle Theme</span>
     </button>
+
+    <div class="flex text-base">
+      <div class="space-between text-md flex w-28 cursor-pointer items-center">
+        <SvgIcon name="lang" width={20} height={20} color="#212121" />
+        <span class="w-16 overflow-hidden text-ellipsis text-nowrap">{langName}</span>
+        <SvgIcon name="chevron-down" width={20} height={20} color="#212121" />
+      </div>
+      <Dropdown class="w-28 drop-shadow-sm" arrow>
+        {#each LANG_ARR as item (item)}
+          <DropdownItem
+            on:click={() => {
+              handleDropdownClick(item)
+            }}>
+            <span class="text-base font-medium">{item.name}</span>
+          </DropdownItem>
+        {/each}
+      </Dropdown>
+    </div>
+
     <a
       href="https://github.com/nicejade/wealth-tracker"
       target="_blank"

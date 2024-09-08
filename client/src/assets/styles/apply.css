@@ -1,5 +1,5 @@
 .regular-btn {
-  @apply w-28 rounded-full border border-gray-300 bg-white px-4 py-2 text-base font-bold text-gray-600 hover:bg-gray-100 md:text-sm;
+  @apply min-w-28 rounded-full border border-gray-300 bg-white px-4 py-2 text-base font-bold text-gray-600 hover:bg-gray-100 md:text-sm;
 }
 
 .custom-input {

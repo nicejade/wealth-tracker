@@ -11,6 +11,7 @@
     TableHead,
     TableHeadCell,
   } from 'flowbite-svelte'
+  import { _ } from 'svelte-i18n'
   import Caption from '../Caption.svelte'
   import { notice } from '../../stores'
 
@@ -37,18 +38,20 @@
   size="xl"
   class="hide-scrollbar w-full max-w-none overflow-x-scroll shadow-none 2xl:col-span-2">
   <div class="mb-2 flex justify-between">
-    <Caption title="记录财富"></Caption>
-    <a href="/detail" class="regular-btn hover:text-brand text-center text-sm">查阅详情</a>
+    <Caption title={$_('recordAssets')}></Caption>
+    <a href="/detail" class="regular-btn hover:text-brand text-center text-sm">
+      {$_('viewDetails')}
+    </a>
   </div>
   <Table hoverable={true} striped={true} class="divide-y last:border-b-0">
     <TableHead>
-      <TableHeadCell>账户类型</TableHeadCell>
-      <TableHeadCell>金额</TableHeadCell>
-      <TableHeadCell>时间</TableHeadCell>
-      <TableHeadCell>币种</TableHeadCell>
+      <TableHeadCell>{$_('accountType')}</TableHeadCell>
+      <TableHeadCell>{$_('amount')}</TableHeadCell>
+      <TableHeadCell>{$_('datetime')}</TableHeadCell>
+      <TableHeadCell>{$_('currency')}</TableHeadCell>
       <TableHeadCell class="flex justify-center">
         <Button size="sm" outline on:click={onAddClick}>
-          <span class="text-mark hover:text-brand">新增</span>
+          <span class="text-mark hover:text-brand">{$_('addition')}</span>
         </Button>
       </TableHeadCell>
     </TableHead>
@@ -66,13 +69,13 @@
               on:click={() => {
                 onUpdateClick(item)
               }}>
-              <span class="hover:text-brand text-black">更新</span>
+              <span class="hover:text-brand text-black">{$_('update')}</span>
             </Button>
           </TableBodyCell>
         </TableBodyRow>
       {/each}
       <TableBodyRow>
-        <TableBodyCell><strong>总计</strong></TableBodyCell>
+        <TableBodyCell><strong>{$_('total')}</strong></TableBodyCell>
         <TableBodyCell>
           <strong class="text-brand">{totalWealth}</strong>
         </TableBodyCell>
@@ -80,7 +83,7 @@
         <TableBodyCell>CNY</TableBodyCell>
         <TableBodyCell class="flex justify-center">
           <Button size="sm" outline on:click={onFightClick}>
-            <span class="text-mark hover:text-brand">加油</span>
+            <span class="text-mark hover:text-brand">{$_('keepGoing')}</span>
           </Button>
         </TableBodyCell>
       </TableBodyRow>

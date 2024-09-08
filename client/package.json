@@ -24,6 +24,7 @@
     "flowbite-svelte": "^0.44.24",
     "mdsvex": "^0.10.6",
     "svelte": "^4.2.18",
+    "svelte-i18n": "^4.0.0",
     "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {

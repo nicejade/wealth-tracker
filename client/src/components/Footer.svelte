@@ -1,5 +1,6 @@
 <script lang="ts">
   import { FooterCopyright } from 'flowbite-svelte'
+  import { _ } from 'svelte-i18n'
   import SvgIcon from './SvgIcon.svelte'
   import { SOCIAL_LINKS } from './../helper/constant'
 </script>
@@ -8,7 +9,7 @@
   <div class="flex items-start space-x-3">
     <FooterCopyright
       href="https://www.jeffjade.com/"
-      copyrightMessage="版权所有"
+      copyrightMessage={$_('allRightsReserved')}
       by="晚晴幽草轩™" />
   </div>
   <nav class="flex space-x-1 md:hidden">

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Card, Chart } from 'flowbite-svelte'
+  import { _ } from 'svelte-i18n'
   import SmallPanel from './../SmallPanel.svelte'
   import Caption from './../Caption.svelte'
   import { genDonutOptions } from '../../helper/chart'
@@ -42,7 +43,7 @@
 </script>
 
 <Card size="xl" class="h-fit shadow-none">
-  <Caption title="财富占比" subtitle="目前财富状况"></Caption>
+  <Caption title={$_('assetAllocation')} subtitle={$_('currentAssetStatus')}></Caption>
   <Chart {options}></Chart>
   <div class="my-6 flex flex-wrap items-center justify-start pt-4 sm:pt-6 lg:justify-evenly">
     {#each percentages as item (item.name)}

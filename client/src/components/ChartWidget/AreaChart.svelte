@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import dayjs from 'dayjs'
   import { Card, Chart } from 'flowbite-svelte'
+  import { _ } from 'svelte-i18n'
   import Caption from './../Caption.svelte'
   import Change from './../Change.svelte'
   import CustomSelect from './../Select.svelte'
@@ -13,21 +14,25 @@
   } from './../../helper/utils'
   import { genAreaOptions } from './../../helper/chart'
   import { DATE_EXTENT_ARR } from './../../helper/constant'
-  import { extent } from './../../stores'
+  import { extent, language } from './../../stores'
   import type { ApexOptions } from 'apexcharts'
 
   export let sources = []
 
-  const DATE_ACTIVE: number = 0
+  let DATE_ACTIVE: number = 0
   const options: ApexOptions | any = genAreaOptions()
   let stageChangePercent: number = 0
-  let subtitle: string = ''
 
   $: if (sources || $extent) {
     regenAreaOptions(sources)
     computeChangePercent(options.series)
-    subtitle = `${$extent.name}趋势`
   }
+
+  $: dateExtentArr = DATE_EXTENT_ARR.map((item) => ({
+    lang: $language,
+    name: $_(item.key, { values: { count: item.days } }),
+    value: item.value,
+  }))
 
   onMount(() => {
     extent.set(DATE_EXTENT_ARR[DATE_ACTIVE])
@@ -91,11 +96,11 @@
 </script>
 
 <Card size="xl" class="w-full max-w-none shadow-none 2xl:col-span-2">
-  <Caption title="财富趋势" {subtitle}>
+  <Caption title={$_('assetTrends')} subtitle={$_('assetTrendInsights')}>
     <CustomSelect
-      options={DATE_EXTENT_ARR}
+      options={dateExtentArr}
       active={DATE_ACTIVE}
-      width="w-36"
+      width="w-40"
       on:selected={onHandleSelect} />
     <Change value={stageChangePercent} since="" class="justify-end font-medium" />
   </Caption>
