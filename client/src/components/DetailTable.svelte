@@ -26,9 +26,7 @@
   }
 </script>
 
-<Card
-  size="xl"
-  class="customized-scrollbar w-full max-w-none overflow-x-scroll shadow-none 2xl:col-span-2">
+<Card size="xl" class="customized-scrollbar w-full max-w-none shadow-none 2xl:col-span-2">
   <div class="flex justify-between">
     <Caption title={$_('recordDetails')}></Caption>
   </div>
