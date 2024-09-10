@@ -26,11 +26,11 @@
   }
 </script>
 
-<Card size="xl" class="customized-scrollbar w-full max-w-none shadow-none 2xl:col-span-2">
+<Card size="xl" class="w-full max-w-none shadow-none 2xl:col-span-2">
   <div class="flex justify-between">
     <Caption title={$_('recordDetails')}></Caption>
   </div>
-  <Table hoverable={true} striped={true} class="divide-y last:border-b-0">
+  <Table hoverable={true} striped={true} class="customized-scrollbar divide-y last:border-b-0">
     <TableHead>
       <TableHeadCell class="min-w-24">{$_('accountType')}</TableHeadCell>
       <TableHeadCell>{$_('amount')}</TableHeadCell>
