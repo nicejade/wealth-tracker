@@ -39,6 +39,7 @@ export const get = async (_, reply) => {
 
 export const update = async (request, reply) => {
   const params = request?.body
+  const now = new Date()
   try {
     const options = {
       type: params.type,
@@ -49,12 +50,15 @@ export const update = async (request, reply) => {
       created: params.created,
       risk: params.risk,
       liquidity: params.liquidity,
-      updated: new Date(),
+      updated: now,
     }
     const data = await Assets.update(options, {
       where: { type: params.type },
     })
-    await Record.create(options)
+    await Record.create({
+      ...options,
+      created: now,
+    })
     return reply.send(data)
   } catch (error: any) {
     return reply.code(400).send({
