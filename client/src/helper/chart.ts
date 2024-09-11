@@ -55,10 +55,10 @@ export const genAreaOptions = (theme = 'light') => {
     },
     series: [],
     markers: {
-      size: 5,
+      size: 0,
       strokeColors: '#ffffff',
       hover: {
-        size: undefined,
+        size: 5,
         sizeOffset: 3,
       },
     },
