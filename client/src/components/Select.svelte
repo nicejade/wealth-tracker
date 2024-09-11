@@ -18,9 +18,17 @@
 
   const dispatch = createEventDispatcher()
 
-  $: selectedItem = options[active] as SelectItem
+  let selectedItem: SelectItem = options[active]
+  let selectedItemCopy: SelectItem = deepClone(selectedItem)
 
-  $: selectedItemCopy = deepClone(selectedItem) as SelectItem
+  /* Make the selected item change according to the system language switch */
+  const updateSelectedItem = () => {
+    selectedItem = options.find((item) => item.value === selectedItem?.value)
+  }
+
+  $: if (options) {
+    updateSelectedItem()
+  }
 
   $: if (selectedItem?.name !== selectedItemCopy?.name) {
     selectedItemCopy = deepClone(selectedItem)
