@@ -30,7 +30,7 @@
   <div class="flex justify-between">
     <Caption title={$_('recordDetails')}></Caption>
   </div>
-  <Table hoverable={true} striped={true} class="customized-scrollbar divide-y last:border-b-0">
+  <Table hoverable={true} striped={true} divClass="relative overflow-x-auto customized-scrollbar">
     <TableHead>
       <TableHeadCell class="min-w-24">{$_('accountType')}</TableHeadCell>
       <TableHeadCell>{$_('amount')}</TableHeadCell>
