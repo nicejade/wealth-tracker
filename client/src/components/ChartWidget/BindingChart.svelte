@@ -7,23 +7,27 @@
   import Change from './../Change.svelte'
   import CustomSelect from './../Select.svelte'
   import {
+    deepClone,
     fillMissingWealthArr,
-    generateDatesArray,
     groupArrayByType,
     sortByDatetime,
   } from './../../helper/utils'
-  import { genAreaOptions } from './../../helper/chart'
+  import { genBindingOptions } from './../../helper/chart'
   import { DATE_EXTENT_ARR } from './../../helper/constant'
-  import { extent, language } from './../../stores'
+  import { period, language, theme } from './../../stores'
   import type { ApexOptions } from 'apexcharts'
 
   export let sources = []
 
   let DATE_ACTIVE: number = 0
-  const options: ApexOptions | any = genAreaOptions()
+  let options: ApexOptions | any = genBindingOptions($theme)
   let stageChangePercent: number = 0
 
-  $: if (sources || $extent) {
+  $: if ($theme) {
+    options = genBindingOptions($theme)
+  }
+
+  $: if (sources || $period) {
     regenAreaOptions(sources)
     computeChangePercent(options.series)
   }
@@ -35,7 +39,7 @@
   }))
 
   onMount(() => {
-    extent.set(DATE_EXTENT_ARR[DATE_ACTIVE])
+    period.set(DATE_EXTENT_ARR[DATE_ACTIVE])
   })
 
   const fineTuningArrayLen = (sources) => {
@@ -58,19 +62,28 @@
   const genChartSeries = (params) => {
     const series = []
     params.forEach((items) => {
-      const completeWealthArr = fillMissingWealthArr(items.array, $extent.value)
+      const completeWealthArr = fillMissingWealthArr(items.array, $period.value)
       const targetExtentArr = completeWealthArr.filter((item) => {
-        if (dayjs(item.datetime) >= dayjs($extent.value)) {
+        if (dayjs(item.datetime) >= dayjs($period.value)) {
           return item
         }
       })
       const fineTunedArr = fineTuningArrayLen(targetExtentArr)
+
       series.push({
         name: items.type,
         data: fineTunedArr.map((item) => item.amount || 0),
       })
     })
     return series
+  }
+
+  const calculateColumnSums = (series) => {
+    if (series.length === 0) return []
+
+    return series[0].data.map((_, column) =>
+      series.reduce((sum, row) => sum + (row.data[column] || 0), 0),
+    )
   }
 
   const computeChangePercent = (series) => {
@@ -84,14 +97,14 @@
   const regenAreaOptions = (wealthArr) => {
     const sortedWealthArr = sortByDatetime(wealthArr)
     const splitWealthArr = groupArrayByType(sortedWealthArr)
-    const series = genChartSeries(splitWealthArr)
+    const seriesDataArr = genChartSeries(splitWealthArr)
+    const series = deepClone(options.series)
+    series[0].data = calculateColumnSums(seriesDataArr)
     options.series = series
-    const categories = generateDatesArray($extent.value)
-    options.xaxis.categories = fineTuningArrayLen(categories)
   }
 
   const onHandleSelect = (event: CustomEvent) => {
-    extent.set(event.detail)
+    period.set(event.detail)
   }
 </script>
 

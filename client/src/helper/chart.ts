@@ -19,7 +19,7 @@ export const genAreaOptions = (theme = 'light') => {
 
   return {
     chart: {
-      height: 420,
+      height: 400,
       type: 'area',
       fontFamily: 'Inter, sans-serif',
       foreColor: mainChartColors.labelColor,
@@ -201,5 +201,62 @@ export const genDonutOptions = (theme = 'light') => {
     legend: {
       show: false,
     },
+  }
+}
+
+export const genBindingOptions = (theme = 'light') => {
+  let seriesColor
+
+  if (theme === 'dark') {
+    seriesColor = '#f59e0b'
+  } else {
+    seriesColor = '#f8d826'
+  }
+
+  return {
+    chart: {
+      height: '400px',
+      maxWidth: '100%',
+      type: 'area',
+      fontFamily: 'Inter, sans-serif',
+      dropShadow: {
+        enabled: false,
+      },
+      toolbar: {
+        show: false,
+      },
+    },
+    dataLabels: {
+      // 禁用默认的数据标签
+      enabled: false,
+    },
+    tooltip: {
+      enabled: true,
+      shared: true,
+      intersect: false,
+      y: {
+        formatter: (value) => {
+          return value.toFixed(2)
+        },
+      },
+      x: {
+        show: false,
+      },
+    },
+    markers: {
+      size: 0,
+      strokeColors: '#ffffff',
+      hover: {
+        size: 5,
+        sizeOffset: 3,
+      },
+    },
+    series: [
+      {
+        name: '💰',
+        data: [],
+        color: seriesColor,
+      },
+    ],
   }
 }

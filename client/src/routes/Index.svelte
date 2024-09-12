@@ -6,6 +6,7 @@
   import TableWidget from '../components/ChartWidget/TableWidget.svelte'
   import AreaChart from '../components/ChartWidget/AreaChart.svelte'
   import DonutChart from '../components/ChartWidget/DonutChart.svelte'
+  import BindingChart from '../components/ChartWidget/BindingChart.svelte'
   import UpdateModal from '../components/Modal/Update.svelte'
   import { getAssets, getRecords } from '../helper/apis'
   import { ACTION_TYPES } from './../helper/constant'
@@ -83,6 +84,7 @@
   {#if rawWealthArr.length}
     <DonutChart sources={rawWealthArr}></DonutChart>
     <AreaChart sources={rawRecordsArr}></AreaChart>
+    <BindingChart sources={rawRecordsArr}></BindingChart>
   {/if}
 </div>
 

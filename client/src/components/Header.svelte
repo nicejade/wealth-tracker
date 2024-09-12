@@ -3,7 +3,7 @@
   import { Dropdown, DropdownItem } from 'flowbite-svelte'
   import { locale } from 'svelte-i18n'
   import SvgIcon from './SvgIcon.svelte'
-  import { language } from '../stores'
+  import { language, theme } from '../stores'
   import {
     TITLE,
     DEFAULT_LANG,
@@ -13,7 +13,6 @@
     STORAGE_LANG,
   } from './../helper/constant'
 
-  let theme: string = localStorage.getItem(STORAGE_THEME) || DEFAULT_THEME
   let lang: string = localStorage.getItem(STORAGE_LANG) || DEFAULT_LANG
   let langName: string = ''
 
@@ -27,18 +26,19 @@
   }
 
   onMount(() => {
+    theme.set(localStorage.getItem(STORAGE_THEME) || DEFAULT_THEME)
     updateAppTheme()
   })
 
   const updateAppTheme = () => {
-    const isDarkMode = !(theme === DEFAULT_THEME)
+    const isDarkMode = !($theme === DEFAULT_THEME)
+    localStorage.setItem(STORAGE_THEME, $theme)
     document.querySelector('html').style.filter = isDarkMode ? 'invert(1) hue-rotate(180deg)' : ''
   }
 
   const onToggleTheme = () => {
-    theme = theme === DEFAULT_THEME ? 'dark' : DEFAULT_THEME
+    theme.set($theme === DEFAULT_THEME ? 'dark' : DEFAULT_THEME)
     updateAppTheme()
-    localStorage.setItem(STORAGE_THEME, theme)
   }
 
   const handleDropdownClick = (item) => {
@@ -67,7 +67,7 @@
       class="ring-offset-background focus-visible:ring-ring hover:text-accent-foreground inline-flex
       items-center justify-center whitespace-nowrap rounded-md p-2 text-sm font-medium leading-5 outline-none
       transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
-      {#if theme === 'light'}
+      {#if $theme === 'light'}
         <SvgIcon name="light" width={20} height={20} color="#212121" />
       {:else}
         <SvgIcon name="dark" width={20} height={20} color="#212121" />

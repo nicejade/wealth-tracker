@@ -1,10 +1,4 @@
 import dayjs from 'dayjs'
-import { extent } from './../stores'
-
-let gExtent
-extent.subscribe((item) => {
-  gExtent = item.value
-})
 
 export const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay || 1000))
 
@@ -21,7 +15,7 @@ export const sortByDatetime = (params) => {
   })
 }
 
-export const generateDatesArray = (datetime: string = gExtent) => {
+export const generateDatesArray = (datetime: string) => {
   let start = dayjs(datetime)
   let daysArray = []
 
@@ -33,12 +27,18 @@ export const generateDatesArray = (datetime: string = gExtent) => {
   return daysArray
 }
 
-export const fillMissingWealthArr = (rawWealthArr) => {
+/**
+ * @desc Fill in the missing asset record data.
+ * @param rawWealthArr Original asset data arr.
+ * @param extent The starting date string.
+ * @returns Filled-in completed asset data.
+ */
+export const fillMissingWealthArr = (rawWealthArr, start) => {
   const length = rawWealthArr.length
   if (length <= 1) return rawWealthArr
   const { type, datetime } = rawWealthArr[0]
 
-  const startDateTime = dayjs(datetime).isBefore(gExtent) ? datetime : gExtent
+  const startDateTime = dayjs(datetime).isBefore(start) ? datetime : start
   const serialDateArray = generateDatesArray(startDateTime)
   const filledWealthArr = []
   serialDateArray.forEach((date, index) => {
