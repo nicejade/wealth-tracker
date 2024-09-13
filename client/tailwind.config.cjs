@@ -36,6 +36,9 @@ module.exports = {
       warn: {
         DEFAULT: '#f59e0b',
       },
+      mark: {
+        DEFAULT: '#ff4582',
+      },
       success: {
         DEFAULT: '#2edfa3',
       },
@@ -47,9 +50,6 @@ module.exports = {
       },
       blue: {
         DEFAULT: '#0ea5e9',
-      },
-      mark: {
-        DEFAULT: '#ff4582',
       },
     },
     extend: {
