@@ -64,19 +64,19 @@
   const validateDatetimeInput = (params) => {
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/
     const isValidFormat = dateRegex.test(params.datetime)
-    if (!isValidFormat) {
-      return (datetimeError = '请输入有效的日期格式（YYYY-MM-DD）')
-    }
-
     const nowDateTime = dayjs(items.datetime, 'YYYY-MM-DD')
     const isValidDate = nowDateTime.isValid()
-    if (!isValidDate) return (datetimeError = '您输入的时间格式不合法')
+
+    if (!isValidFormat || !isValidDate) {
+      return (datetimeError = $_('fillValidDate'))
+    }
 
     if (isUpdate) {
       const rawDateTime = dayjs(params.rawDatetime, 'YYYY-MM-DD')
       const isEarlier = rawDateTime.isSameOrBefore(nowDateTime, 'day')
-      return (datetimeError = isEarlier ? '' : '更新时间不能早于原始时间')
+      return (datetimeError = isEarlier ? '' : $_('fillLaterDate'))
     }
+    datetimeError = ''
   }
 
   const genRiskActive = (risk) => {
@@ -87,19 +87,7 @@
     return liquidity === 'GOOD' ? 0 : items.risk === 'MEDIUM' ? 1 : 2
   }
 
-  /*----------------CallBackEvent----------------*/
-
-  const closeModal = () => {
-    modal.hide()
-    modal = null
-    dispatch('close')
-  }
-
-  const onConfirmClick = async () => {
-    if (datetimeError) {
-      alert.set(datetimeError)
-      return
-    }
+  const sendRequest = async () => {
     try {
       if (action === ACTION_TYPES.create) {
         await createAssets(items)
@@ -118,11 +106,32 @@
     }
   }
 
-  const onHandleRiskSelect = (event) => {
+  /*----------------CallBackEvent----------------*/
+
+  const closeModal = () => {
+    modal.hide()
+    modal = null
+    dispatch('close')
+  }
+
+  const onConfirmClick = () => {
+    if (!items.type.trim()) {
+      alert.set($_('fillCategoryTip'))
+      return
+    }
+    validateDatetimeInput(items)
+    if (datetimeError) {
+      alert.set(datetimeError)
+      return
+    }
+    sendRequest()
+  }
+
+  const handleRiskSelect = (event) => {
     items.risk = event.detail.value
   }
 
-  const onHandleLiquiditySelect = (event) => {
+  const handleLiquiditySelect = (event) => {
     items.liquidity = event.detail.value
   }
 </script>
@@ -154,6 +163,7 @@
           class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-type" class="w-56 text-base font-bold md:pb-2 md:text-sm">
             {$_('category')}
+            <i class="text-mark">*</i>
           </label>
           <input
             type="text"
@@ -161,7 +171,7 @@
             disabled={isUpdate}
             bind:value={items.type}
             class="custom-input"
-            placeholder={$_('fillCategoryTip')}
+            placeholder={$_('placeholderOfCategory')}
             required />
         </div>
         <div
@@ -175,7 +185,7 @@
             disabled={isUpdate}
             bind:value={items.currency}
             class="custom-input"
-            placeholder={$_('fillCurrencyTip')}
+            placeholder={$_('placeholderOfCurrency')}
             required />
         </div>
         <div
@@ -188,7 +198,7 @@
               options={localizedRiskArr}
               active={genRiskActive(items.risk)}
               listboxClass="w-full"
-              on:selected={onHandleRiskSelect} />
+              on:selected={handleRiskSelect} />
           </div>
         </div>
         <div
@@ -201,7 +211,7 @@
               options={localizedLiquidityArr}
               active={genLiquidityActive(items.liquidity)}
               listboxClass="w-full"
-              on:selected={onHandleLiquiditySelect} />
+              on:selected={handleLiquiditySelect} />
           </div>
         </div>
         <div class="inline-flex w-full items-center justify-center pb-4">
@@ -221,7 +231,7 @@
             id="update-amount"
             bind:value={items.amount}
             class="custom-input"
-            placeholder={$_('fillAmountTip')}
+            placeholder={$_('placeholderOfAmount')}
             required />
         </div>
         <div
@@ -235,7 +245,7 @@
               id="update-datetime"
               bind:value={items.datetime}
               class="custom-input"
-              placeholder={$_('fillDateTip')}
+              placeholder={$_('placeholderOfDate')}
               on:input={() => validateDatetimeInput(items)}
               required />
             {#if datetimeError}
@@ -245,18 +255,20 @@
         </div>
         <div
           class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
-          <label for="update-note" class="w-56 text-base font-bold md:pb-2 md:text-sm">备注</label>
+          <label for="update-note" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+            {$_('remark')}
+          </label>
           <input
             type="text"
             id="update-note"
             bind:value={items.note}
             class="custom-input"
-            placeholder="请填写备注"
+            placeholder={$_('placeholderOfRemark')}
             required />
         </div>
       </div>
       <div class="flex items-center justify-center">
-        <button type="button" on:click={onConfirmClick} class="regular-btn">确定</button>
+        <button type="button" on:click={onConfirmClick} class="regular-btn">{$_('confirm')}</button>
       </div>
     </div>
   </div>
