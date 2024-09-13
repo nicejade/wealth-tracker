@@ -110,12 +110,14 @@
 
 <Card size="xl" class="w-full max-w-none shadow-none 2xl:col-span-2">
   <Caption title={$_('assetTrends')} subtitle={$_('assetTrendInsights')}>
-    <CustomSelect
-      options={dateExtentArr}
-      active={DATE_ACTIVE}
-      listboxClass="w-40"
-      on:selected={onHandleSelect} />
-    <Change value={stageChangePercent} since="" class="justify-end font-medium" />
+    <div class="inline-flex items-center space-x-4 md:flex">
+      <CustomSelect
+        options={dateExtentArr}
+        active={DATE_ACTIVE}
+        listboxClass="w-40"
+        on:selected={onHandleSelect} />
+      <Change value={stageChangePercent} since="" class="justify-end font-medium" />
+    </div>
   </Caption>
   <Chart {options}></Chart>
 </Card>
