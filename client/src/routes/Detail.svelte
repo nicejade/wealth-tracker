@@ -10,28 +10,73 @@
   import { ACTION_TYPES } from './../helper/constant'
   import { notice } from '../stores'
   import type { RecordsItem } from '../typings'
+  import type { LinkType } from 'flowbite-svelte'
 
   let page: number = 1
   let size: number = 10
   let rawRecordsArr = []
-  let pages = []
+  let pages: LinkType[] = []
+  let totalPages: number = 0
   let isShowUpdateModal: boolean = false
   let currentWealthItem
   let updateActionType = ACTION_TYPES.change
 
   $: {
-    page = parseInt($params.page, 10) || page
+    page = Math.max(parseInt($params.page, 10) || page, 1)
     fetchRecords()
+  }
+
+  const createPageItem = (num: number) => ({
+    name: `${num}`,
+    active: page === num,
+    href: `/detail?page=${num}`,
+  })
+
+  const createEllipsis = () => ({ name: '...', href: '', active: false })
+
+  const createFullPagination = (total: number) =>
+    Array.from({ length: total }, (_, i) => createPageItem(i + 1))
+
+  const createStartPagination = () => [
+    createPageItem(1),
+    ...Array.from({ length: 4 }, (_, i) => createPageItem(i + 2)),
+    createEllipsis(),
+    createPageItem(totalPages),
+  ]
+
+  const createEndPagination = () => [
+    createPageItem(1),
+    createEllipsis(),
+    ...Array.from({ length: 4 }, (_, i) => createPageItem(totalPages - 4 + i)),
+    createPageItem(totalPages),
+  ]
+
+  const createMiddlePagination = () => [
+    createPageItem(1),
+    createEllipsis(),
+    createPageItem(page - 1),
+    createPageItem(page),
+    createPageItem(page + 1),
+    createEllipsis(),
+    createPageItem(totalPages),
+  ]
+
+  const assemblePagination = (total: number) => {
+    const MAX_VISIBLE_PAGE = 7
+    const SUBTLE_NUMBER = Math.ceil(MAX_VISIBLE_PAGE / 2)
+    if (total <= MAX_VISIBLE_PAGE) return createFullPagination(total)
+    if (page <= SUBTLE_NUMBER) return createStartPagination()
+    if (page > total - SUBTLE_NUMBER) return createEndPagination()
+    return createMiddlePagination()
   }
 
   const assemblePageData = (result: RecordsItem) => {
     rawRecordsArr = result.data
-    const pagination = Math.ceil(result.total / size)
-    pages = Array.from({ length: pagination }, (_, i) => ({
-      name: i + 1,
-      active: page === i + 1,
-      href: `/detail?page=${i + 1}`,
-    }))
+    totalPages = Math.ceil(result.total / size)
+    if (page > totalPages) {
+      return updateUrlParams(totalPages)
+    }
+    pages = assemblePagination(totalPages)
   }
 
   const fetchRecords = async () => {
@@ -64,19 +109,19 @@
 
   const handlePrevious = () => {
     if (page > 1) {
-      page -= 1
-      updateURL()
+      updateUrlParams(page - 1)
     }
   }
 
   const handleNext = () => {
-    page += 1
-    updateURL()
+    if (page < totalPages) {
+      updateUrlParams(page + 1)
+    }
   }
 
-  const updateURL = () => {
+  const updateUrlParams = (cpage: number) => {
     const url = new URL(window.location.href)
-    url.searchParams.set('page', page.toString())
+    url.searchParams.set('page', cpage.toString())
     window.history.pushState({}, '', url.toString())
   }
 </script>
