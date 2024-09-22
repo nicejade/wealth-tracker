@@ -4,7 +4,8 @@ node_modules
 # Scripts
 client/deploy.sh
 server/deploy.sh
-push2docker.sh
+deploy2server.sh
+release2docker.sh
 
 # Client assets
 client/dist

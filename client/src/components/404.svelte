@@ -1,25 +1,44 @@
+<script lang="ts">
+  import { onMount } from 'svelte'
+
+  export const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay || 1000))
+
+  let counter = 10
+
+  onMount(async () => {
+    while (counter > 1) {
+      await sleep(1000)
+      counter -= 1
+    }
+    await sleep(1000)
+    location.href = '/'
+  })
+</script>
+
 <div
-  class="flex-row flex-wrap items-center justify-between flex w-full mt-4 pt-[64px] px-4 overflow-x-hidden">
+  class="mt-4 flex w-full flex-row flex-wrap items-center justify-between overflow-x-hidden px-4 pt-[64px]">
   <div class="m-auto text-center">
-    <img
-      class="w-full max-w-md"
-      src="https://nicelinks.oss-cn-shenzhen.aliyuncs.com/icons/404.webp"
-      alt="404 Not Found" />
-    <h1 class="text-2xl font-bold text-black">404 页面未找到</h1>
-    <p class="mt-3 text-gray-600">哎呀！该页面不存在，这里有一些有用的链接：</p>
-    <ul class="flex flex-row items-center justify-center space-x-3 mt-3">
-      <li>
-        <a href="/">主页</a>
-      </li>
-      <li>
-        <a href="/chat">AI 畅聊</a>
-      </li>
-      <li>
-        <a href="https://nicelinks.site/post/63fdeb37fe46ca437e0aa780">联系</a>
-      </li>
-      <li>
-        <a href="https://nicelinks.site">倾城</a>
-      </li>
-    </ul>
+    <img class="w-full max-w-md" src="/404.webp" alt="404 Not Found" />
+    <h1 class="text-2xl font-bold text-black">Sorry, the page was not found.</h1>
+    <p class="mt-3 text-gray-600">
+      Click below to return to Home page or go to the Github Repository We will auto-redirect in <i
+        class="text-brand">
+        {counter}
+      </i>
+      seconds.：
+    </p>
+    <div class="mt-3 flex flex-row items-center justify-center space-x-3">
+      <a
+        class="border-brand text-brand min-w-28 rounded-full border bg-white px-4 py-2 text-base font-bold hover:bg-gray-100 md:text-sm"
+        href="/">
+        Home Page
+      </a>
+      <a
+        class=" min-w-28 rounded-full border border-gray-300 bg-white px-4 py-2 text-base font-bold text-gray-600 hover:bg-gray-100 md:text-sm"
+        target="_blank"
+        href="https://github.com/nicejade/wealth-tracker">
+        Github Repository
+      </a>
+    </div>
   </div>
 </div>
