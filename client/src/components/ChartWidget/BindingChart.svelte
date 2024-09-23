@@ -11,53 +11,34 @@
     fillMissingWealthArr,
     groupArrayByType,
     sortByDatetime,
+    fineTuningArrayLen,
   } from './../../helper/utils'
   import { genBindingOptions } from './../../helper/chart'
-  import { DATE_EXTENT_ARR } from './../../helper/constant'
+  import { DATE_PERIOD_ARR } from './../../helper/constant'
   import { period, language, theme } from './../../stores'
   import type { ApexOptions } from 'apexcharts'
 
   export let sources = []
 
   let DATE_ACTIVE: number = 0
-  let options: ApexOptions | any = genBindingOptions($theme)
+  let options: ApexOptions | any = genBindingOptions($theme, $period.days)
   let stageChangePercent: number = 0
 
-  $: if ($theme) {
-    options = genBindingOptions($theme)
-  }
-
-  $: if (sources || $period) {
+  $: if (sources || $period || $theme) {
     regenAreaOptions(sources)
     computeChangePercent(options.series)
   }
 
-  $: dateExtentArr = DATE_EXTENT_ARR.map((item) => ({
+  $: dateExtentArr = DATE_PERIOD_ARR.map((item) => ({
+    days: item.days,
     lang: $language,
     name: $_(item.key, { values: { count: item.days } }),
     value: item.value,
   }))
 
   onMount(() => {
-    period.set(DATE_EXTENT_ARR[DATE_ACTIVE])
+    period.set(DATE_PERIOD_ARR[DATE_ACTIVE])
   })
-
-  const fineTuningArrayLen = (sources) => {
-    const SOURCES_LEN = sources.length
-    const SHORT_STEP = 7
-    const LONG_STEP = 28
-    if (SOURCES_LEN <= LONG_STEP) {
-      return sources
-    }
-
-    const THRESHOLD_VALUE = LONG_STEP * SHORT_STEP
-    const STEP_LEN = SOURCES_LEN < THRESHOLD_VALUE ? SHORT_STEP : LONG_STEP
-    const segs = Math.ceil(sources.length / STEP_LEN)
-    return Array.from({ length: segs }, (_, idx) => {
-      const target = (idx + 1) * STEP_LEN - 1
-      return sources[target]
-    })
-  }
 
   const genChartSeries = (params) => {
     const series = []
@@ -105,6 +86,7 @@
 
   const onHandleSelect = (event: CustomEvent) => {
     period.set(event.detail)
+    options = genBindingOptions($theme, $period.days)
   }
 </script>
 

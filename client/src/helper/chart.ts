@@ -1,129 +1,5 @@
-export const genAreaOptions = (theme = 'light') => {
-  let mainChartColors
-
-  if (theme === 'dark') {
-    mainChartColors = {
-      borderColor: '#374151',
-      labelColor: '#9CA3AF',
-      opacityFrom: 0,
-      opacityTo: 0.15,
-    }
-  } else {
-    mainChartColors = {
-      borderColor: '#F3F4F6',
-      labelColor: '#6B7280',
-      opacityFrom: 0.45,
-      opacityTo: 0,
-    }
-  }
-
-  return {
-    chart: {
-      height: 400,
-      type: 'area',
-      fontFamily: 'Inter, sans-serif',
-      foreColor: mainChartColors.labelColor,
-      toolbar: {
-        show: false,
-      },
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        enabled: true,
-        opacityFrom: mainChartColors.opacityFrom,
-        opacityTo: mainChartColors.opacityTo,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    tooltip: {
-      style: {
-        fontSize: '14px',
-        fontFamily: 'Inter, sans-serif',
-      },
-    },
-    grid: {
-      show: true,
-      borderColor: mainChartColors.borderColor,
-      strokeDashArray: 1,
-      padding: {
-        left: 35,
-        bottom: 15,
-      },
-    },
-    series: [],
-    markers: {
-      size: 0,
-      strokeColors: '#ffffff',
-      hover: {
-        size: 5,
-        sizeOffset: 3,
-      },
-    },
-    xaxis: {
-      categories: [],
-      labels: {
-        style: {
-          colors: [mainChartColors.labelColor],
-          fontSize: '14px',
-          fontWeight: 500,
-        },
-      },
-      axisBorder: {
-        color: mainChartColors.borderColor,
-      },
-      axisTicks: {
-        color: mainChartColors.borderColor,
-      },
-      crosshairs: {
-        show: true,
-        position: 'back',
-        stroke: {
-          color: mainChartColors.borderColor,
-          width: 1,
-          dashArray: 10,
-        },
-      },
-    },
-    yaxis: {
-      labels: {
-        style: {
-          colors: [mainChartColors.labelColor],
-          fontSize: '14px',
-          fontWeight: 500,
-        },
-        formatter: function (value) {
-          return '¥' + value
-        },
-      },
-    },
-    legend: {
-      fontSize: '14px',
-      fontWeight: 500,
-      fontFamily: 'Inter, sans-serif',
-      labels: {
-        colors: [mainChartColors.labelColor],
-      },
-      itemMargin: {
-        horizontal: 10,
-      },
-    },
-    responsive: [
-      {
-        breakpoint: 1024,
-        options: {
-          xaxis: {
-            labels: {
-              show: false,
-            },
-          },
-        },
-      },
-    ],
-  }
-}
+import dayjs from 'dayjs'
+import { calculateDateByOffset } from './utils'
 
 export const genDonutOptions = (theme = 'light') => {
   let trafficChannelsChartColors = { strokeColor: '#ffffff' }
@@ -204,45 +80,62 @@ export const genDonutOptions = (theme = 'light') => {
   }
 }
 
-export const genBindingOptions = (theme = 'light') => {
-  let seriesColor
+export const genAreaOptions = (theme = 'light') => {
+  let mainChartColors
 
   if (theme === 'dark') {
-    seriesColor = '#f59e0b'
+    mainChartColors = {
+      borderColor: '#374151',
+      labelColor: '#9CA3AF',
+      opacityFrom: 0,
+      opacityTo: 0.15,
+    }
   } else {
-    seriesColor = '#f8d826'
+    mainChartColors = {
+      borderColor: '#F3F4F6',
+      labelColor: '#6B7280',
+      opacityFrom: 0.45,
+      opacityTo: 0,
+    }
   }
 
   return {
     chart: {
-      height: '400px',
-      maxWidth: '100%',
+      height: 400,
       type: 'area',
       fontFamily: 'Inter, sans-serif',
-      dropShadow: {
-        enabled: false,
-      },
+      foreColor: mainChartColors.labelColor,
       toolbar: {
         show: false,
       },
     },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        enabled: true,
+        opacityFrom: mainChartColors.opacityFrom,
+        opacityTo: mainChartColors.opacityTo,
+      },
+    },
     dataLabels: {
-      // 禁用默认的数据标签
       enabled: false,
     },
     tooltip: {
-      enabled: true,
-      shared: true,
-      intersect: false,
-      y: {
-        formatter: (value) => {
-          return value.toFixed(2)
-        },
-      },
-      x: {
-        show: false,
+      style: {
+        fontSize: '14px',
+        fontFamily: 'Inter, sans-serif',
       },
     },
+    grid: {
+      show: true,
+      borderColor: mainChartColors.borderColor,
+      strokeDashArray: 1,
+      padding: {
+        left: 35,
+        bottom: 15,
+      },
+    },
+    series: [],
     markers: {
       size: 0,
       strokeColors: '#ffffff',
@@ -250,6 +143,116 @@ export const genBindingOptions = (theme = 'light') => {
         size: 5,
         sizeOffset: 3,
       },
+    },
+    xaxis: {
+      categories: [],
+      labels: {
+        style: {
+          colors: [mainChartColors.labelColor],
+          fontSize: '14px',
+          fontWeight: 500,
+        },
+        rotate: -45,
+        rotateAlways: false,
+        formatter: (datetime) => {
+          return dayjs(datetime).format('MM-DD')
+        },
+      },
+      axisBorder: {
+        color: mainChartColors.borderColor,
+      },
+      axisTicks: {
+        color: mainChartColors.borderColor,
+      },
+      crosshairs: {
+        show: true,
+        position: 'back',
+        stroke: {
+          color: mainChartColors.borderColor,
+          width: 1,
+          dashArray: 10,
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: [mainChartColors.labelColor],
+          fontSize: '14px',
+          fontWeight: 500,
+        },
+        formatter: function (value) {
+          return '¥' + value
+        },
+      },
+    },
+    legend: {
+      fontSize: '14px',
+      fontWeight: 500,
+      fontFamily: 'Inter, sans-serif',
+      labels: {
+        colors: [mainChartColors.labelColor],
+      },
+      itemMargin: {
+        horizontal: 10,
+      },
+    },
+    responsive: [
+      {
+        breakpoint: 1024,
+        options: {
+          xaxis: {
+            labels: {
+              show: false,
+            },
+          },
+        },
+      },
+    ],
+  }
+}
+
+export const genBindingOptions = (theme = 'light', offsetDays: number) => {
+  let seriesColor = theme === 'dark' ? '#f59e0b' : '#f8d826'
+
+  return {
+    chart: {
+      height: '400px',
+      maxWidth: '100%',
+      type: 'area',
+      fontFamily: 'Inter, sans-serif',
+      dropShadow: { enabled: false },
+      toolbar: { show: false },
+    },
+    dataLabels: { enabled: false },
+    tooltip: {
+      enabled: true,
+      shared: true,
+      intersect: false,
+      y: {
+        formatter: (value) => value.toFixed(2),
+      },
+      x: {
+        show: true,
+      },
+    },
+    xaxis: {
+      type: 'category',
+      categories: [],
+      labels: {
+        rotate: -45,
+        rotateAlways: false,
+        formatter: (index) => {
+          const datetime = calculateDateByOffset(index, offsetDays)
+          return dayjs(datetime).format('MM-DD')
+        },
+      },
+      tickPlacement: 'on',
+    },
+    markers: {
+      size: 0,
+      strokeColors: '#ffffff',
+      hover: { size: 5, sizeOffset: 3 },
     },
     series: [
       {

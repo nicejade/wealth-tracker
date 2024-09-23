@@ -12,9 +12,16 @@ export const ACTION_TYPES = {
   change: 'change-record',
 }
 
-const dayOffsetArr = [7, 28, 98, 364]
+export const DATE_EXTENT_ARR = [7, 28, 98, 364].map((day) => {
+  const dayOffsetDay = day - 1
+  return {
+    days: day,
+    key: 'lastDays',
+    value: dayjs().subtract(dayOffsetDay, 'day').format('YYYY-MM-DD'),
+  }
+})
 
-export const DATE_EXTENT_ARR = dayOffsetArr.map((day) => {
+export const DATE_PERIOD_ARR = [98, 196, 280, 364].map((day) => {
   const dayOffsetDay = day - 1
   return {
     days: day,

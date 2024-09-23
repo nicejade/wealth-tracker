@@ -11,6 +11,7 @@
     generateDatesArray,
     groupArrayByType,
     sortByDatetime,
+    fineTuningArrayLen,
   } from './../../helper/utils'
   import { genAreaOptions } from './../../helper/chart'
   import { DATE_EXTENT_ARR } from './../../helper/constant'
@@ -37,23 +38,6 @@
   onMount(() => {
     extent.set(DATE_EXTENT_ARR[DATE_ACTIVE])
   })
-
-  const fineTuningArrayLen = (sources) => {
-    const SOURCES_LEN = sources.length
-    const SHORT_STEP = 7
-    const LONG_STEP = 28
-    if (SOURCES_LEN <= LONG_STEP) {
-      return sources
-    }
-
-    const THRESHOLD_VALUE = LONG_STEP * SHORT_STEP
-    const STEP_LEN = SOURCES_LEN < THRESHOLD_VALUE ? SHORT_STEP : LONG_STEP
-    const segs = Math.ceil(sources.length / STEP_LEN)
-    return Array.from({ length: segs }, (_, idx) => {
-      const target = (idx + 1) * STEP_LEN - 1
-      return sources[target]
-    })
-  }
 
   const genChartSeries = (params) => {
     const series = []
