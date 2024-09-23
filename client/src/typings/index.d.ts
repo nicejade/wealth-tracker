@@ -40,3 +40,13 @@ export interface RecordsItem {
   total?: number
   data?: any[]
 }
+
+export interface WealthItem {
+  type: string
+  amount: number
+  currency: string
+  risk: string
+  liquidity: string
+  datetime: string
+  note: string
+}

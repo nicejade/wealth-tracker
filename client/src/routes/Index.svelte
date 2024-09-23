@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import dayjs from 'dayjs'
+  import { CardPlaceholder } from 'flowbite-svelte'
   import Header from '../components/Header.svelte'
   import Footer from '../components/Footer.svelte'
   import TableWidget from '../components/ChartWidget/TableWidget.svelte'
@@ -10,13 +11,14 @@
   import UpdateModal from '../components/Modal/Update.svelte'
   import { getAssets, getRecords } from '../helper/apis'
   import { ACTION_TYPES } from './../helper/constant'
-  import type { RecordsItem } from '../typings'
+  import type { WealthItem, RecordsItem } from '../typings'
 
   let rawWealthArr = []
   let rawRecordsArr = []
+  let currentWealthItem: WealthItem
+  let updateActionType: string = ''
   let isShowUpdateModal: boolean = false
-  let currentWealthItem
-  let updateActionType = ''
+  let isShowChart: boolean = false
 
   onMount(() => {
     fetchDatabase()
@@ -45,6 +47,7 @@
         return item
       })
       rawRecordsArr = rawRecordsArr.concat(cureentWealthArr)
+      isShowChart = true
     } catch (error) {
       console.error('Error Fetching Records:', error)
     }
@@ -67,6 +70,7 @@
       currency: 'CNY',
       risk: 'LOW',
       liquidity: 'GOOD',
+      note: '',
       datetime: new Date().toISOString().split('T')[0],
     }
     updateActionType = ACTION_TYPES.create
@@ -81,10 +85,12 @@
 <Header />
 <div class="flex w-full flex-col items-center justify-center space-y-8">
   <TableWidget options={rawWealthArr} on:update={handleUpate} on:add={handleAdd} />
-  {#if rawWealthArr.length}
+  {#if isShowChart}
     <DonutChart sources={rawWealthArr}></DonutChart>
     <AreaChart sources={rawRecordsArr}></AreaChart>
     <BindingChart sources={rawRecordsArr}></BindingChart>
+  {:else}
+    <CardPlaceholder size="lg" class="w-full max-w-full" />
   {/if}
 </div>
 
