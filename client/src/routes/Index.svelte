@@ -25,32 +25,25 @@
   })
 
   const fetchDatabase = async () => {
-    await fetchWealth()
-    await fetchRecords()
-  }
-
-  const fetchWealth = async () => {
     try {
-      rawWealthArr = (await getAssets()) as any[]
+      const results: Array<any> = await Promise.all([getAssets(), getRecords()])
+      rawWealthArr = results[0] as any[]
+      const records: RecordsItem = results[1]
+      rawRecordsArr = records.data
+      updateRawRecords()
     } catch (error) {
-      console.error('Error Fetching Wealth:', error)
+      console.error('Error Fetching Data:', error)
     }
   }
 
-  const fetchRecords = async () => {
-    try {
-      const result: RecordsItem = await getRecords()
-      rawRecordsArr = result.data
-      const cureentWealthArr = rawWealthArr.map((item) => {
-        item.rawDatetime = item.datetime
-        item.datetime = dayjs().format('YYYY-MM-DD')
-        return item
-      })
-      rawRecordsArr = rawRecordsArr.concat(cureentWealthArr)
-      isShowChart = true
-    } catch (error) {
-      console.error('Error Fetching Records:', error)
-    }
+  const updateRawRecords = async () => {
+    const currentWealthArr = rawWealthArr.map((item) => {
+      item.rawDatetime = item.datetime
+      item.datetime = dayjs().format('YYYY-MM-DD')
+      return item
+    })
+    rawRecordsArr = rawRecordsArr.concat(currentWealthArr)
+    isShowChart = true
   }
 
   const handleUpdateConfirm = () => {
