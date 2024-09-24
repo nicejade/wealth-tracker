@@ -212,9 +212,7 @@ export const genAreaOptions = (theme = 'light') => {
   }
 }
 
-export const genBindingOptions = (theme = 'light', offsetDays: number) => {
-  let seriesColor = theme === 'dark' ? '#f59e0b' : '#f8d826'
-
+export const genBindingOptions = (offsetDays: number) => {
   return {
     chart: {
       height: '400px',
@@ -258,7 +256,7 @@ export const genBindingOptions = (theme = 'light', offsetDays: number) => {
       {
         name: '💰',
         data: [],
-        color: seriesColor,
+        color: '#f8d826',
       },
     ],
   }

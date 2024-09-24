@@ -52,7 +52,7 @@
             <Button
               size="sm"
               outline
-              class="hover:text-brand text-black"
+              class="hover:text-brand text-black focus:ring-0"
               on:click={() => {
                 onChangeClick(item)
               }}>
@@ -63,7 +63,7 @@
             <Button
               size="sm"
               outline
-              class="hover:text-brand text-mark"
+              class="hover:text-brand text-mark focus:ring-0"
               on:click={() => {
                 onDestroyClick(item)
               }}>

@@ -21,10 +21,10 @@
   export let sources = []
 
   let DATE_ACTIVE: number = 0
-  let options: ApexOptions | any = genBindingOptions($theme, $period.days)
+  let options: ApexOptions | any = genBindingOptions($period.days)
   let stageChangePercent: number = 0
 
-  $: if (sources || $period || $theme) {
+  $: if (sources || $period) {
     regenAreaOptions(sources)
     computeChangePercent(options.series)
   }
@@ -86,7 +86,7 @@
 
   const onHandleSelect = (event: CustomEvent) => {
     period.set(event.detail)
-    options = genBindingOptions($theme, $period.days)
+    options = genBindingOptions($period.days)
   }
 </script>
 

@@ -50,7 +50,7 @@
       <TableHeadCell>{$_('datetime')}</TableHeadCell>
       <TableHeadCell>{$_('currency')}</TableHeadCell>
       <TableHeadCell class="flex justify-center">
-        <Button size="sm" outline on:click={onAddClick}>
+        <Button class="focus:ring-0" size="sm" outline on:click={onAddClick}>
           <span class="text-mark hover:text-brand">{$_('addition')}</span>
         </Button>
       </TableHeadCell>
@@ -66,6 +66,7 @@
             <Button
               size="sm"
               outline
+              class="focus:ring-0"
               on:click={() => {
                 onUpdateClick(item)
               }}>
@@ -82,7 +83,7 @@
         <TableBodyCell>{dayjs().format('YYYY-MM-DD')}</TableBodyCell>
         <TableBodyCell>CNY</TableBodyCell>
         <TableBodyCell class="flex justify-center">
-          <Button size="sm" outline on:click={onFightClick}>
+          <Button size="sm" outline class="focus:ring-0" on:click={onFightClick}>
             <span class="text-mark hover:text-brand">{$_('keepGoing')}</span>
           </Button>
         </TableBodyCell>
