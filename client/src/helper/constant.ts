@@ -71,11 +71,11 @@ export const SOCIAL_LINKS = [
 export const LANG_ARR = [
   {
     name: '简体中文',
-    value: 'zh',
+    value: 'zh-CN',
   },
   {
     name: '繁體中文',
-    value: 'zh-tw',
+    value: 'zh-TW',
   },
   {
     name: 'English',
@@ -93,7 +93,7 @@ export const LANG_ARR = [
 
 export const DEFAULT_THEME = 'light'
 
-export const DEFAULT_LANG = 'zh'
+export const DEFAULT_LANG = 'zh-CN'
 
 export const STORAGE_THEME = 'theme'
 

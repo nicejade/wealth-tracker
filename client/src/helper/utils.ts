@@ -1,6 +1,23 @@
 import dayjs from 'dayjs'
+import { LANG_ARR, STORAGE_LANG, DEFAULT_LANG } from './../helper/constant'
 
 export const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay || 1000))
+
+const isValidLang = (lang: string): boolean => {
+  return LANG_ARR.some((item) => item.value === lang)
+}
+
+export const getAppLang = (): string => {
+  const storedLang = localStorage.getItem(STORAGE_LANG)
+  if (storedLang && isValidLang(storedLang)) {
+    return storedLang
+  }
+
+  const browserLang = navigator.language.toLowerCase()
+  const matchedLang = LANG_ARR.find((lang) => browserLang.startsWith(lang.value.toLowerCase()))
+
+  return matchedLang ? matchedLang.value : DEFAULT_LANG
+}
 
 export function deepClone(obj: Object) {
   if (obj === null || typeof obj !== 'object') {

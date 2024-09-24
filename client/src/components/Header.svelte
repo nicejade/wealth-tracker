@@ -4,6 +4,7 @@
   import { locale } from 'svelte-i18n'
   import SvgIcon from './SvgIcon.svelte'
   import { language, theme } from '../stores'
+  import { getAppLang } from './../helper/utils'
   import {
     TITLE,
     DEFAULT_LANG,
@@ -13,7 +14,7 @@
     STORAGE_LANG,
   } from './../helper/constant'
 
-  let lang: string = localStorage.getItem(STORAGE_LANG) || DEFAULT_LANG
+  let lang: string = getAppLang()
   let langName: string = ''
 
   $: if (lang) {
