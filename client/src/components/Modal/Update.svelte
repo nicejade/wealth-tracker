@@ -18,6 +18,7 @@
   let modal = null
   let datetimeError = ''
   let isUpdate = false
+  let isChange = false
 
   export let action = ''
   export let items = {
@@ -31,6 +32,8 @@
   }
 
   $: isUpdate = action === ACTION_TYPES.update
+
+  $: isChange = action === ACTION_TYPES.update || action === ACTION_TYPES.change
 
   $: localizedRiskArr = ASSETS_RISK_ARR.map((item) => ({
     name: $_(item.key),
@@ -147,7 +150,7 @@
       <div class="flex items-center justify-between rounded-t border-b p-5">
         <h3 class="flex items-center text-lg font-medium text-gray-900 md:text-base">
           <SvgIcon name="adjustment" width={30} height={30} color="#1e293b" />
-          {isUpdate ? $_('updateAssetRecords') : $_('newAssetAccount')}
+          {isChange ? $_('updateAssetRecords') : $_('newAssetAccount')}
         </h3>
         <button
           type="button"
@@ -168,7 +171,7 @@
           <input
             type="text"
             id="update-type"
-            disabled={isUpdate}
+            disabled={isChange}
             bind:value={items.type}
             class="custom-input"
             placeholder={$_('placeholderOfCategory')}
@@ -182,7 +185,7 @@
           <input
             type="text"
             id="update-currency"
-            disabled={isUpdate}
+            disabled={isChange}
             bind:value={items.currency}
             class="custom-input"
             placeholder={$_('placeholderOfCurrency')}
