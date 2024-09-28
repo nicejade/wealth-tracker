@@ -128,7 +128,7 @@
 
 <Header />
 <div class="flex w-full flex-col items-center justify-center">
-  <DetailTable options={rawRecordsArr} on:change={handleChange} on:destroy={destroyChange} />
+  <DetailTable {page} options={rawRecordsArr} on:change={handleChange} on:destroy={destroyChange} />
 </div>
 
 {#if isShowUpdateModal}

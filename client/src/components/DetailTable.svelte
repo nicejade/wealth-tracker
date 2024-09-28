@@ -15,6 +15,7 @@
   import Caption from './Caption.svelte'
 
   export let options = []
+  export let page = 1
   const dispatch = createEventDispatcher()
 
   const onChangeClick = (elem) => {
@@ -41,7 +42,7 @@
       <TableHeadCell>{$_('destroyRecord')}</TableHeadCell>
     </TableHead>
     <TableBody tableBodyClass="py-4">
-      {#each options as item (item.id)}
+      {#each options as item, index (item.id)}
         <TableBodyRow>
           <TableBodyCell>{item.type}</TableBodyCell>
           <TableBodyCell>{item.amount}</TableBodyCell>
@@ -52,6 +53,7 @@
             <Button
               size="sm"
               outline
+              disabled={index == 0 && page === 1}
               class="hover:text-brand text-black focus:ring-0"
               on:click={() => {
                 onChangeClick(item)
@@ -63,6 +65,7 @@
             <Button
               size="sm"
               outline
+              disabled={index == 0 && page === 1}
               class="hover:text-brand text-mark focus:ring-0"
               on:click={() => {
                 onDestroyClick(item)
