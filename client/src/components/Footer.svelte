@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { FooterCopyright } from 'flowbite-svelte'
+  import { Badge, FooterCopyright } from 'flowbite-svelte'
   import { _ } from 'svelte-i18n'
   import SvgIcon from './SvgIcon.svelte'
   import { SOCIAL_LINKS } from './../helper/constant'
+  import { version } from './../../package.json'
 </script>
 
 <footer class="my-6 flex items-center justify-between md:flex-col md:items-center md:space-y-2">
@@ -11,6 +12,7 @@
       href="https://www.jeffjade.com/"
       copyrightMessage={$_('allRightsReserved')}
       by="晚晴幽草轩™" />
+    <Badge large color="dark">v{version}</Badge>
   </div>
   <nav class="flex items-center justify-center space-x-1 md:w-full">
     {#each SOCIAL_LINKS as item}
