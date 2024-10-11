@@ -78,12 +78,14 @@
 <Header />
 <div class="flex w-full flex-col items-center justify-center space-y-8">
   <TableWidget options={rawWealthArr} on:update={handleUpate} on:add={handleAdd} />
-  {#if isShowChart}
+  {#if !isShowChart}
+    <CardPlaceholder size="lg" class="w-full max-w-full" />
+  {/if}
+
+  {#if isShowChart && rawWealthArr.length}
     <DonutChart sources={rawWealthArr}></DonutChart>
     <AreaChart sources={rawRecordsArr}></AreaChart>
     <BindingChart sources={rawRecordsArr}></BindingChart>
-  {:else}
-    <CardPlaceholder size="lg" class="w-full max-w-full" />
   {/if}
 </div>
 
