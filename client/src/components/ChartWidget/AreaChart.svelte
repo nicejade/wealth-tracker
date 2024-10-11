@@ -80,7 +80,7 @@
 </script>
 
 <Card size="xl" class="w-full max-w-none shadow-none 2xl:col-span-2">
-  <Caption title={$_('assetTrends')} subtitle={$_('assetTrendInsights')}>
+  <Caption title={$_('assetChanges')} subtitle={$_('assetChangeInsights')}>
     <div class="inline-flex items-center space-x-4 md:flex">
       <CustomSelect
         options={dateExtentArr}

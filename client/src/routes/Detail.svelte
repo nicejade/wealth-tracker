@@ -1,6 +1,7 @@
 <script lang="ts">
   import { params } from '@roxi/routify'
   import { Pagination } from 'flowbite-svelte'
+  import { _ } from 'svelte-i18n'
   import Header from '../components/Header.svelte'
   import Footer from '../components/Footer.svelte'
   import DetailTable from '../components/DetailTable.svelte'
@@ -95,7 +96,7 @@
 
   const destroyChange = async (event) => {
     await destroyRecords(event.detail)
-    notice.set('该记录已成功销毁.')
+    notice.set($_('recordHasBeendestroyed'))
     fetchRecords()
   }
 
