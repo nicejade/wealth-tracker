@@ -1,6 +1,8 @@
 {
   "addition": "新增",
   "update": "更新",
+  "reset": "重置",
+  "action": "操作",
   "modify": "修改",
   "destroy": "销毁",
   "confirm": "确定",
@@ -8,7 +10,8 @@
   "viewDetails": "查阅详情",
   "recordAssets": "记录资产",
   "accountType": "账户类型",
-  "category": "类型",
+  "type": "类型",
+  "alias": "别名",
   "amount": "金额",
   "risk": "风险",
   "liquidity": "流动性",
@@ -34,6 +37,7 @@
   "placeholderOfCategory": "如银行卡，⚠️名称不可变更",
   "placeholderOfRemark": "请填写备注",
   "placeholderOfCurrency": "请填写币种",
+  "placeholderOfAlias": "为账户类型设置别名",
   "placeholderOfAmount": "请填写金额",
   "placeholderOfDate": "请填写日期",
   "updateDate": "更新日期",
@@ -42,7 +46,7 @@
   "newAssetAccount": "新增资产账户",
   "updateAssetRecords": "更新资产记录",
   "allRightsReserved": "版权所有",
-  "fillCategoryTip": "请填写账户类型",
-  "fillValidDate": "请输入有效的日期格式（YYYY-MM-DD）",
-  "fillLaterDate": "更新时间不能早于原始时间"
+  "fillAccountTypeTip": "请填写账户类型",
+  "fillValidDateTip": "请输入有效的日期格式（YYYY-MM-DD）",
+  "fillLaterDateTip": "更新时间不能早于原始时间"
 }

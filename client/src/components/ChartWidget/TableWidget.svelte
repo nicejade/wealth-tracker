@@ -58,7 +58,7 @@
     <TableBody tableBodyClass="py-4">
       {#each options as item (item.type)}
         <TableBodyRow>
-          <TableBodyCell>{item.type}</TableBodyCell>
+          <TableBodyCell>{item.alias || item.type}</TableBodyCell>
           <TableBodyCell>{item.amount}</TableBodyCell>
           <TableBodyCell>{item.datetime}</TableBodyCell>
           <TableBodyCell>{item.currency}</TableBodyCell>

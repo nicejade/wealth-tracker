@@ -6,6 +6,7 @@ export const create = async (request, reply) => {
   try {
     const options = {
       type: params.type,
+      alias: params.alias,
       amount: params.amount,
       currency: params.currency,
       note: params.note,
@@ -43,6 +44,7 @@ export const update = async (request, reply) => {
   try {
     const options = {
       type: params.type,
+      alias: params.alias,
       amount: params.amount,
       currency: params.currency,
       note: params.note,

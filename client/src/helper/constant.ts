@@ -30,15 +30,30 @@ export const DATE_PERIOD_ARR = [98, 196, 280, 364].map((day) => {
   }
 })
 
-export const ASSETS_RISK_ARR = ['LOW', 'MIDDLE', 'HIGH'].map((value) => ({
+const RISK_TYPES = ['LOW', 'MIDDLE', 'HIGH']
+
+export const ASSETS_RISK_ARR = RISK_TYPES.map((value) => ({
   key: `${value.toLowerCase()}`,
   value: value,
 }))
 
-export const ASSETS_LIQUIDITY_ARR = ['GOOD', 'MIDDLE', 'POOR'].map((value) => ({
+const LIQUIDITY_TYPES = ['GOOD', 'MIDDLE', 'POOR']
+
+export const ASSETS_LIQUIDITY_ARR = LIQUIDITY_TYPES.map((value) => ({
   key: `${value.toLowerCase()}`,
   value: value,
 }))
+
+export const DEFAULT_ACCOUNT_ITEM = {
+  type: '',
+  alias: '',
+  currency: 'CNY',
+  risk: RISK_TYPES[0],
+  liquidity: LIQUIDITY_TYPES[0],
+  amount: 0,
+  datetime: dayjs().format('YYYY-MM-DD'),
+  note: '',
+}
 
 export const SOCIAL_LINKS = [
   {

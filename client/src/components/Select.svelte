@@ -36,7 +36,7 @@
   }
 </script>
 
-<div class="flex max-w-xs items-center justify-center space-x-2 text-gray-600">
+<div class="flex items-center justify-center space-x-2 text-gray-600">
   {#if label}
     <label for="custom-select" class="font-medium">{label}</label>
   {/if}

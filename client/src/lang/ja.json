@@ -1,6 +1,8 @@
 {
   "addition": "追加",
   "update": "更新",
+  "reset": "リセット",
+  "action": "操作",
   "modify": "修正",
   "destroy": "削除",
   "confirm": "確認",
@@ -8,7 +10,8 @@
   "viewDetails": "詳細を見る",
   "recordAssets": "資産を記録",
   "accountType": "口座タイプ",
-  "category": "カテゴリー",
+  "type": "タイプ ",
+  "alias": "別名",
   "amount": "金額",
   "risk": "リスク",
   "liquidity": "流動性",
@@ -34,6 +37,7 @@
   "lowFrequencyTip": "上記は低頻度更新コンテンツです",
   "placeholderOfRemark": "備考を入力してください",
   "placeholderOfCurrency": "通貨を入力してください",
+  "placeholderOfAlias": "口座タイプの別名を設定",
   "placeholderOfAmount": "金額を入力してください",
   "placeholderOfDate": "日付を入力してください",
   "updateDate": "更新日",
@@ -42,7 +46,7 @@
   "newAssetAccount": "新規資産口座追加",
   "updateAssetRecords": "資産記録を更新",
   "allRightsReserved": "全著作権所有",
-  "fillCategoryTip": "口座タイプを入力してください",
-  "fillValidDate": "有効な日付形式（YYYY-MM-DD）を入力してください",
-  "fillLaterDate": "更新日時は元の日時より前にすることはできません"
+  "fillAccountTypeTip": "口座タイプを入力してください",
+  "fillValidDateTip": "有効な日付形式（YYYY-MM-DD）を入力してください",
+  "fillLaterDateTip": "更新日時は元の日時より前にすることはできません"
 }

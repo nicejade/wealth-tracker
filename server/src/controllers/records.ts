@@ -39,6 +39,7 @@ export const update = async (request, reply) => {
     const options = {
       id: params.id,
       type: params.type,
+      alias: params.alias,
       amount: params.amount,
       currency: params.currency,
       note: params.note,

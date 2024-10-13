@@ -1,6 +1,8 @@
 {
   "addition": "Ajouter",
   "update": "Mettre à jour",
+  "reset": "Réinitialiser",
+  "action": "Action",
   "modify": "Modifier",
   "destroy": "Supprimer",
   "confirm": "Confirmer",
@@ -8,7 +10,8 @@
   "viewDetails": "Voir les détails",
   "recordAssets": "Enregistrer Actifs",
   "accountType": "Type de compte",
-  "category": "Catégorie",
+  "type": "Taper",
+  "alias": "Alias",
   "amount": "Montant",
   "risk": "Risque",
   "liquidity": "Liquidité",
@@ -34,6 +37,7 @@
   "lowFrequencyTip": "Ci-dessus sont les contenus à mise à jour peu fréquente",
   "placeholderOfRemark": "Veuillez saisir une remarque",
   "placeholderOfCurrency": "Veuillez saisir la devise",
+  "placeholderOfAlias": "Définir un alias pour le type de compte",
   "placeholderOfAmount": "Veuillez saisir le montant",
   "placeholderOfDate": "Veuillez saisir la date",
   "updateDate": "Date de mise à jour",
@@ -42,7 +46,7 @@
   "newAssetAccount": "Ajouter un nouveau compte d'actif",
   "updateAssetRecords": "Mettre à jour les enregistrements d'actifs",
   "allRightsReserved": "Tous droits réservés",
-  "fillCategoryTip": "Veuillez saisir le type de compte",
-  "fillValidDate": "Veuillez entrer un format de date valide (AAAA-MM-JJ)",
-  "fillLaterDate": "La date de mise à jour ne peut pas être antérieure à la date originale"
+  "fillAccountTypeTip": "Veuillez saisir le type de compte",
+  "fillValidDateTip": "Veuillez entrer un format de date valide (AAAA-MM-JJ)",
+  "fillLaterDateTip": "La date de mise à jour ne peut pas être antérieure à la date originale"
 }

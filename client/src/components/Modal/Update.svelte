@@ -7,7 +7,12 @@
   import SvgIcon from '../SvgIcon.svelte'
   import CustomSelect from './../Select.svelte'
   import { createAssets, updateAssets, updateRecords } from './../../helper/apis'
-  import { ACTION_TYPES, ASSETS_RISK_ARR, ASSETS_LIQUIDITY_ARR } from './../../helper/constant'
+  import {
+    ACTION_TYPES,
+    ASSETS_RISK_ARR,
+    ASSETS_LIQUIDITY_ARR,
+    DEFAULT_ACCOUNT_ITEM,
+  } from './../../helper/constant'
   import { alert } from './../../stores'
   import type { ModalOptions } from 'flowbite'
 
@@ -21,15 +26,7 @@
   let isChange = false
 
   export let action = ''
-  export let items = {
-    type: '',
-    amount: 0,
-    currency: '',
-    datetime: '',
-    note: '',
-    risk: 'LOW',
-    liquidity: 'GOOD',
-  }
+  export let items = DEFAULT_ACCOUNT_ITEM
 
   $: isUpdate = action === ACTION_TYPES.update
 
@@ -71,13 +68,13 @@
     const isValidDate = nowDateTime.isValid()
 
     if (!isValidFormat || !isValidDate) {
-      return (datetimeError = $_('fillValidDate'))
+      return (datetimeError = $_('fillValidDateTip'))
     }
 
     if (isUpdate) {
       const rawDateTime = dayjs(params.rawDatetime, 'YYYY-MM-DD')
       const isEarlier = rawDateTime.isSameOrBefore(nowDateTime, 'day')
-      return (datetimeError = isEarlier ? '' : $_('fillLaterDate'))
+      return (datetimeError = isEarlier ? '' : $_('fillLaterDateTip'))
     }
     datetimeError = ''
   }
@@ -90,7 +87,7 @@
     return liquidity === 'GOOD' ? 0 : items.risk === 'MEDIUM' ? 1 : 2
   }
 
-  const sendRequest = async () => {
+  const sendUpdateRequest = async () => {
     try {
       if (action === ACTION_TYPES.create) {
         await createAssets(items)
@@ -119,7 +116,7 @@
 
   const onConfirmClick = () => {
     if (!items.type.trim()) {
-      alert.set($_('fillCategoryTip'))
+      alert.set($_('fillAccountTypeTip'))
       return
     }
     validateDatetimeInput(items)
@@ -127,7 +124,7 @@
       alert.set(datetimeError)
       return
     }
-    sendRequest()
+    sendUpdateRequest()
   }
 
   const handleRiskSelect = (event) => {
@@ -165,7 +162,7 @@
         <div
           class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
           <label for="update-type" class="w-56 text-base font-bold md:pb-2 md:text-sm">
-            {$_('category')}
+            {$_('type')}
             <i class="text-mark">*</i>
           </label>
           <input
@@ -173,8 +170,21 @@
             id="update-type"
             disabled={isChange}
             bind:value={items.type}
-            class="custom-input"
+            class="custom-input cursor-not-allowed"
             placeholder={$_('placeholderOfCategory')}
+            required />
+        </div>
+        <div
+          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
+          <label for="update-alias" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+            {$_('alias')}
+          </label>
+          <input
+            type="text"
+            id="update-alias"
+            bind:value={items.alias}
+            class="custom-input cursor-alias"
+            placeholder={$_('placeholderOfAlias')}
             required />
         </div>
         <div

@@ -1,6 +1,8 @@
 {
   "addition": "Add New",
   "update": "Update",
+  "reset": "Reset",
+  "action": "Action",
   "modify": "Modify",
   "destroy": "Delete",
   "confirm": "Confirm",
@@ -8,7 +10,8 @@
   "viewDetails": "View Details",
   "recordAssets": "Record Assets",
   "accountType": "Account Type",
-  "category": "Category",
+  "type": "Type",
+  "alias": "Alias",
   "amount": "Amount",
   "risk": "Risk",
   "liquidity": "Liquidity",
@@ -34,6 +37,7 @@
   "lowFrequencyTip": "Above are low-frequency update content",
   "placeholderOfRemark": "Please enter a remark",
   "placeholderOfCurrency": "Please enter the currency type",
+  "placeholderOfAlias": "Set an alias for the account type",
   "placeholderOfAmount": "Please enter the amount",
   "placeholderOfDate": "Please enter the date",
   "updateDate": "Update Date",
@@ -42,7 +46,7 @@
   "newAssetAccount": "Add New Asset Account",
   "updateAssetRecords": "Update Asset Records",
   "allRightsReserved": "All Rights Reserved",
-  "fillCategoryTip": "Please enter the account type",
-  "fillValidDate": "Please enter a valid date format (YYYY-MM-DD)",
-  "fillLaterDate": "Update time cannot be earlier than the original time"
+  "fillAccountTypeTip": "Please enter the account type",
+  "fillValidDateTip": "Please enter a valid date format (YYYY-MM-DD)",
+  "fillLaterDateTip": "Update time cannot be earlier than the original time"
 }

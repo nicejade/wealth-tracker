@@ -34,6 +34,7 @@
   <Table hoverable={true} striped={true} divClass="relative overflow-x-auto customized-scrollbar">
     <TableHead>
       <TableHeadCell class="min-w-24">{$_('accountType')}</TableHeadCell>
+      <TableHeadCell>{$_('alias')}</TableHeadCell>
       <TableHeadCell>{$_('amount')}</TableHeadCell>
       <TableHeadCell>{$_('datetime')}</TableHeadCell>
       <TableHeadCell>{$_('currency')}</TableHeadCell>
@@ -45,6 +46,7 @@
       {#each options as item, index (item.id)}
         <TableBodyRow>
           <TableBodyCell>{item.type}</TableBodyCell>
+          <TableBodyCell>{item.alias}</TableBodyCell>
           <TableBodyCell>{item.amount}</TableBodyCell>
           <TableBodyCell>{item.datetime}</TableBodyCell>
           <TableBodyCell>{item.currency}</TableBodyCell>

@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize')
+import { DataTypes, Model } from 'sequelize'
 import { sequelize } from './index'
 
 export class Record extends Model {}
@@ -13,6 +13,10 @@ Record.init(
     type: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    alias: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     amount: {
       type: DataTypes.DECIMAL(10, 2),

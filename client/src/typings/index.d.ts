@@ -1,33 +1,3 @@
-export interface GptParams {
-  id?: string
-  key?: string
-  text?: string
-  size?: string
-}
-
-export interface GptReply {
-  id: string
-  role: string
-  text: string
-  delta?: string
-  usage?: object
-  parentMessageId?: string
-  model?: string
-  stream?: number
-  prompt?: string
-}
-
-export interface ChatItem {
-  id?: string
-  role?: string
-  text?: string
-  time?: number
-  data?: Array
-  model?: string
-  prompt?: string
-  size?: string
-}
-
 export interface SelectItem {
   name: string
   value?: string
@@ -41,8 +11,9 @@ export interface RecordsItem {
   data?: any[]
 }
 
-export interface WealthItem {
+export interface AssetsItem {
   type: string
+  alias: string
   amount: number
   currency: string
   risk: string

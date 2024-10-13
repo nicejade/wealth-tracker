@@ -10,12 +10,12 @@
   import BindingChart from '../components/ChartWidget/BindingChart.svelte'
   import UpdateModal from '../components/Modal/Update.svelte'
   import { getAssets, getRecords } from '../helper/apis'
-  import { ACTION_TYPES } from './../helper/constant'
-  import type { WealthItem, RecordsItem } from '../typings'
+  import { ACTION_TYPES, DEFAULT_ACCOUNT_ITEM } from './../helper/constant'
+  import type { AssetsItem, RecordsItem } from '../typings'
 
   let rawWealthArr = []
   let rawRecordsArr = []
-  let currentWealthItem: WealthItem
+  let currentAssetItem: AssetsItem
   let updateActionType: string = ''
   let isShowUpdateModal: boolean = false
   let isShowChart: boolean = false
@@ -51,21 +51,13 @@
   }
 
   const handleUpate = (event) => {
-    currentWealthItem = event.detail
+    currentAssetItem = event.detail
     updateActionType = ACTION_TYPES.update
     isShowUpdateModal = true
   }
 
   const handleAdd = () => {
-    currentWealthItem = {
-      type: '',
-      amount: 0,
-      currency: 'CNY',
-      risk: 'LOW',
-      liquidity: 'GOOD',
-      note: '',
-      datetime: new Date().toISOString().split('T')[0],
-    }
+    currentAssetItem = DEFAULT_ACCOUNT_ITEM
     updateActionType = ACTION_TYPES.create
     isShowUpdateModal = true
   }
@@ -92,8 +84,9 @@
 {#if isShowUpdateModal}
   <UpdateModal
     action={updateActionType}
-    items={currentWealthItem}
+    items={currentAssetItem}
     on:confirm={handleUpdateConfirm}
     on:close={handleUpdateClose} />
 {/if}
+
 <Footer />

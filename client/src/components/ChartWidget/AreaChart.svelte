@@ -49,8 +49,9 @@
         }
       })
       const fineTunedArr = fineTuningArrayLen(targetExtentArr)
+      const { alias } = items.array.at(-1)
       series.push({
-        name: items.type,
+        name: alias,
         data: fineTunedArr.map((item) => item.amount || 0),
       })
     })
@@ -65,10 +66,10 @@
     stageChangePercent = ((lastSeriesSum - firstSeriesSum) / firstSeriesSum) * 100
   }
 
-  const regenAreaOptions = (wealthArr) => {
-    const sortedWealthArr = sortByDatetime(wealthArr)
-    const splitWealthArr = groupArrayByType(sortedWealthArr)
-    const series = genChartSeries(splitWealthArr)
+  const regenAreaOptions = (assetsArr) => {
+    const sortedAssetsArr = sortByDatetime(assetsArr)
+    const splitAssetsArr = groupArrayByType(sortedAssetsArr)
+    const series = genChartSeries(splitAssetsArr)
     options.series = series
     const categories = generateDatesArray($extent.value)
     options.xaxis.categories = fineTuningArrayLen(categories)

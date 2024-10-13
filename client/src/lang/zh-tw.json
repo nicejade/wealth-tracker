@@ -1,6 +1,8 @@
 {
   "addition": "新增",
   "update": "更新",
+  "reset": "重設",
+  "action": "操作",
   "modify": "修改",
   "destroy": "銷毀",
   "confirm": "確定",
@@ -8,7 +10,8 @@
   "viewDetails": "查閱詳情",
   "recordAssets": "記錄資產",
   "accountType": "賬戶類型",
-  "category": "類型",
+  "type": "類型",
+  "alias": "別名",
   "amount": "金額",
   "risk": "風險",
   "liquidity": "流動性",
@@ -34,6 +37,7 @@
   "lowFrequencyTip": "以上為低頻更新內容",
   "placeholderOfRemark": "請填寫備註",
   "placeholderOfCurrency": "請填寫幣種",
+  "placeholderOfAlias": "為賬戶類型設置別名",
   "placeholderOfAmount": "請填寫金額",
   "placeholderOfDate": "請填寫日期",
   "updateDate": "更新日期",
@@ -42,7 +46,7 @@
   "newAssetAccount": "新增資產賬戶",
   "updateAssetRecords": "更新資產記錄",
   "allRightsReserved": "版權所有",
-  "fillCategoryTip": "請填寫賬戶類型",
-  "fillValidDate": "請輸入有效的日期格式（YYYY-MM-DD）",
-  "fillLaterDate": "更新時間不能早於原始時間"
+  "fillAccountTypeTip": "請填寫賬戶類型",
+  "fillValidDateTip": "請輸入有效的日期格式（YYYY-MM-DD）",
+  "fillLaterDateTip": "更新時間不能早於原始時間"
 }
