@@ -68,14 +68,6 @@
 
 如果您在使用过程中遇到任何问题或有反馈意见，欢迎通过项目的  [GitHub 页面](https://github.com/nicejade/wealth-tracker/)与我们联系。您的宝贵意见将帮助我们不断改进这一工具，以更好地满足用户的需求。
 
-## 先决条件
-
-说明用户在安装和使用前，需要准备的一些先决条件，譬如：您需要安装或升级 [Node.js](https://nodejs.org/en/)（>= `16.*`），推荐使用 [Pnpm](https://pnpm.io/) 或 [Yarn](https://www.jeffjade.com/2017/12/30/135-npm-vs-yarn-detial-memo/) 作为首选包管理工具。本项目采用 pnpm（利用其 workspace 功能）结合 [Lerna@8.1](https://lerna.js.org/) 来管理项目依赖，以实现更高效的包管理和工作流程。为确保您的开发环境与项目要求一致，建议您全局安装这两个工具：
-
-```bash
-npm install -g pnpm lerna
-```
-
 ## 如何使用？
 
 ### 使用 Docker
@@ -127,11 +119,11 @@ git clone https://github.com/nicejade/wealth-tracker.git
 
 cd wealth-tracker
 
+# globally install pm2 pnpm & lerna
+npm i pm2 pnpm lerna -g
+
 # install dependencies(client & server)
 pnpm i
-
-# globally install pm2
-npm i pm2 -g
 
 # start your service
 npm run deploy
@@ -144,13 +136,18 @@ npm run deploy
 - `npm run restart`: 重启应用；
 - `npm run logs`: 查看应用日志；
 
-### 基于 Node.js 运行
+## 如何开发？
+
+说明用户在安装和使用前，需要准备的一些先决条件，譬如：您需要安装或升级 [Node.js](https://nodejs.org/en/)（>= `16.*`），推荐使用 [Pnpm](https://pnpm.io/) 或 [Yarn](https://www.jeffjade.com/2017/12/30/135-npm-vs-yarn-detial-memo/) 作为首选包管理工具。本项目采用 pnpm（利用其 workspace 功能）结合 [Lerna@8.1](https://lerna.js.org/) 来管理项目依赖，以实现更高效的包管理和工作流程。为确保您的开发环境与项目要求一致，建议您全局安装这两个工具：
 
 ```bash
 # clone project
 git clone https://github.com/nicejade/wealth-tracker.git
 
 cd wealth-tracker
+
+# globally install pm2 pnpm & lerna
+npm i pm2 pnpm lerna -g
 
 # install dependencies(client & server)
 pnpm i
@@ -195,6 +192,13 @@ cd server && npm start
 - [Sequelize](https://sequelize.org/): 作为一个强大的 ORM 框架，Sequelize 为我们提供了一种简单且直观的方式来管理数据库关系。它的灵活性和功能丰富性使得我们能够轻松实现复杂的数据操作和查询。
 
 在此，对上述技术和工具的开发者和社区，致以崇高的敬意和衷心的感谢❤️。正是得益于他们的卓越贡献，`生财有迹`才能得以成功构建并持续优化。同时，也要感谢如 [ChatGPT](https://chatgpt.com/?ref=niceshare.site)、Github Copilot、[Poe](https://poe.com/)、[Kimi](https://kimi.moonshot.cn/) 等 AI 工具在开发过程中提供的宝贵支持，它们显著提高了工作效率和体验。
+
+## 相关链接
+
+- [逍遥自在轩](https://niceshare.site/)
+- [晚晴幽草轩](https://www.jeffjade.com/)
+- [SegmentFault](https://segmentfault.com/u/jeffjade)
+- [X | MarshalXuan](https://x.com/MarshalXuan)
 
 ## 执照
 
