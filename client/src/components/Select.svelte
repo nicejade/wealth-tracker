@@ -66,7 +66,7 @@
               <ListboxOption let:selected let:active value={item} disabled={item.disabled}>
                 <li
                   class="relative select-none py-2 pl-10 pr-4
-                  {item.disabled ? 'text-gray cursor-not-allowed' : 'cursor-pointer'}
+                  {item.disabled ? 'text-grey cursor-not-allowed' : 'cursor-pointer'}
                   {active ? 'text-brand bg-blue-100' : 'text-black'}">
                   <span
                     class="{selected ? 'text-brand font-medium' : 'font-normal'} block truncate">

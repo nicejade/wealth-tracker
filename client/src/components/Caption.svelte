@@ -9,7 +9,7 @@
   <div class="flex-shrink-0">
     <Heading tag="h3" class="text-2xl">{title}</Heading>
     {#if subtitle}
-      <p class="text-gray text-base font-light">
+      <p class="text-grey text-base font-light">
         {subtitle}
       </p>
     {/if}

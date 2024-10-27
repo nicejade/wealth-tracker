@@ -1,7 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import dayjs from 'dayjs'
+  import { _ } from 'svelte-i18n'
   import { CardPlaceholder } from 'flowbite-svelte'
+  import { Button, Modal } from 'flowbite-svelte'
   import Header from '../components/Header.svelte'
   import Footer from '../components/Footer.svelte'
   import TableWidget from '../components/ChartWidget/TableWidget.svelte'
@@ -9,7 +11,8 @@
   import DonutChart from '../components/ChartWidget/DonutChart.svelte'
   import BindingChart from '../components/ChartWidget/BindingChart.svelte'
   import UpdateModal from '../components/Modal/Update.svelte'
-  import { getAssets, getRecords } from '../helper/apis'
+  import SvgIcon from '../components/SvgIcon.svelte'
+  import { getAssets, destroyAssets, getRecords } from '../helper/apis'
   import { ACTION_TYPES, DEFAULT_ACCOUNT_ITEM } from './../helper/constant'
   import type { AssetsItem, RecordsItem } from '../typings'
 
@@ -18,7 +21,9 @@
   let currentAssetItem: AssetsItem
   let updateActionType: string = ''
   let isShowUpdateModal: boolean = false
+  let isShowComfirmModal: boolean = false
   let isShowChart: boolean = false
+  let typeToBeDestroyed: string = ''
 
   onMount(() => {
     fetchDatabase()
@@ -46,8 +51,10 @@
     isShowChart = true
   }
 
-  const handleUpdateConfirm = () => {
-    fetchDatabase()
+  const handleAdd = () => {
+    currentAssetItem = DEFAULT_ACCOUNT_ITEM
+    updateActionType = ACTION_TYPES.create
+    isShowUpdateModal = true
   }
 
   const handleUpate = (event) => {
@@ -56,20 +63,43 @@
     isShowUpdateModal = true
   }
 
-  const handleAdd = () => {
-    currentAssetItem = DEFAULT_ACCOUNT_ITEM
-    updateActionType = ACTION_TYPES.create
-    isShowUpdateModal = true
+  const handleDestroy = (event) => {
+    const { type } = event.detail
+    typeToBeDestroyed = type
+    isShowComfirmModal = true
+  }
+
+  const handleUpdateConfirm = () => {
+    fetchDatabase()
   }
 
   const handleUpdateClose = () => {
     isShowUpdateModal = false
   }
+
+  const handleComfirm = async () => {
+    try {
+      await destroyAssets({ type: typeToBeDestroyed })
+      fetchDatabase()
+      isShowComfirmModal = false
+    } catch (error) {
+      console.error('Error destroy assets:', error)
+    }
+  }
+
+  const handleCancel = () => {
+    isShowComfirmModal = false
+  }
 </script>
 
 <Header />
+
 <div class="flex w-full flex-col items-center justify-center space-y-8">
-  <TableWidget options={rawWealthArr} on:update={handleUpate} on:add={handleAdd} />
+  <TableWidget
+    options={rawWealthArr}
+    on:add={handleAdd}
+    on:update={handleUpate}
+    on:destroy={handleDestroy} />
   {#if !isShowChart}
     <CardPlaceholder size="lg" class="w-full max-w-full" />
   {/if}
@@ -88,5 +118,22 @@
     on:confirm={handleUpdateConfirm}
     on:close={handleUpdateClose} />
 {/if}
+
+<Modal bind:open={isShowComfirmModal} size="sm" autoclose={false}>
+  <div class="text-center">
+    <div class="my-4">
+      <SvgIcon name="warning" width={30} height={30} color="#B7B8B9" />
+    </div>
+    <h3 class="text-grey mb-5 text-lg font-normal">
+      {$_('destroyAccountConfirmation')}
+    </h3>
+    <Button color="red" class="me-6 focus:ring-0" on:click={handleComfirm}>
+      {$_('confirm')}
+    </Button>
+    <Button color="alternative" class="focus:ring-0" on:click={handleCancel}>
+      {$_('cancel')}
+    </Button>
+  </div>
+</Modal>
 
 <Footer />

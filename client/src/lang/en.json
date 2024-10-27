@@ -4,8 +4,9 @@
   "reset": "Reset",
   "action": "Action",
   "modify": "Modify",
-  "destroy": "Delete",
+  "destroy": "Destroy",
   "confirm": "Confirm",
+  "cancel": "Cancel",
   "keepGoing": "Keep Going",
   "viewDetails": "View Details",
   "recordAssets": "Record Assets",
@@ -48,5 +49,6 @@
   "allRightsReserved": "All Rights Reserved",
   "fillAccountTypeTip": "Please enter the account type",
   "fillValidDateTip": "Please enter a valid date format (YYYY-MM-DD)",
-  "fillLaterDateTip": "Update time cannot be earlier than the original time"
+  "fillLaterDateTip": "Update time cannot be earlier than the original time",
+  "destroyAccountConfirmation": "Are you sure you want to destroy this account? Please note, this action cannot be undone."
 }

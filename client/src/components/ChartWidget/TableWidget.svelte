@@ -25,6 +25,10 @@
     dispatch('update', elem)
   }
 
+  const onDestroyClick = (elem) => {
+    dispatch('destroy', elem)
+  }
+
   const onAddClick = (elem) => {
     dispatch('add', elem)
   }
@@ -32,6 +36,8 @@
   const onFightClick = () => {
     notice.set('应无所住，而生其心')
   }
+
+  const onResetClick = () => {}
 </script>
 
 <Card
@@ -44,33 +50,43 @@
     </a>
   </div>
   <Table hoverable={true} striped={true} class="divide-y last:border-b-0">
-    <TableHead>
+    <TableHead class="text-sm">
       <TableHeadCell>{$_('accountType')}</TableHeadCell>
       <TableHeadCell>{$_('amount')}</TableHeadCell>
-      <TableHeadCell>{$_('datetime')}</TableHeadCell>
       <TableHeadCell>{$_('currency')}</TableHeadCell>
-      <TableHeadCell class="flex justify-center">
-        <Button class="focus:ring-0" size="sm" outline on:click={onAddClick}>
+      <TableHeadCell>
+        <Button class="border-none focus:ring-0" size="sm" outline on:click={onAddClick}>
           <span class="text-mark hover:text-brand">{$_('addition')}</span>
         </Button>
       </TableHeadCell>
+      <TableBodyCell><span class="px-4 py-2">{$_('action')}</span></TableBodyCell>
     </TableHead>
     <TableBody tableBodyClass="py-4">
       {#each options as item (item.type)}
         <TableBodyRow>
           <TableBodyCell>{item.alias || item.type}</TableBodyCell>
           <TableBodyCell>{item.amount}</TableBodyCell>
-          <TableBodyCell>{item.datetime}</TableBodyCell>
           <TableBodyCell>{item.currency}</TableBodyCell>
-          <TableBodyCell class="flex justify-center">
+          <TableBodyCell>
             <Button
               size="sm"
               outline
-              class="focus:ring-0"
+              class="border-none focus:ring-0"
               on:click={() => {
                 onUpdateClick(item)
               }}>
-              <span class="hover:text-brand text-black">{$_('update')}</span>
+              <span class="hover:text-brand text-mark">{$_('update')}</span>
+            </Button>
+          </TableBodyCell>
+          <TableBodyCell>
+            <Button
+              size="sm"
+              outline
+              class="border-none focus:ring-0"
+              on:click={() => {
+                onDestroyClick(item)
+              }}>
+              <span class="hover:text-brand text-mark">{$_('destroy')}</span>
             </Button>
           </TableBodyCell>
         </TableBodyRow>
@@ -80,11 +96,20 @@
         <TableBodyCell>
           <strong class="text-brand">{totalWealth}</strong>
         </TableBodyCell>
-        <TableBodyCell>{dayjs().format('YYYY-MM-DD')}</TableBodyCell>
         <TableBodyCell>CNY</TableBodyCell>
-        <TableBodyCell class="flex justify-center">
+        <TableBodyCell>
           <Button size="sm" outline class="focus:ring-0" on:click={onFightClick}>
             <span class="text-mark hover:text-brand">{$_('keepGoing')}</span>
+          </Button>
+        </TableBodyCell>
+        <TableBodyCell>
+          <Button
+            size="sm"
+            disabled
+            outline
+            class="border-none focus:ring-0"
+            on:click={onResetClick}>
+            <span class="text-mark hover:text-brand">{$_('reset')}</span>
           </Button>
         </TableBodyCell>
       </TableBodyRow>

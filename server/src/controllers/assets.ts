@@ -6,7 +6,7 @@ export const create = async (request, reply) => {
   try {
     const options = {
       type: params.type,
-      alias: params.alias,
+      alias: params.alias || params.type,
       amount: params.amount,
       currency: params.currency,
       note: params.note,
@@ -73,10 +73,9 @@ export const update = async (request, reply) => {
 export const destroy = async (request, reply) => {
   const { type = '' } = request?.body
   try {
-    const data = await Assets.destroy({
-      where: { type },
-    })
-    return reply.send(data)
+    await Assets.destroy({ where: { type } })
+    await Record.destroy({ where: { type } })
+    return reply.send({ result: true })
   } catch (error: any) {
     return reply.code(400).send({
       statusCode: 400,

@@ -67,8 +67,8 @@ export const SOCIAL_LINKS = [
     icon: 'blogger',
   },
   {
-    href: 'https://x.com/nicejadeyang',
-    title: 'Twitter',
+    href: 'https://x.com/MarshalXuan',
+    title: 'X',
     icon: 'x',
   },
   {

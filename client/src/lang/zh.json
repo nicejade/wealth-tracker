@@ -6,6 +6,7 @@
   "modify": "修改",
   "destroy": "销毁",
   "confirm": "确定",
+  "cancel": "取消",
   "keepGoing": "加油",
   "viewDetails": "查阅详情",
   "recordAssets": "记录资产",
@@ -48,5 +49,6 @@
   "allRightsReserved": "版权所有",
   "fillAccountTypeTip": "请填写账户类型",
   "fillValidDateTip": "请输入有效的日期格式（YYYY-MM-DD）",
-  "fillLaterDateTip": "更新时间不能早于原始时间"
+  "fillLaterDateTip": "更新时间不能早于原始时间",
+  "destroyAccountConfirmation": "您确定要销毁此账户吗？请注意，一旦执行将无法恢复"
 }

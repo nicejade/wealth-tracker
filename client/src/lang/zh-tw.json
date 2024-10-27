@@ -6,6 +6,7 @@
   "modify": "修改",
   "destroy": "銷毀",
   "confirm": "確定",
+  "cancel": "取消",
   "keepGoing": "加油",
   "viewDetails": "查閱詳情",
   "recordAssets": "記錄資產",
@@ -48,5 +49,6 @@
   "allRightsReserved": "版權所有",
   "fillAccountTypeTip": "請填寫賬戶類型",
   "fillValidDateTip": "請輸入有效的日期格式（YYYY-MM-DD）",
-  "fillLaterDateTip": "更新時間不能早於原始時間"
+  "fillLaterDateTip": "更新時間不能早於原始時間",
+  "destroyAccountConfirmation": "您確定要銷毀此帳戶嗎？請注意，一旦執行將無法恢復"
 }

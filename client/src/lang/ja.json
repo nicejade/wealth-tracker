@@ -6,6 +6,7 @@
   "modify": "修正",
   "destroy": "削除",
   "confirm": "確認",
+  "cancel": "キャンセル",
   "keepGoing": "頑張って",
   "viewDetails": "詳細を見る",
   "recordAssets": "資産を記録",
@@ -48,5 +49,6 @@
   "allRightsReserved": "全著作権所有",
   "fillAccountTypeTip": "口座タイプを入力してください",
   "fillValidDateTip": "有効な日付形式（YYYY-MM-DD）を入力してください",
-  "fillLaterDateTip": "更新日時は元の日時より前にすることはできません"
+  "fillLaterDateTip": "更新日時は元の日時より前にすることはできません",
+  "destroyAccountConfirmation": "このアカウントを削除してもよろしいですか？実行すると元に戻すことはできません"
 }

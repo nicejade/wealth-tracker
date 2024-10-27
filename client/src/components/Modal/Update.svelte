@@ -102,7 +102,7 @@
       modal.hide()
       modal = null
     } catch (error) {
-      console.error('Error updating wealth:', error)
+      console.error('Error updating assets:', error)
     }
   }
 
@@ -229,7 +229,7 @@
         </div>
         <div class="inline-flex w-full items-center justify-center pb-4">
           <hr class="my-6 h-px w-full border-0 bg-gray-200" />
-          <span class="text-gray absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium">
+          <span class="text-grey absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium">
             {$_('lowFrequencyTip')}
           </span>
         </div>
