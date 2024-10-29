@@ -32,9 +32,7 @@
     dispatch('add', elem)
   }
 
-  const onFightClick = () => {
-    notice.set('应无所住，而生其心')
-  }
+  const onPersistClick = () => {}
 
   const onResetClick = () => {}
 </script>
@@ -50,12 +48,12 @@
   </div>
   <Table hoverable={true} striped={true} class="divide-y last:border-b-0">
     <TableHead class="text-sm">
-      <TableHeadCell>{$_('accountType')}</TableHeadCell>
+      <TableHeadCell>{$_('type')}</TableHeadCell>
       <TableHeadCell>{$_('amount')}</TableHeadCell>
       <TableHeadCell>{$_('currency')}</TableHeadCell>
       <TableHeadCell>
         <Button class="border-none focus:ring-0" size="sm" outline on:click={onAddClick}>
-          <span class="text-mark hover:text-brand">{$_('addition')}</span>
+          <span class="text-mark hover:text-brand whitespace-nowrap">{$_('addition')}</span>
         </Button>
       </TableHeadCell>
       <TableBodyCell><span class="px-4 py-2">{$_('action')}</span></TableBodyCell>
@@ -97,8 +95,13 @@
         </TableBodyCell>
         <TableBodyCell>CNY</TableBodyCell>
         <TableBodyCell>
-          <Button size="sm" outline class="focus:ring-0" on:click={onFightClick}>
-            <span class="text-mark hover:text-brand">{$_('keepGoing')}</span>
+          <Button
+            size="sm"
+            outline
+            class="border-none focus:ring-0"
+            disabled
+            on:click={onPersistClick}>
+            <span class="text-mark hover:text-brand">{$_('persist')}</span>
           </Button>
         </TableBodyCell>
         <TableBodyCell>
