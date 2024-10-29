@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import dayjs from 'dayjs'
   import {
@@ -16,7 +16,7 @@
   import SvgIcon from './SvgIcon.svelte'
 
   export let options = []
-  export let page = 0
+  export let page: number = 0
   const dispatch = createEventDispatcher()
 
   const onChangeClick = (elem) => {
@@ -32,10 +32,14 @@
   <div class="flex justify-between">
     <Caption title={$_('recordDetails')}></Caption>
   </div>
-  {#if page}
+  {#if options?.length <= 0}
+    <div class="my-4 flex w-full items-center justify-center">
+      <SvgIcon name="empty" width={184} height={152} />
+    </div>
+  {:else}
     <Table hoverable={true} striped={true} divClass="relative overflow-x-auto customized-scrollbar">
-      <TableHead>
-        <TableHeadCell class="min-w-24">{$_('accountType')}</TableHeadCell>
+      <TableHead class="text-sm">
+        <TableHeadCell class="min-w-24">{$_('type')}</TableHeadCell>
         <TableHeadCell>{$_('alias')}</TableHeadCell>
         <TableHeadCell>{$_('amount')}</TableHeadCell>
         <TableHeadCell>{$_('datetime')}</TableHeadCell>
@@ -81,9 +85,5 @@
         {/each}
       </TableBody>
     </Table>
-  {:else}
-    <div class="my-4 flex w-full items-center justify-center">
-      <SvgIcon name="empty" width={184} height={152} />
-    </div>
   {/if}
 </Card>

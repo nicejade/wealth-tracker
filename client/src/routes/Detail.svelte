@@ -13,7 +13,7 @@
   import type { RecordsItem } from '../typings'
   import type { LinkType } from 'flowbite-svelte'
 
-  let page: number = 0
+  let page: number = 1
   let size: number = 10
   let rawRecordsArr = []
   let pages: LinkType[] = []
@@ -23,7 +23,8 @@
   let updateActionType = ACTION_TYPES.change
 
   $: {
-    page = Math.max(parseInt($params.page, 10) || page, 0)
+    page = Math.max(parseInt($params.page || page, 10), 1)
+    console.log(`page`, page, $params.page)
     fetchRecords()
   }
 
@@ -128,6 +129,7 @@
 </script>
 
 <Header />
+
 <div class="flex w-full flex-col items-center justify-center">
   <DetailTable {page} options={rawRecordsArr} on:change={handleChange} on:destroy={destroyChange} />
 </div>
@@ -140,7 +142,7 @@
     on:close={handleChangeClose} />
 {/if}
 
-{#if page >= 1}
+{#if totalPages > 1}
   <div class="my-6 flex items-center justify-center rtl:space-x-reverse">
     <Pagination
       {pages}
