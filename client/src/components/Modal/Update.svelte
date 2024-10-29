@@ -170,7 +170,7 @@
             id="update-type"
             disabled={isChange}
             bind:value={items.type}
-            class="custom-input cursor-not-allowed"
+            class="custom-input {isChange ? 'text-grey cursor-not-allowed' : 'cursor-auto'}"
             placeholder={$_('placeholderOfCategory')}
             required />
         </div>
@@ -229,7 +229,8 @@
         </div>
         <div class="inline-flex w-full items-center justify-center pb-4">
           <hr class="my-6 h-px w-full border-0 bg-gray-200" />
-          <span class="text-grey absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium">
+          <span
+            class="text-grey absolute left-1/2 -translate-x-1/2 bg-white px-3 text-center font-medium leading-5">
             {$_('lowFrequencyTip')}
           </span>
         </div>

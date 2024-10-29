@@ -1,6 +1,5 @@
 <script>
   import { createEventDispatcher } from 'svelte'
-  import dayjs from 'dayjs'
   import {
     Button,
     Card,

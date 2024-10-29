@@ -13,7 +13,7 @@
   import type { RecordsItem } from '../typings'
   import type { LinkType } from 'flowbite-svelte'
 
-  let page: number = 1
+  let page: number = 0
   let size: number = 10
   let rawRecordsArr = []
   let pages: LinkType[] = []
@@ -23,7 +23,7 @@
   let updateActionType = ACTION_TYPES.change
 
   $: {
-    page = Math.max(parseInt($params.page, 10) || page, 1)
+    page = Math.max(parseInt($params.page, 10) || page, 0)
     fetchRecords()
   }
 
@@ -140,22 +140,24 @@
     on:close={handleChangeClose} />
 {/if}
 
-<div class="my-6 flex items-center justify-center rtl:space-x-reverse">
-  <Pagination
-    {pages}
-    large
-    on:previous={handlePrevious}
-    on:next={handleNext}
-    activeClass="text-brand">
-    <svelte:fragment slot="prev">
-      <span class="sr-only">Previous</span>
-      <SvgIcon name="chevron-left" />
-    </svelte:fragment>
-    <svelte:fragment slot="next">
-      <span class="sr-only">Next</span>
-      <SvgIcon name="chevron-right" />
-    </svelte:fragment>
-  </Pagination>
-</div>
+{#if page >= 1}
+  <div class="my-6 flex items-center justify-center rtl:space-x-reverse">
+    <Pagination
+      {pages}
+      large
+      on:previous={handlePrevious}
+      on:next={handleNext}
+      activeClass="text-brand">
+      <svelte:fragment slot="prev">
+        <span class="sr-only">Previous</span>
+        <SvgIcon name="chevron-left" />
+      </svelte:fragment>
+      <svelte:fragment slot="next">
+        <span class="sr-only">Next</span>
+        <SvgIcon name="chevron-right" />
+      </svelte:fragment>
+    </Pagination>
+  </div>
+{/if}
 
 <Footer />
