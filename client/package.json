@@ -1,7 +1,8 @@
 {
   "name": "client",
   "description": "生财有迹（Wealth Tracker），客户端代码实现。",
-  "private": true,
+  "version": "0.2.2",
+  "author": "nicejade",
   "type": "module",
   "scripts": {
     "start": "npm run dev",
