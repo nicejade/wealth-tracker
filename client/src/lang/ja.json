@@ -49,5 +49,6 @@
   "fillAccountTypeTip": "口座タイプを入力してください",
   "fillValidDateTip": "有効な日付形式（YYYY-MM-DD）を入力してください",
   "fillLaterDateTip": "更新日時は元の日時より前にすることはできません",
-  "destroyAccountConfirmation": "このアカウントを削除してもよろしいですか？実行すると元に戻すことはできません"
+  "destroyAccountConfirmation": "このアカウントを削除してもよろしいですか？実行すると元に戻すことはできません",
+  "resetDatabaseConfirmation": "データベース全体をリセットしてもよろしいですか？この操作は取り消しできませんので、慎重に判断してください。"
 }

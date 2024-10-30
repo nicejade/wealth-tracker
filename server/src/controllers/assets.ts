@@ -1,5 +1,5 @@
 import { Assets } from './../models/assets'
-import { Record } from '../models/records'
+import { Record } from './../models/records'
 
 export const create = async (request, reply) => {
   const params = request?.body

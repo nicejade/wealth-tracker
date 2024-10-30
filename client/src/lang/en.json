@@ -49,5 +49,6 @@
   "fillAccountTypeTip": "Please enter the account type",
   "fillValidDateTip": "Please enter a valid date format (YYYY-MM-DD)",
   "fillLaterDateTip": "Update time cannot be earlier than the original time",
-  "destroyAccountConfirmation": "Are you sure you want to destroy this account? Please note, this action cannot be undone."
+  "destroyAccountConfirmation": "Are you sure you want to destroy this account? Please note, this action cannot be undone.",
+  "resetDatabaseConfirmation": "Are you sure you want to reset the entire database? Please be cautious, this action cannot be undone."
 }

@@ -49,5 +49,6 @@
   "fillAccountTypeTip": "Veuillez saisir le type de compte",
   "fillValidDateTip": "Veuillez entrer un format de date valide (AAAA-MM-JJ)",
   "fillLaterDateTip": "La date de mise à jour ne peut pas être antérieure à la date originale",
-  "destroyAccountConfirmation": "Êtes-vous sûr de vouloir supprimer ce compte ? Attention, cette action est irréversible."
+  "destroyAccountConfirmation": "Êtes-vous sûr de vouloir supprimer ce compte ? Attention, cette action est irréversible.",
+  "resetDatabaseConfirmation": "Êtes-vous sûr de vouloir réinitialiser toute la base de données ? Soyez prudent, cette action est irréversible"
 }

@@ -31,3 +31,7 @@ export const updateRecords = (data) => {
 export const destroyRecords = (data) => {
   return $ajax.delete(genApiPath('records'), data)
 }
+
+export const resetDatabase = () => {
+  return $ajax.post(genApiPath('reset'), {})
+}

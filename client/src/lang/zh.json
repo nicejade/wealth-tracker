@@ -49,5 +49,6 @@
   "fillAccountTypeTip": "请填写账户类型",
   "fillValidDateTip": "请输入有效的日期格式（YYYY-MM-DD）",
   "fillLaterDateTip": "更新时间不能早于原始时间",
-  "destroyAccountConfirmation": "您确定要销毁此账户吗？请注意，一旦执行将无法恢复"
+  "destroyAccountConfirmation": "您确定要销毁此账户吗？请注意，一旦执行将无法恢复",
+  "resetDatabaseConfirmation": "您确定要销毁此账户吗？请注意，一旦执行将无法恢复"
 }

@@ -21,15 +21,15 @@
 
   $: totalWealth = options.reduce((sum, item) => sum + item.amount, 0).toFixed(2)
 
-  const fire = (opts) => {
-    const scalar = 2
+  const fireConfetti = (opts) => {
+    const scalar = randomInRange(1.1, 2)
     const dollar = confetti.shapeFromText({ text: '💸', scalar })
     const money = confetti.shapeFromText({ text: '💰', scalar })
     const defaults = {
       angle: randomInRange(81, 99),
       shapes: ['circle', 'circle', 'square', dollar, money],
       spread: randomInRange(66, 99),
-      particleCount: randomInRange(69, 219),
+      particleCount: randomInRange(39, 269),
       startVelocity: randomInRange(39, 69),
       drift: randomInRange(-0.1, 0.1),
       ticks: randomInRange(180, 220),
@@ -55,11 +55,15 @@
   }
 
   const onPersistClick = () => {
-    fire()
-    fire()
+    fireConfetti({ spread: 30, startVelocity: 60, decay: 0.9 })
+    fireConfetti({ spread: 60, startVelocity: 30, decay: 0.91 })
+    fireConfetti({ spread: 120, startVelocity: 50, decay: 0.92 })
+    fireConfetti({ spread: 120, startVelocity: 10, decay: 0.93 })
   }
 
-  const onResetClick = () => {}
+  const onResetClick = () => {
+    dispatch('reset')
+  }
 </script>
 
 <Card
@@ -125,12 +129,7 @@
           </Button>
         </TableBodyCell>
         <TableBodyCell>
-          <Button
-            size="sm"
-            disabled
-            outline
-            class="border-none focus:ring-0"
-            on:click={onResetClick}>
+          <Button size="sm" outline class="border-none focus:ring-0" on:click={onResetClick}>
             <span class="text-mark hover:text-brand">{$_('reset')}</span>
           </Button>
         </TableBodyCell>

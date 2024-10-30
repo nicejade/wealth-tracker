@@ -12,7 +12,7 @@
   import BindingChart from '../components/ChartWidget/BindingChart.svelte'
   import UpdateModal from '../components/Modal/Update.svelte'
   import SvgIcon from '../components/SvgIcon.svelte'
-  import { getAssets, destroyAssets, getRecords } from '../helper/apis'
+  import { getAssets, destroyAssets, getRecords, resetDatabase } from '../helper/apis'
   import { ACTION_TYPES, DEFAULT_ACCOUNT_ITEM } from './../helper/constant'
   import type { AssetsItem, RecordsItem } from '../typings'
 
@@ -22,6 +22,7 @@
   let updateActionType: string = ''
   let isShowUpdateModal: boolean = false
   let isShowComfirmModal: boolean = false
+  let isShowResetModal: boolean = false
   let isShowChart: boolean = false
   let typeToBeDestroyed: string = ''
 
@@ -69,6 +70,10 @@
     isShowComfirmModal = true
   }
 
+  const handleReset = () => {
+    isShowResetModal = true
+  }
+
   const handleUpdateConfirm = () => {
     fetchDatabase()
   }
@@ -90,6 +95,20 @@
   const handleCancel = () => {
     isShowComfirmModal = false
   }
+
+  const handleResetComfirm = async () => {
+    try {
+      await resetDatabase()
+      fetchDatabase()
+      isShowResetModal = false
+    } catch (error) {
+      console.error('Error destroy assets:', error)
+    }
+  }
+
+  const handleResetCancel = () => {
+    isShowResetModal = false
+  }
 </script>
 
 <Header />
@@ -99,7 +118,8 @@
     options={rawWealthArr}
     on:add={handleAdd}
     on:update={handleUpate}
-    on:destroy={handleDestroy} />
+    on:destroy={handleDestroy}
+    on:reset={handleReset} />
   {#if !isShowChart}
     <CardPlaceholder size="lg" class="w-full max-w-full" />
   {/if}
@@ -122,7 +142,7 @@
 <Modal bind:open={isShowComfirmModal} size="sm" autoclose={false}>
   <div class="text-center">
     <div class="my-4">
-      <SvgIcon name="warning" width={30} height={30} color="#B7B8B9" />
+      <SvgIcon name="warning" width={30} height={30} color="#f59e0b" />
     </div>
     <h3 class="text-grey mb-5 text-lg font-normal">
       {$_('destroyAccountConfirmation')}
@@ -131,6 +151,23 @@
       {$_('confirm')}
     </Button>
     <Button color="alternative" class="focus:ring-0" on:click={handleCancel}>
+      {$_('cancel')}
+    </Button>
+  </div>
+</Modal>
+
+<Modal bind:open={isShowResetModal} size="sm" autoclose={false}>
+  <div class="text-center">
+    <div class="my-4">
+      <SvgIcon name="warning" width={30} height={30} color="#c81e1d" />
+    </div>
+    <h3 class="text-grey mb-5 text-lg font-normal">
+      {$_('resetDatabaseConfirmation')}
+    </h3>
+    <Button color="red" class="me-6 focus:ring-0" on:click={handleResetComfirm}>
+      {$_('confirm')}
+    </Button>
+    <Button color="alternative" class="focus:ring-0" on:click={handleResetCancel}>
       {$_('cancel')}
     </Button>
   </div>

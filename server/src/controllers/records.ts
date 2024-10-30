@@ -1,4 +1,4 @@
-import { Record } from '../models/records'
+import { Record } from './../models/records'
 
 export const get = async (request, reply) => {
   try {
