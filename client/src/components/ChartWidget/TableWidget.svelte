@@ -12,13 +12,35 @@
   } from 'flowbite-svelte'
   import { _ } from 'svelte-i18n'
   import Caption from '../Caption.svelte'
-  import { notice } from '../../stores'
+  import confetti from 'canvas-confetti'
+  import { randomInRange } from './../../helper/utils'
 
   export let options = []
   let totalWealth = 0
   const dispatch = createEventDispatcher()
 
   $: totalWealth = options.reduce((sum, item) => sum + item.amount, 0).toFixed(2)
+
+  const fire = (opts) => {
+    const scalar = 2
+    const dollar = confetti.shapeFromText({ text: '💸', scalar })
+    const money = confetti.shapeFromText({ text: '💰', scalar })
+    const defaults = {
+      angle: randomInRange(81, 99),
+      shapes: ['circle', 'circle', 'square', dollar, money],
+      spread: randomInRange(66, 99),
+      particleCount: randomInRange(69, 219),
+      startVelocity: randomInRange(39, 69),
+      drift: randomInRange(-0.1, 0.1),
+      ticks: randomInRange(180, 220),
+      origin: { x: randomInRange(0.49, 0.51), y: 0.6 },
+      scalar,
+    }
+    confetti({
+      ...defaults,
+      ...opts,
+    })
+  }
 
   const onUpdateClick = (elem) => {
     dispatch('update', elem)
@@ -32,7 +54,10 @@
     dispatch('add', elem)
   }
 
-  const onPersistClick = () => {}
+  const onPersistClick = () => {
+    fire()
+    fire()
+  }
 
   const onResetClick = () => {}
 </script>
@@ -95,12 +120,7 @@
         </TableBodyCell>
         <TableBodyCell>CNY</TableBodyCell>
         <TableBodyCell>
-          <Button
-            size="sm"
-            outline
-            class="border-none focus:ring-0"
-            disabled
-            on:click={onPersistClick}>
+          <Button size="sm" outline class="border-none focus:ring-0" on:click={onPersistClick}>
             <span class="text-mark hover:text-brand">{$_('persist')}</span>
           </Button>
         </TableBodyCell>

@@ -3,6 +3,10 @@ import { LANG_ARR, STORAGE_LANG, DEFAULT_LANG } from './../helper/constant'
 
 export const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay || 1000))
 
+export const randomInRange = (min, max) => {
+  return Math.random() * (max - min) + min
+}
+
 const isValidLang = (lang: string): boolean => {
   return LANG_ARR.some((item) => item.value === lang)
 }
