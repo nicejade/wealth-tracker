@@ -21,3 +21,7 @@ export interface AssetsItem {
   datetime: string
   note: string
 }
+
+export interface Settings {
+  [key: string]: string | number
+}

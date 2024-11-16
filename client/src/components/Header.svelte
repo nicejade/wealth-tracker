@@ -5,14 +5,7 @@
   import SvgIcon from './SvgIcon.svelte'
   import { language, theme } from '../stores'
   import { getAppLang } from './../helper/utils'
-  import {
-    TITLE,
-    DEFAULT_LANG,
-    DEFAULT_THEME,
-    LANG_ARR,
-    STORAGE_THEME,
-    STORAGE_LANG,
-  } from './../helper/constant'
+  import { TITLE, DEFAULT_THEME, LANG_ARR, STORAGE_THEME, STORAGE_LANG } from './../helper/constant'
 
   let lang: string = getAppLang()
   let langName: string = ''
@@ -59,7 +52,7 @@
       target="_blank"
       rel="noopener"
       class="inline-flex rounded-md p-2 leading-5 outline-none hover:bg-gray-100"
-      href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fnicejade%2Fwealth-tracker&text=%E7%94%9F%E8%B4%A2%E6%9C%89%E8%BF%B9%EF%BC%88Wealth%20Tracker%EF%BC%89%E6%98%AF%E4%B8%80%E6%AC%BE%E4%B8%93%E6%B3%A8%E4%BA%8E%E4%B8%AA%E4%BA%BA%E8%B5%84%E4%BA%A7%E5%88%86%E6%9E%90%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E3%80%82"
+      href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fnicejade%2Fwealth-tracker&text=生财有迹（Wealth Tracker）是一款专注于个人资产分析的应用程序。其核心功能是：全面记录并展示用户的资产状况，帮助用户轻松了解财务现状；运用 AI 能力，结合每种资产的特性和当前环境，提供适宜的财务建议。"
       title="Twitter">
       <SvgIcon name="x" width={20} height={20} color="#212121" />
     </a>

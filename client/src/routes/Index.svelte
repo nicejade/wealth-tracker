@@ -16,7 +16,7 @@
   import { ACTION_TYPES, DEFAULT_ACCOUNT_ITEM } from './../helper/constant'
   import type { AssetsItem, RecordsItem } from '../typings'
 
-  let rawWealthArr = []
+  let rawAssetsArr = []
   let rawRecordsArr = []
   let currentAssetItem: AssetsItem
   let updateActionType: string = ''
@@ -33,7 +33,7 @@
   const fetchDatabase = async () => {
     try {
       const results: Array<any> = await Promise.all([getAssets(), getRecords()])
-      rawWealthArr = results[0] as any[]
+      rawAssetsArr = results[0] as any[]
       const records: RecordsItem = results[1]
       rawRecordsArr = records.data
       updateRawRecords()
@@ -43,7 +43,7 @@
   }
 
   const updateRawRecords = async () => {
-    const currentWealthArr = rawWealthArr.map((item) => {
+    const currentWealthArr = rawAssetsArr.map((item) => {
       item.rawDatetime = item.datetime
       item.datetime = dayjs().format('YYYY-MM-DD')
       return item
@@ -115,7 +115,7 @@
 
 <div class="flex w-full flex-col items-center justify-center space-y-8">
   <TableWidget
-    options={rawWealthArr}
+    options={rawAssetsArr}
     on:add={handleAdd}
     on:update={handleUpate}
     on:destroy={handleDestroy}
@@ -124,8 +124,8 @@
     <CardPlaceholder size="lg" class="w-full max-w-full" />
   {/if}
 
-  {#if isShowChart && rawWealthArr.length}
-    <DonutChart sources={rawWealthArr}></DonutChart>
+  {#if isShowChart && rawAssetsArr.length}
+    <DonutChart sources={rawAssetsArr}></DonutChart>
     <AreaChart sources={rawRecordsArr}></AreaChart>
     <BindingChart sources={rawRecordsArr}></BindingChart>
   {/if}
@@ -173,4 +173,58 @@
   </div>
 </Modal>
 
+<div class="my-4 flex w-full flex-col items-center text-center">
+  <div
+    class="to-brand-dark relative my-4 flex w-full flex-col items-center justify-center space-y-8 rounded-lg bg-gradient-to-br from-gray-100 p-8 md:px-4 md:py-6">
+    <h2 class="gradient-text typing-text my-4 text-xl text-white">
+      {$_('getAIAdviceDescription')}
+    </h2>
+    <a href="/advice" class="regular-btn hover:text-brand inline-block text-center text-base">
+      {$_('getAIAdvice')}
+    </a>
+  </div>
+</div>
+
 <Footer />
+
+<style>
+  .typing-text {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+    border-right: 2px solid transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    animation:
+      typing 8s steps(40, end) infinite,
+      blink-caret 0.75s step-end infinite;
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    30% {
+      width: 100%;
+    }
+    80% {
+      width: 100%;
+    }
+    90% {
+      width: 0;
+    }
+    100% {
+      width: 0;
+    }
+  }
+
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: white;
+    }
+  }
+</style>

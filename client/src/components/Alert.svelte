@@ -13,7 +13,7 @@
   }
 
   const autoHideAlert = async () => {
-    await sleep(5000)
+    await sleep(6000)
     hideAlert()
   }
 
@@ -24,20 +24,21 @@
 
 {#if $alert}
   <div
-    class="absolute z-50 flex items-center p-4 mb-4 rounded-lg text-mark w-max top-16 right-1/2 translate-x-2/4 bg-blue-50"
+    class="absolute right-1/2 top-16 z-50 mb-4 flex w-max translate-x-2/4 items-center space-x-2 rounded-lg bg-white p-4 shadow"
     role="alert"
     id="alert-info"
     transition:fade={{ delay: 100, duration: 300 }}>
-    <SvgIcon name="info" color="#ff4582" />
+    <div class="flex h-8 w-8 items-center rounded-lg bg-red-100 px-2">
+      <SvgIcon name="info" color="#ff4582" />
+    </div>
     <span class="sr-only">Info</span>
-    <div
-      class="ml-3 text-base md:text-sm max-w-xl md:max-w-xs overflow-hidden text-ellipsis">
+    <div class="ml-3 max-w-xl overflow-hidden text-ellipsis text-base md:max-w-xs md:text-sm">
       {$alert}
     </div>
     <button
       type="button"
       data-dismiss-target="#alert-info"
-      class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-mark rounded-lg p-1.5 hover:bg-blue-200 inline-flex h-8 w-8"
+      class="text-mark -mx-1.5 -my-1.5 ml-auto inline-flex h-8 w-8 rounded-lg bg-red-100 p-1.5"
       aria-label="Close"
       on:click={onCloseClick}>
       <SvgIcon name="close" color="#ff4582" />

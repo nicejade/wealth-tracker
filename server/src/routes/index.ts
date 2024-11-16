@@ -1,5 +1,6 @@
 import assets from './assets'
 import records from './records'
+import advice from './advice'
 import { Assets } from './../models/assets'
 import { Record } from './../models/records'
 
@@ -35,4 +36,4 @@ const routes = [
   },
 ]
 
-export default [...routes, ...assets, ...records]
+export default [...routes, ...assets, ...records, ...advice]

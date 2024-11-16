@@ -1,10 +1,29 @@
 import dayjs from 'dayjs'
+import { marked, Tokens } from 'marked'
+import { EventStreamContentType, fetchEventSource } from '@microsoft/fetch-event-source'
 import { LANG_ARR, STORAGE_LANG, DEFAULT_LANG } from './../helper/constant'
+
+const renderer = new marked.Renderer()
+const linkRenderer = renderer.link
+renderer.link = ({ href, title, text }: Tokens.Link) => {
+  const html = linkRenderer.call(renderer, href, title, text)
+  return html.replace(/^<a /, '<a target="_blank" rel="noopener" ')
+}
+
+marked.setOptions({ renderer })
+
+export const parse = marked.parse
 
 export const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay || 1000))
 
 export const randomInRange = (min, max) => {
   return Math.random() * (max - min) + min
+}
+
+export const isNeedScroll = () => {
+  const OFFSET_LIMIT = 150
+  const offsetSpaceNum = window.document.body.scrollHeight - window.innerHeight
+  return offsetSpaceNum > OFFSET_LIMIT
 }
 
 const isValidLang = (lang: string): boolean => {
@@ -130,4 +149,88 @@ export const calculateDateByOffset = (reverseIndex: number, offsetDays: number):
   }
 
   return today.subtract(Math.floor(daysToSubtract), 'day').format('YYYY-MM-DD')
+}
+
+export const genAdviceWithStream = (params, options) => {
+  const REQUEST_TIMEOUT_MS = 60000
+  const requestTimeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
+  let controller = new AbortController()
+  const finish = () => {
+    controller?.abort()
+    controller = undefined
+  }
+  controller.signal.onabort = finish
+
+  fetchEventSource('/api/generate-advice', {
+    method: 'POST',
+
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'text/event-stream',
+    },
+
+    cache: 'no-cache',
+
+    signal: controller.signal,
+
+    body: JSON.stringify(params),
+
+    async onopen(response) {
+      clearTimeout(requestTimeoutId)
+      const contentType = response.headers.get('content-type')
+
+      if (!response.ok) {
+        console.error(`[@genAdviceWithStream] Response not OK:`, {
+          status: response.status,
+          statusText: response.statusText,
+        })
+        options?.onError({
+          statusCode: response.status,
+          message: response.statusText,
+        })
+        return finish()
+      }
+
+      if (!contentType?.startsWith(EventStreamContentType)) {
+        console.error(`[@genAdviceWithStream] Invalid content type:`, contentType)
+        options?.onError({
+          statusCode: 400,
+          message: `Invalid content type: ${contentType}`,
+        })
+        return finish()
+      }
+
+      return Promise.resolve()
+    },
+
+    async onmessage(msg) {
+      if (msg.data === '[DONE]' || msg.data.startsWith('[DONE]')) {
+        console.log(`[@genAdviceWithStream] Stream completed`)
+        options?.onFinish()
+        return finish()
+      }
+
+      try {
+        options.onUpdate(JSON.parse(msg.data))
+      } catch (err) {
+        options?.onError({
+          statusCode: 400,
+          message: 'Failed to parse server response',
+        })
+      }
+    },
+
+    onclose() {
+      console.log(`[@genAdviceWithStream] Event Stream Request Have Close.`)
+      finish()
+    },
+
+    onerror(error) {
+      console.log(`[@genAdviceWithStream] Error：`, error.message)
+      options?.onError(error)
+      finish()
+    },
+
+    openWhenHidden: true,
+  })
 }

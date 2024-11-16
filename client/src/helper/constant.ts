@@ -113,3 +113,59 @@ export const DEFAULT_LANG = 'zh-CN'
 export const STORAGE_THEME = 'theme'
 
 export const STORAGE_LANG = 'lang'
+
+export const PROMPT_TEMPLATE = `As a professional financial advisor with extensive experience in wealth management and market insights, please provide personalized financial advice based on the following user information and market conditions.
+
+## Asset Details
+- Total Assets: {total} 
+
+- Current Asset Allocation:
+  {status}
+
+## Market Environment
+- AI will independently analyze and understand market conditions based on current market environment and macroeconomic indicators
+
+## Output Requirements
+Based on the above information, please provide advice on:
+
+1. Asset Allocation Recommendations
+  - Recommended allocation ratios for each asset class
+  - Specific reasons for allocation adjustments
+  - Risk control measures
+
+2. Investment Strategy Recommendations
+  - Short-term investment opportunities
+  - Medium to long-term investment planning
+  - Risk areas to avoid
+
+3. Financial Product Recommendations
+  - Product types matching user's risk tolerance
+  - Specific product examples with pros and cons analysis
+  - Purchase recommendations and key considerations
+
+4. Financial Planning Advice
+  - Cash flow management suggestions
+  - Tax planning recommendations
+  - Insurance coverage recommendations
+
+5. Special Considerations
+  - Market risk warnings
+  - Policy change impacts
+  - Personal circumstances considerations
+
+6. Additional Considerations:
+  - Economic cycle position and impact
+  - Global market correlations
+  - ESG factors if applicable
+  - Digital asset considerations if relevant
+  - Emergency fund adequacy
+  - Retirement planning implications
+
+Please ensure recommendations:
+  - Match user's risk tolerance
+  - Consider liquidity needs
+  - Align with current market conditions
+  - Provide actionable steps
+  - Include risk disclaimers
+  - Offer specific implementation steps
+  - Respond in {language}`

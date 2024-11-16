@@ -50,5 +50,13 @@
   "fillValidDateTip": "Veuillez entrer un format de date valide (AAAA-MM-JJ)",
   "fillLaterDateTip": "La date de mise à jour ne peut pas être antérieure à la date originale",
   "destroyAccountConfirmation": "Êtes-vous sûr de vouloir supprimer ce compte ? Attention, cette action est irréversible.",
-  "resetDatabaseConfirmation": "Êtes-vous sûr de vouloir réinitialiser toute la base de données ? Soyez prudent, cette action est irréversible"
+  "resetDatabaseConfirmation": "Êtes-vous sûr de vouloir réinitialiser toute la base de données ? Soyez prudent, cette action est irréversible",
+  "getAIAdvice": "Obtenir conseil IA",
+  "getAIAdviceDescription": "L'IA fournit des conseils financiers basés sur les caractéristiques des actifs et l'environnement",
+  "aiSettings": "Paramètres IA",
+  "aiSettingsDesc": "Paramètres du fournisseur de services IA",
+  "financialAdvice": "Conseils financiers",
+  "financialAdviceDetails": "Conseils financiers fournis par l'IA",
+  "assetAllocationAdvice": "L'IA a généré avec succès des conseils d'allocation d'actifs",
+  "genAssetAdviceTip": "Après avoir configuré les paramètres IA (prenant en charge des fournisseurs tels que [OpenAI](https://openai.com/), [xAI](https://x.ai/), [零一万物](https://www.lingyiwanwu.com/), [Moonshot AI](https://www.moonshot.cn/)), générez vos recommandations d'allocation d'actifs basées sur l'**invite**. Vous pouvez vous référer à ces suggestions pour optimiser votre allocation d'actifs. Bien sûr, vous pouvez également modifier l'invite ou la copier pour obtenir des conseils auprès d'autres services IA."
 }

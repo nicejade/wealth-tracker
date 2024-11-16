@@ -87,19 +87,6 @@ module.exports = {
               marginTop: '0 !important',
               marginBottom: '0 !important',
             },
-            h1: {
-              fontSize: '1.25rem',
-            },
-            h2: {
-              fontSize: '1.125rem',
-            },
-            'h2, h3': {
-              marginTop: '1.25rem',
-            },
-            'h4, h5, h6': {
-              fontSize: '1',
-              marginTop: '1.125rem',
-            },
             'pre code::before': {
               paddingLeft: 'unset',
             },
@@ -111,7 +98,7 @@ module.exports = {
               marginBottom: '1rem',
             },
             a: {
-              color: '#A033FF',
+              color: '#f8d826',
               textDecoration: 'none',
             },
             pre: {

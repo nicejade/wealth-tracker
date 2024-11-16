@@ -159,9 +159,8 @@
       </div>
       <!-- Modal body -->
       <div class="flex flex-col items-center justify-center p-6">
-        <div
-          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
-          <label for="update-type" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+        <div class="module-warp">
+          <label for="update-type" class="custom-label">
             {$_('type')}
             <i class="text-mark">*</i>
           </label>
@@ -174,9 +173,8 @@
             placeholder={$_('placeholderOfCategory')}
             required />
         </div>
-        <div
-          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
-          <label for="update-alias" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+        <div class="module-warp">
+          <label for="update-alias" class="custom-label">
             {$_('alias')}
           </label>
           <input
@@ -187,9 +185,8 @@
             placeholder={$_('placeholderOfAlias')}
             required />
         </div>
-        <div
-          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
-          <label for="update-currency" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+        <div class="module-warp">
+          <label for="update-currency" class="custom-label">
             {$_('currency')}
           </label>
           <input
@@ -201,9 +198,8 @@
             placeholder={$_('placeholderOfCurrency')}
             required />
         </div>
-        <div
-          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
-          <label for="update-currency" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+        <div class="module-warp">
+          <label for="update-currency" class="custom-label">
             {$_('risk')}
           </label>
           <div class="w-full">
@@ -214,9 +210,8 @@
               on:selected={handleRiskSelect} />
           </div>
         </div>
-        <div
-          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
-          <label for="update-currency" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+        <div class="module-warp">
+          <label for="update-currency" class="custom-label">
             {$_('liquidity')}
           </label>
           <div class="w-full">
@@ -234,9 +229,8 @@
             {$_('lowFrequencyTip')}
           </span>
         </div>
-        <div
-          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
-          <label for="update-amount" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+        <div class="module-warp">
+          <label for="update-amount" class="custom-label">
             {$_('amount')}
           </label>
           <input
@@ -248,9 +242,8 @@
             placeholder={$_('placeholderOfAmount')}
             required />
         </div>
-        <div
-          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
-          <label for="update-datetime" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+        <div class="module-warp">
+          <label for="update-datetime" class="custom-label">
             {$_('datetime')}
           </label>
           <div class="w-full">
@@ -267,9 +260,8 @@
             {/if}
           </div>
         </div>
-        <div
-          class="flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm">
-          <label for="update-note" class="w-56 text-base font-bold md:pb-2 md:text-sm">
+        <div class="module-warp">
+          <label for="update-note" class="custom-label">
             {$_('remark')}
           </label>
           <input

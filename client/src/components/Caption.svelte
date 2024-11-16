@@ -7,7 +7,7 @@
 <div
   class="flex items-center justify-between md:flex-col md:items-start md:justify-start md:space-y-2">
   <div class="flex-shrink-0">
-    <Heading tag="h3" class="text-2xl">{title}</Heading>
+    <Heading tag="h2" class="text-xl">{title}</Heading>
     {#if subtitle}
       <p class="text-grey text-base font-light">
         {subtitle}

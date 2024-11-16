@@ -21,6 +21,7 @@
     "fastify": "^4.13.0",
     "fastify-xml-body-parser": "^2.2.0",
     "isomorphic-fetch": "^3.0.0",
+    "openai": "^4.72.0",
     "sequelize": "^6.37.1",
     "sqlite3": "^5.1.7"
   },

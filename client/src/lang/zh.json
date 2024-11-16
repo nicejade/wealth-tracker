@@ -50,5 +50,13 @@
   "fillValidDateTip": "请输入有效的日期格式（YYYY-MM-DD）",
   "fillLaterDateTip": "更新时间不能早于原始时间",
   "destroyAccountConfirmation": "您确定要销毁此账户吗？请注意，一旦执行将无法恢复",
-  "resetDatabaseConfirmation": "您确定要销毁此账户吗？请注意，一旦执行将无法恢复"
+  "resetDatabaseConfirmation": "您确定要销毁此账户吗？请注意，一旦执行将无法恢复",
+  "getAIAdvice": "获取 AI 建议",
+  "getAIAdviceDescription": "AI 根据资产特性和环境提供财务建议",
+  "aiSettings": "AI 设置",
+  "aiSettingsDesc": "AI 服务商设置",
+  "financialAdvice": "财务建议",
+  "financialAdviceDetails": "由 AI 为您提供财务建议",
+  "assetAllocationAdvice": "AI 成功生成资产配置建议",
+  "genAssetAdviceTip": "在 AI（支持 [OpenAI](https://openai.com/)、[xAI](https://x.ai/)、[零一万物](https://www.lingyiwanwu.com/)、[月之暗面](https://www.moonshot.cn/)等服务商）设置后，根据上面的**提示词**，生成您的资产配置建议；您可以参考这些建议来优化您的资产配置。当然，您也可以对提示词进行修改，或者拷贝它，交由其他 AI 服务为您提供建议。"
 }

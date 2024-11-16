@@ -6,6 +6,18 @@
   @apply w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-600 caret-link focus:border-transparent focus:outline-none focus:ring-1 focus:ring-link md:text-sm;
 }
 
+.custom-label {
+  @apply w-56 text-base font-bold md:pb-2 md:text-sm;
+}
+
 .social-link {
   @apply inline-flex rounded-md p-2 leading-5 hover:bg-gray-100;
+}
+
+.module-warp {
+  @apply flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm;
+}
+
+.markdown-article {
+  @apply mx-auto flex w-full max-w-full flex-col justify-between rounded-lg px-4;
 }
