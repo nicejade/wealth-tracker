@@ -29,11 +29,11 @@
     <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat" alt="Prettier">
   </a>
   <a href="https://gitmoji.dev">
-  <img
-    src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square"
-    alt="Gitmoji"
-  />
-</a>
+    <img
+      src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square"
+      alt="Gitmoji"
+    />
+  </a>
   <a href="https://niceshare.site/">
     <img src="https://img.shields.io/badge/author-nicejade-%23a696c8.svg" alt="Author nicejade">
   </a>
@@ -190,15 +190,17 @@ cd server && npm start
 - [Fastify](https://www.fastify.io/): 这个高性能的 Node.js Web 框架为我们提供了一个简单且强大的接口来构建 RESTful API。它的低开销和高度可扩展性使得我们的后端服务既快速又稳定。
 - [SQLite3](https://www.sqlite.org/index.html): 作为一个轻量级的数据库引擎，SQLite3 为我们提供了一个无需配置的本地存储解决方案。它的简单性和高效性使得开发者在本地部署应用时能够轻松管理数据。
 - [Sequelize](https://sequelize.org/): 作为一个强大的 ORM 框架，Sequelize 为我们提供了一种简单且直观的方式来管理数据库关系。它的灵活性和功能丰富性使得我们能够轻松实现复杂的数据操作和查询。
+- [OpenAI](https://github.com/openai/openai-node): OpenAI 提供的 Node.js SDK 使得我们能够轻松地与人工智能服务（如 ChatGPT、xAI、月之暗面） API 进行集成，从而实现了人工智能相关的功能。
 
-在此，对上述技术和工具的开发者和社区，致以崇高的敬意和衷心的感谢❤️。正是得益于他们的卓越贡献，`生财有迹`才能得以成功构建并持续优化。同时，也要感谢如 [ChatGPT](https://chatgpt.com/?ref=niceshare.site)、Github Copilot、[Poe](https://poe.com/)、[Kimi](https://kimi.moonshot.cn/) 等 AI 工具在开发过程中提供的宝贵支持，它们显著提高了工作效率和体验。
+在此，对上述技术和工具的开发者和社区，致以崇高的敬意和衷心的感谢❤️。正是得益于他们的卓越贡献，`生财有迹`才能得以成功构建并持续优化。同时，也要感谢如 [Cursor](https://www.cursor.com/)、[Codeium Windsurf](https://codeium.com/windsurf)、 [ChatGPT](https://chatgpt.com/?ref=niceshare.site)、Github Copilot、[Poe](https://poe.com/)、[Kimi](https://kimi.moonshot.cn/) 等 AI 工具在开发过程中提供的宝贵支持，它们显著提高了工作效率和体验。
 
 ## 相关链接
 
 - [逍遥自在轩](https://niceshare.site/)
 - [晚晴幽草轩](https://www.jeffjade.com/)
+- [倾城之链](https://site.lovejade.cn/)
 - [SegmentFault](https://segmentfault.com/u/jeffjade)
-- [X | MarshalXuan](https://x.com/MarshalXuan)
+- [X MarshalXuan](https://x.com/MarshalXuan)
 
 ## 执照
 
