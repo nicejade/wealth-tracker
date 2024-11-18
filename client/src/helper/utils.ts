@@ -1,13 +1,13 @@
 import dayjs from 'dayjs'
-import { marked, Tokens } from 'marked'
+import { marked } from 'marked'
 import { EventStreamContentType, fetchEventSource } from '@microsoft/fetch-event-source'
 import { LANG_ARR, STORAGE_LANG, DEFAULT_LANG } from './../helper/constant'
 
-const renderer = new marked.Renderer()
+const renderer: any = new marked.Renderer()
 const linkRenderer = renderer.link
-renderer.link = ({ href, title, text }: Tokens.Link) => {
+renderer.link = (href, title, text) => {
   const html = linkRenderer.call(renderer, href, title, text)
-  return html.replace(/^<a /, '<a target="_blank" rel="noopener" ')
+  return html.replace(/^<a /, `<a target="_blank" rel="noopener noreferrer"`)
 }
 
 marked.setOptions({ renderer })
