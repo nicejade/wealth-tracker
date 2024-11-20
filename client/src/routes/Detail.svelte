@@ -24,7 +24,6 @@
 
   $: {
     page = Math.max(parseInt($params.page || page, 10), 1)
-    console.log(`page`, page, $params.page)
     fetchRecords()
   }
 

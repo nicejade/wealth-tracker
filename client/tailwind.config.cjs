@@ -153,13 +153,7 @@ module.exports = {
         '.customized-scrollbar': {
           '-ms-overflow-style': 'thin',
           'scrollbar-width': 'thin',
-          'overscroll-behavior-x': 'none',
           'scrollbar-color': '#B7B8B9 #ffffff',
-          '&::-webkit-scrollbar': {
-            display: 'block',
-            width: '10em',
-            'background-color': '#B7B8B9',
-          },
           '&::-webkit-scrollbar-thumb': {
             'background-color': '#ffffff',
           },
