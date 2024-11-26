@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { calculateDateByOffset } from './utils'
+import { legend } from '../stores'
 
 export const genDonutOptions = (theme = 'light') => {
   let trafficChannelsChartColors = { strokeColor: '#ffffff' }
@@ -107,6 +108,11 @@ export const genAreaOptions = (theme = 'light') => {
       foreColor: mainChartColors.labelColor,
       toolbar: {
         show: false,
+      },
+      events: {
+        legendClick: (chartContext, seriesIndex) => {
+          legend.set({ chartContext, seriesIndex })
+        },
       },
     },
     fill: {

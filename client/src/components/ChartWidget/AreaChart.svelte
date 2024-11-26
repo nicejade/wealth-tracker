@@ -15,7 +15,7 @@
   } from './../../helper/utils'
   import { genAreaOptions } from './../../helper/chart'
   import { DATE_EXTENT_ARR } from './../../helper/constant'
-  import { extent, language } from './../../stores'
+  import { extent, language, legend } from './../../stores'
   import type { ApexOptions } from 'apexcharts'
 
   export let sources = []
@@ -27,6 +27,11 @@
   $: if (sources || $extent) {
     regenAreaOptions(sources)
     computeChangePercent(options.series)
+  }
+
+  $: if ($legend.seriesIndex > -1) {
+    regenAreaOptions(sources)
+    refreshChangePercent($legend.chartContext)
   }
 
   $: dateExtentArr = DATE_EXTENT_ARR.map((item) => ({
@@ -56,6 +61,13 @@
       })
     })
     return series
+  }
+
+  const refreshChangePercent = (chartContext) => {
+    const visibleSeries = chartContext.w.globals.collapsedSeriesIndices
+    const series = options.series.filter((_, index) => !visibleSeries.includes(index))
+
+    computeChangePercent(series)
   }
 
   const computeChangePercent = (series) => {
@@ -91,5 +103,5 @@
       <Change value={stageChangePercent} since="" class="justify-end font-medium" />
     </div>
   </Caption>
-  <Chart {options}></Chart>
+  <Chart {options} />
 </Card>

@@ -14,3 +14,5 @@ export const language = writable('zh')
 export const extent = writable(DATE_EXTENT_ARR[0])
 
 export const period = writable(DATE_PERIOD_ARR[0])
+
+export const legend = writable({ chartContext: {}, seriesIndex: -1 })
