@@ -53,7 +53,7 @@
 
       series.push({
         name: items.type,
-        data: fineTunedArr.map((item) => item.amount || 0),
+        data: fineTunedArr.map((item) => item?.amount || 0),
       })
     })
     return series

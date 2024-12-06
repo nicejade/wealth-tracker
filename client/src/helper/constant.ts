@@ -45,7 +45,7 @@ export const ASSETS_LIQUIDITY_ARR = LIQUIDITY_TYPES.map((value) => ({
 }))
 
 export const DEFAULT_ACCOUNT_ITEM = {
-  type: '',
+  type: Date.now().toString(),
   alias: '',
   currency: 'CNY',
   risk: RISK_TYPES[0],

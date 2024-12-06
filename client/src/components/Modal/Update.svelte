@@ -160,28 +160,15 @@
       <!-- Modal body -->
       <div class="flex flex-col items-center justify-center p-6">
         <div class="module-warp">
-          <label for="update-type" class="custom-label">
+          <label for="update-alias" class="custom-label">
             {$_('type')}
             <i class="text-mark">*</i>
           </label>
           <input
             type="text"
-            id="update-type"
-            disabled={isChange}
-            bind:value={items.type}
-            class="custom-input {isChange ? 'text-grey cursor-not-allowed' : 'cursor-auto'}"
-            placeholder={$_('placeholderOfCategory')}
-            required />
-        </div>
-        <div class="module-warp">
-          <label for="update-alias" class="custom-label">
-            {$_('alias')}
-          </label>
-          <input
-            type="text"
             id="update-alias"
             bind:value={items.alias}
-            class="custom-input cursor-alias"
+            class="custom-input"
             placeholder={$_('placeholderOfAlias')}
             required />
         </div>
