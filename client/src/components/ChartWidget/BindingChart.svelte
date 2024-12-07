@@ -12,6 +12,7 @@
     groupArrayByType,
     sortByDatetime,
     fineTuningArrayLen,
+    computeChangePercent,
   } from './../../helper/utils'
   import { genBindingOptions } from './../../helper/chart'
   import { DATE_PERIOD_ARR } from './../../helper/constant'
@@ -26,7 +27,7 @@
 
   $: if (sources || $period) {
     regenAreaOptions(sources)
-    computeChangePercent(options.series)
+    stageChangePercent = computeChangePercent(options.series)
   }
 
   $: dateExtentArr = DATE_PERIOD_ARR.map((item) => ({
@@ -65,14 +66,6 @@
     return series[0].data.map((_, column) =>
       series.reduce((sum, row) => sum + (row.data[column] || 0), 0),
     )
-  }
-
-  const computeChangePercent = (series) => {
-    const lastSeries = series.map((item) => item.data).map((item) => item[item.length - 1])
-    const firstSeries = series.map((item) => item.data).map((item) => item[0])
-    const lastSeriesSum = lastSeries.reduce((acc, cur) => acc + cur, 0)
-    const firstSeriesSum = firstSeries.reduce((acc, cur) => acc + cur, 0)
-    stageChangePercent = ((lastSeriesSum - firstSeriesSum) / firstSeriesSum) * 100
   }
 
   const regenAreaOptions = (wealthArr) => {

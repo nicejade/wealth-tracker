@@ -12,6 +12,7 @@
     groupArrayByType,
     sortByDatetime,
     fineTuningArrayLen,
+    computeChangePercent,
   } from './../../helper/utils'
   import { genAreaOptions } from './../../helper/chart'
   import { DATE_EXTENT_ARR } from './../../helper/constant'
@@ -26,7 +27,7 @@
 
   $: if (sources || $extent) {
     regenAreaOptions(sources)
-    computeChangePercent(options.series)
+    stageChangePercent = computeChangePercent(options.series)
   }
 
   $: if ($legend.seriesIndex > -1) {
@@ -67,15 +68,7 @@
     const visibleSeries = chartContext.w.globals.collapsedSeriesIndices
     const series = options.series.filter((_, index) => !visibleSeries.includes(index))
 
-    computeChangePercent(series)
-  }
-
-  const computeChangePercent = (series) => {
-    const lastSeries = series.map((item) => item.data).map((item) => item[item.length - 1])
-    const firstSeries = series.map((item) => item.data).map((item) => item[0])
-    const lastSeriesSum = lastSeries.reduce((acc, cur) => acc + cur, 0)
-    const firstSeriesSum = firstSeries.reduce((acc, cur) => acc + cur, 0)
-    stageChangePercent = ((lastSeriesSum - firstSeriesSum) / firstSeriesSum) * 100
+    stageChangePercent = computeChangePercent(series)
   }
 
   const regenAreaOptions = (assetsArr) => {

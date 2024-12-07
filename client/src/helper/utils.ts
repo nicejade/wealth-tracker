@@ -129,6 +129,23 @@ export const fineTuningArrayLen = (sources) => {
   })
 }
 
+export const computeChangePercent = (series) => {
+  const lastSeries = series.map((item) => item.data).map((item) => item[item.length - 1])
+  const lastSeriesSum = lastSeries.reduce((acc, cur) => acc + cur, 0)
+
+  // Find first non-zero sum by checking each time point
+  let firstSeriesSum = 0
+  let itemIndex = 0
+  const DATA_LENGTH = series[0].data.length
+  while (firstSeriesSum === 0 && itemIndex < DATA_LENGTH) {
+    firstSeriesSum = series.reduce((acc, cur) => acc + (cur.data[itemIndex] || 0), 0)
+    itemIndex++
+  }
+
+  // If all values are zero, set percentage to 0 to avoid division by zero
+  return firstSeriesSum === 0 ? 0 : ((lastSeriesSum - firstSeriesSum) / firstSeriesSum) * 100
+}
+
 /**
  * 根据索引和偏移天数计算日期
  * @param reverseIndex 反向索引（最近的日期索引最大）
