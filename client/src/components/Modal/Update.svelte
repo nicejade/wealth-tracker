@@ -146,14 +146,14 @@
       <!-- Modal header -->
       <div class="flex items-center justify-between rounded-t border-b p-5">
         <h3 class="flex items-center text-lg font-medium text-gray-900 md:text-base">
-          <SvgIcon name="adjustment" width={30} height={30} color="#1e293b" />
+          <SvgIcon name="adjustment" width={20} height={20} color="#1e293b" />
           {isChange ? $_('updateAssetRecords') : $_('newAssetAccount')}
         </h3>
         <button
           type="button"
           on:click={closeModal}
           class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900">
-          <SvgIcon name="close" width={30} height={30} />
+          <SvgIcon name="close" width={20} height={20} />
           <span class="sr-only">Close modal</span>
         </button>
       </div>

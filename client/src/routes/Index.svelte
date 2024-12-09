@@ -139,15 +139,18 @@
     on:close={handleUpdateClose} />
 {/if}
 
-<Modal bind:open={isShowComfirmModal} size="sm" autoclose={false}>
+<Modal bind:open={isShowComfirmModal} size="sm" autoclose>
   <div class="text-center">
     <div class="my-4">
-      <SvgIcon name="warning" width={30} height={30} color="#f59e0b" />
+      <SvgIcon name="warning" width={30} height={30} color="#ff4582" />
     </div>
-    <h3 class="text-grey mb-5 text-lg font-normal">
+    <h3 class="text-warn mb-5 text-lg font-normal">
       {$_('destroyAccountConfirmation')}
     </h3>
-    <Button color="red" class="me-6 focus:ring-0" on:click={handleComfirm}>
+    <Button
+      color="alternative"
+      class="border-mark text-mark me-6 focus:ring-0"
+      on:click={handleComfirm}>
       {$_('confirm')}
     </Button>
     <Button color="alternative" class="focus:ring-0" on:click={handleCancel}>
@@ -156,15 +159,18 @@
   </div>
 </Modal>
 
-<Modal bind:open={isShowResetModal} size="sm" autoclose={false}>
+<Modal bind:open={isShowResetModal} size="sm" autoclose>
   <div class="text-center">
     <div class="my-4">
       <SvgIcon name="warning" width={30} height={30} color="#c81e1d" />
     </div>
-    <h3 class="text-grey mb-5 text-lg font-normal">
+    <h3 class="text-warn mb-5 text-lg font-normal">
       {$_('resetDatabaseConfirmation')}
     </h3>
-    <Button color="red" class="me-6 focus:ring-0" on:click={handleResetComfirm}>
+    <Button
+      color="alternative"
+      class="border-mark text-mark me-6 focus:ring-0"
+      on:click={handleResetComfirm}>
       {$_('confirm')}
     </Button>
     <Button color="alternative" class="focus:ring-0" on:click={handleResetCancel}>
