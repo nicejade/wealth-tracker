@@ -209,7 +209,9 @@ export const genAreaOptions = (theme = 'light') => {
         options: {
           xaxis: {
             labels: {
-              show: false,
+              show: true,
+              rotate: -21,
+              rotateAlways: true,
             },
           },
         },
