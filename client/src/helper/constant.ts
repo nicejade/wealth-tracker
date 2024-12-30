@@ -63,7 +63,7 @@ export const SOCIAL_LINKS = [
   },
   {
     href: 'https://quickapp.lovejade.cn/',
-    title: 'Blogger',
+    title: '静轩之别苑',
     icon: 'blogger',
   },
   {
@@ -73,8 +73,13 @@ export const SOCIAL_LINKS = [
   },
   {
     href: 'https://www.niceshare.site/',
-    title: 'Home Page',
+    title: '逍遥自在轩',
     icon: 'homepage',
+  },
+  {
+    href: 'https://www.thebettersites.com/',
+    title: '清风明月轩',
+    icon: 'thebettersites',
   },
   {
     href: 'https://github.com/nicejade/',
