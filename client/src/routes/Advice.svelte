@@ -94,8 +94,11 @@
         if (loading) loading = false
         if (res.stream) {
           advice += res.stream
-          scrollChatToBottom()
+        } else if (res.error) {
+          advice += res.error
+          alert.set(res.error)
         }
+        scrollChatToBottom()
       },
       onFinish: () => {
         loading = false

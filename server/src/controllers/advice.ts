@@ -45,10 +45,10 @@ const callOpenAI = async (openai: OpenAI, prompt: string, model: string) => {
     })
 
     console.log(`generateAdvice - stream created successfully`)
-    return stream
-  } catch (error) {
-    console.error(`generateAdvice - OpenAI API error:`, error)
-    throw error
+    return { success: true, stream }
+  } catch (error: any) {
+    console.log(`generateAdvice - OpenAI API error:`, error)
+    return { success: false, error: error?.message }
   }
 }
 
@@ -84,14 +84,21 @@ export const generateAdvice = async (request, reply) => {
     console.log(`AI config:`, config)
 
     const openai = new OpenAI(config)
-    const stream = await callOpenAI(openai, prompt, model)
-    for await (const chunk of stream) {
-      const content = chunk.choices[0]?.delta?.content || ''
-      if (content) {
-        const message = `data: ${JSON.stringify({ stream: content })}\n\n`
-        reply.raw.write(message)
+    const result = await callOpenAI(openai, prompt, model)
+
+    if (result.success && result.stream) {
+      for await (const chunk of result.stream) {
+        const content = chunk.choices[0]?.delta?.content || ''
+        if (content) {
+          const message = `data: ${JSON.stringify({ stream: content })}\n\n`
+          reply.raw.write(message)
+        }
       }
+    } else {
+      const errorMessage = `data: ${JSON.stringify({ error: result?.error })}\n\n`
+      reply.raw.write(errorMessage)
     }
+
     reply.raw.write('data: [DONE]\n\n')
     reply.raw.end()
   } catch (error: any) {

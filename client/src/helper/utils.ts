@@ -230,6 +230,7 @@ export const genAdviceWithStream = (params, options) => {
       try {
         options.onUpdate(JSON.parse(msg.data))
       } catch (err) {
+        console.log(`[@genAdviceWithStream] Error ${err.message}`)
         options?.onError({
           statusCode: 400,
           message: 'Failed to parse server response',
