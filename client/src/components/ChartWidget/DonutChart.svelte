@@ -46,7 +46,7 @@
   <Caption title={$_('assetAllocation')} subtitle={$_('currentAssetStatus')}></Caption>
   <Chart {options}></Chart>
   <div class="my-6 flex flex-wrap items-center justify-start pt-4 sm:pt-6 lg:justify-evenly">
-    {#each percentages as item (item.name)}
+    {#each percentages as item}
       <SmallPanel title={item.name} subtitle={`${item.value}%`} />
     {/each}
   </div>

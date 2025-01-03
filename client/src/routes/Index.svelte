@@ -54,6 +54,7 @@
 
   const handleAdd = () => {
     currentAssetItem = DEFAULT_ACCOUNT_ITEM
+    currentAssetItem.type = Date.now().toString()
     updateActionType = ACTION_TYPES.create
     isShowUpdateModal = true
   }
@@ -165,7 +166,7 @@
       <SvgIcon name="warning" width={30} height={30} color="#c81e1d" />
     </div>
     <h3 class="text-warn mb-5 text-lg font-normal">
-      {$_('resetDatabaseConfirmation')}
+      {$_('resetDatabaseConfirmation')}11
     </h3>
     <Button
       color="alternative"
