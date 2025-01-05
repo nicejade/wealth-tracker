@@ -55,9 +55,9 @@
         }
       })
       const fineTunedArr = fineTuningArrayLen(targetExtentArr)
-      const { alias } = items.array.at(-1)
+      const { alias, type } = items.array.at(-1)
       series.push({
-        name: alias,
+        name: alias || type,
         data: fineTunedArr.map((item) => item.amount || 0),
       })
     })

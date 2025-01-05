@@ -22,7 +22,7 @@
     let labels = []
     let series = []
     sources.forEach((item) => {
-      labels.push(item.alias)
+      labels.push(item.alias || item.type)
       series.push((item.amount / totalSumNum) * 100)
     })
     options.labels = labels
