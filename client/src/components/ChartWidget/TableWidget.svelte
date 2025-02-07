@@ -68,7 +68,7 @@
 
 <Card
   size="xl"
-  class="hide-scrollbar w-full max-w-none overflow-x-scroll shadow-none 2xl:col-span-2">
+  class="hide-scrollbar w-full  max-w-none overflow-x-scroll shadow-none md:p-4 2xl:col-span-2">
   <div class="mb-2 flex justify-between">
     <Caption title={$_('recordAssets')}></Caption>
     <a href="/detail" class="regular-btn hover:text-brand text-center text-sm">
@@ -82,7 +82,9 @@
       <TableHeadCell>{$_('currency')}</TableHeadCell>
       <TableHeadCell>
         <Button class="border-none focus:ring-0" size="sm" outline on:click={onAddClick}>
-          <span class="text-mark hover:text-brand whitespace-nowrap">{$_('addition')}</span>
+          <span class="text-mark hover:text-brand animate-bounce whitespace-nowrap font-bold">
+            {$_('addition')}
+          </span>
         </Button>
       </TableHeadCell>
       <TableBodyCell><span class="px-4 py-2">{$_('action')}</span></TableBodyCell>

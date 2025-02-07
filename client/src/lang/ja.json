@@ -56,5 +56,5 @@
   "financialAdvice": "財務アドバイス",
   "financialAdviceDetails": "AIによる財務アドバイスを提供",
   "assetAllocationAdvice": "AI が資産配分のアドバイスを生成しました",
-  "genAssetAdviceTip": "AI 設定（[OpenAI](https://openai.com/)、[xAI](https://x.ai/)、[零一万物](https://www.lingyiwanwu.com/)、[Moonshot AI](https://www.moonshot.cn/) などのプロバイダーをサポート）を行った後、**プロンプト**に基づいて資産配分の推奨事項を生成します。これらの提案を参考にして、資産配分を最適化できます。もちろん、プロンプトを変更したり、他のAIサービスに助言を求めるためにコピーしたりすることもできます。"
+  "genAssetAdviceTip": "AI 設定（[OpenAI](https://openai.com/)、[xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[Moonshot AI](https://www.moonshot.cn/) などのプロバイダーをサポート）を行った後、**プロンプト**に基づいて資産配分の推奨事項を生成します。これらの提案を参考にして、資産配分を最適化できます。もちろん、プロンプトを変更したり、他のAIサービスに助言を求めるためにコピーしたりすることもできます。"
 }

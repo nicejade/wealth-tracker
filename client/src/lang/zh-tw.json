@@ -56,5 +56,5 @@
   "financialAdvice": "財務建議",
   "financialAdviceDetails": "由 AI 為您提供財務建議",
   "assetAllocationAdvice": "AI 成功生成資產配置建議",
-  "genAssetAdviceTip": "在 AI（支援 [OpenAI](https://openai.com/)、[xAI](https://x.ai/)、[零一万物](https://www.lingyiwanwu.com/)、[月之暗面](https://www.moonshot.cn/)等服務商）設定後，根據上面的**提示詞**，生成您的資產配置建議；您可以參考這些建議來優化您的資產配置。當然，您也可以對提示詞進行修改，或者複製它，交由其他 AI 服務為您提供建議。"
+  "genAssetAdviceTip": "在 AI（支援 [OpenAI](https://openai.com/)、[xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[月之暗面](https://www.moonshot.cn/)等服務商）設定後，根據上面的**提示詞**，生成您的資產配置建議；您可以參考這些建議來優化您的資產配置。當然，您也可以對提示詞進行修改，或者複製它，交由其他 AI 服務為您提供建議。"
 }
