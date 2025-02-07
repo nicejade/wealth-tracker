@@ -1,7 +1,7 @@
 {
   "name": "server",
   "description": "生财有迹（Wealth Tracker），服务端代码实现。",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "author": "nicejade",
   "main": "index.ts",
   "scripts": {
