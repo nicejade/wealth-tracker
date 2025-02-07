@@ -10,6 +10,7 @@
     TableBodyRow,
     TableHead,
     TableHeadCell,
+    Tooltip,
   } from 'flowbite-svelte'
   import { _ } from 'svelte-i18n'
   import Caption from './Caption.svelte'
@@ -46,6 +47,7 @@
         <TableHeadCell>{$_('updateDate')}</TableHeadCell>
         <TableHeadCell>{$_('modifyRecord')}</TableHeadCell>
         <TableHeadCell>{$_('destroyRecord')}</TableHeadCell>
+        <TableHeadCell>{$_('remark')}</TableHeadCell>
       </TableHead>
       <TableBody tableBodyClass="py-4">
         {#each options as item, index (item.id)}
@@ -78,6 +80,12 @@
                 }}>
                 {$_('destroy')}
               </Button>
+            </TableBodyCell>
+            <TableBodyCell>
+              <Button size="sm" outline class="hover:text-brand focus:ring-0">
+                {$_('remark')}
+              </Button>
+              <Tooltip type="light" placement="left">{item.note || ''}</Tooltip>
             </TableBodyCell>
           </TableBodyRow>
         {/each}
