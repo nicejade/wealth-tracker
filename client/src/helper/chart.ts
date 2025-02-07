@@ -267,5 +267,11 @@ export const genBindingOptions = (offsetDays: number) => {
         color: '#f8d826',
       },
     ],
+    yaxis: {
+      labels: {
+        // 确保 Y 轴刻度为整数
+        formatter: (value) => Math.round(value),
+      },
+    },
   }
 }

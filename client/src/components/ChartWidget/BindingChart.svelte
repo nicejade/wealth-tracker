@@ -16,7 +16,7 @@
   } from './../../helper/utils'
   import { genBindingOptions } from './../../helper/chart'
   import { DATE_PERIOD_ARR } from './../../helper/constant'
-  import { period, language, theme } from './../../stores'
+  import { period, language } from './../../stores'
   import type { ApexOptions } from 'apexcharts'
 
   export let sources = []
