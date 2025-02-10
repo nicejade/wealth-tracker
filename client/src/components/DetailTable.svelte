@@ -82,10 +82,12 @@
               </Button>
             </TableBodyCell>
             <TableBodyCell>
-              <Button size="sm" outline class="hover:text-brand focus:ring-0">
+              <Button size="sm" disabled={!item.note} outline class="hover:text-brand focus:ring-0">
                 {$_('remark')}
               </Button>
-              <Tooltip type="light" placement="left">{item.note || ''}</Tooltip>
+              {#if item.note}
+                <Tooltip type="light" placement="left">{item.note}</Tooltip>
+              {/if}
             </TableBodyCell>
           </TableBodyRow>
         {/each}

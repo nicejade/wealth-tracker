@@ -81,7 +81,11 @@
       <TableHeadCell>{$_('amount')}</TableHeadCell>
       <TableHeadCell>{$_('currency')}</TableHeadCell>
       <TableHeadCell>
-        <Button class="border-none focus:ring-0" size="sm" outline on:click={onAddClick}>
+        <Button
+          class="decoration-brand decoration-3 border-none underline decoration-wavy underline-offset-4 focus:ring-0"
+          size="sm"
+          outline
+          on:click={onAddClick}>
           <span class="text-mark hover:text-brand animate-bounce whitespace-nowrap font-bold">
             {$_('addition')}
           </span>
