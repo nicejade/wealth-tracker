@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://niceshare.site/" target="_blank">
+  <a href="https://www.niceshare.site/" target="_blank">
     <img width="120"
     src="https://lovejade.oss-cn-shenzhen.aliyuncs.com/wealth-tracker-logo.png">
   </a>
@@ -34,7 +34,7 @@
       alt="Gitmoji"
     />
   </a>
-  <a href="https://niceshare.site/">
+  <a href="https://www.niceshare.site/">
     <img src="https://img.shields.io/badge/author-nicejade-%23a696c8.svg" alt="Author nicejade">
   </a>
 </div>
@@ -196,8 +196,10 @@ cd server && npm start
 
 ## 相关链接
 
-- [逍遥自在轩](https://niceshare.site/)
+- [清风明月轩](https://www.thebettersites.com/)
+- [逍遥自在轩](https://www.niceshare.site/)
 - [晚晴幽草轩](https://www.jeffjade.com/)
+- [缘知随心庭](https://fine.niceshare.site/)
 - [倾城之链](https://site.lovejade.cn/)
 - [SegmentFault](https://segmentfault.com/u/jeffjade)
 - [X MarshalXuan](https://x.com/MarshalXuan)
