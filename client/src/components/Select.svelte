@@ -43,7 +43,7 @@
   <Listbox bind:value={selectedItem} let:open class={listboxClass}>
     <div class="relative">
       <ListboxButton
-        class="relative h-10 w-full cursor-pointer rounded-lg border border-solid bg-white pl-3 pr-10 text-left hover:bg-gray-100 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm dark:hover:bg-gray-900">
+        class="relative h-10 w-full cursor-pointer rounded-lg border border-solid bg-white pl-3 pr-10 text-left hover:bg-gray-100 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
         <span class="block truncate">{selectedItem.name}</span>
         <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
           <SvgIcon name="selector" width={20} height={20} />
@@ -59,7 +59,7 @@
           leaveTo="transform scale-95 opacity-0">
           <ListboxOptions
             static
-            style="z-index: 100"
+            style="z-index: 49"
             class="absolute mt-2 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base
             shadow ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {#each options as item (item.name)}

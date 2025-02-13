@@ -6,6 +6,7 @@
   import { Button, Modal } from 'flowbite-svelte'
   import Header from '../components/Header.svelte'
   import Footer from '../components/Footer.svelte'
+  import OperatingArea from '../components/OperatingArea.svelte'
   import TableWidget from '../components/ChartWidget/TableWidget.svelte'
   import AreaChart from '../components/ChartWidget/AreaChart.svelte'
   import DonutChart from '../components/ChartWidget/DonutChart.svelte'
@@ -15,6 +16,8 @@
   import { getAssets, destroyAssets, getRecords, resetDatabase } from '../helper/apis'
   import { ACTION_TYPES, DEFAULT_ACCOUNT_ITEM } from './../helper/constant'
   import type { AssetsItem, RecordsItem } from '../typings'
+  import { convertCurrency, deepClone } from '../helper/utils'
+  import { exchangeRates, targetCurrencyCode } from '../stores'
 
   let rawAssetsArr = []
   let rawRecordsArr = []
@@ -25,6 +28,15 @@
   let isShowResetModal: boolean = false
   let isShowChart: boolean = false
   let typeToBeDestroyed: string = ''
+  let convertedAssetsArr = []
+
+  // 添加响应式声明，当原始数据或货币相关 store 变化时更新转换后的数组
+  $: if (rawRecordsArr.length > 0 && $targetCurrencyCode) {
+    convertedAssetsArr = rawRecordsArr.map((item) => ({
+      ...item,
+      amount: convertCurrency(item.amount, item.currency, $targetCurrencyCode, $exchangeRates),
+    }))
+  }
 
   onMount(() => {
     fetchDatabase()
@@ -53,7 +65,7 @@
   }
 
   const handleAdd = () => {
-    currentAssetItem = DEFAULT_ACCOUNT_ITEM
+    currentAssetItem = deepClone(DEFAULT_ACCOUNT_ITEM)
     currentAssetItem.type = Date.now().toString()
     updateActionType = ACTION_TYPES.create
     isShowUpdateModal = true
@@ -115,9 +127,9 @@
 <Header />
 
 <div class="flex w-full flex-col items-center justify-center space-y-8">
+  <OperatingArea on:add={handleAdd} />
   <TableWidget
     options={rawAssetsArr}
-    on:add={handleAdd}
     on:update={handleUpate}
     on:destroy={handleDestroy}
     on:reset={handleReset} />
@@ -127,8 +139,8 @@
 
   {#if isShowChart && rawAssetsArr.length}
     <DonutChart sources={rawAssetsArr}></DonutChart>
-    <AreaChart sources={rawRecordsArr}></AreaChart>
-    <BindingChart sources={rawRecordsArr}></BindingChart>
+    <AreaChart sources={convertedAssetsArr}></AreaChart>
+    <BindingChart sources={convertedAssetsArr}></BindingChart>
   {/if}
 </div>
 
@@ -140,7 +152,7 @@
     on:close={handleUpdateClose} />
 {/if}
 
-<Modal bind:open={isShowComfirmModal} size="sm" autoclose>
+<Modal bind:open={isShowComfirmModal} size="sm" outsideclose>
   <div class="text-center">
     <div class="my-4">
       <SvgIcon name="warning" width={30} height={30} color="#ff4582" />
@@ -149,33 +161,43 @@
       {$_('destroyAccountConfirmation')}
     </h3>
     <Button
-      color="alternative"
-      class="border-mark text-mark me-6 focus:ring-0"
+      type="button"
+      outline
+      class="regular-btn !border-mark !text-mark hover:text-mark me-6 rounded-full focus:ring-0"
       on:click={handleComfirm}>
       {$_('confirm')}
     </Button>
-    <Button color="alternative" class="focus:ring-0" on:click={handleCancel}>
+    <Button
+      type="button"
+      outline
+      class="regular-btn rounded-full hover:text-black focus:ring-0"
+      on:click={handleCancel}>
       {$_('cancel')}
     </Button>
   </div>
 </Modal>
 
-<Modal bind:open={isShowResetModal} size="sm" autoclose>
+<Modal bind:open={isShowResetModal} size="sm" outsideclose>
   <div class="text-center">
     <div class="my-4">
-      <SvgIcon name="warning" width={30} height={30} color="#c81e1d" />
+      <SvgIcon name="warning" width={30} height={30} color="#ff4582" />
     </div>
     <h3 class="text-warn mb-5 text-lg font-normal">
-      {$_('resetDatabaseConfirmation')}11
+      {$_('resetDatabaseConfirmation')}
     </h3>
     <Button
-      color="alternative"
-      class="border-mark text-mark me-6 focus:ring-0"
+      type="button"
+      outline
+      class="regular-btn !border-mark !text-mark hover:text-mark me-6 rounded-full focus:ring-0"
       on:click={handleResetComfirm}>
       {$_('confirm')}
     </Button>
-    <Button color="alternative" class="focus:ring-0" on:click={handleResetCancel}>
-      {$_('cancel')}
+    <Button
+      type="button"
+      outline
+      class="regular-btn rounded-full hover:text-black focus:ring-0"
+      on:click={handleResetCancel}>
+      <span>{$_('cancel')}</span>
     </Button>
   </div>
 </Modal>

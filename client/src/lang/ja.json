@@ -1,5 +1,6 @@
 {
   "addition": "追加",
+  "setting": "設定",
   "update": "更新",
   "reset": "リセット",
   "action": "操作",
@@ -56,5 +57,20 @@
   "financialAdvice": "財務アドバイス",
   "financialAdviceDetails": "AIによる財務アドバイスを提供",
   "assetAllocationAdvice": "AI が資産配分のアドバイスを生成しました",
-  "genAssetAdviceTip": "AI 設定（[OpenAI](https://openai.com/)、[xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[Moonshot AI](https://www.moonshot.cn/) などのプロバイダーをサポート）を行った後、**プロンプト**に基づいて資産配分の推奨事項を生成します。これらの提案を参考にして、資産配分を最適化できます。もちろん、プロンプトを変更したり、他のAIサービスに助言を求めるためにコピーしたりすることもできます。"
+  "genAssetAdviceTip": "AI 設定（[OpenAI](https://openai.com/)、[xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[Moonshot AI](https://www.moonshot.cn/) などのプロバイダーをサポート）を行った後、**プロンプト**に基づいて資産配分の推奨事項を生成します。これらの提案を参考にして、資産配分を最適化できます。もちろん、プロンプトを変更したり、他のAIサービスに助言を求めるためにコピーしたりすることもできます。",
+  "validRateApiTip": "APIキーは24桁の数字と文字の組み合わせでなければなりません",
+  "currencys": {
+    "CNY": "中国人民元",
+    "USD": "米ドル",
+    "HKD": "香港ドル",
+    "EUR": "ユーロ",
+    "JPY": "日本円",
+    "GBP": "英ポンド",
+    "TWD": "新台湾ドル",
+    "KRW": "韓国ウォン",
+    "AUD": "豪ドル",
+    "CAD": "カナダドル",
+    "SGD": "シンガポールドル",
+    "CHF": "スイスフラン"
+  }
 }

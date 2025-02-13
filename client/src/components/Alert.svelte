@@ -32,7 +32,8 @@
       <SvgIcon name="info" color="#ff4582" />
     </div>
     <span class="sr-only">Info</span>
-    <div class="ml-3 max-w-xl overflow-hidden text-ellipsis text-base md:max-w-xs md:text-sm">
+    <div
+      class="text-mark ml-3 max-w-xl overflow-hidden text-ellipsis text-base md:max-w-xs md:text-sm">
       {$alert}
     </div>
     <button

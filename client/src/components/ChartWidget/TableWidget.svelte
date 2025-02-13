@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from 'svelte'
+  import { onMount, createEventDispatcher } from 'svelte'
   import {
     Button,
     Card,
@@ -13,13 +13,40 @@
   import { _ } from 'svelte-i18n'
   import Caption from '../Caption.svelte'
   import confetti from 'canvas-confetti'
-  import { randomInRange } from './../../helper/utils'
+  import { randomInRange, fetchExchangeRates, convertCurrency } from './../../helper/utils'
+  import { exchangeRates, language, targetCurrencyCode, targetCurrencyName } from '../../stores'
+  import { SUPPORTED_CURRENCIES } from './../../helper/constant'
+
+  $: if ($targetCurrencyCode || $language) {
+    targetCurrencyName.set($_(`currencys.${$targetCurrencyCode}`) || $targetCurrencyCode)
+  }
+
+  const getCurrencyName = (code) => {
+    const currency = SUPPORTED_CURRENCIES.find((item) => item.value === code)
+    return currency ? $_(`currencys.${currency.value}`, { locale: $language }) : code
+  }
 
   export let options = []
   let totalWealth = 0
+
+  // 计算转换后的总资产
+  $: totalWealth = options
+    .reduce((sum, item) => {
+      const convertedAmount = convertCurrency(
+        item.amount,
+        item.currency,
+        $targetCurrencyCode,
+        $exchangeRates,
+      )
+      return sum + convertedAmount
+    }, 0)
+    .toFixed(2)
+
   const dispatch = createEventDispatcher()
 
-  $: totalWealth = options.reduce((sum, item) => sum + item.amount, 0).toFixed(2)
+  onMount(() => {
+    fetchExchangeRates()
+  })
 
   const fireConfetti = (opts) => {
     const scalar = randomInRange(1.1, 2)
@@ -50,10 +77,6 @@
     dispatch('destroy', elem)
   }
 
-  const onAddClick = (elem) => {
-    dispatch('add', elem)
-  }
-
   const onPersistClick = () => {
     fireConfetti({ spread: 30, startVelocity: 60, decay: 0.9 })
     fireConfetti({ spread: 60, startVelocity: 30, decay: 0.91 })
@@ -80,17 +103,7 @@
       <TableHeadCell>{$_('type')}</TableHeadCell>
       <TableHeadCell>{$_('amount')}</TableHeadCell>
       <TableHeadCell>{$_('currency')}</TableHeadCell>
-      <TableHeadCell>
-        <Button
-          class="decoration-brand decoration-3 border-none underline decoration-wavy underline-offset-4 focus:ring-0"
-          size="sm"
-          outline
-          on:click={onAddClick}>
-          <span class="text-mark hover:text-brand animate-bounce whitespace-nowrap font-bold">
-            {$_('addition')}
-          </span>
-        </Button>
-      </TableHeadCell>
+      <TableBodyCell><span class="px-4 py-2">{$_('action')}</span></TableBodyCell>
       <TableBodyCell><span class="px-4 py-2">{$_('action')}</span></TableBodyCell>
     </TableHead>
     <TableBody tableBodyClass="py-4">
@@ -98,7 +111,7 @@
         <TableBodyRow>
           <TableBodyCell>{item.alias || item.type}</TableBodyCell>
           <TableBodyCell>{item.amount}</TableBodyCell>
-          <TableBodyCell>{item.currency}</TableBodyCell>
+          <TableBodyCell>{getCurrencyName(item.currency) + ($language ? '' : '')}</TableBodyCell>
           <TableBodyCell>
             <Button
               size="sm"
@@ -126,17 +139,21 @@
       <TableBodyRow>
         <TableBodyCell><strong>{$_('total')}</strong></TableBodyCell>
         <TableBodyCell>
-          <strong class="text-brand">{totalWealth}</strong>
+          <strong class="text-brand font-bold">{totalWealth}</strong>
         </TableBodyCell>
-        <TableBodyCell>CNY</TableBodyCell>
+        <TableBodyCell>
+          <strong class="text-brand font-bold">
+            {$targetCurrencyName}
+          </strong>
+        </TableBodyCell>
         <TableBodyCell>
           <Button size="sm" outline class="border-none focus:ring-0" on:click={onPersistClick}>
-            <span class="text-mark hover:text-brand">{$_('persist')}</span>
+            <span class="text-mark hover:text-brand font-bold">{$_('persist')}</span>
           </Button>
         </TableBodyCell>
         <TableBodyCell>
           <Button size="sm" outline class="border-none focus:ring-0" on:click={onResetClick}>
-            <span class="text-mark hover:text-brand">{$_('reset')}</span>
+            <span class="text-mark hover:text-brand font-bold">{$_('reset')}</span>
           </Button>
         </TableBodyCell>
       </TableBodyRow>

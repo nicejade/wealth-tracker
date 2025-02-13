@@ -12,8 +12,10 @@
     ASSETS_RISK_ARR,
     ASSETS_LIQUIDITY_ARR,
     DEFAULT_ACCOUNT_ITEM,
+    SUPPORTED_CURRENCIES,
   } from './../../helper/constant'
-  import { alert } from './../../stores'
+  import { alert, language } from './../../stores'
+  import { deepClone } from './../../helper/utils'
   import type { ModalOptions } from 'flowbite'
 
   dayjs.extend(isSameOrBefore)
@@ -24,9 +26,22 @@
   let datetimeError = ''
   let isUpdate = false
   let isChange = false
+  let supportedCurrencys: Currencys[] = SUPPORTED_CURRENCIES
 
   export let action = ''
-  export let items = DEFAULT_ACCOUNT_ITEM
+  export let items = deepClone(DEFAULT_ACCOUNT_ITEM)
+
+  type Currencys = {
+    name?: string
+    value: string
+  }
+
+  $: if ($language) {
+    supportedCurrencys = SUPPORTED_CURRENCIES.map((item) => ({
+      name: $_(`currencys.${item.value}`) || '',
+      value: item.value,
+    }))
+  }
 
   $: isUpdate = action === ACTION_TYPES.update
 
@@ -83,6 +98,10 @@
     return risk === 'LOW' ? 0 : items.risk === 'MEDIUM' ? 1 : 2
   }
 
+  const genCurrencyActive = (currency) => {
+    return SUPPORTED_CURRENCIES.findIndex((item) => item.value === currency)
+  }
+
   const genLiquidityActive = (liquidity) => {
     return liquidity === 'GOOD' ? 0 : items.risk === 'MEDIUM' ? 1 : 2
   }
@@ -115,7 +134,7 @@
   }
 
   const onConfirmClick = () => {
-    if (!items.type.trim()) {
+    if (!items.alias.trim()) {
       alert.set($_('fillAccountTypeTip'))
       return
     }
@@ -129,6 +148,10 @@
 
   const handleRiskSelect = (event) => {
     items.risk = event.detail.value
+  }
+
+  const handleCurrencySelect = (event) => {
+    items.currency = event.detail.value
   }
 
   const handleLiquiditySelect = (event) => {
@@ -176,14 +199,13 @@
           <label for="update-currency" class="custom-label">
             {$_('currency')}
           </label>
-          <input
-            type="text"
-            id="update-currency"
-            disabled={isChange}
-            bind:value={items.currency}
-            class="custom-input"
-            placeholder={$_('placeholderOfCurrency')}
-            required />
+          <div class="w-full">
+            <CustomSelect
+              options={supportedCurrencys}
+              active={genCurrencyActive(items.currency)}
+              listboxClass="w-full"
+              on:selected={handleCurrencySelect} />
+          </div>
         </div>
         <div class="module-warp">
           <label for="update-currency" class="custom-label">

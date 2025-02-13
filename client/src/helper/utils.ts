@@ -1,7 +1,15 @@
 import dayjs from 'dayjs'
 import { marked } from 'marked'
 import { EventStreamContentType, fetchEventSource } from '@microsoft/fetch-event-source'
-import { LANG_ARR, STORAGE_LANG, DEFAULT_LANG } from './../helper/constant'
+import {
+  LANG_ARR,
+  STORAGE_LANG,
+  DEFAULT_LANG,
+  DEFAULT_EXCHANGE_RATE,
+  EXCHANGE_RATE_API_KEY,
+  TARGET_CURRENCY,
+} from './../helper/constant'
+import { exchangeRates } from './../stores'
 
 const renderer: any = new marked.Renderer()
 const linkRenderer = renderer.link
@@ -251,4 +259,79 @@ export const genAdviceWithStream = (params, options) => {
 
     openWhenHidden: true,
   })
+}
+
+/* 获取实时汇率数据 这里使用 ExchangeRate-API
+  你需要注册一个 API key: https://www.exchangerate-api.com/
+*/
+const EXCHANGE_RATE_CACHE_KEY = 'exchange-rate-cache'
+
+const getCachedRates = (base: string) => {
+  const cached = sessionStorage.getItem(EXCHANGE_RATE_CACHE_KEY)
+  if (!cached) return null
+
+  const CACHE_EXPIRY_TIME = 12 * 60 * 60 * 1000
+  const { rates, timestamp, cacheBase } = JSON.parse(cached)
+  const isExpired = Date.now() - timestamp > CACHE_EXPIRY_TIME
+  return !isExpired && cacheBase === base ? rates : null
+}
+
+const cacheRates = (rates: any, base: string) => {
+  sessionStorage.setItem(
+    EXCHANGE_RATE_CACHE_KEY,
+    JSON.stringify({
+      rates,
+      timestamp: Date.now(),
+      cacheBase: base,
+    }),
+  )
+}
+
+export const getStoredCurrency = () => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem(TARGET_CURRENCY) || 'CNY'
+  }
+  return 'CNY'
+}
+
+export const setStoredCurrency = (currency: string = 'CNY') => {
+  return localStorage.setItem(TARGET_CURRENCY, currency)
+}
+
+const fetchLatestRates = async (rateApiKey: string, base: string) => {
+  const response = await fetch(`https://v6.exchangerate-api.com/v6/${rateApiKey}/latest/${base}`)
+  const data = await response.json()
+  return data.conversion_rates
+}
+
+export async function fetchExchangeRates(base = 'CNY') {
+  try {
+    const cachedRates = getCachedRates(base)
+    if (cachedRates) {
+      exchangeRates.set(cachedRates)
+      return
+    }
+
+    const rateApiKey = localStorage.getItem(EXCHANGE_RATE_API_KEY)
+    if (!rateApiKey) {
+      exchangeRates.set(DEFAULT_EXCHANGE_RATE.conversion_rates)
+      return
+    }
+
+    const rates = await fetchLatestRates(rateApiKey, base)
+    cacheRates(rates, base)
+    exchangeRates.set(rates)
+  } catch (error) {
+    console.error('Failed to fetch exchange rates:', error)
+    exchangeRates.set(DEFAULT_EXCHANGE_RATE.conversion_rates)
+  }
+}
+
+export function convertCurrency(amount, fromCurrency, toCurrency, rates) {
+  if (!rates || !rates[fromCurrency] || !rates[toCurrency]) {
+    return amount
+  }
+  // 先转换到基准货币，再转换到目标货币
+  const baseAmount = amount / rates[fromCurrency]
+  return Number((baseAmount * rates[toCurrency]).toFixed(2))
 }
