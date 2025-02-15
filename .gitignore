@@ -9,7 +9,6 @@ release2docker.sh
 
 # Client assets
 client/dist
-client/.routify
 server/public
 
 # Datebase
