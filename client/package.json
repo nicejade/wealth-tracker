@@ -7,10 +7,9 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run routify && vite",
-    "build": "vite build",
+    "build": "npm run routify && vite build",
     "preview": "vite preview",
     "routify": "npx @roxi/routify build && cp ./src/components/404.svelte .routify/components/[...404].svelte",
-    "deploy": "npm run routify && vite build",
     "gen-sitemap": "node scripts/gen-sitemap.js",
     "prettier": "prettier --plugin prettier-plugin-svelte --write \"src/**/**/*.{svelte,js,ts,jsx,tsx,css,scss,vue}\"",
     "check": "svelte-check --tsconfig ./tsconfig.json"
