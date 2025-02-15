@@ -126,10 +126,11 @@ npm i pm2 pnpm lerna -g
 pnpm i
 
 # start your service
-npm run deploy
+npm run build
+npm run start
 ```
 
-除了 `deploy` 命令，项目还提供了其他几个常用的 `npm` 脚本：
+项目除了提供 `start` 命令外，还包含其他与 `pm2` 相关的命令：
 
 - `npm run start`: 使用 PM2 启动应用；
 - `npm run stop`: 停止 PM2 管理的应用；
