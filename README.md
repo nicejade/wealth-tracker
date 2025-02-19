@@ -5,7 +5,7 @@
   </a>
 </p>
 
-<h1 align="center">生财有迹</h1>
+<h1 align="center"><a href="https://fund.lovejade.cn/">生财有迹</a></h1>
 
 <div align="center">
   <strong>
@@ -64,13 +64,13 @@
 
 [https://fund.lovejade.cn/](https://fund.lovejade.cn/)
 
-请注意，这是一个公共演示环境，因此请勿在其中输入任何真实的个人财务信息。建议您在体验后，考虑按照本文档的指导，在自己的环境中部署和使用"生财有迹"，以确保您的财务数据的隐私和安全。
+请注意，这是一个公共演示环境，因此**请勿在其中输入任何真实的个人财务信息**。建议您在体验后，考虑按照本文档的指导，在自己的环境中部署和使用「生财有迹」，以确保您的财务数据的隐私和安全。
 
-如果您在使用过程中遇到任何问题或有反馈意见，欢迎通过项目的  [GitHub 页面](https://github.com/nicejade/wealth-tracker/)与我们联系。您的宝贵意见将帮助我们不断改进这一工具，以更好地满足用户的需求。
+如果您在使用过程中遇到任何问题或有反馈意见，欢迎通过  [GitHub Issues](https://github.com/nicejade/wealth-tracker/issues) 与我们联系。您的宝贵意见将帮助我们不断改进这一工具，以更好地满足用户的需求。
 
 ## 如何使用？
 
-### 使用 Docker
+### 使用 [Docker](https://hub.docker.com/r/nicejade/wealth-tracker)
 
 **使用 [docker compose](https://docs.docker.com/compose/)**：
 
@@ -81,7 +81,7 @@ version: '3.8'
 
 services:
   wealth-tracker:
-    image: nicejade/wealth-tracker
+    image: nicejade/wealth-tracker:latest
     container_name: wealth-tracker
     ports:
       - '8888:8888'
@@ -104,14 +104,14 @@ docker-compose up -d
 **或者 docker run**：
 
 ```bash
-docker run -d -p 8888:8888 -v "$(pwd)/data:/app/data" nicejade/wealth-tracker
+docker run -d -p 8888:8888 -v "$(pwd)/data:/app/data" nicejade/wealth-tracker:latest
 ```
 
 如果您在本地部署，只需打开网址——[http://localhost:8888](http://localhost:8888/) 即可访问。如果在服务器运行，可通过 http://[Server-IP]:8888 来访问，您也可以指定其他端口。
 
 ### 采用 [pm2](https://pm2.keymetrics.io/) 部署
 
-PM2 是一个强大的生产环境进程管理器，它不仅支持通过命令行启动应用，还可以使用配置文件（通常名为 `ecosystem.config.js`）来管理复杂的部署场景。为了简化部署流程并确保一致性，本项目已将所有必要的 PM2 配置和启动命令封装到了 npm 脚本中：
+PM2 是一个强大的生产环境进程管理器，它不仅支持通过命令行启动应用，还可以使用配置文件（通常名为 `ecosystem.config.js`）来管理复杂的部署场景。为了简化部署流程并确保一致性，本项目已将所有必要的 PM2 配置和启动命令封装到了 `npm` 脚本中：
 
 ```bash
 # clone project
@@ -158,7 +158,7 @@ cd client && npm start
 cd server && npm start
 ```
 
-本项目客户端采用 [Svelte](https://svelte.dev/) 框架，基于 [Vite](https://vitejs.dev/) 所构建，默认 `5173` 端口，只需打开网址—— [http://localhost:5173](http://localhost:5173) 即可访问。
+本项目客户端采用 [Svelte](https://site.lovejade.cn/post/62a9c2ad90509e23cea772c0) 框架，基于 [Vite](https://site.lovejade.cn/post/6010e1b10c71de1fb957b64e) 所构建，默认 `5173` 端口，只需打开网址—— [http://localhost:5173](http://localhost:5173) 即可访问。
 
 ## 给予支持
 
@@ -175,7 +175,7 @@ cd server && npm start
 
 ## 路线图
 
-"生财有迹"项目正处于积极的设计和研发阶段，致力于在功能丰富与易用性之间寻求平衡，以满足用户日益增长的个人财务管理需求。未来开发重点包括增强数据可视化能力、加强数据安全性、以及提升 AI 辅助分析功能等。如果您想详细了解正在进行的工作和未来规划，欢迎查阅[生财有迹路线图](https://fine.niceshare.site/projects/wealth-tracker/#路线图)。非常欢迎社区成员参与讨论，为项目的发展方向提供宝贵建议。
+「生财有迹」项目正处于积极的设计和研发阶段，致力于在功能丰富与易用性之间寻求平衡，以满足用户日益增长的个人财务管理需求。未来开发重点包括增强数据可视化能力、加强数据安全性、以及提升 `AI` 辅助分析功能等。如果您想详细了解正在进行的工作和未来规划，欢迎查阅 [生财有迹路线图](https://fine.niceshare.site/projects/wealth-tracker/#路线图)。非常欢迎社区成员参与讨论，为项目的发展方向提供宝贵建议。
 
 ## 特别鸣谢
 
@@ -193,7 +193,7 @@ cd server && npm start
 - [Sequelize](https://sequelize.org/): 作为一个强大的 ORM 框架，Sequelize 为我们提供了一种简单且直观的方式来管理数据库关系。它的灵活性和功能丰富性使得我们能够轻松实现复杂的数据操作和查询。
 - [OpenAI](https://github.com/openai/openai-node): OpenAI 提供的 Node.js SDK 使得我们能够轻松地与人工智能服务（如 ChatGPT、xAI、月之暗面） API 进行集成，从而实现了人工智能相关的功能。
 
-在此，对上述技术和工具的开发者和社区，致以崇高的敬意和衷心的感谢❤️。正是得益于他们的卓越贡献，`生财有迹`才能得以成功构建并持续优化。同时，也要感谢如 [Cursor](https://www.cursor.com/)、[Codeium Windsurf](https://codeium.com/windsurf)、 [ChatGPT](https://chatgpt.com/?ref=niceshare.site)、Github Copilot、[Poe](https://poe.com/)、[Kimi](https://kimi.moonshot.cn/) 等 AI 工具在开发过程中提供的宝贵支持，它们显著提高了工作效率和体验。
+在此，对上述技术和工具的开发者和社区，致以崇高的敬意和衷心的感谢❤️。正是得益于他们的卓越贡献，`生财有迹`才能得以成功构建并持续优化。同时，也要感谢如 [Cursor](https://www.cursor.com/)、[Codeium Windsurf](https://codeium.com/windsurf)、[Trae](https://www.trae.ai/)、 [ChatGPT](https://chatgpt.com/)、[Kimi](https://kimi.moonshot.cn/) 等 AI 工具在开发过程中提供的宝贵支持，它们显著提高了工作效率和体验。
 
 ## 相关链接
 
