@@ -134,7 +134,7 @@
   }
 
   const onConfirmClick = () => {
-    if (!items.alias.trim()) {
+    if (!items.alias || !items.alias.trim()) {
       alert.set($_('fillAccountTypeTip'))
       return
     }

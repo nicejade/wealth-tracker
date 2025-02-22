@@ -52,8 +52,8 @@
       target="_blank"
       rel="noopener"
       class="inline-flex rounded-md p-2 leading-5 outline-none hover:bg-gray-100"
-      href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fnicejade%2Fwealth-tracker&text=生财有迹（Wealth Tracker）是一款专注于个人资产分析的应用程序。其核心功能是：全面记录并展示用户的资产状况，帮助用户轻松了解财务现状；运用 AI 能力，结合每种资产的特性和当前环境，提供适宜的财务建议。"
-      title="Twitter">
+      href="https://x.com/intent/user?screen_name=MarshalXuan"
+      title="X | Twitter Follow MarshalXuan">
       <SvgIcon name="x" width={20} height={20} color="#212121" />
     </a>
     <button
