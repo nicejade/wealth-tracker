@@ -95,15 +95,15 @@
   }
 
   const genRiskActive = (risk) => {
-    return risk === 'LOW' ? 0 : items.risk === 'MEDIUM' ? 1 : 2
+    return ASSETS_RISK_ARR.findIndex((item) => item.value === risk)
+  }
+
+  const genLiquidityActive = (liquidity) => {
+    return ASSETS_LIQUIDITY_ARR.findIndex((item) => item.value === liquidity)
   }
 
   const genCurrencyActive = (currency) => {
     return SUPPORTED_CURRENCIES.findIndex((item) => item.value === currency)
-  }
-
-  const genLiquidityActive = (liquidity) => {
-    return liquidity === 'GOOD' ? 0 : items.risk === 'MEDIUM' ? 1 : 2
   }
 
   const sendUpdateRequest = async () => {
