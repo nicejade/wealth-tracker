@@ -8,7 +8,7 @@
   import CustomSelect from './../Select.svelte'
   import {
     deepClone,
-    fillMissingWealthArr,
+    fillMissingAssetsArr,
     groupArrayByType,
     sortByDatetime,
     fineTuningArrayLen,
@@ -44,8 +44,8 @@
   const genChartSeries = (params) => {
     const series = []
     params.forEach((items) => {
-      const completeWealthArr = fillMissingWealthArr(items.array, $period.value)
-      const targetExtentArr = completeWealthArr.filter((item) => {
+      const completeAssetsArr = fillMissingAssetsArr(items.array, $period.value)
+      const targetExtentArr = completeAssetsArr.filter((item) => {
         if (dayjs(item.datetime) >= dayjs($period.value)) {
           return item
         }
@@ -68,10 +68,10 @@
     )
   }
 
-  const regenAreaOptions = (wealthArr) => {
-    const sortedWealthArr = sortByDatetime(wealthArr)
-    const splitWealthArr = groupArrayByType(sortedWealthArr)
-    const seriesDataArr = genChartSeries(splitWealthArr)
+  const regenAreaOptions = (assetsArr) => {
+    const sortedAssetsArr = sortByDatetime(assetsArr)
+    const splitAssetsArr = groupArrayByType(sortedAssetsArr)
+    const seriesDataArr = genChartSeries(splitAssetsArr)
     const series = deepClone(options.series)
     series[0].data = calculateColumnSums(seriesDataArr)
     options.series = series

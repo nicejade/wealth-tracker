@@ -77,36 +77,36 @@ export const generateDatesArray = (datetime: string) => {
 
 /**
  * @desc Fill in the missing asset record data.
- * @param rawWealthArr Original asset data arr.
+ * @param rawAssetsArr Original asset data arr.
  * @param extent The starting date string.
  * @returns Filled-in completed asset data.
  */
-export const fillMissingWealthArr = (rawWealthArr, start) => {
-  const length = rawWealthArr.length
-  if (length <= 1) return rawWealthArr
-  const { type, datetime } = rawWealthArr[0]
+export const fillMissingAssetsArr = (rawAssetsArr, start) => {
+  const length = rawAssetsArr.length
+  if (length <= 1) return rawAssetsArr
+  const { type, datetime } = rawAssetsArr[0]
 
   const startDateTime = dayjs(datetime).isBefore(start) ? datetime : start
   const serialDateArray = generateDatesArray(startDateTime)
-  const filledWealthArr = []
+  const filledAssetsArr = []
   serialDateArray.forEach((date, index) => {
-    let targetItem = rawWealthArr.find((item) => item.datetime === date)
+    let targetItem = rawAssetsArr.find((item) => item.datetime === date)
     if (!targetItem) {
       if (index === 0) {
-        filledWealthArr.push({
+        filledAssetsArr.push({
           type,
           amount: 0,
           datetime: date,
         })
       } else {
-        let lastItem = filledWealthArr[filledWealthArr.length - 1]
-        filledWealthArr.push({ ...lastItem, datetime: date })
+        let lastItem = filledAssetsArr[filledAssetsArr.length - 1]
+        filledAssetsArr.push({ ...lastItem, datetime: date })
       }
     } else {
-      filledWealthArr.push(targetItem)
+      filledAssetsArr.push(targetItem)
     }
   })
-  return filledWealthArr
+  return filledAssetsArr
 }
 
 export const groupArrayByType = (array, type = 'type') => {

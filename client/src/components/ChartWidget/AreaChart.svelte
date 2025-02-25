@@ -7,7 +7,7 @@
   import Change from './../Change.svelte'
   import CustomSelect from './../Select.svelte'
   import {
-    fillMissingWealthArr,
+    fillMissingAssetsArr,
     generateDatesArray,
     groupArrayByType,
     sortByDatetime,
@@ -48,8 +48,8 @@
   const genChartSeries = (params) => {
     const series = []
     params.forEach((items) => {
-      const completeWealthArr = fillMissingWealthArr(items.array, $extent.value)
-      const targetExtentArr = completeWealthArr.filter((item) => {
+      const completeAssetsArr = fillMissingAssetsArr(items.array, $extent.value)
+      const targetExtentArr = completeAssetsArr.filter((item) => {
         if (dayjs(item.datetime) >= dayjs($extent.value)) {
           return item
         }

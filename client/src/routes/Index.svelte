@@ -60,12 +60,12 @@
   }
 
   const updateRawRecords = async () => {
-    const currentWealthArr = rawAssetsArr.map((item) => {
+    const currentAssetsArr = rawAssetsArr.map((item) => {
       item.rawDatetime = item.datetime
       item.datetime = dayjs().format('YYYY-MM-DD')
       return item
     })
-    rawRecordsArr = rawRecordsArr.concat(currentWealthArr)
+    rawRecordsArr = rawRecordsArr.concat(currentAssetsArr)
     isShowChart = true
   }
 
