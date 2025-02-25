@@ -21,6 +21,8 @@
 
   let rawAssetsArr = []
   let rawRecordsArr = []
+  let convertedAssetsArr = []
+  let convertedRecordsArr = []
   let currentAssetItem: AssetsItem
   let updateActionType: string = ''
   let isShowUpdateModal: boolean = false
@@ -28,11 +30,14 @@
   let isShowResetModal: boolean = false
   let isShowChart: boolean = false
   let typeToBeDestroyed: string = ''
-  let convertedAssetsArr = []
 
   // 添加响应式声明，当原始数据或货币相关 store 变化时更新转换后的数组
   $: if (rawRecordsArr.length > 0 && $targetCurrencyCode) {
-    convertedAssetsArr = rawRecordsArr.map((item) => ({
+    convertedAssetsArr = rawAssetsArr.map((item) => ({
+      ...item,
+      amount: convertCurrency(item.amount, item.currency, $targetCurrencyCode, $exchangeRates),
+    }))
+    convertedRecordsArr = rawRecordsArr.map((item) => ({
       ...item,
       amount: convertCurrency(item.amount, item.currency, $targetCurrencyCode, $exchangeRates),
     }))
@@ -137,10 +142,10 @@
     <CardPlaceholder size="lg" class="w-full max-w-full" />
   {/if}
 
-  {#if isShowChart && rawAssetsArr.length}
-    <DonutChart sources={rawAssetsArr}></DonutChart>
-    <AreaChart sources={convertedAssetsArr}></AreaChart>
-    <BindingChart sources={convertedAssetsArr}></BindingChart>
+  {#if isShowChart && convertedAssetsArr.length}
+    <DonutChart sources={convertedAssetsArr}></DonutChart>
+    <AreaChart sources={convertedRecordsArr}></AreaChart>
+    <BindingChart sources={convertedRecordsArr}></BindingChart>
   {/if}
 </div>
 
