@@ -12,7 +12,9 @@
   const router = createRouter({ routes })
 </script>
 
-<main id="main" class="m-auto mx-auto flex h-full w-full max-w-2xl flex-col md:px-4">
+<main
+  id="main"
+  class="m-auto mx-auto flex h-full w-full max-w-3xl flex-col md:max-w-full md:px-4 lg:max-w-4xl">
   <Router {router} />
 </main>
 

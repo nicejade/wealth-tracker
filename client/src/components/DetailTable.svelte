@@ -15,10 +15,17 @@
   import { _ } from 'svelte-i18n'
   import Caption from './Caption.svelte'
   import SvgIcon from './SvgIcon.svelte'
+  import { language } from '../stores'
+  import { SUPPORTED_CURRENCIES } from './../helper/constant'
 
   export let options = []
   export let page: number = 0
   const dispatch = createEventDispatcher()
+
+  const getCurrencyName = (code) => {
+    const currency = SUPPORTED_CURRENCIES.find((item) => item.value === code)
+    return currency ? $_(`currencys.${currency.value}`, { locale: $language }) : code
+  }
 
   const onChangeClick = (elem) => {
     dispatch('change', elem)
@@ -54,8 +61,8 @@
           <TableBodyRow>
             <TableBodyCell>{item.alias || item.type}</TableBodyCell>
             <TableBodyCell>{item.amount}</TableBodyCell>
-            <TableBodyCell>{item.datetime}</TableBodyCell>
-            <TableBodyCell>{item.currency}</TableBodyCell>
+            <TableBodyCell>{dayjs(item.datetime).format('YY-MM-DD')}</TableBodyCell>
+            <TableBodyCell>{getCurrencyName(item.currency) + ($language ? '' : '')}</TableBodyCell>
             <TableBodyCell>{dayjs(item.created).format('MM-DD hh:mm')}</TableBodyCell>
             <TableBodyCell>
               <Button

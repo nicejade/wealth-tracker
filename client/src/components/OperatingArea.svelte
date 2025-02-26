@@ -65,7 +65,7 @@
       <span>{$_('addition')}</span>
     </Button>
   </div>
-  <div class="flex items-center space-x-6 md:w-full md:justify-around md:space-x-0">
+  <div class="flex items-center space-x-6 md:w-full md:justify-between md:space-x-0">
     <CustomSelect
       label={$_('currency')}
       options={supportedCurrencys}

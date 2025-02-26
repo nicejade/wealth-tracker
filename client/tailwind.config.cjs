@@ -18,6 +18,7 @@ module.exports = {
     screens: {
       sm: { max: '640px' },
       md: { max: '768px' },
+      lg: { min: '1560px' },
     },
     borderRadius: {
       none: '0',

@@ -9,6 +9,7 @@
 <footer class="my-6 flex items-center justify-between md:flex-col md:items-center md:space-y-2">
   <div class="flex items-center justify-center space-x-3 md:w-full">
     <FooterCopyright
+      aClass="hover:no-underline"
       href="https://www.jeffjade.com/"
       copyrightMessage={$_('allRightsReserved')}
       by="晚晴幽草轩™" />
