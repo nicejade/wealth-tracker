@@ -15,25 +15,25 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
+
+      - name: Install pnpm
+        run: npm install -g pnpm lerna
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Build Client
-        run: |
-          cd client
-          npm ci
-          npm run build
+        run: lerna run build --scope=client
 
       - name: Build Server
-        run: |
-          cd server
-          npm ci
-          npm run build
+        run: lerna run build --scope=server
 
       - name: Create temporary directory
         run: mkdir build-artifacts
 
       - name: Copy client build to temporary directory
-        run: cp -r server/public build-artifacts/public
+        run: cp -r client/public build-artifacts/public
 
       - name: Copy server build to temporary directory
         run: cp -r server/dist build-artifacts/server
