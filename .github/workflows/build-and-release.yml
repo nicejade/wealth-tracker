@@ -1,0 +1,63 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Build Client
+        run: |
+          cd client
+          npm ci
+          npm run build
+
+      - name: Build Server
+        run: |
+          cd server
+          npm ci
+          npm run build
+
+      - name: Create temporary directory
+        run: mkdir build-artifacts
+
+      - name: Copy client build to temporary directory
+        run: cp -r server/public build-artifacts/public
+
+      - name: Copy server build to temporary directory
+        run: cp -r server/dist build-artifacts/server
+
+      - name: Package into a single ZIP
+        run: zip -r wealth-tracker-build.zip build-artifacts
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: Upload ZIP to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./wealth-tracker-build.zip
+          asset_name: wealth-tracker-build.zip
+          asset_content_type: application/zip
