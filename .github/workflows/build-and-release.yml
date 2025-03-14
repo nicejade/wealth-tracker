@@ -29,17 +29,8 @@ jobs:
       - name: Build Server
         run: lerna run build --scope=server
 
-      - name: Create temporary directory
-        run: mkdir build-artifacts
-
-      - name: Copy client build to temporary directory
-        run: cp -r client/public build-artifacts/public
-
-      - name: Copy server build to temporary directory
-        run: cp -r server/dist build-artifacts/server
-
       - name: Package into a single ZIP
-        run: zip -r wealth-tracker-build.zip build-artifacts
+        run: zip -r wealth-tracker.zip server/dist server/public
 
       - name: Create Release
         id: create_release
