@@ -49,6 +49,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./wealth-tracker-build.zip
-          asset_name: wealth-tracker-build.zip
+          asset_path: ./wealth-tracker.zip
+          asset_name: wealth-tracker.zip
           asset_content_type: application/zip
