@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "author": "nicejade",
   "scripts": {
-    "build:client": "lerna run release --scope=client",
+    "build:client": "lerna run build --scope=client",
     "build:server": "lerna run build --scope=server",
     "build": "npm run build:client && npm run build:server",
     "start": "lerna run deploy --scope=server",

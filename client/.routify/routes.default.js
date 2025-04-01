@@ -1,10 +1,9 @@
 
 
-export default {
+export const routes = {
   "meta": {},
   "id": "_default",
-  "_regex": {},
-  "_paramKeys": {},
+  "name": "",
   "file": {
     "path": "src/routes",
     "dir": "src",
@@ -18,8 +17,6 @@ export default {
     {
       "meta": {},
       "id": "_default_Advice_svelte",
-      "_regex": {},
-      "_paramKeys": {},
       "name": "Advice",
       "file": {
         "path": "src/routes/Advice.svelte",
@@ -34,8 +31,6 @@ export default {
     {
       "meta": {},
       "id": "_default_Detail_svelte",
-      "_regex": {},
-      "_paramKeys": {},
       "name": "Detail",
       "file": {
         "path": "src/routes/Detail.svelte",
@@ -50,8 +45,6 @@ export default {
     {
       "meta": {},
       "id": "_default_Index_svelte",
-      "_regex": {},
-      "_paramKeys": {},
       "name": "Index",
       "file": {
         "path": "src/routes/Index.svelte",
@@ -66,10 +59,10 @@ export default {
     {
       "meta": {
         "dynamic": true,
-        "dynamicSpread": true
+        "dynamicSpread": true,
+        "order": false,
+        "inline": false
       },
-      "_regex": {},
-      "_paramKeys": {},
       "name": "[...404]",
       "file": {
         "path": ".routify/components/[...404].svelte",
@@ -83,3 +76,4 @@ export default {
     }
   ]
 }
+export default routes
