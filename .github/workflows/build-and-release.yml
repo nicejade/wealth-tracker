@@ -23,14 +23,29 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build Client
-        run: lerna run build --scope=client
+      - name: Build Client & Server
+        run: npm run build
 
-      - name: Build Server
-        run: lerna run build --scope=server
+      - name: Copy package.json to dist
+        run: cp server/package.json server/dist/
+
+      - name: Create script.sh
+        run: |
+          echo "cd dist" > script.sh
+          echo "npm i" >> script.sh
+          echo "node index.js" >> script.sh
+
+      - name: Create script.bat
+        run: |
+          echo cd dist > script.bat
+          echo npm i >> script.bat
+          echo node index.js >> script.bat
 
       - name: Package into a single ZIP
-        run: zip -r wealth-tracker.zip server/dist server/public
+        run: |
+          cd server
+          zip -r ../wealth-tracker.zip public dist
+          zip -j ../wealth-tracker.zip ../script.sh ../script.bat
 
       - name: Create Release
         id: create_release
