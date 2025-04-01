@@ -8,6 +8,7 @@
     "start": "npm run dev",
     "dev": "vite",
     "build": "vite build",
+    "release": "npm run routify && vite build",
     "preview": "vite preview",
     "routify": "npx @roxi/routify build && cp ./src/components/404.svelte .routify/components/[...404].svelte",
     "gen-sitemap": "node scripts/gen-sitemap.js",
