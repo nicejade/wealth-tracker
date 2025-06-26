@@ -16,7 +16,7 @@ importers:
     specifiers:
       '@microsoft/fetch-event-source': ^2.0.1
       '@rgossiaux/svelte-headlessui': ^2.0.0
-      '@roxi/routify': 3.0.0-next.160
+      '@roxi/routify': 3.0.0-next.287
       '@skeletonlabs/skeleton': ^1.12.0
       '@sveltejs/vite-plugin-svelte': ^2.0.2
       '@tailwindcss/typography': ^0.5.9
@@ -57,7 +57,7 @@ importers:
       svelte-i18n: 4.0.1_svelte@4.2.19
       tailwind-merge: 2.6.0
     devDependencies:
-      '@roxi/routify': 3.0.0-next.160_vite@4.5.11
+      '@roxi/routify': 3.0.0-next.287_k663bilqcla2lpnmuzviff6roq
       '@sveltejs/vite-plugin-svelte': 2.5.3_svelte@4.2.19+vite@4.5.11
       '@tailwindcss/typography': 0.5.16_tailwindcss@3.4.17
       '@tsconfig/svelte': 3.0.0
@@ -1225,31 +1225,42 @@ packages:
       picomatch: 4.0.2
     dev: false
 
-  /@roxi/routify/3.0.0-next.160_vite@4.5.11:
-    resolution: {integrity: sha512-WOnsKT0DBL4YBGFCxvuAcxlKBc9+sLMMZXB3LUwg3jRCiRmpwf/OHw3VIqzgTgzYAlTE4TnG/N9paraJ6rLtug==}
+  /@roxi/routify/3.0.0-next.287_k663bilqcla2lpnmuzviff6roq:
+    resolution: {integrity: sha512-IKDRUgQzhxbzk9RSQwhaKOa50cv76WL5twMx4Z+BJKkn+eSHAY+9luBs+NcLliDppMAGbYuMf5A52J2Q5nmPxg==}
     hasBin: true
     peerDependencies:
+      '@roxi/routify': ^3.0.0-next.0
+      '@sveltejs/vite-plugin-svelte': ^2.4.6 || ^3.0.0 || ^4.0.0 || ^5.0.0
       spank: ^2.0.0
-      vite: ^3.2.4 || ^4.0.0
+      svelte: ^3.0.0 || ^4.0.0 || ^5.0.0
+      vite: ^3.2.4 || ^4.0.0 || ^5.0.0 || ^6.0.0
     peerDependenciesMeta:
+      '@roxi/routify':
+        optional: true
+      '@sveltejs/vite-plugin-svelte':
+        optional: true
       spank:
         optional: true
       vite:
         optional: true
     dependencies:
+      '@roxi/routify': 3.0.0-next.287_k663bilqcla2lpnmuzviff6roq
+      '@sveltejs/vite-plugin-svelte': 2.5.3_svelte@4.2.19+vite@4.5.11
       cachewrap: 0.0.1
       cheap-watch: 1.0.4
       cheerio: 1.0.0
       commander: 7.2.0
       configent: 3.0.0-14
-      consolite: 0.2.10
+      consolite: 0.3.12
+      dotenv-expand: 12.0.2
       fs-extra: 10.1.0
       hookar: 0.0.7
       kleur: 4.1.5
       node-fetch: 3.3.2
       persistable: 0.1.2
       prompts: 2.4.2
-      svelte: 3.59.2
+      scroll-into-view-if-needed: 3.1.0
+      svelte: 4.2.19
       vite: 4.5.11
     dev: true
 
@@ -2070,6 +2081,10 @@ packages:
     resolution: {integrity: sha512-T0+barUSQRTUQASh8bx02dl+DhF54GtIDY13Y3m9oWTklKbb3Wv974meRpeZ3lp1JpLVECWWNHC4vaG2XHXouQ==}
     dev: true
 
+  /compute-scroll-into-view/3.1.1:
+    resolution: {integrity: sha512-VRhuHOLoKYOy4UbilLbUzbYg93XLjv2PncJC50EuTWPA3gaja1UjBsUP/D/9/juV3vQFr6XBEzn9KCAHdUvOHw==}
+    dev: true
+
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
@@ -2092,8 +2107,8 @@ packages:
     dev: false
     optional: true
 
-  /consolite/0.2.10:
-    resolution: {integrity: sha512-F2Y/nAypbftxyGLJGwC3MvxaBKetWETssn7N84sReMEBHhqlrdwb3IHrqauad6vUY5xkU/RI1KMNs/2gIQgJmA==}
+  /consolite/0.3.12:
+    resolution: {integrity: sha512-bll77gpKp234MGTBctDzayyUpuRH3RR0OlUa4sAzpifuTS+6X8WoyS2gm/udVYoPLBzt10Q8W91NcQYXBNULoA==}
     dev: true
 
   /content-disposition/0.5.4:
@@ -2429,6 +2444,13 @@ packages:
       dom-serializer: 2.0.0
       domelementtype: 2.3.0
       domhandler: 5.0.3
+    dev: true
+
+  /dotenv-expand/12.0.2:
+    resolution: {integrity: sha512-lXpXz2ZE1cea1gL4sz2Ipj8y4PiVjytYr3Ij0SWoms1PGxIv7m2CRKuRuCRtHdVuvM/hNJPMxt5PbhboNC4dPQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      dotenv: 16.4.7
     dev: true
 
   /dotenv/16.4.7:
@@ -5473,6 +5495,12 @@ packages:
       '@parcel/watcher': 2.5.1
     dev: true
 
+  /scroll-into-view-if-needed/3.1.0:
+    resolution: {integrity: sha512-49oNpRjWRvnU8NyGVmUaYG4jtTkNonFZI86MmGRDqBphEK2EXT9gdEUoQPZhuBM8yWHxCWbobltqYO5M4XrUvQ==}
+    dependencies:
+      compute-scroll-into-view: 3.1.1
+    dev: true
+
   /secure-json-parse/2.7.0:
     resolution: {integrity: sha512-6aU+Rwsezw7VR8/nyvKTx8QpWH9FrcYiXXlqC4z5d5XQBDRqtbfsRjnwGyqbi3gddNtWHuEk9OANUotL26qKUw==}
     dev: false
@@ -6122,11 +6150,6 @@ packages:
       strip-indent: 3.0.0
       svelte: 4.2.19
       typescript: 4.9.5
-    dev: true
-
-  /svelte/3.59.2:
-    resolution: {integrity: sha512-vzSyuGr3eEoAtT/A6bmajosJZIUWySzY2CzB3w2pgPvnkUjGqlDnsNnA0PMO+mMAhuyMul6C2uuZzY6ELSkzyA==}
-    engines: {node: '>= 8'}
     dev: true
 
   /svelte/4.2.19:
