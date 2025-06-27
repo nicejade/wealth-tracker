@@ -2,3 +2,4 @@
 /Advice
 /Detail
 /Index
+/Insights

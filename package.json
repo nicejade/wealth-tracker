@@ -1,7 +1,7 @@
 {
   "name": "wealth-tracker",
   "description": "生财有迹（Wealth Tracker）是一款专注于个人资产分析的应用程序。其核心功能是：全面记录并展示用户的资产状况，帮助用户清晰地了解财务现状；结合每种资产的特性和当前经济环境，利用 AI 技术进行分析，并提供适宜的财务建议。",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "author": "nicejade",
   "scripts": {
     "build:client": "lerna run build --scope=client",

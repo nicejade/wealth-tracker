@@ -64,6 +64,9 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
+            h2: {
+              fontSize: '1.4rem',
+            },
             'li, pre, code': {
               margin: '0 !important',
               lineHeight: '1.5rem',
@@ -142,6 +145,7 @@ module.exports = {
   plugins: [
     require('flowbite/plugin'),
     require('@tailwindcss/typography'),
+    require('flowbite-typography'),
     ({ addUtilities }) => {
       const newUtilities = {
         '.hide-scrollbar': {

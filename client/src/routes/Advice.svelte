@@ -179,7 +179,7 @@
 
   <Card class="w-full max-w-none shadow-none 2xl:col-span-2">
     <div class="mb-4 flex w-full items-center justify-between">
-      <div class="mb-2 flex justify-between">
+      <div class="mb-4 flex justify-between">
         <Caption title={$_('financialAdvice')} subtitle={$_('financialAdviceDetails')}></Caption>
       </div>
       <Button

@@ -37,7 +37,7 @@
 </script>
 
 <Card size="xl" class="w-full max-w-none shadow-none md:p-4 2xl:col-span-2">
-  <div class="flex justify-between">
+  <div class="mb-4 flex justify-between">
     <Caption title={$_('recordDetails')}></Caption>
   </div>
   {#if options?.length <= 0}

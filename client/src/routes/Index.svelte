@@ -160,50 +160,38 @@
 <Modal bind:open={isShowComfirmModal} size="sm" outsideclose>
   <div class="text-center">
     <div class="my-4">
-      <SvgIcon name="warning" width={30} height={30} color="#ff4582" />
+      <SvgIcon name="warning" width={36} height={36} color="#ff4582" />
     </div>
     <h3 class="text-warn mb-5 text-lg font-normal">
       {$_('destroyAccountConfirmation')}
     </h3>
-    <Button
-      type="button"
-      outline
-      class="regular-btn !border-mark !text-mark hover:text-mark me-6 rounded-full focus:ring-0"
-      on:click={handleComfirm}>
-      {$_('confirm')}
-    </Button>
-    <Button
-      type="button"
-      outline
-      class="regular-btn rounded-full hover:text-black focus:ring-0"
-      on:click={handleCancel}>
-      {$_('cancel')}
-    </Button>
+    <div class="flex justify-center space-x-6">
+      <Button type="button" outline class="comfirm-btn" on:click={handleComfirm}>
+        {$_('confirm')}
+      </Button>
+      <Button type="button" outline class="cancel-btn" on:click={handleCancel}>
+        {$_('cancel')}
+      </Button>
+    </div>
   </div>
 </Modal>
 
 <Modal bind:open={isShowResetModal} size="sm" outsideclose>
   <div class="text-center">
     <div class="my-4">
-      <SvgIcon name="warning" width={30} height={30} color="#ff4582" />
+      <SvgIcon name="warning" width={36} height={36} color="#ff4582" />
     </div>
     <h3 class="text-warn mb-5 text-lg font-normal">
       {$_('resetDatabaseConfirmation')}
     </h3>
-    <Button
-      type="button"
-      outline
-      class="regular-btn !border-mark !text-mark hover:text-mark me-6 rounded-full focus:ring-0"
-      on:click={handleResetComfirm}>
-      {$_('confirm')}
-    </Button>
-    <Button
-      type="button"
-      outline
-      class="regular-btn rounded-full hover:text-black focus:ring-0"
-      on:click={handleResetCancel}>
-      <span>{$_('cancel')}</span>
-    </Button>
+    <div class="flex justify-center space-x-6">
+      <Button type="button" outline class="comfirm-btn" on:click={handleResetComfirm}>
+        {$_('confirm')}
+      </Button>
+      <Button type="button" outline class="cancel-btn" on:click={handleResetCancel}>
+        {$_('cancel')}
+      </Button>
+    </div>
   </div>
 </Modal>
 

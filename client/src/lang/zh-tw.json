@@ -18,6 +18,7 @@
   "datetime": "日期",
   "remark": "備註",
   "currency": "幣種",
+  "insightsNav": "見解",
   "high": "高",
   "middle": "中",
   "low": "低",
@@ -72,5 +73,26 @@
     "CAD": "加拿大元",
     "SGD": "新加坡元",
     "CHF": "瑞士法郎"
+  },
+  "insights": {
+    "title": "財富見解",
+    "addInsight": "新增見解",
+    "createFirstInsight": "創建第一條見解",
+    "editInsight": "編輯見解",
+    "titlePlaceholder": "請輸入見解標題",
+    "save": "保存",
+    "loading": "載入中...",
+    "createdAt": "創建於",
+    "updatedAt": "更新於",
+    "createTime": "創建時間：",
+    "updateTime": "更新時間：",
+    "deleteConfirmTitle": "確定要刪除這條見解嗎？",
+    "fetchError": "獲取見解列表失敗",
+    "titleContentRequired": "請填寫標題和內容",
+    "updateSuccess": "見解更新成功",
+    "saveSuccess": "見解保存成功",
+    "saveError": "保存失敗，請重試",
+    "deleteSuccess": "見解刪除成功",
+    "deleteError": "刪除失敗，請重試"
   }
 }

@@ -1,5 +1,13 @@
 @import url('./tailwind');
 @import url('./apply');
+@plugin "flowbite-typography";
+
+:root {
+  --color-mark: #f59e0b;
+  --color-mark-rgb: 245, 158, 11;
+  --color-link: #0ea5e9;
+  --color-link-rgb: 14, 165, 233;
+}
 
 html,
 body {

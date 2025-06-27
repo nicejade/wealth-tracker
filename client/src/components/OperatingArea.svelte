@@ -53,19 +53,25 @@
 
 <div
   class="flex h-16 w-full flex-row items-center justify-between rounded-full border border-gray-300 px-6 shadow-sm md:h-36 md:flex-col md:items-start md:justify-around md:rounded-md">
-  <div>
+  <div class="flex items-center space-x-4 md:w-full md:justify-between md:space-x-0">
     <Button
       size="sm"
       outline
-      class="hover:text-brand space-x-2 rounded-full text-black focus:ring-0"
+      class="operating-btn"
       on:click={() => {
         onAddClick()
       }}>
       <SvgIcon name="dollar" />
-      <span>{$_('addition')}</span>
+      <strong class="operating-text">{$_('addition')}</strong>
     </Button>
+    <a
+      href="/insights"
+      class="hover:text-brand space-x-2 rounded-full border border-gray-300 px-4 py-1.5 text-black hover:bg-gray-100 focus:ring-0">
+      <SvgIcon name="edit" />
+      <strong class="operating-text">{$_('insightsNav')}</strong>
+    </a>
   </div>
-  <div class="flex items-center space-x-6 md:w-full md:justify-between md:space-x-0">
+  <div class="flex items-center space-x-4 md:w-full md:justify-between md:space-x-0">
     <CustomSelect
       label={$_('currency')}
       options={supportedCurrencys}
@@ -75,12 +81,12 @@
     <Button
       size="sm"
       outline
-      class="hover:text-brand space-x-2 rounded-full text-black focus:ring-0"
+      class="operating-btn"
       on:click={() => {
         onSettingClick()
       }}>
       <SvgIcon name="setting" />
-      <span>{$_('setting')}</span>
+      <strong class="operating-text">{$_('setting')}</strong>
     </Button>
   </div>
 </div>

@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 
 export const routes = {
@@ -54,6 +55,20 @@ export const routes = {
         "name": "Index"
       },
       "asyncModule": () => import('../src/routes/Index.svelte'),
+      "children": []
+    },
+    {
+      "meta": {},
+      "id": "_default_Insights_svelte",
+      "name": "Insights",
+      "file": {
+        "path": "src/routes/Insights.svelte",
+        "dir": "src/routes",
+        "base": "Insights.svelte",
+        "ext": ".svelte",
+        "name": "Insights"
+      },
+      "asyncModule": () => import('../src/routes/Insights.svelte'),
       "children": []
     },
     {

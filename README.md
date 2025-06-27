@@ -41,7 +41,7 @@
 
 <br />
 
-![生财有迹 - 效果预览](https://lovejade.oss-cn-shenzhen.aliyuncs.com/wealth-tracker_mockup.png)
+![生财有迹 - 效果预览](https://lovejade.oss-cn-shenzhen.aliyuncs.com/WealthTracker2.png)
 
 ## 项目愿景
 
@@ -55,6 +55,9 @@
 - **丰富的数据可视化**：通过图表和图形，直观展示资产变化，帮助用户轻松掌握财务状况。
 - **本地部署的灵活性**：部署在哪里由用户决定，确保数据的私密性、安全性，以及可扩展性。
 - **开源的代码架构**：项目的源代码完全开放，欢迎参与贡献，以不断改进和完善工具的功能。
+- **多语言支持**：支持简体中文、繁体中文、英文、法文、日文，后续会根据用户反馈添加更多。
+- **AI 财务建议**：利用 AI 技术，结合每种资产的特性和当前经济环境，提供适宜的财务建议。
+- **记录财富见解**：记录投资理财过程中的重要洞察与经验总结，沉淀智慧财富，指导未来决策。
 
 通过这些特性，希望建立一个用户友好、透明且可信赖的个人财分析工具，帮助用户更全面地掌握自己的财务状况。
 
@@ -185,6 +188,7 @@ cd server && npm start
 - [TailwindCSS](https://tailwindcss.com/): 通过提供实用主义的 CSS 类，TailwindCSS 极大地简化了样式设计的过程。它使得我们能够快速构建美观且响应式的用户界面，同时保持代码的清晰和维护性。
 - [Vite](https://vitejs.dev/): 作为一个现代化的前端构建工具，Vite 通过其快速的冷启动和即时的模块热更新，极大地提高了我们的开发效率。它利用了原生 ES 模块特性，使得项目构建更加高效。
 - [Flowbite](https://flowbite.com/): 提供了一系列预构建的组件和模板，Flowbite 极大地加快了我们的开发流程。它帮助我们快速实现了复杂的用户界面元素，同时保持了代码的可定制性和可维护性。
+- [Flowbite-Svelte](https://flowbite-svelte.com/): 作为 Flowbite 的 Svelte 版本，Flowbite-Svelte 提供了一系列预构建的组件和模板，极大地加快了我们的开发流程。它帮助我们快速实现了复杂的用户界面元素，同时保持了代码的可定制性和可维护性。
 - [Axios](https://axios-http.com/): 作为一个基于 Promise 的 HTTP 客户端，Axios 简化了我们的 Web 应用中与 API 的交互。它的易用性和广泛的功能集使得我们能够轻松处理 HTTP 请求和响应。
 - [Day.js](https://day.js.org/): 作为一个轻量级的 JavaScript 日期库，Day.js 提供了直观的 API 来处理日期和时间。它使得我们在应用中处理复杂的日期计算变得简单且可靠。
 - [Node.js](https://nodejs.org/): 作为一个高效的 JavaScript 运行环境，Node.js 使得服务器端开发变得前所未有的简单和快速。它的事件驱动和非阻塞 I/O 模型极大地提高了我们的应用性能和响应速度。
@@ -192,8 +196,10 @@ cd server && npm start
 - [SQLite3](https://www.sqlite.org/index.html): 作为一个轻量级的数据库引擎，SQLite3 为我们提供了一个无需配置的本地存储解决方案。它的简单性和高效性使得开发者在本地部署应用时能够轻松管理数据。
 - [Sequelize](https://sequelize.org/): 作为一个强大的 ORM 框架，Sequelize 为我们提供了一种简单且直观的方式来管理数据库关系。它的灵活性和功能丰富性使得我们能够轻松实现复杂的数据操作和查询。
 - [OpenAI](https://github.com/openai/openai-node): OpenAI 提供的 Node.js SDK 使得我们能够轻松地与人工智能服务（如 ChatGPT、xAI、月之暗面） API 进行集成，从而实现了人工智能相关的功能。
+- [pm2](https://pm2.keymetrics.io/): 作为生产环境的进程管理器，pm2 使得我们能够轻松地管理应用的生命周期，包括启动、停止和重启等操作。它的监控和日志功能也使得我们能够更好地了解应用的运行状态。
+- [tiptap](https://tiptap.dev/): 作为富文本编辑器，tiptap 提供了简单且可定制的 API 来构建富文本编辑器。它的灵活性和功能丰富性使得我们能够轻松实现复杂的内容编辑功能。
 
-在此，对上述技术和工具的开发者和社区，致以崇高的敬意和衷心的感谢❤️。正是得益于他们的卓越贡献，`生财有迹`才能得以成功构建并持续优化。同时，也要感谢如 [Cursor](https://www.cursor.com/)、[Codeium Windsurf](https://codeium.com/windsurf)、[Trae](https://www.trae.ai/)、 [ChatGPT](https://chatgpt.com/)、[Kimi](https://kimi.moonshot.cn/) 等 AI 工具在开发过程中提供的宝贵支持，它们显著提高了工作效率和体验。
+在此，对上述技术和工具的开发者和社区，致以崇高的敬意和衷心的感谢❤️。正是得益于他们的卓越贡献，`生财有迹`才能得以成功构建并持续优化。同时，也要感谢如 [Augment Code](https://www.augmentcode.com/)、[Cursor](https://www.cursor.com/)、[Codeium Windsurf](https://codeium.com/windsurf)、[Trae](https://www.trae.ai/)、 [ChatGPT](https://chatgpt.com/)、[Kimi](https://kimi.moonshot.cn/) 等 AI 工具在开发过程中提供的宝贵支持，它们显著提高了工作效率和体验。
 
 ## 相关链接
 
@@ -202,6 +208,7 @@ cd server && npm start
 - [晚晴幽草轩](https://www.jeffjade.com/)
 - [缘知随心庭](https://fine.niceshare.site/)
 - [倾城之链](https://site.lovejade.cn/)
+- [曼妙句子](https://read.lovejade.cn/)
 - [SegmentFault](https://segmentfault.com/u/jeffjade)
 - [X MarshalXuan](https://x.com/MarshalXuan)
 

@@ -1,6 +1,7 @@
 import assets from './assets'
 import records from './records'
 import advice from './advice'
+import insights from './insights'
 import { Assets } from './../models/assets'
 import { Record } from './../models/records'
 
@@ -36,4 +37,4 @@ const routes = [
   },
 ]
 
-export default [...routes, ...assets, ...records, ...advice]
+export default [...routes, ...assets, ...records, ...advice, ...insights]

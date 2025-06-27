@@ -18,6 +18,7 @@
   "datetime": "Date",
   "remark": "Remarque",
   "currency": "Devise",
+  "insightsNav": "Aperçus",
   "high": "Élevé",
   "middle": "Moyen",
   "low": "Faible",
@@ -72,5 +73,26 @@
     "CAD": "Dollar Canadien",
     "SGD": "Dollar de Singapour",
     "CHF": "Franc Suisse"
+  },
+  "insights": {
+    "title": "Perspectives de Richesse",
+    "addInsight": "Ajouter une Perspective",
+    "createFirstInsight": "Créer la Première Perspective",
+    "editInsight": "Modifier la Perspective",
+    "titlePlaceholder": "Veuillez saisir le titre de la perspective",
+    "save": "Enregistrer",
+    "loading": "Chargement...",
+    "createdAt": "Créé le",
+    "updatedAt": "Mis à jour le",
+    "createTime": "Créé :",
+    "updateTime": "Mis à jour :",
+    "deleteConfirmTitle": "Êtes-vous sûr de vouloir supprimer cette perspective ?",
+    "fetchError": "Échec de la récupération de la liste des perspectives",
+    "titleContentRequired": "Veuillez remplir le titre et le contenu",
+    "updateSuccess": "Perspective mise à jour avec succès",
+    "saveSuccess": "Perspective enregistrée avec succès",
+    "saveError": "Échec de l'enregistrement, veuillez réessayer",
+    "deleteSuccess": "Perspective supprimée avec succès",
+    "deleteError": "Échec de la suppression, veuillez réessayer"
   }
 }

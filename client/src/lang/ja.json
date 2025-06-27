@@ -18,6 +18,7 @@
   "datetime": "日付",
   "remark": "備考",
   "currency": "通貨",
+  "insightsNav": "インサイト",
   "high": "高",
   "middle": "中",
   "low": "低",
@@ -72,5 +73,26 @@
     "CAD": "カナダドル",
     "SGD": "シンガポールドル",
     "CHF": "スイスフラン"
+  },
+  "insights": {
+    "title": "資産洞察",
+    "addInsight": "洞察を追加",
+    "createFirstInsight": "最初の洞察を作成",
+    "editInsight": "洞察を編集",
+    "titlePlaceholder": "洞察のタイトルを入力してください",
+    "save": "保存",
+    "loading": "読み込み中...",
+    "createdAt": "作成日",
+    "updatedAt": "更新日",
+    "createTime": "作成時間：",
+    "updateTime": "更新時間：",
+    "deleteConfirmTitle": "この洞察を削除してもよろしいですか？",
+    "fetchError": "洞察リストの取得に失敗しました",
+    "titleContentRequired": "タイトルと内容を入力してください",
+    "updateSuccess": "洞察が正常に更新されました",
+    "saveSuccess": "洞察が正常に保存されました",
+    "saveError": "保存に失敗しました。再試行してください",
+    "deleteSuccess": "洞察が正常に削除されました",
+    "deleteError": "削除に失敗しました。再試行してください"
   }
 }

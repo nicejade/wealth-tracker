@@ -92,11 +92,9 @@
 <Card
   size="xl"
   class="hide-scrollbar w-full  max-w-none overflow-x-scroll shadow-none md:p-4 2xl:col-span-2">
-  <div class="mb-2 flex justify-between">
+  <div class="mb-4 flex justify-between">
     <Caption title={$_('recordAssets')}></Caption>
-    <a href="/detail" class="regular-btn hover:text-brand text-center text-sm">
-      {$_('viewDetails')}
-    </a>
+    <a href="/detail" class="regular-btn">{$_('viewDetails')}</a>
   </div>
   <Table hoverable={true} striped={true} class="divide-y last:border-b-0">
     <TableHead class="text-sm">

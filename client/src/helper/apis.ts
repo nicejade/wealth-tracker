@@ -32,6 +32,26 @@ export const destroyRecords = (data) => {
   return $ajax.delete(genApiPath('records'), data)
 }
 
+export const createInsights = (data) => {
+  return $ajax.post(genApiPath('insights'), data)
+}
+
+export const getInsights = (data = {}) => {
+  return $ajax.get(genApiPath('insights'), data)
+}
+
+export const updateInsights = (data) => {
+  return $ajax.put(genApiPath('insights'), data)
+}
+
+export const destroyInsights = (data) => {
+  return $ajax.delete(genApiPath('insights'), data)
+}
+
 export const resetDatabase = () => {
   return $ajax.post(genApiPath('reset'), {})
+}
+
+export const generateAdvice = (data) => {
+  return $ajax.post(genApiPath('generate-advice'), data)
 }
