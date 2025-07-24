@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { _ } from 'svelte-i18n'
 
   export const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay || 1000))
 
@@ -31,7 +32,7 @@
       <a
         class="border-brand text-brand min-w-28 rounded-full border bg-white px-4 py-2 text-base font-bold hover:bg-gray-100 md:text-sm"
         href="/">
-        Home Page
+        {$_('backToHomepage')}
       </a>
       <a
         class=" min-w-28 rounded-full border border-gray-300 bg-white px-4 py-2 text-base font-bold text-gray-600 hover:bg-gray-100 md:text-sm"
