@@ -8,6 +8,7 @@
   "destroy": "Supprimer",
   "confirm": "Confirmer",
   "cancel": "Annuler",
+  "close": "Fermer",
   "persist": "Persévérer",
   "viewDetails": "Voir les détails",
   "recordAssets": "Enregistrer Actifs",
@@ -94,6 +95,14 @@
     "saveSuccess": "Perspective enregistrée avec succès",
     "saveError": "Échec de l'enregistrement, veuillez réessayer",
     "deleteSuccess": "Perspective supprimée avec succès",
-    "deleteError": "Échec de la suppression, veuillez réessayer"
+    "deleteError": "Échec de la suppression, veuillez réessayer",
+    "calendarTitle": "Activité des Perspectives",
+    "less": "Moins",
+    "more": "Plus",
+    "insightsCount": "perspectives",
+    "dayInsights": "Perspectives du Jour",
+    "noInsightsOnThisDay": "Aucune perspective ce jour-là",
+    "year": "Année",
+    "quarter": "Trimestre"
   }
 }

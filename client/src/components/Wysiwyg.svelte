@@ -139,7 +139,7 @@
         editorProps: {
           attributes: {
             class:
-              'format lg:format-lg dark:format-invert focus:outline-none format-blue max-w-none prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+              'format lg:format-lg dark:format-invert focus:outline-none format-blue max-w-none prose prose-base mx-auto focus:outline-none',
             style: `min-height: ${minHeight}; max-height: ${maxHeight}; overflow-y: auto;`,
           },
         },
@@ -1103,7 +1103,7 @@
     <div
       bind:this={editorElement}
       id={componentId}
-      class="block w-full border-0 bg-white px-0 text-sm text-gray-800 focus:ring-0 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400">
+      class="block w-full border-0 bg-white px-0 text-sm text-gray-800 focus:ring-0">
     </div>
   </div>
 </div>

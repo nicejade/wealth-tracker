@@ -1,4 +1,4 @@
-import { create, get, update, destroy } from '../controllers/insights'
+import { create, get, update, destroy, getCalendarData } from '../controllers/insights'
 
 export default [
   {
@@ -20,5 +20,10 @@ export default [
     method: 'DELETE',
     url: '/api/insights',
     handler: destroy,
+  },
+  {
+    method: 'GET',
+    url: '/api/insights/calendar',
+    handler: getCalendarData,
   },
 ]

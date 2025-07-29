@@ -8,7 +8,14 @@
   import Wysiwyg from '../components/Wysiwyg.svelte'
   import SvgIcon from '../components/SvgIcon.svelte'
   import Caption from '../components/Caption.svelte'
-  import { createInsights, getInsights, updateInsights, destroyInsights } from '../helper/apis'
+  import CalendarHeatmap from '../components/CalendarHeatmap.svelte'
+  import {
+    createInsights,
+    getInsights,
+    updateInsights,
+    destroyInsights,
+    getInsightsCalendarData,
+  } from '../helper/apis'
   import { notice, alert } from '../stores'
   import type { LinkType } from 'flowbite-svelte'
 
@@ -18,14 +25,19 @@
   let isShowModal = false
   let isShowDeleteModal = false
   let isShowDetailModal = false
+  let isShowDayInsightsModal = false
   let editingInsight = null
   let deletingInsightId = null
   let viewingInsight = null
+  let selectedDayInsights = []
+  let selectedDate = ''
   let page = 1
   let size = 8
   let totalPages = 0
   let pages: LinkType[] = []
   let loading = false
+  let calendarData = []
+  let calendarLoading = false
 
   $: {
     page = Math.max(parseInt($params.page || page, 10), 1)
@@ -33,8 +45,51 @@
   }
 
   onMount(() => {
-    fetchInsights()
+    fetchCalendarData()
   })
+
+  // 获取日历热力图数据
+  const fetchCalendarData = async (startDate?: Date, endDate?: Date) => {
+    try {
+      calendarLoading = true
+
+      // 如果没有提供日期范围，使用当前季度
+      if (!startDate || !endDate) {
+        const now = new Date()
+        const currentYear = now.getFullYear()
+        const currentQuarter = Math.ceil((now.getMonth() + 1) / 3)
+        const startMonth = (currentQuarter - 1) * 3
+        const endMonth = startMonth + 2
+
+        startDate = new Date(currentYear, startMonth, 1)
+        endDate = new Date(currentYear, endMonth + 1, 0)
+      }
+
+      const result: any = await getInsightsCalendarData({
+        startDate: startDate.toISOString().split('T')[0],
+        endDate: endDate.toISOString().split('T')[0],
+      })
+      calendarData = result
+    } catch (error) {
+      console.error('Error fetching calendar data:', error)
+    } finally {
+      calendarLoading = false
+    }
+  }
+
+  // 处理日历方格点击
+  const handleDayClick = (event: any) => {
+    const { date, insights } = event.detail
+    selectedDate = date
+    selectedDayInsights = insights
+    isShowDayInsightsModal = true
+  }
+
+  // 处理日期范围变化
+  const handleDateRangeChange = (event: any) => {
+    const { startDate, endDate } = event.detail
+    fetchCalendarData(startDate, endDate)
+  }
 
   const assemblePageData = (result: any) => {
     insights = result.data
@@ -195,6 +250,14 @@
 </script>
 
 <Header />
+
+<!-- 日历热力图 -->
+<div class="mb-6">
+  <CalendarHeatmap
+    data={calendarData}
+    on:dayClick={handleDayClick}
+    on:dateRangeChange={handleDateRangeChange} />
+</div>
 
 <Card size="xl" class="w-full max-w-none shadow-none md:p-4 2xl:col-span-2">
   <div class="mb-4 flex justify-between">
@@ -365,6 +428,47 @@
       <Button class="comfirm-btn" on:click={confirmDelete}>{$_('confirm')}</Button>
       <Button class="cancel-btn" on:click={() => (isShowDeleteModal = false)}>
         {$_('cancel')}
+      </Button>
+    </div>
+  </div>
+</Modal>
+
+<!-- 当日见解模态框 -->
+<Modal bind:open={isShowDayInsightsModal} size="lg" autoclose={false} class="w-full">
+  <div class="flex flex-col space-y-6 px-6 py-0">
+    <div class="flex items-start justify-between">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+        {$_('insights.dayInsights')} - {selectedDate
+          ? new Date(selectedDate).toLocaleDateString($locale)
+          : ''}
+      </h2>
+    </div>
+
+    {#if selectedDayInsights.length === 0}
+      <div class="py-8 text-center text-gray-500">
+        {$_('insights.noInsightsOnThisDay')}
+      </div>
+    {:else}
+      <div class="max-h-96 space-y-4 overflow-y-auto">
+        {#each selectedDayInsights as insight (insight.id)}
+          <div class="rounded-lg border border-gray-200 p-4">
+            <h3 class="mb-2 font-semibold text-gray-900 dark:text-white">
+              {insight.title}
+            </h3>
+            <div class="prose prose-sm max-w-none text-gray-700">
+              {@html insight.content}
+            </div>
+            <div class="mt-2 text-xs text-gray-500">
+              {formatDate(insight.created)}
+            </div>
+          </div>
+        {/each}
+      </div>
+    {/if}
+
+    <div class="flex justify-center">
+      <Button class="cancel-btn" on:click={() => (isShowDayInsightsModal = false)}>
+        {$_('close')}
       </Button>
     </div>
   </div>

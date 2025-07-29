@@ -8,6 +8,7 @@
   "destroy": "銷毀",
   "confirm": "確定",
   "cancel": "取消",
+  "close": "關閉",
   "persist": "堅持",
   "viewDetails": "查閱詳情",
   "recordAssets": "記錄資產",
@@ -94,6 +95,14 @@
     "saveSuccess": "見解保存成功",
     "saveError": "保存失敗，請重試",
     "deleteSuccess": "見解刪除成功",
-    "deleteError": "刪除失敗，請重試"
+    "deleteError": "刪除失敗，請重試",
+    "calendarTitle": "見解活躍度",
+    "less": "少",
+    "more": "多",
+    "insightsCount": "條見解",
+    "dayInsights": "當日見解",
+    "noInsightsOnThisDay": "這一天沒有見解",
+    "year": "年份",
+    "quarter": "季度"
   }
 }

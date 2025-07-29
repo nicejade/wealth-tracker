@@ -48,6 +48,10 @@ export const destroyInsights = (data) => {
   return $ajax.delete(genApiPath('insights'), data)
 }
 
+export const getInsightsCalendarData = (data) => {
+  return $ajax.get(genApiPath('insights/calendar'), data)
+}
+
 export const resetDatabase = () => {
   return $ajax.post(genApiPath('reset'), {})
 }

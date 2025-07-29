@@ -8,6 +8,7 @@
   "destroy": "销毁",
   "confirm": "确定",
   "cancel": "取消",
+  "close": "关闭",
   "persist": "坚持",
   "viewDetails": "查阅详情",
   "recordAssets": "记录资产",
@@ -94,6 +95,14 @@
     "saveSuccess": "见解保存成功",
     "saveError": "保存失败，请重试",
     "deleteSuccess": "见解删除成功",
-    "deleteError": "删除失败，请重试"
+    "deleteError": "删除失败，请重试",
+    "calendarTitle": "见解活跃度",
+    "less": "少",
+    "more": "多",
+    "insightsCount": "条见解",
+    "dayInsights": "当日见解",
+    "noInsightsOnThisDay": "这一天没有见解",
+    "year": "年份",
+    "quarter": "季度"
   }
 }

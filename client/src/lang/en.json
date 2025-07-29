@@ -8,6 +8,7 @@
   "destroy": "Destroy",
   "confirm": "Confirm",
   "cancel": "Cancel",
+  "close": "Close",
   "persist": "Persist",
   "viewDetails": "View Details",
   "recordAssets": "Record Assets",
@@ -94,6 +95,14 @@
     "saveSuccess": "Insight saved successfully",
     "saveError": "Save failed, please try again",
     "deleteSuccess": "Insight deleted successfully",
-    "deleteError": "Delete failed, please try again"
+    "deleteError": "Delete failed, please try again",
+    "calendarTitle": "Insight Activity",
+    "less": "Less",
+    "more": "More",
+    "insightsCount": "insights",
+    "dayInsights": "Daily Insights",
+    "noInsightsOnThisDay": "No insights on this day",
+    "year": "Year",
+    "quarter": "Quarter"
   }
 }

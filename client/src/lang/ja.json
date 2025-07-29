@@ -8,6 +8,7 @@
   "destroy": "削除",
   "confirm": "確認",
   "cancel": "キャンセル",
+  "close": "閉じる",
   "persist": "頑張って",
   "viewDetails": "詳細を見る",
   "recordAssets": "資産を記録",
@@ -94,6 +95,14 @@
     "saveSuccess": "洞察が正常に保存されました",
     "saveError": "保存に失敗しました。再試行してください",
     "deleteSuccess": "洞察が正常に削除されました",
-    "deleteError": "削除に失敗しました。再試行してください"
+    "deleteError": "削除に失敗しました。再試行してください",
+    "calendarTitle": "洞察アクティビティ",
+    "less": "少ない",
+    "more": "多い",
+    "insightsCount": "件の洞察",
+    "dayInsights": "日別洞察",
+    "noInsightsOnThisDay": "この日は洞察がありません",
+    "year": "年",
+    "quarter": "四半期"
   }
 }
