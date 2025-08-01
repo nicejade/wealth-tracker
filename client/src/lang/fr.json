@@ -26,6 +26,7 @@
   "low": "Faible",
   "good": "Bon",
   "poor": "Mauvais",
+  "all": "Tous",
   "total": "Total",
   "assetAllocation": "Allocation d'actifs",
   "currentAssetStatus": "État actuel des actifs",

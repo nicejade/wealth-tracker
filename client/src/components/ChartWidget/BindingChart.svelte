@@ -21,9 +21,14 @@
 
   export let sources = []
 
+  const RISK_TYPES = ['LOW', 'MIDDLE', 'HIGH']
+  const LIQUIDITY_TYPES = ['GOOD', 'MIDDLE', 'POOR']
+
   let DATE_ACTIVE: number = 0
   let options: ApexOptions | any = genBindingOptions($period.days)
   let stageChangePercent: number = 0
+  let selectedRisk: string = 'ALL'
+  let selectedLiquidity: string = 'ALL'
 
   $: if (sources || $period) {
     regenAreaOptions(sources)
@@ -36,6 +41,16 @@
     name: $_(item.key, { values: { count: item.days } }),
     value: item.value,
   }))
+
+  $: riskOptions = [
+    { name: $_('all'), value: 'ALL' },
+    ...RISK_TYPES.map((type) => ({ name: $_(type.toLowerCase()), value: type })),
+  ]
+
+  $: liquidityOptions = [
+    { name: $_('all'), value: 'ALL' },
+    ...LIQUIDITY_TYPES.map((type) => ({ name: $_(type.toLowerCase()), value: type })),
+  ]
 
   onMount(() => {
     period.set(DATE_PERIOD_ARR[DATE_ACTIVE])
@@ -69,7 +84,19 @@
   }
 
   const regenAreaOptions = (assetsArr) => {
-    const sortedAssetsArr = sortByDatetime(assetsArr)
+    let filteredAssetsArr = assetsArr
+
+    // 根据风险筛选
+    if (selectedRisk !== 'ALL') {
+      filteredAssetsArr = filteredAssetsArr.filter((asset) => asset.risk === selectedRisk)
+    }
+
+    // 根据流动性筛选
+    if (selectedLiquidity !== 'ALL') {
+      filteredAssetsArr = filteredAssetsArr.filter((asset) => asset.liquidity === selectedLiquidity)
+    }
+
+    const sortedAssetsArr = sortByDatetime(filteredAssetsArr)
     const splitAssetsArr = groupArrayByType(sortedAssetsArr)
     const seriesDataArr = genChartSeries(splitAssetsArr)
     const series = deepClone(options.series)
@@ -80,6 +107,16 @@
   const onHandleSelect = (event: CustomEvent) => {
     period.set(event.detail)
     options = genBindingOptions($period.days)
+  }
+
+  const onRiskSelect = (event: CustomEvent) => {
+    selectedRisk = event.detail.value
+    regenAreaOptions(sources)
+  }
+
+  const onLiquiditySelect = (event: CustomEvent) => {
+    selectedLiquidity = event.detail.value
+    regenAreaOptions(sources)
   }
 </script>
 
@@ -95,4 +132,20 @@
     </div>
   </Caption>
   <Chart {options}></Chart>
+
+  <!-- 筛选选项 -->
+  <div class="mt-4 flex flex-wrap items-center gap-4">
+    <CustomSelect
+      label={$_('risk')}
+      options={riskOptions}
+      active={0}
+      listboxClass="w-32"
+      on:selected={onRiskSelect} />
+    <CustomSelect
+      label={$_('liquidity')}
+      options={liquidityOptions}
+      active={0}
+      listboxClass="w-32"
+      on:selected={onLiquiditySelect} />
+  </div>
 </Card>

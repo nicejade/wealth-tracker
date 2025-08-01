@@ -26,6 +26,7 @@
   "low": "Low",
   "good": "Good",
   "poor": "Poor",
+  "all": "All",
   "total": "Total",
   "assetAllocation": "Asset Allocation",
   "currentAssetStatus": "Current Asset Status",
