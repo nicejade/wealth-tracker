@@ -15,7 +15,11 @@
     computeChangePercent,
   } from './../../helper/utils'
   import { genBindingOptions } from './../../helper/chart'
-  import { DATE_PERIOD_ARR } from './../../helper/constant'
+  import {
+    DATE_PERIOD_ARR,
+    STORAGE_RISK_FILTER,
+    STORAGE_LIQUIDITY_FILTER,
+  } from './../../helper/constant'
   import { period, language } from './../../stores'
   import type { ApexOptions } from 'apexcharts'
 
@@ -27,8 +31,8 @@
   let DATE_ACTIVE: number = 0
   let options: ApexOptions | any = genBindingOptions($period.days)
   let stageChangePercent: number = 0
-  let selectedRisk: string = 'ALL'
-  let selectedLiquidity: string = 'ALL'
+  let selectedRisk: string = localStorage.getItem(STORAGE_RISK_FILTER) || 'ALL'
+  let selectedLiquidity: string = localStorage.getItem(STORAGE_LIQUIDITY_FILTER) || 'ALL'
 
   $: if (sources || $period) {
     regenAreaOptions(sources)
@@ -51,6 +55,11 @@
     { name: $_('all'), value: 'ALL' },
     ...LIQUIDITY_TYPES.map((type) => ({ name: $_(type.toLowerCase()), value: type })),
   ]
+
+  $: riskActiveIndex = riskOptions.findIndex((option) => option.value === selectedRisk)
+  $: liquidityActiveIndex = liquidityOptions.findIndex(
+    (option) => option.value === selectedLiquidity,
+  )
 
   onMount(() => {
     period.set(DATE_PERIOD_ARR[DATE_ACTIVE])
@@ -111,11 +120,13 @@
 
   const onRiskSelect = (event: CustomEvent) => {
     selectedRisk = event.detail.value
+    localStorage.setItem(STORAGE_RISK_FILTER, selectedRisk)
     regenAreaOptions(sources)
   }
 
   const onLiquiditySelect = (event: CustomEvent) => {
     selectedLiquidity = event.detail.value
+    localStorage.setItem(STORAGE_LIQUIDITY_FILTER, selectedLiquidity)
     regenAreaOptions(sources)
   }
 </script>
@@ -138,13 +149,13 @@
     <CustomSelect
       label={$_('risk')}
       options={riskOptions}
-      active={0}
+      active={riskActiveIndex >= 0 ? riskActiveIndex : 0}
       listboxClass="w-32"
       on:selected={onRiskSelect} />
     <CustomSelect
       label={$_('liquidity')}
       options={liquidityOptions}
-      active={0}
+      active={liquidityActiveIndex >= 0 ? liquidityActiveIndex : 0}
       listboxClass="w-32"
       on:selected={onLiquiditySelect} />
   </div>
