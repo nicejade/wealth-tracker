@@ -63,10 +63,12 @@
   "assetAllocationAdvice": "AI successfully generated asset allocation advice",
   "genAssetAdviceTip": "After configuring AI settings (supporting providers like [OpenAI](https://openai.com/), [xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/), [DeepSeek](https://www.deepseek.com/), [Moonshot AI](https://www.moonshot.cn/)), generate your asset allocation recommendations based on the **prompt**. You can reference these suggestions to optimize your asset allocation. Of course, you can also modify the prompt or copy it to seek advice from other AI services.",
   "validRateApiTip": "API Key must be a combination of 24 letters and numbers",
+  "validBitcoinApiTip": "Bitcoin API Key must be 40 characters long",
   "currencys": {
     "CNY": "Chinese Yuan",
     "USD": "US Dollar",
     "HKD": "Hong Kong Dollar",
+    "BTC": "Bitcoin",
     "EUR": "Euro",
     "JPY": "Japanese Yen",
     "GBP": "British Pound",

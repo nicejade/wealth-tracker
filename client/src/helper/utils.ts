@@ -7,6 +7,7 @@ import {
   DEFAULT_LANG,
   DEFAULT_EXCHANGE_RATE,
   EXCHANGE_RATE_API_KEY,
+  BITCOIN_API_KEY,
   TARGET_CURRENCY,
 } from './../helper/constant'
 import { exchangeRates } from './../stores'
@@ -276,7 +277,7 @@ const getCachedRates = (base: string) => {
   return !isExpired && cacheBase === base ? rates : null
 }
 
-const cacheRates = (rates: any, base: string) => {
+const setCachedRates = (rates: any, base: string) => {
   sessionStorage.setItem(
     EXCHANGE_RATE_CACHE_KEY,
     JSON.stringify({
@@ -300,8 +301,33 @@ export const setStoredCurrency = (currency: string = 'CNY') => {
 
 const fetchLatestRates = async (rateApiKey: string, base: string) => {
   const response = await fetch(`https://v6.exchangerate-api.com/v6/${rateApiKey}/latest/${base}`)
-  const data = await response.json()
-  return data.conversion_rates
+  if (!response.ok) {
+    console.error('Exchangerate API request failed:', response.status, response.statusText)
+    return null
+  }
+  const result = await response.json()
+  return result.conversion_rates
+}
+
+const fetchBitcoinPrice = async (apiKey: string): Promise<number | null> => {
+  try {
+    const response = await fetch('https://api.api-ninjas.com/v1/bitcoin', {
+      headers: {
+        'X-Api-Key': apiKey,
+      },
+    })
+
+    if (!response.ok) {
+      console.error('Bitcoin API request failed:', response.status, response.statusText)
+      return null
+    }
+
+    const result = await response.json()
+    return parseFloat(result.price)
+  } catch (error) {
+    console.error('Failed to fetch Bitcoin price:', error)
+    return null
+  }
 }
 
 export async function fetchExchangeRates(base = 'CNY') {
@@ -314,16 +340,27 @@ export async function fetchExchangeRates(base = 'CNY') {
 
     const rateApiKey = localStorage.getItem(EXCHANGE_RATE_API_KEY)
     if (!rateApiKey) {
-      exchangeRates.set(DEFAULT_EXCHANGE_RATE.conversion_rates)
+      const rates = { ...DEFAULT_EXCHANGE_RATE.conversion_rates }
+      exchangeRates.set(rates)
       return
     }
 
     const rates = await fetchLatestRates(rateApiKey, base)
-    cacheRates(rates, base)
+    const bitcoinApiKey = localStorage.getItem(BITCOIN_API_KEY)
+    if (bitcoinApiKey) {
+      const bitcoinPriceUSD = await fetchBitcoinPrice(bitcoinApiKey)
+      if (bitcoinPriceUSD !== null && rates['USD'] && rates[base]) {
+        const btcInBase = rates['USD'] / bitcoinPriceUSD
+        rates.BTC = Number(btcInBase.toFixed(10))
+      }
+    }
+
+    setCachedRates(rates, base)
     exchangeRates.set(rates)
   } catch (error) {
     console.error('Failed to fetch exchange rates:', error)
-    exchangeRates.set(DEFAULT_EXCHANGE_RATE.conversion_rates)
+    const rates = { ...DEFAULT_EXCHANGE_RATE.conversion_rates }
+    exchangeRates.set(rates)
   }
 }
 

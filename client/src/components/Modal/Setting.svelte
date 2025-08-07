@@ -3,7 +3,7 @@
   import { Modal } from 'flowbite'
   import { _ } from 'svelte-i18n'
   import SvgIcon from '../SvgIcon.svelte'
-  import { EXCHANGE_RATE_API_KEY } from './../../helper/constant'
+  import { EXCHANGE_RATE_API_KEY, BITCOIN_API_KEY } from './../../helper/constant'
   import { fetchExchangeRates } from './../../helper/utils'
   import type { ModalOptions } from 'flowbite'
 
@@ -13,11 +13,15 @@
   let loading = false
   let error = ''
   let rateApiKey = localStorage.getItem(EXCHANGE_RATE_API_KEY) || ''
+  let bitcoinApiKey = localStorage.getItem(BITCOIN_API_KEY) || ''
 
   $: {
-    const isValid = isValidRateApiKey(rateApiKey)
-    if (!isValid && rateApiKey) {
+    const isValidRate = !rateApiKey || isValidRateApiKey(rateApiKey)
+    const isValidBitcoin = !bitcoinApiKey || isValidBitcoinApiKey(bitcoinApiKey)
+    if (!isValidRate) {
       error = $_('validRateApiTip')
+    } else if (!isValidBitcoin) {
+      error = $_('validBitcoinApiTip')
     } else {
       error = ''
     }
@@ -53,21 +57,29 @@
   }
 
   const isValidRateApiKey = (key: string): boolean => {
-    const API_KEY_LENGTH = 24
     const API_KEY_PATTERN = /^[A-Za-z0-9]{24}$/
+    return API_KEY_PATTERN.test(key)
+  }
 
-    return key.length === API_KEY_LENGTH && API_KEY_PATTERN.test(key)
+  const isValidBitcoinApiKey = (key: string): boolean => {
+    const API_KEY_PATTERN = /^[A-Za-z0-9/+_=]{40}$/
+    return API_KEY_PATTERN.test(key)
   }
 
   const handleConfirm = async () => {
     try {
-      if (!isValidRateApiKey(rateApiKey)) {
+      if (rateApiKey && !isValidRateApiKey(rateApiKey)) {
         error = $_('validRateApiTip')
+        return
+      }
+      if (bitcoinApiKey && !isValidBitcoinApiKey(bitcoinApiKey)) {
+        error = $_('validBitcoinApiTip')
         return
       }
       loading = true
       error = ''
       localStorage.setItem(EXCHANGE_RATE_API_KEY, rateApiKey)
+      localStorage.setItem(BITCOIN_API_KEY, bitcoinApiKey)
       await fetchExchangeRates()
       closeModal()
     } catch (err) {
@@ -101,10 +113,10 @@
       <!-- Modal body -->
       <div class="flex flex-col items-center justify-center p-6">
         <div class="module-warp">
-          <label for="rateApiKey" class="custom-label leading-5">
+          <label for="rateApiKey" class="custom-label">
             <a
               target="_blank"
-              class="text-brand hover:text-mark"
+              class="text-brand hover:text-mark leading-3"
               href="https://fine.niceshare.site/projects/wealth-tracker/#如何获取汇率-api-key">
               Exchange Rate <br />
               API Key
@@ -117,6 +129,24 @@
             required
             bind:value={rateApiKey}
             placeholder={$_('validRateApiTip')} />
+        </div>
+
+        <div class="module-warp mt-4">
+          <label for="bitcoinApiKey" class="custom-label">
+            <a
+              target="_blank"
+              class="text-brand hover:text-mark leading-3"
+              href="https://api-ninjas.com/api/bitcoin">
+              Bitcoin <br />
+              API Key
+              <i class="text-mark">*</i>
+            </a>
+          </label>
+          <input
+            type="text"
+            class="custom-input"
+            bind:value={bitcoinApiKey}
+            placeholder={$_('validBitcoinApiTip')} />
         </div>
 
         {#if error}

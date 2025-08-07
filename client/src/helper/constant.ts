@@ -30,14 +30,14 @@ export const DATE_PERIOD_ARR = [98, 196, 280, 364, 616].map((day) => {
   }
 })
 
-const RISK_TYPES = ['LOW', 'MIDDLE', 'HIGH']
+export const RISK_TYPES = ['LOW', 'MIDDLE', 'HIGH']
 
 export const ASSETS_RISK_ARR = RISK_TYPES.map((value) => ({
   key: `${value.toLowerCase()}`,
   value: value,
 }))
 
-const LIQUIDITY_TYPES = ['GOOD', 'MIDDLE', 'POOR']
+export const LIQUIDITY_TYPES = ['GOOD', 'MIDDLE', 'POOR']
 
 export const ASSETS_LIQUIDITY_ARR = LIQUIDITY_TYPES.map((value) => ({
   key: `${value.toLowerCase()}`,
@@ -182,6 +182,7 @@ Please ensure recommendations:
 export const TARGET_CURRENCY = 'target-currency'
 
 export const EXCHANGE_RATE_API_KEY = 'exchange-rate-api-key'
+export const BITCOIN_API_KEY = 'bitcoin-api-key'
 
 export const SUPPORTED_CURRENCIES = [
   {
@@ -192,6 +193,9 @@ export const SUPPORTED_CURRENCIES = [
   },
   {
     value: 'HKD',
+  },
+  {
+    value: 'BTC',
   },
   {
     value: 'EUR',
@@ -225,6 +229,7 @@ export const SUPPORTED_CURRENCIES = [
 export const DEFAULT_EXCHANGE_RATE = {
   base_code: 'CNY',
   conversion_rates: {
+    BTC: 0.0000011941,
     CNY: 1,
     AED: 0.5026,
     AFN: 10.158,

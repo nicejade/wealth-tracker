@@ -63,10 +63,12 @@
   "assetAllocationAdvice": "L'IA a généré avec succès des conseils d'allocation d'actifs",
   "genAssetAdviceTip": "Après avoir configuré les paramètres IA (prenant en charge des fournisseurs tels que [OpenAI](https://openai.com/), [xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/), [DeepSeek](https://www.deepseek.com/), [Moonshot AI](https://www.moonshot.cn/)), générez vos recommandations d'allocation d'actifs basées sur l'**invite**. Vous pouvez vous référer à ces suggestions pour optimiser votre allocation d'actifs. Bien sûr, vous pouvez également modifier l'invite ou la copier pour obtenir des conseils auprès d'autres services IA.",
   "validRateApiTip": "La clé API doit être une combinaison de 24 lettres et chiffres",
+  "validBitcoinApiTip": "La clé Bitcoin API doit être de 40 caractères",
   "currencys": {
     "CNY": "Yuan Chinois",
     "USD": "Dollar Américain",
     "HKD": "Dollar de Hong Kong",
+    "BTC": "Bitcoin",
     "EUR": "Euro",
     "JPY": "Yen Japonais",
     "GBP": "Livre Sterling",

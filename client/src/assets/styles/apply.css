@@ -3,7 +3,7 @@
 }
 
 .operating-btn {
-  @apply space-x-2 rounded-full text-black hover:bg-gray-100 focus:ring-0 md:text-sm;
+  @apply min-w-20 rounded-full border border-gray-300 bg-white px-4 py-2 text-center text-base font-bold text-gray-600 hover:bg-gray-100 md:text-sm;
 }
 
 .operating-text {

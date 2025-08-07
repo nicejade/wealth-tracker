@@ -16,6 +16,8 @@
   } from './../../helper/utils'
   import { genBindingOptions } from './../../helper/chart'
   import {
+    RISK_TYPES,
+    LIQUIDITY_TYPES,
     DATE_PERIOD_ARR,
     STORAGE_RISK_FILTER,
     STORAGE_LIQUIDITY_FILTER,
@@ -24,9 +26,6 @@
   import type { ApexOptions } from 'apexcharts'
 
   export let sources = []
-
-  const RISK_TYPES = ['LOW', 'MIDDLE', 'HIGH']
-  const LIQUIDITY_TYPES = ['GOOD', 'MIDDLE', 'POOR']
 
   let DATE_ACTIVE: number = 0
   let options: ApexOptions | any = genBindingOptions($period.days)
