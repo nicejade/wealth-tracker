@@ -43,7 +43,6 @@
   $: if (data) {
     calendarGrid = generateCalendarGrid()
   }
-  $: weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
   // 根据年份和季度计算日期范围
   const calculateDateRange = (year: number, quarter: number) => {
@@ -202,58 +201,40 @@
     </div>
   </div>
 
-  <!-- 日历网格 -->
-  <div class="w-full">
-    <!-- 星期标签和日期网格 -->
-    <div class="flex">
-      <!-- 星期标签 -->
-      <div class="mr-2 flex h-full w-12 flex-col justify-evenly gap-3">
-        {#each weekDays as day, index}
+  <!-- 日期网格 -->
+  <div class="flex w-full justify-between gap-6">
+    {#each calendarGrid as week}
+      <div class="flex min-w-0 flex-1 flex-col gap-3">
+        {#each week as day}
           <div
-            class="flex h-8 items-center text-xs font-extrabold text-gray-500 {index % 2 === 0
-              ? 'opacity-100'
-              : 'opacity-0'}">
-            {day}
-          </div>
-        {/each}
-      </div>
-
-      <!-- 日期网格 -->
-      <div class="flex justify-between gap-3" style="width: calc(100% - 3rem);">
-        {#each calendarGrid as week}
-          <div class="flex min-w-0 flex-1 flex-col gap-3">
-            {#each week as day}
-              <div
-                class="group relative aspect-square h-8 min-h-4 w-full cursor-pointer rounded border transition-all duration-200 hover:z-10 hover:scale-110 hover:shadow-md {getColorClass(
-                  getIntensity(day.count),
-                )} {day.isInRange ? '' : 'opacity-30'} {day.count > 0 && day.isInRange
-                  ? 'hover:border-brand'
-                  : ''}"
-                on:click={() => handleCellClick(day)}
-                on:keydown={(e) => e.key === 'Enter' && handleCellClick(day)}
-                role="button"
-                tabindex="0"
-                title="{formatDate(day.date)}: {day.count} {$_('insights.insightsCount')}">
-                <!-- Tooltip -->
-                <div
-                  class="absolute bottom-full left-1/2 z-50 mb-2 hidden -translate-x-1/2 transform rounded bg-gray-900 px-2 py-1 text-xs text-white group-hover:block">
-                  <div class="whitespace-nowrap">
-                    {formatDate(day.date)}
-                  </div>
-                  <div class="whitespace-nowrap">
-                    {day.count}
-                    {$_('insights.insightsCount')}
-                  </div>
-                  <!-- 箭头 -->
-                  <div
-                    class="absolute left-1/2 top-full -translate-x-1/2 transform border-4 border-transparent border-t-gray-900">
-                  </div>
-                </div>
+            class="group relative aspect-square min-h-4 w-full cursor-pointer rounded border transition-all duration-200 hover:z-10 hover:scale-110 hover:shadow-md {getColorClass(
+              getIntensity(day.count),
+            )} {day.isInRange ? '' : 'opacity-30'} {day.count > 0 && day.isInRange
+              ? 'hover:border-brand'
+              : ''}"
+            on:click={() => handleCellClick(day)}
+            on:keydown={(e) => e.key === 'Enter' && handleCellClick(day)}
+            role="button"
+            tabindex="0"
+            title="{formatDate(day.date)}: {day.count} {$_('insights.insightsCount')}">
+            <!-- Tooltip -->
+            <div
+              class="absolute bottom-full left-1/2 z-50 mb-2 hidden -translate-x-1/2 transform rounded bg-gray-900 px-2 py-1 text-xs text-white group-hover:block">
+              <div class="whitespace-nowrap">
+                {formatDate(day.date)}
               </div>
-            {/each}
+              <div class="whitespace-nowrap">
+                {day.count}
+                {$_('insights.insightsCount')}
+              </div>
+              <!-- 箭头 -->
+              <div
+                class="absolute left-1/2 top-full -translate-x-1/2 transform border-4 border-transparent border-t-gray-900">
+              </div>
+            </div>
           </div>
         {/each}
       </div>
-    </div>
+    {/each}
   </div>
 </div>
