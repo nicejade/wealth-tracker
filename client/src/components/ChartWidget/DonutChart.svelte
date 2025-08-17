@@ -11,10 +11,18 @@
     value?: number
   }
 
+  interface RiskLiquidityItem {
+    name: string
+    value: number
+    color: string
+  }
+
   export let sources
 
   const options: ApexOptions | any = genDonutOptions()
   let percentages: PercentageItem[] = []
+  let riskDistribution: RiskLiquidityItem[] = []
+  let liquidityDistribution: RiskLiquidityItem[] = []
 
   $: {
     options.series = []
@@ -28,6 +36,7 @@
     options.labels = labels
     options.series = series
     regenWealthPercentages(options)
+    calculateRiskLiquidityDistribution(sources, totalSumNum)
   }
 
   const regenWealthPercentages = (sources) => {
@@ -40,11 +49,111 @@
     })
     percentages = percentages.sort((a, b) => b.value - a.value)
   }
+
+  const calculateRiskLiquidityDistribution = (sources, totalSum) => {
+    // 计算风险分布
+    const riskGroups = {}
+    sources.forEach((item) => {
+      const risk = item.risk || 'LOW'
+      if (!riskGroups[risk]) {
+        riskGroups[risk] = 0
+      }
+      riskGroups[risk] += item.amount
+    })
+
+    riskDistribution = Object.entries(riskGroups).map(([risk, amount]) => ({
+      name: $_(risk.toLowerCase()),
+      value: Number(((Number(amount) / totalSum) * 100).toFixed(2)),
+      color: getRiskColor(risk),
+    }))
+
+    // 计算流动性分布
+    const liquidityGroups = {}
+    sources.forEach((item) => {
+      const liquidity = item.liquidity || 'GOOD'
+      if (!liquidityGroups[liquidity]) {
+        liquidityGroups[liquidity] = 0
+      }
+      liquidityGroups[liquidity] += item.amount
+    })
+
+    liquidityDistribution = Object.entries(liquidityGroups).map(([liquidity, amount]) => ({
+      name: $_(liquidity.toLowerCase()),
+      value: Number(((Number(amount) / totalSum) * 100).toFixed(2)),
+      color: getLiquidityColor(liquidity),
+    }))
+  }
+
+  const getRiskColor = (risk: string): string => {
+    switch (risk) {
+      case 'LOW':
+        return '#2edfa3' // success color
+      case 'MIDDLE':
+        return '#f8d826' // link color
+      case 'HIGH':
+        return '#ff4582' // mark color
+      default:
+        return '#B7B8B9' // grey color
+    }
+  }
+
+  const getLiquidityColor = (liquidity: string): string => {
+    switch (liquidity) {
+      case 'GOOD':
+        return '#2edfa3' // success color
+      case 'MIDDLE':
+        return '#f8d826' // link color
+      case 'POOR':
+        return '#ff4582' // mark color
+      default:
+        return '#B7B8B9' // grey color
+    }
+  }
 </script>
 
 <Card size="xl" class="h-fit shadow-none md:p-4">
   <Caption title={$_('assetAllocation')} subtitle={$_('currentAssetStatus')}></Caption>
+
+  <!-- 风险与流动性分布概览 -->
+  <div class="my-4 grid grid-cols-2 gap-4 md:grid-cols-1">
+    <!-- 风险分布 -->
+    <div class="rounded-lg border border-gray-200 p-4">
+      <h3 class="mb-3 text-lg font-semibold text-gray-800">{$_('risk')} {$_('distribution')}</h3>
+      <div class="space-y-3">
+        {#each riskDistribution as item}
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div class="h-3 w-3 rounded-full" style="background-color: {item.color}"></div>
+              <span class="text-sm font-medium text-gray-700">{item.name}</span>
+            </div>
+            <span class="text-blue text-sm font-bold">{item.value}%</span>
+          </div>
+        {/each}
+      </div>
+    </div>
+
+    <!-- 流动性分布 -->
+    <div class="rounded-lg border border-gray-200 p-4">
+      <h3 class="mb-3 text-lg font-semibold text-gray-800">
+        {$_('liquidity')}
+        {$_('distribution')}
+      </h3>
+      <div class="space-y-3">
+        {#each liquidityDistribution as item}
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div class="h-3 w-3 rounded-full" style="background-color: {item.color}"></div>
+              <span class="text-sm font-medium text-gray-700">{item.name}</span>
+            </div>
+            <span class="text-blue text-sm font-bold">{item.value}%</span>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </div>
+
   <Chart {options}></Chart>
+
   <div class="my-6 flex flex-wrap items-center justify-start pt-4 sm:pt-6 md:justify-evenly">
     {#each percentages as item}
       <SmallPanel title={item.name} subtitle={`${item.value}%`} />
