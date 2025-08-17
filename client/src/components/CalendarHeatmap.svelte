@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
-  import { _, locale } from 'svelte-i18n'
+  import { _ } from 'svelte-i18n'
+  import dayjs from 'dayjs'
   import CustomSelect from './Select.svelte'
   import type { SelectItem } from '../typings'
 
@@ -10,7 +11,7 @@
 
   // 生成年份选项（过去12年）
   const generateYearOptions = (): SelectItem[] => {
-    const currentYear = new Date().getFullYear()
+    const currentYear = dayjs().year()
     const years: SelectItem[] = []
     for (let i = 0; i < 12; i++) {
       const year = currentYear - i
@@ -35,9 +36,9 @@
   // 年份和季度选择
   let yearOptions = generateYearOptions()
   let quarterOptions = generateQuarterOptions()
-  let selectedYear = new Date().getFullYear()
+  let selectedYear = dayjs().year()
   let selectedYearActive: number = 0
-  let selectedQuarter = Math.ceil((new Date().getMonth() + 1) / 3)
+  let selectedQuarter = Math.ceil((dayjs().month() + 1) / 3)
   let calendarGrid = []
   $: if (data) {
     calendarGrid = generateCalendarGrid()
@@ -52,13 +53,13 @@
     let startDate = new Date(year, startMonth, 1)
     let endDate = new Date(year, endMonth + 1, 0) // 下个月的第0天 = 当月最后一天
 
-    const currentDate = new Date()
+    const currentDate = dayjs()
 
     // 如果计算的结束日期超过当前日期，则以当前日期为结束日期，向前推算一个季度
-    if (endDate > currentDate) {
-      endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())
+    if (dayjs(endDate).isAfter(currentDate)) {
+      endDate = currentDate.toDate()
       // 向前推算3个月（一个季度）
-      startDate = new Date(endDate.getFullYear(), endDate.getMonth() - 3, endDate.getDate())
+      startDate = currentDate.subtract(3, 'month').toDate()
     }
 
     return { startDate, endDate }
@@ -88,29 +89,32 @@
     const { startDate: start, endDate: end } = calculateDateRange(selectedYear, selectedQuarter)
 
     // 找到开始日期所在周的周一
-    const startOfWeek = new Date(start)
-    const dayOfWeek = start.getDay()
+    const startOfWeek = dayjs(start)
+    const dayOfWeek = startOfWeek.day()
     const daysToSubtract = dayOfWeek === 0 ? 6 : dayOfWeek - 1
-    startOfWeek.setDate(start.getDate() - daysToSubtract)
+    const adjustedStartOfWeek = startOfWeek.subtract(daysToSubtract, 'day')
 
-    const current = new Date(startOfWeek)
+    let current = adjustedStartOfWeek
     const weeks = []
 
-    while (current <= end) {
+    while (current.isBefore(dayjs(end)) || current.isSame(dayjs(end))) {
       const week = []
       for (let i = 0; i < 7; i++) {
-        const dateStr = current.toISOString().split('T')[0]
+        // 使用 dayjs 格式化日期，避免时区问题
+        const dateStr = current.format('YYYY-MM-DD')
         const dayData = data.find((d) => d.date === dateStr)
 
         week.push({
-          date: new Date(current),
+          date: current.toDate(),
           dateStr,
           count: dayData?.count || 0,
           insights: dayData?.insights || [],
-          isInRange: current >= start && current <= end,
+          isInRange:
+            (current.isAfter(dayjs(start)) || current.isSame(dayjs(start))) &&
+            (current.isBefore(dayjs(end)) || current.isSame(dayjs(end))),
         })
 
-        current.setDate(current.getDate() + 1)
+        current = current.add(1, 'day')
       }
       weeks.push(week)
     }
@@ -152,10 +156,7 @@
 
   // 格式化日期显示
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString($locale, {
-      month: 'short',
-      day: 'numeric',
-    })
+    return dayjs(date).format('MMM D')
   }
 </script>
 
