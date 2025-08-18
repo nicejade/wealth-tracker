@@ -3,6 +3,7 @@
   import { _ } from 'svelte-i18n'
   import SmallPanel from './../SmallPanel.svelte'
   import Caption from './../Caption.svelte'
+  import { RISK_TYPES, LIQUIDITY_TYPES } from './../../helper/constant'
   import { genDonutOptions } from '../../helper/chart'
   import type { ApexOptions } from 'apexcharts'
 
@@ -54,34 +55,42 @@
     // 计算风险分布
     const riskGroups = {}
     sources.forEach((item) => {
-      const risk = item.risk || 'LOW'
+      const risk = item.risk || RISK_TYPES[0]
       if (!riskGroups[risk]) {
         riskGroups[risk] = 0
       }
       riskGroups[risk] += item.amount
     })
 
-    riskDistribution = Object.entries(riskGroups).map(([risk, amount]) => ({
-      name: $_(risk.toLowerCase()),
-      value: Number(((Number(amount) / totalSum) * 100).toFixed(2)),
-      color: getRiskColor(risk),
-    }))
+    riskDistribution = RISK_TYPES.map((risk) => {
+      const amount = riskGroups[risk] || 0
+      const percent = totalSum > 0 ? Number((amount / totalSum) * 100) : 0
+      return {
+        name: $_(risk.toLowerCase()),
+        value: percent,
+        color: getRiskColor(risk),
+      }
+    })
 
     // 计算流动性分布
     const liquidityGroups = {}
     sources.forEach((item) => {
-      const liquidity = item.liquidity || 'GOOD'
+      const liquidity = item.liquidity || LIQUIDITY_TYPES[0]
       if (!liquidityGroups[liquidity]) {
         liquidityGroups[liquidity] = 0
       }
       liquidityGroups[liquidity] += item.amount
     })
 
-    liquidityDistribution = Object.entries(liquidityGroups).map(([liquidity, amount]) => ({
-      name: $_(liquidity.toLowerCase()),
-      value: Number(((Number(amount) / totalSum) * 100).toFixed(2)),
-      color: getLiquidityColor(liquidity),
-    }))
+    liquidityDistribution = LIQUIDITY_TYPES.map((liquidity) => {
+      const amount = liquidityGroups[liquidity] || 0
+      const percent = totalSum > 0 ? Number((amount / totalSum) * 100) : 0
+      return {
+        name: $_(liquidity.toLowerCase()),
+        value: percent,
+        color: getLiquidityColor(liquidity),
+      }
+    })
   }
 
   const getRiskColor = (risk: string): string => {
@@ -126,7 +135,7 @@
               <div class="h-3 w-3 rounded-full" style="background-color: {item.color}"></div>
               <span class="text-sm font-medium text-gray-700">{item.name}</span>
             </div>
-            <span class="text-blue text-sm font-bold">{item.value}%</span>
+            <span class="text-blue text-sm font-bold">{item.value.toFixed(2)}%</span>
           </div>
         {/each}
       </div>
@@ -145,7 +154,7 @@
               <div class="h-3 w-3 rounded-full" style="background-color: {item.color}"></div>
               <span class="text-sm font-medium text-gray-700">{item.name}</span>
             </div>
-            <span class="text-blue text-sm font-bold">{item.value}%</span>
+            <span class="text-blue text-sm font-bold">{item.value.toFixed(2)}%</span>
           </div>
         {/each}
       </div>
