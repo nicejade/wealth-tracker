@@ -3,7 +3,7 @@
   import dayjs from 'dayjs'
   import { _ } from 'svelte-i18n'
   import { CardPlaceholder } from 'flowbite-svelte'
-  import { Button, Modal } from 'flowbite-svelte'
+  import { Modal } from 'flowbite-svelte'
   import Header from '../components/Header.svelte'
   import Footer from '../components/Footer.svelte'
   import OperatingArea from '../components/OperatingArea.svelte'
@@ -117,8 +117,8 @@
   const handleResetComfirm = async () => {
     try {
       await resetDatabase()
-      fetchDatabase()
       isShowResetModal = false
+      window.location.reload()
     } catch (error) {
       console.error('Error destroy assets:', error)
     }
@@ -166,12 +166,12 @@
       {$_('destroyAccountConfirmation')}
     </h3>
     <div class="flex justify-center space-x-6">
-      <Button type="button" outline class="comfirm-btn" on:click={handleComfirm}>
+      <button type="button" class="comfirm-btn" on:click={handleComfirm}>
         {$_('confirm')}
-      </Button>
-      <Button type="button" outline class="cancel-btn" on:click={handleCancel}>
+      </button>
+      <button type="button" class="cancel-btn" on:click={handleCancel}>
         {$_('cancel')}
-      </Button>
+      </button>
     </div>
   </div>
 </Modal>
@@ -185,12 +185,12 @@
       {$_('resetDatabaseConfirmation')}
     </h3>
     <div class="flex justify-center space-x-6">
-      <Button type="button" outline class="comfirm-btn" on:click={handleResetComfirm}>
+      <button type="button" class="comfirm-btn" on:click={handleResetComfirm}>
         {$_('confirm')}
-      </Button>
-      <Button type="button" outline class="cancel-btn" on:click={handleResetCancel}>
+      </button>
+      <button type="button" class="cancel-btn" on:click={handleResetCancel}>
         {$_('cancel')}
-      </Button>
+      </button>
     </div>
   </div>
 </Modal>

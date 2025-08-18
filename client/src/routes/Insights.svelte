@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { params } from '@roxi/routify'
   import { _, locale } from 'svelte-i18n'
-  import { Button, Card, Modal, Pagination } from 'flowbite-svelte'
+  import { Card, Modal, Pagination } from 'flowbite-svelte'
   import Header from '../components/Header.svelte'
   import Footer from '../components/Footer.svelte'
   import Wysiwyg from '../components/Wysiwyg.svelte'
@@ -262,11 +262,11 @@
 <Card size="xl" class="w-full max-w-none shadow-none md:p-4 2xl:col-span-2">
   <div class="mb-4 flex justify-between">
     <Caption title={$_('insights.title')}></Caption>
-    <Button
+    <button
       class="regular-btn gradient-text hover:border-brand !min-w-10 text-center focus-within:ring-0"
       on:click={() => (isShowModal = true)}>
       {$_('insights.addInsight')}
-    </Button>
+    </button>
   </div>
 
   <!-- 见解列表 -->
@@ -284,11 +284,11 @@
         <div class="my-4 flex w-full items-center justify-center">
           <SvgIcon name="empty" width={184} height={152} />
         </div>
-        <Button
+        <button
           class="regular-btn gradient-text hover:border-brand text-center focus-within:ring-0"
           on:click={() => (isShowModal = true)}>
           {$_('insights.createFirstInsight')}
-        </Button>
+        </button>
       </section>
     {:else}
       <!-- 列表布局 -->
@@ -385,10 +385,10 @@
       <Wysiwyg bind:content />
     </div>
     <div class="flex justify-center space-x-6">
-      <Button type="button" outline class="cancel-btn" on:click={resetForm}>{$_('cancel')}</Button>
-      <Button type="button" outline class="comfirm-btn" on:click={handleSave}>
+      <button type="button" outline class="cancel-btn" on:click={resetForm}>{$_('cancel')}</button>
+      <button type="button" outline class="comfirm-btn" on:click={handleSave}>
         {editingInsight ? $_('update') : $_('insights.save')}
-      </Button>
+      </button>
     </div>
   </section>
 </Modal>
@@ -425,10 +425,10 @@
     </div>
     <h3 class="text-warn mb-5 text-lg font-normal">{$_('insights.deleteConfirmTitle')}</h3>
     <div class="flex justify-center space-x-4">
-      <Button class="comfirm-btn" on:click={confirmDelete}>{$_('confirm')}</Button>
-      <Button class="cancel-btn" on:click={() => (isShowDeleteModal = false)}>
+      <button class="comfirm-btn" on:click={confirmDelete}>{$_('confirm')}</button>
+      <button class="cancel-btn" on:click={() => (isShowDeleteModal = false)}>
         {$_('cancel')}
-      </Button>
+      </button>
     </div>
   </div>
 </Modal>
@@ -467,9 +467,9 @@
     {/if}
 
     <div class="flex justify-center">
-      <Button class="cancel-btn" on:click={() => (isShowDayInsightsModal = false)}>
+      <button class="cancel-btn" on:click={() => (isShowDayInsightsModal = false)}>
         {$_('close')}
-      </Button>
+      </button>
     </div>
   </div>
 </Modal>
