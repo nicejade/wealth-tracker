@@ -21,7 +21,7 @@ renderer.link = (href, title, text) => {
 
 marked.setOptions({ renderer })
 
-export const parse = marked.parse
+export const parse = (src: string): string => marked.parse(src) as string
 
 export const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay || 1000))
 
