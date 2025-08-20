@@ -210,7 +210,12 @@ cd server && npm start
 - [倾城之链](https://site.lovejade.cn/)
 - [曼妙句子](https://read.lovejade.cn/)
 - [SegmentFault](https://segmentfault.com/u/jeffjade)
-- [X MarshalXuan](https://x.com/MarshalXuan)
+- [X | MarshalXuan](https://x.com/MarshalXuan)
+- [@MarshalXuan](https://www.youtube.com/@MarshalXuan)
+
+## Star 历史
+
+[![Star History Chart](https://api.star-history.com/svg?repos=nicejade/wealth-tracker&type=Date)](https://www.star-history.com/#nicejade/wealth-tracker&Date)
 
 ## 执照
 
