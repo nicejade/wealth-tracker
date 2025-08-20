@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { Insight } from '../models/insights'
 import { Op } from 'sequelize'
 
@@ -130,7 +131,7 @@ export const getCalendarData = async (request, reply) => {
     const dateMap = new Map()
 
     insights.forEach((insight) => {
-      const dateStr = insight.created.toISOString().split('T')[0]
+      const dateStr = dayjs(insight.dataValues.created).format('YYYY-MM-DD')
       if (!dateMap.has(dateStr)) {
         dateMap.set(dateStr, {
           date: dateStr,
