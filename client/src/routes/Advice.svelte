@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import { _ } from 'svelte-i18n'
   import Header from '../components/Header.svelte'
+  import Footer from '../components/Footer.svelte'
   import Caption from '../components/Caption.svelte'
   import { Button, Spinner, Card, Textarea } from 'flowbite-svelte'
   import { getAssets } from '../helper/apis'
@@ -215,3 +216,5 @@
     {/if}
   </Card>
 </div>
+
+<Footer />
