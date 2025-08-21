@@ -47,14 +47,19 @@ jobs:
           zip -r ../wealth-tracker.zip public dist
           zip -j ../wealth-tracker.zip ../script.sh ../script.bat
 
+      # 🔑 获取 package.json 的 version
+      - name: Get Version from package.json
+        id: get_version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          tag_name: v${{ steps.get_version.outputs.version }}
+          release_name: Release ${{ steps.get_version.outputs.version }}
           draft: false
           prerelease: false
 
