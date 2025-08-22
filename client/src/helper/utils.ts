@@ -1,5 +1,7 @@
 import dayjs from 'dayjs'
 import { marked } from 'marked'
+import { get } from 'svelte/store'
+import { _ } from 'svelte-i18n'
 import { EventStreamContentType, fetchEventSource } from '@microsoft/fetch-event-source'
 import {
   LANG_ARR,
@@ -175,6 +177,32 @@ export const calculateDateByOffset = (reverseIndex: number, offsetDays: number):
   }
 
   return today.subtract(Math.floor(daysToSubtract), 'day').format('YYYY-MM-DD')
+}
+
+/**
+ * 更新页面的 meta 信息
+ * @param options 配置项
+ * @param options.title 页面标题，将与 appTitle 组合
+ * @param options.description 页面描述，如不提供则默认使用 appDesc 的多语言文本
+ */
+export const updatePageMetaInfo = (options: { title?: string; description?: string }) => {
+  const pageTitle = options.title ? `${options.title} | ${get(_)('appTitle')}` : get(_)('appTitle')
+  document.title = pageTitle
+
+  const metaTitleElements = document.querySelectorAll(
+    'meta[name="title"], meta[property="og:title"], meta[property="twitter:title"]',
+  )
+  metaTitleElements.forEach((element) => {
+    element.setAttribute('content', pageTitle)
+  })
+
+  const description = options.description || get(_)('appDesc')
+  const metaDescElements = document.querySelectorAll(
+    'meta[name="description"], meta[property="og:description"], meta[property="twitter:description"]',
+  )
+  metaDescElements.forEach((element) => {
+    element.setAttribute('content', description)
+  })
 }
 
 export const genAdviceWithStream = (params, options) => {

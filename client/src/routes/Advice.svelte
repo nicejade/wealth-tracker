@@ -6,7 +6,7 @@
   import Caption from '../components/Caption.svelte'
   import { Button, Spinner, Card, Textarea } from 'flowbite-svelte'
   import { getAssets } from '../helper/apis'
-  import { isNeedScroll, genAdviceWithStream, parse, sleep } from '../helper/utils'
+  import { isNeedScroll, genAdviceWithStream, parse, sleep, updatePageMetaInfo } from '../helper/utils'
   import { PROMPT_TEMPLATE, LANG_ARR } from '../helper/constant'
   import { notice, alert } from '../stores'
   import { language } from '../stores'
@@ -30,6 +30,11 @@
   }
 
   onMount(async () => {
+    updatePageMetaInfo({
+      title: $_('financialAdvice'),
+      description: $_('financialAdviceDetails')
+    })
+
     htmlBodyNode = document.getElementsByTagName('body')[0]
 
     try {

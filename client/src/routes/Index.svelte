@@ -16,7 +16,7 @@
   import { getAssets, destroyAssets, getRecords, resetDatabase } from '../helper/apis'
   import { ACTION_TYPES, DEFAULT_ACCOUNT_ITEM } from './../helper/constant'
   import type { AssetsItem, RecordsItem } from '../typings'
-  import { convertCurrency, deepClone } from '../helper/utils'
+  import { convertCurrency, deepClone, updatePageMetaInfo } from '../helper/utils'
   import { exchangeRates, targetCurrencyCode } from '../stores'
 
   let rawAssetsArr = []
@@ -44,6 +44,7 @@
   }
 
   onMount(() => {
+    updatePageMetaInfo({})
     fetchDatabase()
   })
 

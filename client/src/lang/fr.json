@@ -1,4 +1,6 @@
 {
+  "appTitle": "Traceur de Richesse - Outil de Suivi et d'Analyse des Actifs Personnels",
+  "appDesc": "Traceur de Richesse (Wealth Tracker) est une application dédiée au suivi et à l'analyse des actifs personnels. Ses fonctions principales sont : l'enregistrement et l'affichage complets de la situation patrimoniale de l'utilisateur, aidant les utilisateurs à comprendre clairement leur situation financière ; combinant les caractéristiques de chaque actif et l'environnement économique actuel, utilisant la technologie IA pour l'analyse, et fournissant des conseils financiers appropriés.",
   "addition": "Ajouter",
   "setting": "Paramètres",
   "update": "Mettre à jour",
@@ -60,7 +62,7 @@
   "aiSettings": "Paramètres IA",
   "aiSettingsDesc": "Paramètres du fournisseur de services IA",
   "financialAdvice": "Conseils financiers",
-  "financialAdviceDetails": "Conseils financiers fournis par l'IA",
+  "financialAdviceDetails": "Sur la base de votre situation patrimoniale et de l'environnement du marché, nous vous fournissons des conseils financiers personnalisés et des stratégies d'investissement.",
   "assetAllocationAdvice": "L'IA a généré avec succès des conseils d'allocation d'actifs",
   "genAssetAdviceTip": "Après avoir configuré les paramètres IA (prenant en charge des fournisseurs tels que [OpenAI](https://openai.com/), [xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/), [DeepSeek](https://www.deepseek.com/), [Moonshot AI](https://www.moonshot.cn/)), générez vos recommandations d'allocation d'actifs basées sur l'**invite**. Vous pouvez vous référer à ces suggestions pour optimiser votre allocation d'actifs. Bien sûr, vous pouvez également modifier l'invite ou la copier pour obtenir des conseils auprès d'autres services IA.",
   "validRateApiTip": "La clé API doit être une combinaison de 24 lettres et chiffres",

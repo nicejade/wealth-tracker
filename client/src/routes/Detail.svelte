@@ -2,6 +2,7 @@
   import { params } from '@roxi/routify'
   import { Pagination } from 'flowbite-svelte'
   import { _ } from 'svelte-i18n'
+  import { onMount } from 'svelte'
   import Header from '../components/Header.svelte'
   import Footer from '../components/Footer.svelte'
   import DetailTable from '../components/DetailTable.svelte'
@@ -9,6 +10,7 @@
   import SvgIcon from '../components/SvgIcon.svelte'
   import { getRecords, destroyRecords } from '../helper/apis'
   import { ACTION_TYPES } from './../helper/constant'
+  import { updatePageMetaInfo } from '../helper/utils'
   import { notice } from '../stores'
   import type { RecordsItem } from '../typings'
   import type { LinkType } from 'flowbite-svelte'
@@ -21,6 +23,12 @@
   let isShowUpdateModal: boolean = false
   let currentWealthItem
   let updateActionType = ACTION_TYPES.change
+
+  onMount(() => {
+    updatePageMetaInfo({
+      title: $_('recordDetails'),
+    })
+  })
 
   $: {
     page = Math.max(parseInt($params.page || page, 10), 1)

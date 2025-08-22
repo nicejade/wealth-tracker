@@ -1,4 +1,6 @@
 {
+  "appTitle": "生财有迹 - 个人资产跟踪与分析工具",
+  "appDesc": "生财有迹（Wealth Tracker）是一款专注于个人资产跟踪与分析的应用；其核心功能是：全面记录并展示用户的资产状况，帮助用户清晰地了解财务现状；结合每种资产的特性和当前经济环境，利用 AI 技术进行分析，并提供适宜的财务建议。",
   "addition": "新增",
   "setting": "设置",
   "update": "更新",
@@ -60,7 +62,7 @@
   "aiSettings": "AI 设置",
   "aiSettingsDesc": "AI 服务商设置",
   "financialAdvice": "财务建议",
-  "financialAdviceDetails": "由 AI 为您提供财务建议",
+  "financialAdviceDetails": "基于您的资产状况和市场环境，为您提供个性化的财务建议和投资策略。",
   "assetAllocationAdvice": "AI 成功生成资产配置建议",
   "genAssetAdviceTip": "在 AI（支持 [OpenAI](https://openai.com/)、[xAI](https://x.ai/)、[Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[月之暗面](https://www.moonshot.cn/)等服务商）设置后，根据上面的**提示词**，生成您的资产配置建议；您可以参考这些建议来优化您的资产配置。当然，您也可以对提示词进行修改，或者拷贝它，交由其他 AI 服务为您提供建议。",
   "validRateApiTip": "API Key 必须是 24 位数字和字母的组合",

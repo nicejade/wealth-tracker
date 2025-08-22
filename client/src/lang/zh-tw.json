@@ -1,4 +1,6 @@
 {
+  "appTitle": "生財有跡 - 個人資產追蹤與分析工具",
+  "appDesc": "生財有跡（Wealth Tracker）是一款專注於個人資產追蹤與分析的應用；其核心功能是：全面記錄並展示用戶的資產狀況，幫助用戶清晰地了解財務現狀；結合每種資產的特性和當前經濟環境，利用 AI 技術進行分析，並提供適宜的財務建議。",
   "addition": "新增",
   "setting": "設定",
   "update": "更新",
@@ -60,7 +62,7 @@
   "aiSettings": "AI 設定",
   "aiSettingsDesc": "AI 服務商設定",
   "financialAdvice": "財務建議",
-  "financialAdviceDetails": "由 AI 為您提供財務建議",
+  "financialAdviceDetails": "基於您的資產狀況和市場環境，為您提供個性化的財務建議和投資策略。",
   "assetAllocationAdvice": "AI 成功生成資產配置建議",
   "genAssetAdviceTip": "在 AI（支援 [OpenAI](https://openai.com/)、[xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[月之暗面](https://www.moonshot.cn/)等服務商）設定後，根據上面的**提示詞**，生成您的資產配置建議；您可以參考這些建議來優化您的資產配置。當然，您也可以對提示詞進行修改，或者複製它，交由其他 AI 服務為您提供建議。",
   "validRateApiTip": "API Key 必須是 24 位數字和字母的組合",

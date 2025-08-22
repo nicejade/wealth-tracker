@@ -16,6 +16,7 @@
     destroyInsights,
     getInsightsCalendarData,
   } from '../helper/apis'
+  import { updatePageMetaInfo } from '../helper/utils'
   import { notice, alert } from '../stores'
   import type { LinkType } from 'flowbite-svelte'
 
@@ -45,6 +46,10 @@
   }
 
   onMount(() => {
+    updatePageMetaInfo({
+      title: $_('insightsNav'),
+    })
+
     fetchCalendarData()
   })
 
@@ -385,8 +390,8 @@
       <Wysiwyg bind:content />
     </div>
     <div class="flex justify-center space-x-6">
-      <button type="button" outline class="cancel-btn" on:click={resetForm}>{$_('cancel')}</button>
-      <button type="button" outline class="comfirm-btn" on:click={handleSave}>
+      <button type="button" class="cancel-btn outline" on:click={resetForm}>{$_('cancel')}</button>
+      <button type="button" class="comfirm-btn outline" on:click={handleSave}>
         {editingInsight ? $_('update') : $_('insights.save')}
       </button>
     </div>

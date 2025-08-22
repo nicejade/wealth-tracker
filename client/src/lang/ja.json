@@ -1,4 +1,6 @@
 {
+  "appTitle": "財を生む軌跡 - 個人資産追跡・分析ツール",
+  "appDesc": "財を生む軌跡（Wealth Tracker）は個人資産の追跡と分析に特化したアプリケーションです。その主な機能は：ユーザーの資産状況を包括的に記録・表示し、財務状況を明確に理解できるよう支援すること；各資産の特性と現在の経済環境を組み合わせ、AI技術を活用して分析し、適切な財務アドバイスを提供することです。",
   "addition": "追加",
   "setting": "設定",
   "update": "更新",
@@ -60,7 +62,7 @@
   "aiSettings": "AI 設定",
   "aiSettingsDesc": "AI サービス提供者設定",
   "financialAdvice": "財務アドバイス",
-  "financialAdviceDetails": "AIによる財務アドバイスを提供",
+  "financialAdviceDetails": "あなたの資産状況と市場環境に基づいて、パーソナライズされた財務アドバイスと投資戦略を提供します。",
   "assetAllocationAdvice": "AI が資産配分のアドバイスを生成しました",
   "genAssetAdviceTip": "AI 設定（[OpenAI](https://openai.com/)、[xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[Moonshot AI](https://www.moonshot.cn/) などのプロバイダーをサポート）を行った後、**プロンプト**に基づいて資産配分の推奨事項を生成します。これらの提案を参考にして、資産配分を最適化できます。もちろん、プロンプトを変更したり、他のAIサービスに助言を求めるためにコピーしたりすることもできます。",
   "validRateApiTip": "APIキーは24桁の数字と文字の組み合わせでなければなりません",
