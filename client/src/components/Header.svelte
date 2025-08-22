@@ -22,12 +22,39 @@
   onMount(() => {
     theme.set(localStorage.getItem(STORAGE_THEME) || DEFAULT_THEME)
     updateAppTheme()
+
+    // 确保在组件挂载时也能正确处理 URL 参数中的语言
+    const urlParams = new URLSearchParams(window.location.search)
+    const urlLang = urlParams.get('lang')
+    if (urlLang && urlLang !== lang) {
+      lang = urlLang
+    }
+
+    // 监听浏览器前进/后退按钮，确保 URL 参数变化时能正确响应
+    const handlePopState = () => {
+      const currentUrlParams = new URLSearchParams(window.location.search)
+      const currentUrlLang = currentUrlParams.get('lang')
+      if (currentUrlLang && currentUrlLang !== lang) {
+        lang = currentUrlLang
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+    }
   })
 
   const updateAppTheme = () => {
     const isDarkMode = !($theme === DEFAULT_THEME)
     localStorage.setItem(STORAGE_THEME, $theme)
     document.querySelector('html').style.filter = isDarkMode ? 'invert(1) hue-rotate(180deg)' : ''
+  }
+
+  const updateUrlLang = (newLang: string) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('lang', newLang)
+    window.history.pushState({}, '', url.toString())
   }
 
   const onToggleTheme = () => {
@@ -37,7 +64,8 @@
 
   const handleDropdownClick = (item) => {
     lang = item.value
-    window.location.reload()
+    updateUrlLang(item.value)
+    // 不再需要刷新页面，因为响应式更新会自动处理语言切换
   }
 </script>
 

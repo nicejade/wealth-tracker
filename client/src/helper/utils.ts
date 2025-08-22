@@ -42,14 +42,24 @@ const isValidLang = (lang: string): boolean => {
 }
 
 export const getAppLang = (): string => {
+  // 1. 优先使用URL参数中的语言
+  const urlParams = new URLSearchParams(window.location.search)
+  const urlLang = urlParams.get('lang')
+  if (urlLang && isValidLang(urlLang)) {
+    return urlLang
+  }
+
+  // 2. 其次使用localStorage存储的语言
   const storedLang = localStorage.getItem(STORAGE_LANG)
   if (storedLang && isValidLang(storedLang)) {
     return storedLang
   }
 
+  // 3. 再次使用浏览器语言
   const browserLang = navigator.language.toLowerCase()
   const matchedLang = LANG_ARR.find((lang) => browserLang.startsWith(lang.value.toLowerCase()))
 
+  // 4. 最后使用默认语言
   return matchedLang ? matchedLang.value : DEFAULT_LANG
 }
 
