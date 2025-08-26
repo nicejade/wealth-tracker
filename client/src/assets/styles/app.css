@@ -1,5 +1,6 @@
 @import url('./tailwind');
 @import url('./apply');
+@import url('./fonts');
 @plugin "flowbite-typography";
 
 :root {
@@ -7,6 +8,9 @@
   --color-mark-rgb: 245, 158, 11;
   --color-link: #0ea5e9;
   --color-link-rgb: 14, 165, 233;
+  --app-font-family:
+    'Noto Sans SC', STXihei, '华文细黑', 'Microsoft YaHei', '微软雅黑', 'PingFang SC',
+    'Hiragino Sans GB', sans-serif;
 }
 
 html,
@@ -14,11 +18,12 @@ body {
   width: 100%;
   height: 100%;
   background-color: #ffffff;
+  font-family: var(--app-font-family);
 }
 
 #app {
   min-height: 100vh;
-  font-family: STXihei, '华文细黑', 'Microsoft YaHei', '微软雅黑';
+  font-family: var(--app-font-family);
 }
 
 a {

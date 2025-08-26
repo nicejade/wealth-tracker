@@ -17,11 +17,13 @@
     locale.set(lang)
     language.set(lang)
     localStorage.setItem(STORAGE_LANG, lang)
+    updateAppFont(lang)
   }
 
   onMount(() => {
     theme.set(localStorage.getItem(STORAGE_THEME) || DEFAULT_THEME)
     updateAppTheme()
+    updateAppFont(lang)
 
     // 确保在组件挂载时也能正确处理 URL 参数中的语言
     const urlParams = new URLSearchParams(window.location.search)
@@ -51,6 +53,20 @@
     document.querySelector('html').style.filter = isDarkMode ? 'invert(1) hue-rotate(180deg)' : ''
   }
 
+  const updateAppFont = (languageCode: string) => {
+    const FONT_CONFIG = {
+      'zh-CN': '"Noto Sans SC", "Microsoft YaHei", "微软雅黑", "STXihei", "华文细黑", sans-serif',
+      'zh-TW':
+        '"Noto Sans SC", "Microsoft JhengHei", "微軟正黑體", "STXihei", "华文细黑", sans-serif',
+      en: '"Hiragino Sans", "Noto Sans SC", "system-ui", "Roboto", "Helvetica Neue", "Arial", "Liberation Sans", sans-serif',
+      ja: '"Yu Gothic", "Noto Sans SC", "Meiryo", "Noto Sans CJK JP", sans-serif',
+      fr: '"Hiragino Sans", "Noto Sans SC", "Roboto", "Helvetica Neue", "Arial", "Liberation Sans", sans-serif',
+    }
+    const fontFamily = FONT_CONFIG[languageCode] || FONT_CONFIG['en']
+    document.documentElement.style.setProperty('--app-font-family', fontFamily)
+    document.body.style.fontFamily = fontFamily
+  }
+
   const updateUrlLang = (newLang: string) => {
     const url = new URL(window.location.href)
     url.searchParams.set('lang', newLang)
@@ -73,7 +89,7 @@
   <h1 class="h-full leading-none">
     <a href="/" title={TITLE} class="flex h-full items-center space-x-2">
       <img src="/logo.png" alt="Sink" class="h-5 w-5" />
-      <span class="title text-xl font-semibold">{TITLE}</span>
+      <span class="title font-[cursive] text-xl font-semibold">{TITLE}</span>
     </a>
   </h1>
   <nav class="flex h-full items-center space-x-3">
