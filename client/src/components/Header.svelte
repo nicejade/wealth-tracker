@@ -87,7 +87,7 @@
 
 <header class="flex h-20 items-center justify-between">
   <h1 class="h-full leading-none">
-    <a href="/" title={TITLE} class="flex h-full items-center space-x-2">
+    <a href="/" title={TITLE} class="flex h-full items-center space-x-2 focus-visible:outline-none">
       <img src="/logo.png" alt="Sink" class="h-5 w-5" />
       <span class="title font-[cursive] text-xl font-semibold">{TITLE}</span>
     </a>
@@ -96,16 +96,16 @@
     <a
       target="_blank"
       rel="noopener"
-      class="inline-flex rounded-md p-2 leading-5 outline-none hover:bg-gray-100"
+      class="focus-visible-ring inline-flex rounded-md p-2 leading-5 outline-none hover:bg-gray-100"
       href="https://x.com/intent/user?screen_name=MarshalXuan"
       title="X | Twitter Follow MarshalXuan">
       <SvgIcon name="x" width={20} height={20} color="#212121" />
     </a>
     <button
       on:click={onToggleTheme}
-      class="ring-offset-background focus-visible:ring-ring hover:text-accent-foreground inline-flex
-      items-center justify-center whitespace-nowrap rounded-md p-2 text-sm font-medium leading-5 outline-none
-      transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
+      class="focus-visible-ring hover:text-accent-foreground inline-flex
+        items-center justify-center whitespace-nowrap rounded-md p-2 text-sm font-medium leading-5 outline-none
+        transition-colors hover:bg-gray-100">
       {#if $theme === 'light'}
         <SvgIcon name="light" width={20} height={20} color="#212121" />
       {:else}
@@ -115,14 +115,16 @@
     </button>
 
     <div class="flex text-base">
-      <div class="space-between text-md flex w-28 cursor-pointer items-center">
+      <div
+        class="space-between text-md focus-visible-ring flex w-28 cursor-pointer items-center rounded-full">
         <SvgIcon name="lang" width={20} height={20} color="#212121" />
         <span class="w-16 overflow-hidden text-ellipsis text-nowrap">{langName}</span>
         <SvgIcon name="chevron-down" width={20} height={20} color="#212121" />
       </div>
-      <Dropdown class="w-28 drop-shadow-sm" arrow trigger="hover">
+      <Dropdown class="focus-visible-ring w-28 drop-shadow-sm" arrow trigger="hover">
         {#each LANG_ARR as item (item)}
           <DropdownItem
+            class="focus-visible-ring rounded-sm"
             on:click={() => {
               handleDropdownClick(item)
             }}>

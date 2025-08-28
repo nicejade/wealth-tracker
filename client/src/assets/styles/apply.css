@@ -37,3 +37,8 @@
 .markdown-article {
   @apply mx-auto flex w-full max-w-full flex-col justify-between rounded-lg px-4;
 }
+
+/* Reusable utility class to apply focus-visible ring styles (use with buttons, links, etc.) */
+.focus-visible-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+}

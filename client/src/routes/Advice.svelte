@@ -6,7 +6,13 @@
   import Caption from '../components/Caption.svelte'
   import { Button, Spinner, Card, Textarea } from 'flowbite-svelte'
   import { getAssets } from '../helper/apis'
-  import { isNeedScroll, genAdviceWithStream, parse, sleep, updatePageMetaInfo } from '../helper/utils'
+  import {
+    isNeedScroll,
+    genAdviceWithStream,
+    parse,
+    sleep,
+    updatePageMetaInfo,
+  } from '../helper/utils'
   import { PROMPT_TEMPLATE, LANG_ARR } from '../helper/constant'
   import { notice, alert } from '../stores'
   import { language } from '../stores'
@@ -32,7 +38,7 @@
   onMount(async () => {
     updatePageMetaInfo({
       title: $_('financialAdvice'),
-      description: $_('financialAdviceDetails')
+      description: $_('financialAdviceDetails'),
     })
 
     htmlBodyNode = document.getElementsByTagName('body')[0]
@@ -185,11 +191,11 @@
 
   <Card class="w-full max-w-none shadow-none 2xl:col-span-2">
     <div class="mb-4 flex w-full items-center justify-between">
-      <div class="mb-4 flex justify-between">
+      <div class="mb-4 flex w-5/6 justify-between">
         <Caption title={$_('financialAdvice')} subtitle={$_('financialAdviceDetails')}></Caption>
       </div>
       <Button
-        class="regular-btn gradient-text hover:border-brand text-center focus-within:ring-0"
+        class="regular-btn gradient-text hover:border-brand !min-w-fit text-center focus-within:ring-0"
         on:click={onGenAdviceClick}
         disabled={loading}>
         {#if loading}

@@ -54,7 +54,7 @@
   class="flex h-16 w-full flex-row items-center justify-between rounded-full border border-gray-300 px-6 shadow-sm md:h-36 md:flex-col md:items-start md:justify-around md:rounded-md">
   <div class="flex items-center space-x-4 md:w-full md:justify-between md:space-x-0">
     <button
-      class="operating-btn"
+      class="operating-btn focus-visible-ring"
       on:click={() => {
         onAddClick()
       }}>
@@ -63,7 +63,7 @@
     </button>
     <a
       href="/insights"
-      class="hover:text-brand space-x-2 rounded-full border border-gray-300 px-4 py-2 text-black hover:bg-gray-100 focus:ring-0">
+      class="hover:text-brand focus-visible-ring space-x-2 rounded-full border border-gray-300 px-4 py-2 text-black hover:bg-gray-100">
       <SvgIcon name="edit" />
       <strong class="operating-text">{$_('insightsNav')}</strong>
     </a>
@@ -76,7 +76,7 @@
       listboxClass="w-36"
       on:selected={handleCurrencySelect} />
     <button
-      class="operating-btn"
+      class="operating-btn focus-visible-ring"
       on:click={() => {
         onSettingClick()
       }}>
