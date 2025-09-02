@@ -16,6 +16,7 @@ export default async (fastify) => {
     .register(import('@fastify/rate-limit'), rateLimitOptions)
     .register(import('fastify-xml-body-parser'))
     .register(require('@fastify/multipart'))
+    .register(import('./middleware/auth'))
     .ready((err) => {
       if (err) console.log(`Something Error @Start：${err}`)
       console.log('all is well. Good things are about to happen.')

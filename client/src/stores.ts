@@ -1,6 +1,28 @@
 import { DATE_EXTENT_ARR, DATE_PERIOD_ARR } from './helper/constant'
-
 import { writable } from 'svelte/store'
+
+const createAuthStore = () => {
+  const { subscribe, set } = writable(false)
+  return {
+    subscribe,
+    set,
+    reset: () => set(false),
+  }
+}
+
+const createLoadingStore = () => {
+  const { subscribe, set } = writable(true)
+  return {
+    subscribe,
+    set,
+    reset: () => set(true),
+  }
+}
+
+export const isAuthenticated = createAuthStore()
+export const isLoading = createLoadingStore()
+export const isResettable = writable(false)
+export const isPasswordAllowed = writable(false)
 
 export const alert = writable('')
 

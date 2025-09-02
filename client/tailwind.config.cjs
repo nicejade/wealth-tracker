@@ -40,11 +40,14 @@ module.exports = {
       mark: {
         DEFAULT: '#ff4582',
       },
+      error: {
+        DEFAULT: '#ff4582',
+      },
       success: {
         DEFAULT: '#2edfa3',
       },
       link: {
-        DEFAULT: '#f8d826',
+        DEFAULT: '#2edfa3',
       },
       grey: {
         DEFAULT: '#B7B8B9',
@@ -102,7 +105,7 @@ module.exports = {
               marginBottom: '1rem',
             },
             a: {
-              color: '#f8d826',
+              color: '#2edfa3',
               textDecoration: 'none',
             },
             pre: {

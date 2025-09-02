@@ -268,7 +268,7 @@
   <div class="mb-4 flex justify-between">
     <Caption title={$_('insights.title')}></Caption>
     <button
-      class="regular-btn gradient-text hover:border-brand !min-w-10 text-center focus-within:ring-0"
+      class="regular-btn gradient-text hover:border-brand focus-visible-ring !min-w-fit text-center focus-within:ring-0"
       on:click={() => (isShowModal = true)}>
       {$_('insights.addInsight')}
     </button>

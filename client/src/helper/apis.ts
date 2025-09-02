@@ -20,6 +20,18 @@ export const destroyAssets = (data) => {
   return $ajax.delete(genApiPath('assets'), data)
 }
 
+export const checkPassword = (data = {}) => {
+  return $ajax.get(genApiPath('password/check'), data)
+}
+
+export const verifyPassword = (password: string) => {
+  return $ajax.post(genApiPath('password/verify'), { password })
+}
+
+export const setPassword = (password: string) => {
+  return $ajax.post(genApiPath('password/set'), { password })
+}
+
 export const getRecords = (data = {}) => {
   return $ajax.get(genApiPath('records'), data)
 }

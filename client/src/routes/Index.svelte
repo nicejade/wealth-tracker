@@ -17,7 +17,7 @@
   import { ACTION_TYPES, DEFAULT_ACCOUNT_ITEM } from './../helper/constant'
   import type { AssetsItem, RecordsItem } from '../typings'
   import { convertCurrency, deepClone, updatePageMetaInfo } from '../helper/utils'
-  import { exchangeRates, targetCurrencyCode } from '../stores'
+  import { alert, exchangeRates, targetCurrencyCode } from '../stores'
 
   let rawAssetsArr = []
   let rawRecordsArr = []
@@ -121,6 +121,7 @@
       isShowResetModal = false
       window.location.reload()
     } catch (error) {
+      alert.set(error.message)
       console.error('Error destroy assets:', error)
     }
   }

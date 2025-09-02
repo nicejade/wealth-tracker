@@ -13,9 +13,15 @@
   import { _ } from 'svelte-i18n'
   import Caption from '../Caption.svelte'
   import confetti from 'canvas-confetti'
-  import { randomInRange, fetchExchangeRates, convertCurrency } from './../../helper/utils'
-  import { exchangeRates, language, targetCurrencyCode, targetCurrencyName } from '../../stores'
   import { SUPPORTED_CURRENCIES } from './../../helper/constant'
+  import { randomInRange, fetchExchangeRates, convertCurrency } from './../../helper/utils'
+  import {
+    exchangeRates,
+    language,
+    targetCurrencyCode,
+    targetCurrencyName,
+    isResettable,
+  } from '../../stores'
 
   $: if ($targetCurrencyCode || $language) {
     targetCurrencyName.set($_(`currencys.${$targetCurrencyCode}`) || $targetCurrencyCode)
@@ -150,7 +156,12 @@
           </Button>
         </TableBodyCell>
         <TableBodyCell>
-          <Button size="sm" outline class="border-none focus:ring-0" on:click={onResetClick}>
+          <Button
+            size="sm"
+            outline
+            disabled={!$isResettable}
+            class="border-none focus:ring-0"
+            on:click={onResetClick}>
             <span class="text-mark hover:text-brand font-bold">{$_('reset')}</span>
           </Button>
         </TableBodyCell>

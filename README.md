@@ -112,6 +112,20 @@ docker run -d -p 8888:8888 -v "$(pwd)/data:/app/data" nicejade/wealth-tracker:la
 
 如果您在本地部署，只需打开网址——[http://localhost:8888](http://localhost:8888/) 即可访问。如果在服务器运行，可通过 http://[Server-IP]:8888 来访问，您也可以指定其他端口。
 
+您可以通过设置以下环境变量来配置应用的行为，详情参见[如何开启密码保护？](https://fine.niceshare.site/projects/wealth-tracker/#如何开启密码保护)：
+
+- `ALLOW_PASSWORD`: 设置为 `true` 启用密码保护功能;
+- `PEPPER_SECRET`: 设置它为用户密码提供更强大的保护；
+- `CAN_BE_RESET`: 设置为 `true` 允许重置数据库功能;
+
+```bash
+docker run -d -p 8888:8888 \
+  -e ALLOW_PASSWORD=true \
+  -e CAN_BE_RESET=true \
+  -v "$(pwd)/data:/app/data" \
+  nicejade/wealth-tracker:latest
+```
+
 ### 采用 [pm2](https://pm2.keymetrics.io/) 部署
 
 PM2 是一个强大的生产环境进程管理器，它不仅支持通过命令行启动应用，还可以使用配置文件（通常名为 `ecosystem.config.js`）来管理复杂的部署场景。为了简化部署流程并确保一致性，本项目已将所有必要的 PM2 配置和启动命令封装到了 `npm` 脚本中：

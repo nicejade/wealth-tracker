@@ -3,7 +3,9 @@
 </script>
 
 <div class="flex w-full items-center justify-center">
-  <span class="text-brand md:text-sm">{text}</span>
+  {#if text}
+    <span class="text-brand md:text-sm">{text}</span>
+  {/if}
   <div class="balls mx-2">
     <div />
     <div />

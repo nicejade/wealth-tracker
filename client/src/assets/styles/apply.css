@@ -40,5 +40,5 @@
 
 /* Reusable utility class to apply focus-visible ring styles (use with buttons, links, etc.) */
 .focus-visible-ring {
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  @apply focus-visible:border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
 }

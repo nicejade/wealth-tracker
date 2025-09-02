@@ -39,7 +39,9 @@
 <Card size="xl" class="w-full max-w-none shadow-none md:p-4 2xl:col-span-2">
   <div class="mb-4 flex justify-between">
     <Caption title={$_('recordDetails')}></Caption>
-    <a href="/" class="regular-btn">{$_('backToHomepage')}</a>
+    <a href="/" class="regular-btn focus-visible-ring !min-w-fit">
+      {$_('backToHomepage')}
+    </a>
   </div>
   {#if options?.length <= 0}
     <div class="my-4 flex w-full items-center justify-center">

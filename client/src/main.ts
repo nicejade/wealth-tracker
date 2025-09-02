@@ -1,5 +1,5 @@
-import './assets/styles/app.css'
 import App from './App.svelte'
+import './assets/styles/app.css'
 import 'virtual:svg-icons-register'
 
 const app = new App({

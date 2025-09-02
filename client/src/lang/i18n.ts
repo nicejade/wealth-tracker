@@ -7,9 +7,18 @@ register('en', () => import('./en.json'))
 register('ja', () => import('./ja.json'))
 register('fr', () => import('./fr.json'))
 
-const lang = getAppLang()
+function setupI18n() {
+  let lang = 'zh-CN'
 
-init({
-  fallbackLocale: lang,
-  initialLocale: lang,
-})
+  // 在客户端环境下才获取语言设置
+  if (typeof window !== 'undefined') {
+    lang = getAppLang()
+  }
+
+  init({
+    fallbackLocale: 'zh-CN',
+    initialLocale: lang,
+  })
+}
+
+setupI18n()
