@@ -34,7 +34,7 @@
 </script>
 
 <div class={divClass}>
-  <span class={color}>
+  <strong class={color}>
     {#if value > 0}
       ↑{value.toFixed(2)}{unit}
     {:else if value < 0}
@@ -42,10 +42,10 @@
     {:else}
       ±0%
     {/if}
-  </span>
+  </strong>
   {#if equalHeight}
-    <span>{since}</span>
+    <strong>{since}</strong>
   {:else}
-    <span class={spanTextSize[size]}>{since}</span>
+    <strong class={spanTextSize[size]}>{since}</strong>
   {/if}
 </div>

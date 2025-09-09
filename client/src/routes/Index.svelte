@@ -141,7 +141,7 @@
     on:destroy={handleDestroy}
     on:reset={handleReset} />
   {#if !isShowChart}
-    <CardPlaceholder size="lg" class="w-full max-w-full" />
+    <CardPlaceholder size="2xl" class="w-full max-w-full" />
   {/if}
 
   {#if isShowChart && convertedAssetsArr.length}

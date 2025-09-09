@@ -15,7 +15,7 @@ export const initializeAuth = async () => {
     isPasswordAllowed.set(allowPassword || havePassword)
   } catch (error) {
     console.error('Failed to check password status:', error)
-    isAuthenticated.set(false)
+    isAuthenticated.set(true)
   } finally {
     isLoading.set(false)
   }

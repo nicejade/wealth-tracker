@@ -21,6 +21,7 @@
     "bcrypt": "^6.0.0",
     "dayjs": "^1.11.10",
     "fastify": "^4.13.0",
+    "fastify-plugin": "^5.0.1",
     "fastify-xml-body-parser": "^2.2.0",
     "isomorphic-fetch": "^3.0.0",
     "openai": "^4.72.0",
