@@ -4,6 +4,7 @@
   import { _ } from 'svelte-i18n'
   import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
   import { Modal } from 'flowbite'
+  import InputTag from '../InputTag.svelte'
   import SvgIcon from '../SvgIcon.svelte'
   import CustomSelect from './../Select.svelte'
   import { createAssets, updateAssets, updateRecords } from './../../helper/apis'
@@ -57,6 +58,19 @@
     value: item.value,
   }))
 
+  // tags 本地绑定数组，解决 Svelte 只能绑定到标识符/成员表达式的问题
+  let tags: string[] = []
+
+  onMount(() => {
+    // 初始化（若 items.tags 存在且为字符串）
+    if (typeof items?.tags === 'string') {
+      tags = items.tags
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+    }
+  })
+
   onMount(() => {
     const $targetEl = document.getElementById(MODAL_KEY)
     const options: ModalOptions = {
@@ -108,6 +122,10 @@
 
   const sendUpdateRequest = async () => {
     try {
+      // 提交前将本地 tags 同步回 items.tags（以逗号分隔字符串保存）
+      if (Array.isArray(tags)) {
+        items.tags = tags.join(',')
+      }
       if (action === ACTION_TYPES.create) {
         await createAssets(items)
       }
@@ -231,6 +249,22 @@
               on:selected={handleLiquiditySelect} />
           </div>
         </div>
+        <div class="module-warp">
+          <label for="update-tags" class="custom-label">
+            {$_('tags')}
+          </label>
+          <InputTag
+            bind:modelValue={tags}
+            placeholder={$_('placeholderOfTags')}
+            max={3}
+            delimiter={','}
+            id="update-tags"
+            tabindex="0"
+            maxlength="50"
+            minlength="0"
+            ariaLabel="tags" />
+        </div>
+
         <div class="inline-flex w-full items-center justify-center pb-4">
           <hr class="my-6 h-px w-full border-0 bg-gray-200" />
           <span
@@ -238,6 +272,7 @@
             {$_('lowFrequencyTip')}
           </span>
         </div>
+
         <div class="module-warp">
           <label for="update-amount" class="custom-label">
             {$_('amount')}

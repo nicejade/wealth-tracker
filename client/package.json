@@ -39,7 +39,7 @@
     "canvas-confetti": "^1.9.3",
     "dayjs": "^1.11.10",
     "flowbite": "^1.6.3",
-    "flowbite-svelte": "^0.44.24",
+    "flowbite-svelte": "0.48.6",
     "flowbite-typography": "^1.0.5",
     "marked": "^15.0.0",
     "mdsvex": "^0.10.6",

@@ -12,11 +12,45 @@ const fastify = Fastify({ logger: true })
 
 const connect2sqlite = async () => {
   try {
+    // 首先尝试正常同步；检查并添加 tags 列（如果不存在）；如果存在，则不添加；
     await sequelize.sync()
+    await addTagsColumnToAssetsIfNotExists()
+    await addTagsColumnToRecordIfNotExists()
+
     console.log('🎊 Database synced!')
   } catch (err) {
     console.error('Failed to sync database:', err)
     throw err
+  }
+}
+
+const addTagsColumnToAssetsIfNotExists = async () => {
+  try {
+    const [results] = await sequelize.query('PRAGMA table_info(assets)')
+    const hasTagsColumn = results.some((row: any) => row.name === 'tags')
+
+    if (!hasTagsColumn) {
+      console.log('Adding tags column to assets table...')
+      await sequelize.query("ALTER TABLE assets ADD COLUMN tags TEXT DEFAULT ''")
+      console.log('✅ Tags column added successfully!')
+    }
+  } catch (err) {
+    console.error('Error adding tags column:', err)
+  }
+}
+
+const addTagsColumnToRecordIfNotExists = async () => {
+  try {
+    const [results] = await sequelize.query('PRAGMA table_info(record)')
+    const hasTagsColumn = results.some((row: any) => row.name === 'tags')
+
+    if (!hasTagsColumn) {
+      console.log('Adding tags column to record table...')
+      await sequelize.query("ALTER TABLE record ADD COLUMN tags TEXT DEFAULT ''")
+      console.log('✅ Tags column added to record table successfully!')
+    }
+  } catch (err) {
+    console.error('Error adding tags column to record table:', err)
   }
 }
 

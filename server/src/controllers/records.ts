@@ -47,6 +47,7 @@ export const update = async (request, reply) => {
       created: new Date(),
       risk: params.risk,
       liquidity: params.liquidity,
+      tags: params.tags,
     }
     const data = await Record.update(options, {
       where: { id: params.id },

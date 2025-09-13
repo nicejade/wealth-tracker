@@ -57,6 +57,8 @@
   "placeholderOfAlias": "Set an alias for the account type",
   "placeholderOfAmount": "Please enter the amount",
   "placeholderOfDate": "Please enter the date",
+  "tags": "Tags",
+  "placeholderOfTags": "Try to separate words with \",\", enter up to 3 tags.",
   "updateDate": "Update Date",
   "modifyRecord": "Modify Record",
   "destroyRecord": "Delete Record",

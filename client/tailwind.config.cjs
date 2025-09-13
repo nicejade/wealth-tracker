@@ -1,3 +1,5 @@
+const { splitVendorChunkPlugin } = require('vite')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
@@ -51,6 +53,9 @@ module.exports = {
       },
       grey: {
         DEFAULT: '#B7B8B9',
+      },
+      silver: {
+        DEFAULT: '#e5e7eb',
       },
       blue: {
         DEFAULT: '#0ea5e9',

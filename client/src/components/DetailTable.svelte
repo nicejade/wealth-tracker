@@ -50,24 +50,31 @@
   {:else}
     <Table hoverable={true} striped={true} divClass="relative overflow-x-auto customized-scrollbar">
       <TableHead class="text-sm">
-        <TableHeadCell class="min-w-24">{$_('type')}</TableHeadCell>
-        <TableHeadCell>{$_('amount')}</TableHeadCell>
-        <TableHeadCell>{$_('datetime')}</TableHeadCell>
-        <TableHeadCell>{$_('currency')}</TableHeadCell>
-        <TableHeadCell>{$_('updateDate')}</TableHeadCell>
-        <TableHeadCell>{$_('modifyRecord')}</TableHeadCell>
-        <TableHeadCell>{$_('destroyRecord')}</TableHeadCell>
-        <TableHeadCell>{$_('remark')}</TableHeadCell>
+        <TableHeadCell class="min-w-24 p-5">{$_('type')}</TableHeadCell>
+        <TableHeadCell class="p-5">{$_('amount')}</TableHeadCell>
+        <TableHeadCell class="p-5">{$_('datetime')}</TableHeadCell>
+        <TableHeadCell class="p-5">{$_('currency')}</TableHeadCell>
+        <TableHeadCell class="p-5">{$_('updateDate')}</TableHeadCell>
+        <TableHeadCell class="p-5">{$_('modifyRecord')}</TableHeadCell>
+        <TableHeadCell class="p-5">{$_('destroyRecord')}</TableHeadCell>
+        <TableHeadCell class="min-w-20 p-5">{$_('tags')}</TableHeadCell>
+        <TableHeadCell class="p-5">{$_('remark')}</TableHeadCell>
       </TableHead>
-      <TableBody tableBodyClass="py-4">
+      <TableBody>
         {#each options as item, index (item.id)}
           <TableBodyRow>
-            <TableBodyCell>{item.alias || item.type}</TableBodyCell>
-            <TableBodyCell>{item.amount}</TableBodyCell>
-            <TableBodyCell>{dayjs(item.datetime).format('YY-MM-DD')}</TableBodyCell>
-            <TableBodyCell>{getCurrencyName(item.currency) + ($language ? '' : '')}</TableBodyCell>
-            <TableBodyCell>{dayjs(item.created).format('MM-DD hh:mm')}</TableBodyCell>
-            <TableBodyCell>
+            <TableBodyCell class="p-5">{item.alias || item.type}</TableBodyCell>
+            <TableBodyCell class="p-5">{item.amount}</TableBodyCell>
+            <TableBodyCell class="p-5">
+              {dayjs(item.datetime).format('YY-MM-DD')}
+            </TableBodyCell>
+            <TableBodyCell class="p-5">
+              {getCurrencyName(item.currency) + ($language ? '' : '')}
+            </TableBodyCell>
+            <TableBodyCell class="p-5">
+              {dayjs(item.created).format('MM-DD hh:mm')}
+            </TableBodyCell>
+            <TableBodyCell class="p-5">
               <Button
                 size="sm"
                 outline
@@ -79,7 +86,7 @@
                 {$_('modify')}
               </Button>
             </TableBodyCell>
-            <TableBodyCell>
+            <TableBodyCell class="p-5">
               <Button
                 size="sm"
                 outline
@@ -91,7 +98,16 @@
                 {$_('destroy')}
               </Button>
             </TableBodyCell>
-            <TableBodyCell>
+            <TableBodyCell class="p-5">
+              <p
+                style="max-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                {item.tags || '-'}
+              </p>
+              {#if item.note}
+                <Tooltip type="light" placement="left">{item.tags}</Tooltip>
+              {/if}
+            </TableBodyCell>
+            <TableBodyCell class="p-5">
               <Button size="sm" disabled={!item.note} outline class="hover:text-brand focus:ring-0">
                 {$_('remark')}
               </Button>

@@ -19,7 +19,7 @@
 }
 
 .custom-input {
-  @apply w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-600 caret-link focus:border-transparent focus:outline-none focus:ring-1 focus:ring-link md:text-sm;
+  @apply border-silver w-full rounded-md border bg-gray-50 p-2 text-gray-600 placeholder-grey caret-link focus:border-transparent focus:outline-none focus:ring-1 focus:ring-link md:text-sm;
 }
 
 .custom-label {

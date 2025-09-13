@@ -57,6 +57,8 @@
   "placeholderOfAlias": "口座タイプの別名を設定",
   "placeholderOfAmount": "金額を入力してください",
   "placeholderOfDate": "日付を入力してください",
+  "tags": "タグ",
+  "placeholderOfTags": "\"，\"で単語を区切って、3つまでのタグを入力してください。",
   "updateDate": "更新日",
   "modifyRecord": "記録を修正",
   "destroyRecord": "記録を削除",

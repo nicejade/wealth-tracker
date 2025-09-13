@@ -57,6 +57,8 @@
   "placeholderOfAlias": "为账户类型设置别名",
   "placeholderOfAmount": "请填写金额",
   "placeholderOfDate": "请填写日期",
+  "tags": "标签",
+  "placeholderOfTags": "尝试用\"，\"分隔词语，最多输入 3 个标签。",
   "updateDate": "更新日期",
   "modifyRecord": "修改记录",
   "destroyRecord": "销毁记录",

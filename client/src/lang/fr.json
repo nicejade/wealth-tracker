@@ -57,6 +57,8 @@
   "placeholderOfAlias": "Définir un alias pour le type de compte",
   "placeholderOfAmount": "Veuillez saisir le montant",
   "placeholderOfDate": "Veuillez saisir la date",
+  "tags": "Étiquettes",
+  "placeholderOfTags": "Essayez de séparer les mots avec \",\", entrez jusqu'à 3 étiquettes.",
   "updateDate": "Date de mise à jour",
   "modifyRecord": "Modifier l'enregistrement",
   "destroyRecord": "Supprimer l'enregistrement",

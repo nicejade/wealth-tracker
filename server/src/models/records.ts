@@ -37,6 +37,11 @@ Record.init(
       allowNull: false,
       defaultValue: 'GOOD',
     },
+    tags: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      defaultValue: '',
+    },
     currency: {
       type: DataTypes.TEXT,
       allowNull: false,

@@ -13,6 +13,7 @@ export const create = async (request, reply) => {
       datetime: params.datetime,
       risk: params.risk,
       liquidity: params.liquidity,
+      tags: params.tags || '',
       updated: new Date(),
     }
     const assets = await Assets.create(options)
@@ -52,6 +53,7 @@ export const update = async (request, reply) => {
       created: params.created,
       risk: params.risk,
       liquidity: params.liquidity,
+      tags: params.tags || '',
       updated: now,
     }
     const data = await Assets.update(options, {

@@ -57,6 +57,8 @@
   "placeholderOfAlias": "為賬戶類型設置別名",
   "placeholderOfAmount": "請填寫金額",
   "placeholderOfDate": "請填寫日期",
+  "tags": "標籤",
+  "placeholderOfTags": "嘗試用\"，\"分隔詞語，最多輸入 3 個標籤",
   "updateDate": "更新日期",
   "modifyRecord": "修改記錄",
   "destroyRecord": "銷毀記錄",
