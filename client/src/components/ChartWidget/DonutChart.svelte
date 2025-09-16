@@ -121,7 +121,12 @@
 </script>
 
 <Card size="xl" class="h-fit shadow-none md:p-4">
-  <Caption title={$_('assetAllocation')} subtitle={$_('currentAssetStatus')}></Caption>
+  <div class="mb-4 flex flex-row gap-3 sm:flex-row sm:items-start sm:justify-between">
+    <Caption title={$_('assetAllocation')} subtitle={$_('currentAssetStatus')}></Caption>
+    <a href="/status" class="regular-btn focus-visible-ring flex max-h-10 !min-w-fit items-center">
+      {$_('assetStatus')}
+    </a>
+  </div>
 
   <!-- 风险与流动性分布概览 -->
   <div class="my-4 grid grid-cols-2 gap-4 md:grid-cols-1">

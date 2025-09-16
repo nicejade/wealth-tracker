@@ -37,7 +37,7 @@
 </script>
 
 <Card size="xl" class="w-full max-w-none shadow-none md:p-4 2xl:col-span-2">
-  <div class="mb-4 flex justify-between">
+  <div class="mb-4 flex flex-row gap-3 sm:flex-row sm:items-start sm:justify-between">
     <Caption title={$_('recordDetails')}></Caption>
     <a href="/" class="regular-btn focus-visible-ring !min-w-fit">
       {$_('backToHomepage')}
@@ -45,7 +45,7 @@
   </div>
   {#if options?.length <= 0}
     <div class="my-4 flex w-full items-center justify-center">
-      <SvgIcon name="empty" width={184} height={152} />
+      <SvgIcon name="empty" width={186} height={154} />
     </div>
   {:else}
     <Table hoverable={true} striped={true} divClass="relative overflow-x-auto customized-scrollbar">

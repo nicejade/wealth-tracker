@@ -220,6 +220,132 @@ export const genAreaOptions = (theme = 'light') => {
   }
 }
 
+const RICHEST_VALUE = 6.6 * 10 ** 12
+
+export const genTreemapOptions = (theme = 'light') => {
+  let mainChartColors
+
+  if (theme === 'dark') {
+    mainChartColors = {
+      borderColor: '#374151',
+      labelColor: '#9CA3AF',
+    }
+  } else {
+    mainChartColors = {
+      borderColor: '#F3F4F6',
+      labelColor: '#6B7280',
+    }
+  }
+
+  return {
+    chart: {
+      height: 400,
+      type: 'treemap',
+      fontFamily: 'Inter, sans-serif',
+      foreColor: mainChartColors.labelColor,
+      toolbar: {
+        show: false,
+      },
+    },
+    series: [
+      {
+        data: [],
+      },
+    ],
+    plotOptions: {
+      treemap: {
+        enableShades: true,
+        shadeIntensity: 0.5,
+        reverseNegativeShade: true,
+        colorScale: {
+          ranges: [
+            {
+              from: 0,
+              to: 10000,
+              color: '#fff4a3',
+            },
+            {
+              from: 10000,
+              to: 100000,
+              color: '#ffe06b',
+            },
+            {
+              from: 100000,
+              to: 200000,
+              color: '#ffca07',
+            },
+            {
+              from: 200000,
+              to: 300000,
+              color: '#ffb300',
+            },
+            {
+              from: 300000,
+              to: 500000,
+              color: '#ff9f00',
+            },
+            {
+              from: 500000,
+              to: 1000000,
+              color: '#ff8c00',
+            },
+            {
+              from: 1000000,
+              to: 5000000,
+              color: '#ff7a00',
+            },
+            {
+              from: 5000000,
+              to: 100000000,
+              color: '#ff6600',
+            },
+            {
+              from: 100000000,
+              to: RICHEST_VALUE,
+              color: '#ff4d00',
+            },
+            {
+              from: RICHEST_VALUE,
+              to: 100 * RICHEST_VALUE,
+              color: '#ff3300',
+            },
+          ],
+        },
+      },
+    },
+    states: {
+      hover: {
+        filter: {
+          type: 'darken',
+          value: 0.8,
+        },
+      },
+      active: {
+        filter: {
+          type: 'darken',
+          value: 0.68,
+        },
+      },
+    },
+    dataLabels: {
+      enabled: true,
+      style: {
+        fontSize: '14px',
+        fontFamily: 'Inter, sans-serif',
+        fontWeight: 600,
+        colors: ['#fff'],
+      },
+      formatter: function (text, op) {
+        return [text, op.value]
+      },
+      offsetY: -4,
+    },
+    legend: {
+      show: false,
+    },
+  }
+}
+
 export const genBindingOptions = (offsetDays: number) => {
   return {
     chart: {

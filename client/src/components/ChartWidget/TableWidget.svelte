@@ -14,7 +14,7 @@
   import Caption from '../Caption.svelte'
   import confetti from 'canvas-confetti'
   import { SUPPORTED_CURRENCIES } from './../../helper/constant'
-  import { randomInRange, fetchExchangeRates, convertCurrency } from './../../helper/utils'
+  import { randomInRange, convertCurrency } from './../../helper/utils'
   import {
     exchangeRates,
     language,
@@ -49,10 +49,6 @@
     .toFixed(2)
 
   const dispatch = createEventDispatcher()
-
-  onMount(() => {
-    fetchExchangeRates()
-  })
 
   const fireConfetti = (opts) => {
     const scalar = randomInRange(1.1, 2)
@@ -98,7 +94,7 @@
 <Card
   size="xl"
   class="hide-scrollbar w-full  max-w-none overflow-x-scroll shadow-none md:p-4 2xl:col-span-2">
-  <div class="mb-4 flex justify-between">
+  <div class="mb-4 flex flex-row gap-3 sm:flex-row sm:items-start sm:justify-between">
     <Caption title={$_('recordAssets')}></Caption>
     <a href="/detail" class="regular-btn focus-visible-ring !min-w-fit">{$_('viewDetails')}</a>
   </div>

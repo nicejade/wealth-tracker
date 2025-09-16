@@ -287,7 +287,7 @@
     {:else if insights.length === 0}
       <section class="py-12 text-center">
         <div class="my-4 flex w-full items-center justify-center">
-          <SvgIcon name="empty" width={184} height={152} />
+          <SvgIcon name="empty" width={186} height={154} />
         </div>
         <button
           class="regular-btn gradient-text hover:border-brand text-center focus-within:ring-0"

@@ -20,6 +20,7 @@ export interface AssetsItem {
   liquidity: string
   datetime: string
   note: string
+  tags?: string
 }
 
 export interface Settings {
