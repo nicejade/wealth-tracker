@@ -17,6 +17,7 @@
   import SvgIcon from './SvgIcon.svelte'
   import { language } from '../stores'
   import { SUPPORTED_CURRENCIES } from './../helper/constant'
+  import { getCurrencySymbol } from './../helper/utils'
 
   export let options = []
   export let page: number = 0
@@ -64,7 +65,13 @@
         {#each options as item, index (item.id)}
           <TableBodyRow>
             <TableBodyCell class="p-5">{item.alias || item.type}</TableBodyCell>
-            <TableBodyCell class="p-5">{item.amount}</TableBodyCell>
+            <TableBodyCell class="p-5">
+              <span
+                class="text-brand border-brand me-1 inline-flex items-center rounded-sm border bg-yellow-50 px-1 py-0.5 text-xs font-medium">
+                {getCurrencySymbol(item.currency)}
+              </span>
+              {item.amount}
+            </TableBodyCell>
             <TableBodyCell class="p-5">
               {dayjs(item.datetime).format('YY-MM-DD')}
             </TableBodyCell>

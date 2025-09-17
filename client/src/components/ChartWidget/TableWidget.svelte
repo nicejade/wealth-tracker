@@ -14,7 +14,7 @@
   import Caption from '../Caption.svelte'
   import confetti from 'canvas-confetti'
   import { SUPPORTED_CURRENCIES } from './../../helper/constant'
-  import { randomInRange, convertCurrency } from './../../helper/utils'
+  import { randomInRange, convertCurrency, getCurrencySymbol } from './../../helper/utils'
   import {
     exchangeRates,
     language,
@@ -110,7 +110,13 @@
       {#each options as item (item.type)}
         <TableBodyRow>
           <TableBodyCell>{item.alias || item.type}</TableBodyCell>
-          <TableBodyCell>{item.amount}</TableBodyCell>
+          <TableBodyCell>
+            <span
+              class="text-brand border-brand me-1 inline-flex items-center rounded-sm border bg-yellow-50 px-1 py-0.5 text-xs font-medium">
+              {getCurrencySymbol(item.currency)}
+            </span>
+            {item.amount}
+          </TableBodyCell>
           <TableBodyCell>{getCurrencyName(item.currency) + ($language ? '' : '')}</TableBodyCell>
           <TableBodyCell>
             <Button
@@ -137,9 +143,17 @@
         </TableBodyRow>
       {/each}
       <TableBodyRow>
-        <TableBodyCell><strong>{$_('total')}</strong></TableBodyCell>
         <TableBodyCell>
-          <strong class="text-brand font-bold">{totalWealth}</strong>
+          <strong>{$_('total')}</strong>
+        </TableBodyCell>
+        <TableBodyCell>
+          <strong class="text-brand font-bold">
+            <span
+              class="text-brand border-brand me-1 inline-flex items-center rounded-sm border bg-yellow-50 px-1 py-0.5 text-xs font-medium">
+              {getCurrencySymbol($targetCurrencyCode)}
+            </span>
+            {totalWealth}
+          </strong>
         </TableBodyCell>
         <TableBodyCell>
           <strong class="text-brand font-bold">

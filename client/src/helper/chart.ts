@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
-import { calculateDateByOffset } from './utils'
-import { legend } from '../stores'
+import { get } from 'svelte/store'
+import { calculateDateByOffset, getCurrencySymbol } from './utils'
+import { legend, targetCurrencyCode } from '../stores'
 
 export const genDonutOptions = (theme = 'light') => {
   let trafficChannelsChartColors = { strokeColor: '#ffffff' }
@@ -188,7 +189,7 @@ export const genAreaOptions = (theme = 'light') => {
           fontWeight: 500,
         },
         formatter: function (value) {
-          return '¥' + value
+          return getCurrencySymbol(get(targetCurrencyCode)) + value
         },
       },
     },
@@ -396,7 +397,9 @@ export const genBindingOptions = (offsetDays: number) => {
     yaxis: {
       labels: {
         // 确保 Y 轴刻度为整数
-        formatter: (value) => Math.round(value),
+        formatter: (value) => {
+          return getCurrencySymbol(get(targetCurrencyCode)) + Math.round(value)
+        },
       },
     },
   }

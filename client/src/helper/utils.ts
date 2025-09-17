@@ -11,6 +11,7 @@ import {
   EXCHANGE_RATE_API_KEY,
   BITCOIN_API_KEY,
   TARGET_CURRENCY,
+  SUPPORTED_CURRENCIES,
 } from './../helper/constant'
 import { exchangeRates } from './../stores'
 
@@ -29,6 +30,11 @@ export const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, del
 
 export const randomInRange = (min, max) => {
   return Math.random() * (max - min) + min
+}
+
+export const getCurrencySymbol = (currencyCode: string): string => {
+  const currency = SUPPORTED_CURRENCIES.find((c) => c.value === currencyCode)
+  return currency?.symbol || ''
 }
 
 export const isNeedScroll = () => {

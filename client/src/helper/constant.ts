@@ -187,44 +187,63 @@ export const BITCOIN_API_KEY = 'bitcoin-api-key'
 export const SUPPORTED_CURRENCIES = [
   {
     value: 'CNY',
+    symbol: '¥',
   },
   {
     value: 'USD',
+    symbol: '$',
   },
   {
     value: 'HKD',
+    symbol: 'HK$',
   },
   {
     value: 'BTC',
+    symbol: '₿',
   },
   {
     value: 'EUR',
+    symbol: '€',
   },
   {
     value: 'JPY',
+    symbol: '¥',
   },
   {
     value: 'GBP',
+    symbol: '£',
   },
   {
     value: 'TWD',
+    symbol: 'NT$',
   },
   {
     value: 'KRW',
+    symbol: '₩',
   },
   {
     value: 'AUD',
+    symbol: 'A$',
   },
   {
     value: 'CAD',
+    symbol: 'C$',
   },
   {
     value: 'SGD',
+    symbol: 'S$',
   },
   {
     value: 'CHF',
+    symbol: 'CHF',
   },
 ]
+
+// Helper function to get currency symbol
+export const getCurrencySymbol = (currencyCode: string): string => {
+  const currency = SUPPORTED_CURRENCIES.find((c) => c.value === currencyCode)
+  return currency?.symbol || currencyCode
+}
 
 export const DEFAULT_EXCHANGE_RATE = {
   base_code: 'CNY',
