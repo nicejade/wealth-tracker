@@ -85,7 +85,7 @@
   }
 </script>
 
-<header class="flex h-20 items-center justify-between">
+<header class="flex h-20 items-center justify-between" style="z-index: 1000;">
   <h1 class="h-full leading-none">
     <a href="/" title={TITLE} class="flex h-full items-center space-x-2 focus-visible:outline-none">
       <img src="/logo.png" alt="Sink" class="h-5 w-5" />

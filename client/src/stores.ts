@@ -39,6 +39,9 @@ export const period = writable(DATE_PERIOD_ARR[0])
 
 export const legend = writable({ chartContext: {}, seriesIndex: -1 })
 
+// Total asset value in the target currency
+export const totalAssetValue = writable(0)
+
 /* 基于如下 store 来获取实时汇率数据 & 计算汇率 */
 export const exchangeRates = writable({})
 

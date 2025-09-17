@@ -21,6 +21,7 @@
     targetCurrencyCode,
     targetCurrencyName,
     isResettable,
+    totalAssetValue,
   } from '../../stores'
 
   $: if ($targetCurrencyCode || $language) {
@@ -33,11 +34,10 @@
   }
 
   export let options = []
-  let totalWealth = 0
 
-  // 计算转换后的总资产
-  $: totalWealth = options
-    .reduce((sum, item) => {
+  // 计算转换后的总资产并更新到 store
+  $: {
+    const calculatedTotal = options.reduce((sum, item) => {
       const convertedAmount = convertCurrency(
         item.amount,
         item.currency,
@@ -46,7 +46,8 @@
       )
       return sum + convertedAmount
     }, 0)
-    .toFixed(2)
+    totalAssetValue.set(Number(calculatedTotal.toFixed(2)))
+  }
 
   const dispatch = createEventDispatcher()
 
@@ -152,7 +153,7 @@
               class="text-brand border-brand me-1 inline-flex items-center rounded-sm border bg-yellow-50 px-1 py-0.5 text-xs font-medium">
               {getCurrencySymbol($targetCurrencyCode)}
             </span>
-            {totalWealth}
+            {$totalAssetValue}
           </strong>
         </TableBodyCell>
         <TableBodyCell>

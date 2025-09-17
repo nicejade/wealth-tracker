@@ -20,7 +20,7 @@
 
   export let sources
 
-  const options: ApexOptions | any = genDonutOptions()
+  const options: ApexOptions | any = genDonutOptions('light')
   let percentages: PercentageItem[] = []
   let riskDistribution: RiskLiquidityItem[] = []
   let liquidityDistribution: RiskLiquidityItem[] = []

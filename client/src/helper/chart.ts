@@ -1,19 +1,23 @@
 import dayjs from 'dayjs'
+import { _ } from 'svelte-i18n'
 import { get } from 'svelte/store'
 import { calculateDateByOffset, getCurrencySymbol } from './utils'
-import { legend, targetCurrencyCode } from '../stores'
+import { legend, targetCurrencyCode, totalAssetValue } from '../stores'
 
-export const genDonutOptions = (theme = 'light') => {
+export const genDonutOptions = (theme = 'light', translateFn = null) => {
   let trafficChannelsChartColors = { strokeColor: '#ffffff' }
+  let centerLabelColor = '#374151'
 
   if (theme === 'dark') {
     trafficChannelsChartColors = {
       strokeColor: '#1f2937',
     }
+    centerLabelColor = '#9CA3AF'
   } else {
     trafficChannelsChartColors = {
       strokeColor: '#ffffff',
     }
+    centerLabelColor = '#374151'
   }
 
   return {
@@ -27,12 +31,61 @@ export const genDonutOptions = (theme = 'light') => {
         show: false,
       },
     },
+    plotOptions: {
+      pie: {
+        donut: {
+          size: '70%',
+          labels: {
+            show: true,
+            name: {
+              show: true,
+              fontSize: '16px',
+              fontFamily: 'SF Pro, Inter, sans-serif',
+              fontWeight: 600,
+              color: centerLabelColor,
+              offsetY: -10,
+              formatter: () => {
+                return get(_)('totalAssets') || ''
+              },
+            },
+            total: {
+              show: true,
+              showAlways: true,
+              fontSize: '16px',
+              fontFamily: 'SF Pro, Inter, sans-serif',
+              fontWeight: 600,
+              color: centerLabelColor,
+              formatter: () => {
+                return getCurrencySymbol(get(targetCurrencyCode)) + get(totalAssetValue)
+              },
+            },
+          },
+        },
+      },
+    },
     responsive: [
       {
         breakpoint: 430,
         options: {
           chart: {
             height: 300,
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                labels: {
+                  name: {
+                    fontSize: '14px',
+                  },
+                  value: {
+                    fontSize: '20px',
+                  },
+                  total: {
+                    fontSize: '14px',
+                  },
+                },
+              },
+            },
           },
         },
       },
@@ -334,7 +387,7 @@ export const genTreemapOptions = (theme = 'light') => {
         fontSize: '14px',
         fontFamily: 'Inter, sans-serif',
         fontWeight: 600,
-        colors: ['#221122'],
+        colors: ['#212121'],
       },
       formatter: function (text, op) {
         return [text, op.value]
