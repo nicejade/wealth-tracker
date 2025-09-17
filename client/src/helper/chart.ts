@@ -334,7 +334,7 @@ export const genTreemapOptions = (theme = 'light') => {
         fontSize: '14px',
         fontFamily: 'Inter, sans-serif',
         fontWeight: 600,
-        colors: ['#fff'],
+        colors: ['#221122'],
       },
       formatter: function (text, op) {
         return [text, op.value]
