@@ -73,8 +73,9 @@
       return rawAssetsArr
         .map((item) => {
           totalAssets += item.amount
-          const { alias, amount, liquidity, risk } = item
-          return `- Account name: ${alias}, Amount: ${amount}, Liquidity: ${liquidity.toLowerCase()}, Risk: ${risk.toLowerCase()}`
+          const { alias, amount, liquidity, risk, tags } = item
+          const tagsInfo = tags && tags.trim() ? `, Tags: ${tags}` : ''
+          return `- Account name: ${alias}, Amount: ${amount}, Liquidity: ${liquidity.toLowerCase()}, Risk: ${risk.toLowerCase()}${tagsInfo}`
         })
         .join('\n  ')
     } catch (error) {
