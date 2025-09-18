@@ -12,10 +12,13 @@
     parse,
     sleep,
     updatePageMetaInfo,
+    getCurrencySymbol,
+    convertCurrency,
   } from '../helper/utils'
   import { PROMPT_TEMPLATE, LANG_ARR } from '../helper/constant'
   import { notice, alert } from '../stores'
   import { language } from '../stores'
+  import { exchangeRates, targetCurrencyCode } from '../stores'
   import type { Settings } from '../typings'
 
   let loading: boolean = false
@@ -23,6 +26,7 @@
   let advice: string = ``
   let htmlBodyNode: HTMLBodyElement = null
   let totalAssets: number = 0
+  let convertedTotalAssets: number = 0
   let prompt: string = ''
   let settings: Settings = {
     apiKey: localStorage.getItem('apiKey') || '',
@@ -31,7 +35,7 @@
     temperature: localStorage.getItem('temperature') || 0.7,
   }
 
-  $: if ($language) {
+  $: if ($language || $targetCurrencyCode || $exchangeRates) {
     updatePrompt()
   }
 
@@ -53,10 +57,26 @@
   })
 
   const updatePrompt = () => {
+    if (!rawAssetsArr.length) return
+
     const assetsInfo = genAssetsInfo()
+    // Calculate converted total assets with fallback for missing exchange rates
+    convertedTotalAssets = rawAssetsArr.reduce((sum, item) => {
+      const convertedAmount =
+        $exchangeRates && Object.keys($exchangeRates).length > 0
+          ? convertCurrency(item.amount, item.currency, $targetCurrencyCode, $exchangeRates)
+          : item.currency === $targetCurrencyCode
+            ? item.amount
+            : 0
+      return sum + convertedAmount
+    }, 0)
+
+    const targetSymbol = getCurrencySymbol($targetCurrencyCode)
+    const formattedTotal = `${targetSymbol}${convertedTotalAssets.toLocaleString('en-US')}`
+
     prompt = formatTemplate(PROMPT_TEMPLATE, {
       language: findNameByValue(LANG_ARR, $language),
-      total: totalAssets.toFixed(2),
+      total: formattedTotal,
       status: assetsInfo,
     })
   }
@@ -73,9 +93,11 @@
       return rawAssetsArr
         .map((item) => {
           totalAssets += item.amount
-          const { alias, amount, liquidity, risk, tags } = item
+          const { alias, amount, liquidity, risk, tags, currency } = item
+          const currencySymbol = getCurrencySymbol(currency || 'CNY')
+          const formattedAmount = `${currencySymbol}${amount.toLocaleString()}`
           const tagsInfo = tags && tags.trim() ? `, Tags: ${tags}` : ''
-          return `- Account name: ${alias}, Amount: ${amount}, Liquidity: ${liquidity.toLowerCase()}, Risk: ${risk.toLowerCase()}${tagsInfo}`
+          return `- Account name: ${alias}, Amount: ${formattedAmount}, Liquidity: ${liquidity.toLowerCase()}, Risk: ${risk.toLowerCase()}${tagsInfo}`
         })
         .join('\n  ')
     } catch (error) {
@@ -209,7 +231,7 @@
       <Textarea
         id="prompt"
         value={prompt}
-        rows={10}
+        rows={18}
         class=" focus-within:border-brand focus-within:ring-0" />
     </div>
     {#if advice}
