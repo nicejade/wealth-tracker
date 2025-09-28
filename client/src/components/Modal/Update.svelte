@@ -202,7 +202,7 @@
       <div class="flex flex-col items-center justify-center p-6">
         <div class="module-warp">
           <label for="update-alias" class="custom-label">
-            {$_('type')}
+            {$_('account')}
             <i class="text-mark">*</i>
           </label>
           <input

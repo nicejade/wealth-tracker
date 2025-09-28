@@ -51,7 +51,7 @@
   {:else}
     <Table hoverable={true} striped={true} divClass="relative overflow-x-auto customized-scrollbar">
       <TableHead class="text-sm">
-        <TableHeadCell class="min-w-24 p-5">{$_('type')}</TableHeadCell>
+        <TableHeadCell class="min-w-24 p-5">{$_('account')}</TableHeadCell>
         <TableHeadCell class="p-5">{$_('amount')}</TableHeadCell>
         <TableHeadCell class="p-5">{$_('datetime')}</TableHeadCell>
         <TableHeadCell class="p-5">{$_('currency')}</TableHeadCell>
