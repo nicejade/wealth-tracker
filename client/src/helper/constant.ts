@@ -123,6 +123,8 @@ export const STORAGE_RISK_FILTER = 'risk-filter'
 
 export const STORAGE_LIQUIDITY_FILTER = 'liquidity-filter'
 
+export const STORAGE_ACCOUNT_FILTER = 'account-filter'
+
 export const PROMPT_TEMPLATE = `As a professional financial advisor with extensive experience in wealth management and market insights, please provide personalized financial advice based on the following user information and market conditions.
 
 ## Asset Details

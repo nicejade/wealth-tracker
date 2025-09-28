@@ -21,6 +21,7 @@
     DATE_PERIOD_ARR,
     STORAGE_RISK_FILTER,
     STORAGE_LIQUIDITY_FILTER,
+    STORAGE_ACCOUNT_FILTER,
   } from './../../helper/constant'
   import { period, language } from './../../stores'
   import type { ApexOptions } from 'apexcharts'
@@ -32,6 +33,7 @@
   let stageChangePercent: number = 0
   let selectedRisk: string = localStorage.getItem(STORAGE_RISK_FILTER) || 'ALL'
   let selectedLiquidity: string = localStorage.getItem(STORAGE_LIQUIDITY_FILTER) || 'ALL'
+  let selectedAccount: string = localStorage.getItem(STORAGE_ACCOUNT_FILTER) || 'ALL'
 
   $: if (sources || $period) {
     regenAreaOptions(sources)
@@ -55,10 +57,21 @@
     ...LIQUIDITY_TYPES.map((type) => ({ name: $_(type.toLowerCase()), value: type })),
   ]
 
+  $: accountOptions = [
+    { name: $_('all'), value: 'ALL' },
+    ...sources.reduce((acc, asset) => {
+      if (!acc.find((item) => item.value === asset.type)) {
+        acc.push({ name: asset.alias || asset.type, value: asset.type })
+      }
+      return acc
+    }, []),
+  ]
+
   $: riskActiveIndex = riskOptions.findIndex((option) => option.value === selectedRisk)
   $: liquidityActiveIndex = liquidityOptions.findIndex(
     (option) => option.value === selectedLiquidity,
   )
+  $: accountActiveIndex = accountOptions.findIndex((option) => option.value === selectedAccount)
 
   onMount(() => {
     period.set(DATE_PERIOD_ARR[DATE_ACTIVE])
@@ -104,6 +117,11 @@
       filteredAssetsArr = filteredAssetsArr.filter((asset) => asset.liquidity === selectedLiquidity)
     }
 
+    // 根据账户筛选
+    if (selectedAccount !== 'ALL') {
+      filteredAssetsArr = filteredAssetsArr.filter((asset) => asset.type === selectedAccount)
+    }
+
     const sortedAssetsArr = sortByDatetime(filteredAssetsArr)
     const splitAssetsArr = groupArrayByType(sortedAssetsArr)
     const seriesDataArr = genChartSeries(splitAssetsArr)
@@ -128,6 +146,12 @@
     localStorage.setItem(STORAGE_LIQUIDITY_FILTER, selectedLiquidity)
     regenAreaOptions(sources)
   }
+
+  const onAccountSelect = (event: CustomEvent) => {
+    selectedAccount = event.detail.value
+    localStorage.setItem(STORAGE_ACCOUNT_FILTER, selectedAccount)
+    regenAreaOptions(sources)
+  }
 </script>
 
 <Card size="xl" class="w-full max-w-none shadow-none md:p-4 2xl:col-span-2">
@@ -145,6 +169,12 @@
 
   <!-- 筛选选项 -->
   <div class="mt-4 flex flex-wrap items-center gap-4">
+    <CustomSelect
+      label={$_('account')}
+      options={accountOptions}
+      active={accountActiveIndex >= 0 ? accountActiveIndex : 0}
+      listboxClass="w-32"
+      on:selected={onAccountSelect} />
     <CustomSelect
       label={$_('risk')}
       options={riskOptions}
