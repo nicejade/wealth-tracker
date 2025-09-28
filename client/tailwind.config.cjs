@@ -62,6 +62,11 @@ module.exports = {
       },
     },
     extend: {
+      zIndex: {
+        100: '100',
+        1000: '1000',
+        9999: '9999',
+      },
       maxWidth: {
         tiny: '16rem',
       },

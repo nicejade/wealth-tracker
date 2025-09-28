@@ -180,7 +180,7 @@
 <div
   id="update-modal"
   tabindex="-1"
-  class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0 md:h-full">
+  class="z-9999 fixed left-0 right-0 top-0 hidden h-[calc(100%-1rem)] w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0 md:h-full">
   <div class="relative h-full w-full max-w-lg md:h-auto md:max-w-md">
     <!-- Modal content -->
     <div class="relative mt-16 rounded-lg bg-white pb-8 shadow">

@@ -145,7 +145,7 @@
 <style>
   .operating-area {
     /* Glassmorphism effect */
-    z-index: 100;
+    z-index: 10;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     transition:
@@ -157,6 +157,7 @@
   }
 
   .operating-area.sticky {
+    z-index: 100;
     position: fixed;
     top: 10px;
     left: 50%;
