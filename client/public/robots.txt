@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /*?*
+
+Sitemap: https://fund.lovejade.cn/sitemap.xml

@@ -140,6 +140,37 @@
 
 <Header />
 
+<!-- SEO - Friendly static content -->
+<div class="seo-content" style="display: none;">
+  <h1>生财有迹 - 个人资产跟踪与分析工具</h1>
+  <h2>什么是生财有迹？</h2>
+  <p>
+    生财有迹（Wealth
+    Tracker）是一款专注于个人资产跟踪与分析的应用。在当今多元化的经济环境中，个人资产管理变得日益重要。它往往分散于各类金融账户和服务中，例如银行存款与理财产品、移动支付平台（如微信支付、支付宝）、公积金、医保账户、货币基金（例如余额宝）、债券、各种股票及基金产品、房地产、贵金属等。
+  </p>
+
+  <h2>核心功能</h2>
+  <ul>
+    <li>全面记录并展示用户的资产状况</li>
+    <li>帮助用户清晰地了解财务现状</li>
+    <li>结合每种资产的特性和当前经济环境</li>
+    <li>利用 AI 技术进行分析</li>
+    <li>提供适宜的财务建议</li>
+  </ul>
+
+  <h2>主要特性</h2>
+  <ul>
+    <li>简洁易用的操作界面</li>
+    <li>丰富的数据可视化</li>
+    <li>本地部署的灵活性</li>
+    <li>开源的代码架构</li>
+    <li>多语言支持</li>
+    <li>AI 财务建议</li>
+    <li>记录财富见解</li>
+    <li>密码安全保护</li>
+  </ul>
+</div>
+
 <div class="flex w-full flex-col items-center justify-center space-y-8">
   <OperatingArea on:add={handleAdd} />
   <TableWidget

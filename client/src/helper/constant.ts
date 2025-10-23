@@ -57,14 +57,29 @@ export const DEFAULT_ACCOUNT_ITEM = {
 
 export const SOCIAL_LINKS = [
   {
+    href: 'https://share.lovejade.cn',
+    title: '玉桃文飨轩',
+    icon: 'share',
+  },
+  {
+    href: 'https://www.lovejade.cn',
+    title: '清风明月轩',
+    icon: 'lovejade',
+  },
+  {
+    href: 'https://quickapp.lovejade.cn',
+    title: '静轩之别苑',
+    icon: 'blogger',
+  },
+  {
+    href: 'https://www.niceshare.site',
+    title: '逍遥自在轩',
+    icon: 'homepage',
+  },
+  {
     href: 'https://mastodon.social/@nicejade',
     title: 'Mastodon',
     icon: 'mastodon',
-  },
-  {
-    href: 'https://quickapp.lovejade.cn/',
-    title: '静轩之别苑',
-    icon: 'blogger',
   },
   {
     href: 'https://x.com/MarshalXuan',
@@ -72,17 +87,7 @@ export const SOCIAL_LINKS = [
     icon: 'x',
   },
   {
-    href: 'https://www.niceshare.site/',
-    title: '逍遥自在轩',
-    icon: 'homepage',
-  },
-  {
-    href: 'https://www.thebettersites.com/',
-    title: '清风明月轩',
-    icon: 'thebettersites',
-  },
-  {
-    href: 'https://github.com/nicejade/',
+    href: 'https://github.com/nicejade',
     title: 'Github',
     icon: 'github',
   },

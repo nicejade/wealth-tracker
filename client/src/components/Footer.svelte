@@ -10,7 +10,7 @@
   <div class="flex items-center justify-center space-x-3 md:w-full">
     <FooterCopyright
       aClass="hover:no-underline"
-      href="https://www.jeffjade.com/"
+      href="https://www.jeffjade.com"
       copyrightMessage={$_('allRightsReserved')}
       by="晚晴幽草轩™" />
     <Badge large color="dark">v{version}</Badge>
