@@ -79,7 +79,7 @@
               {getCurrencyName(item.currency) + ($language ? '' : '')}
             </TableBodyCell>
             <TableBodyCell class="p-5">
-              {dayjs(item.created).format('MM-DD hh:mm')}
+              {dayjs(item.created).format('MM-DD HH:mm')}
             </TableBodyCell>
             <TableBodyCell class="p-5">
               <Button
