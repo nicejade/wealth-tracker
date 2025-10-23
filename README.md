@@ -58,6 +58,8 @@
 - **多语言支持**：支持简体中文、繁体中文、英文、法文、日文，后续会根据用户反馈添加更多。
 - **AI 财务建议**：利用 AI 技术，结合每种资产的特性和当前经济环境，提供适宜的财务建议。
 - **记录财富见解**：记录投资理财过程中的重要洞察与经验总结，沉淀智慧财富，指导未来决策。
+- **密码保护功能**：支持设置访问密码，确保个人财务数据的隐私安全，防止未授权访问。
+- **标签分类及可视化**：通过灵活的标签系统对资产进行分类管理，并配合树状图等可视化图表，直观展示不同标签下的资产分布情况。
 
 通过这些特性，希望建立一个用户友好、透明且可信赖的个人财分析工具，帮助用户更全面地掌握自己的财务状况。
 
@@ -217,10 +219,11 @@ cd server && npm start
 
 ## 相关链接
 
-- [清风明月轩](https://www.thebettersites.com/)
 - [逍遥自在轩](https://www.niceshare.site/)
+- [清风明月轩](https://www.lovejade.cn/)
 - [晚晴幽草轩](https://www.jeffjade.com/)
 - [缘知随心庭](https://fine.niceshare.site/)
+- [玉桃文飨轩](https://share.lovejade.cn/)
 - [倾城之链](https://site.lovejade.cn/)
 - [曼妙句子](https://read.lovejade.cn/)
 - [SegmentFault](https://segmentfault.com/u/jeffjade)
