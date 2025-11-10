@@ -8,6 +8,7 @@
   import { fetchExchangeRates } from './../../helper/utils'
   import { hashPassword } from './../../helper/auth'
   import { setPassword } from './../../helper/apis'
+  import { loadUserSettings, saveUserSettings } from './../../helper/settings'
   import { alert, isPasswordAllowed, isResettable } from './../../stores'
   import type { ModalOptions } from 'flowbite'
 
@@ -16,8 +17,8 @@
   const MODAL_KEY: string = 'setting-modal'
   let loading: boolean = false
   let error: string = ''
-  let rateApiKey: string = localStorage.getItem(EXCHANGE_RATE_API_KEY) || ''
-  let bitcoinApiKey: string = localStorage.getItem(BITCOIN_API_KEY) || ''
+  let rateApiKey: string = ''
+  let bitcoinApiKey: string = ''
   let password: string = ''
   let confirmPassword: string = ''
 
@@ -34,7 +35,19 @@
     }
   }
 
-  onMount(() => {
+  onMount(async () => {
+    // 从服务器加载 API keys
+    try {
+      const settings = await loadUserSettings()
+      rateApiKey = settings.exchangeRateApiKey || ''
+      bitcoinApiKey = settings.bitcoinApiKey || ''
+    } catch (error) {
+      console.error('Failed to load settings:', error)
+      // 如果加载失败，从 localStorage 读取（向后兼容）
+      rateApiKey = localStorage.getItem(EXCHANGE_RATE_API_KEY) || ''
+      bitcoinApiKey = localStorage.getItem(BITCOIN_API_KEY) || ''
+    }
+
     const $targetEl = document.getElementById(MODAL_KEY)
     const options: ModalOptions = {
       placement: 'top-center',
@@ -95,8 +108,13 @@
       }
       loading = true
       error = ''
-      localStorage.setItem(EXCHANGE_RATE_API_KEY, rateApiKey)
-      localStorage.setItem(BITCOIN_API_KEY, bitcoinApiKey)
+
+      // 保存 API keys 到服务器
+      await saveUserSettings({
+        exchangeRateApiKey: rateApiKey,
+        bitcoinApiKey: bitcoinApiKey,
+      })
+
       if (password) {
         const hashedPassword = await hashPassword(password)
         await setPassword(hashedPassword)

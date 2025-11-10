@@ -4,40 +4,61 @@
   import { locale } from 'svelte-i18n'
   import SvgIcon from './SvgIcon.svelte'
   import { language, theme } from '../stores'
-  import { getAppLang } from './../helper/utils'
-  import { TITLE, DEFAULT_THEME, LANG_ARR, STORAGE_THEME, STORAGE_LANG } from './../helper/constant'
+  import { saveUserSettings } from './../helper/settings'
+  import { TITLE, DEFAULT_THEME, LANG_ARR } from './../helper/constant'
 
-  let lang: string = getAppLang()
+  let lang: string = $language || 'zh-CN'
   let langName: string = ''
 
-  $: if (lang) {
-    langName = LANG_ARR.find((item) => {
-      return item.value === lang
-    }).name
+  $: if ($language) {
+    lang = $language
+    langName =
+      LANG_ARR.find((item) => {
+        return item.value === lang
+      })?.name || ''
     locale.set(lang)
-    language.set(lang)
-    localStorage.setItem(STORAGE_LANG, lang)
     updateAppFont(lang)
   }
 
-  onMount(() => {
-    theme.set(localStorage.getItem(STORAGE_THEME) || DEFAULT_THEME)
+  // 监听主题变化，更新 UI
+  $: if ($theme) {
     updateAppTheme()
-    updateAppFont(lang)
+  }
+
+  // 监听语言变化，更新 UI
+  $: if ($language && $language !== lang) {
+    lang = $language
+    updateUrlLang($language)
+    updateAppFont($language)
+  }
+
+  onMount(() => {
+    // 从 store 获取主题和语言（已经从服务器加载）
+    updateAppTheme()
+    updateAppFont($language)
 
     // 确保在组件挂载时也能正确处理 URL 参数中的语言
     const urlParams = new URLSearchParams(window.location.search)
     const urlLang = urlParams.get('lang')
-    if (urlLang && urlLang !== lang) {
-      lang = urlLang
+    if (urlLang && urlLang !== $language) {
+      language.set(urlLang)
+      updateUrlLang(urlLang)
+
+      saveUserSettings({ language: urlLang }).catch((err) => {
+        console.error('Failed to save language from URL:', err)
+      })
     }
 
     // 监听浏览器前进/后退按钮，确保 URL 参数变化时能正确响应
     const handlePopState = () => {
       const currentUrlParams = new URLSearchParams(window.location.search)
       const currentUrlLang = currentUrlParams.get('lang')
-      if (currentUrlLang && currentUrlLang !== lang) {
-        lang = currentUrlLang
+      if (currentUrlLang && currentUrlLang !== $language) {
+        language.set(currentUrlLang)
+        updateUrlLang(currentUrlLang)
+        saveUserSettings({ language: currentUrlLang }).catch((err) => {
+          console.error('Failed to save language from URL:', err)
+        })
       }
     }
 
@@ -49,11 +70,10 @@
 
   const updateAppTheme = () => {
     const isDarkMode = !($theme === DEFAULT_THEME)
-    localStorage.setItem(STORAGE_THEME, $theme)
     document.querySelector('html').style.filter = isDarkMode ? 'invert(1) hue-rotate(180deg)' : ''
   }
 
-  const updateAppFont = (languageCode: string) => {
+  const updateAppFont = (languageCode: string = 'zh-CN') => {
     const FONT_CONFIG = {
       'zh-CN': '"Noto Sans SC", "Microsoft YaHei", "微软雅黑", "STXihei", "华文细黑", sans-serif',
       'zh-TW':
@@ -73,15 +93,23 @@
     window.history.pushState({}, '', url.toString())
   }
 
-  const onToggleTheme = () => {
-    theme.set($theme === DEFAULT_THEME ? 'dark' : DEFAULT_THEME)
-    updateAppTheme()
+  const onToggleTheme = async () => {
+    const newTheme = $theme === DEFAULT_THEME ? 'dark' : DEFAULT_THEME
+    theme.set(newTheme)
+    // 保存到服务器（响应式更新会自动触发，但这里显式调用以确保立即保存）
+    await saveUserSettings({ theme: newTheme }).catch((err) => {
+      console.error('Failed to save theme:', err)
+    })
   }
 
-  const handleDropdownClick = (item) => {
+  const handleDropdownClick = async (item) => {
     lang = item.value
+    language.set(item.value)
     updateUrlLang(item.value)
-    // 不再需要刷新页面，因为响应式更新会自动处理语言切换
+
+    await saveUserSettings({ language: item.value }).catch((err) => {
+      console.error('Failed to save language:', err)
+    })
   }
 </script>
 

@@ -9,6 +9,7 @@
   import Loading from './components/Loading.svelte'
   import FillPassword from './components/FillPassword.svelte'
   import { initializeAuth } from './helper/auth'
+  import { loadUserSettings } from './helper/settings'
   import { isAuthenticated, isLoading } from './stores'
   import './assets/styles/app.css'
 
@@ -18,6 +19,12 @@
 
   onMount(async () => {
     await initializeAuth()
+    // 加载用户设置（在认证后加载，但如果未认证也尝试加载，因为设置 API 可能不需要认证）
+    try {
+      await loadUserSettings()
+    } catch (error) {
+      console.error('Failed to load user settings:', error)
+    }
   })
 
   const router = createRouter({

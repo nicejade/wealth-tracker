@@ -71,3 +71,11 @@ export const resetDatabase = () => {
 export const generateAdvice = (data) => {
   return $ajax.post(genApiPath('generate-advice'), data)
 }
+
+export const getUserSettings = () => {
+  return $ajax.get(genApiPath('user-settings'), {})
+}
+
+export const updateUserSettings = (data) => {
+  return $ajax.put(genApiPath('user-settings'), data)
+}

@@ -19,6 +19,7 @@
   import { notice, alert } from '../stores'
   import { language } from '../stores'
   import { exchangeRates, targetCurrencyCode } from '../stores'
+  import { loadUserSettings, saveUserSettings } from '../helper/settings'
   import type { Settings } from '../typings'
 
   let loading: boolean = false
@@ -29,10 +30,10 @@
   let convertedTotalAssets: number = 0
   let prompt: string = ''
   let settings: Settings = {
-    apiKey: localStorage.getItem('apiKey') || '',
-    baseURL: localStorage.getItem('baseURL') || 'https://api.x.ai/v1/',
-    model: localStorage.getItem('model') || 'grok-beta',
-    temperature: localStorage.getItem('temperature') || 0.7,
+    apiKey: '',
+    baseURL: 'https://api.x.ai/v1/',
+    model: 'grok-beta',
+    temperature: 0.7,
   }
 
   $: if ($language || $targetCurrencyCode || $exchangeRates) {
@@ -46,6 +47,26 @@
     })
 
     htmlBodyNode = document.getElementsByTagName('body')[0]
+
+    // 从服务器加载设置
+    try {
+      const userSettings = await loadUserSettings()
+      settings = {
+        apiKey: userSettings.apiKey || '',
+        baseURL: userSettings.baseURL || 'https://api.x.ai/v1/',
+        model: userSettings.model || 'grok-beta',
+        temperature: userSettings.temperature || 0.7,
+      }
+    } catch (error) {
+      console.error('Failed to load settings:', error)
+      // 如果加载失败，从 localStorage 读取（向后兼容）
+      settings = {
+        apiKey: localStorage.getItem('apiKey') || '',
+        baseURL: localStorage.getItem('baseURL') || 'https://api.x.ai/v1/',
+        model: localStorage.getItem('model') || 'grok-beta',
+        temperature: parseFloat(localStorage.getItem('temperature') || '0.7'),
+      }
+    }
 
     try {
       rawAssetsArr = (await getAssets()) as Array<any>
@@ -110,9 +131,18 @@
     return target ? target.name : ''
   }
 
-  const saveSettings = () => {
-    Object.entries(settings).forEach(([key, value]) => {
-      return localStorage.setItem(key, String(value))
+  const saveSettings = async () => {
+    await saveUserSettings({
+      apiKey: settings.apiKey,
+      baseURL: settings.baseURL,
+      model: settings.model,
+      temperature: settings.temperature,
+    }).catch((err) => {
+      console.error('Failed to save settings:', err)
+      // 如果保存失败，保存到 localStorage 作为 fallback
+      Object.entries(settings).forEach(([key, value]) => {
+        return localStorage.setItem(key, String(value))
+      })
     })
   }
 

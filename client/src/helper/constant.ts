@@ -1,5 +1,4 @@
 import dayjs from 'dayjs'
-// import { _ } from 'svelte-i18n'
 
 export const TITLE = '生财有迹'
 

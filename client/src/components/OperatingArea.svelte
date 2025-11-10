@@ -6,6 +6,7 @@
   import SettingModal from './Modal/Setting.svelte'
   import { language, targetCurrencyCode, targetCurrencyName } from './../stores'
   import { getStoredCurrency, setStoredCurrency } from './../helper/utils'
+  import { saveUserSettings } from './../helper/settings'
   import { SUPPORTED_CURRENCIES } from './../helper/constant'
 
   type Currencys = {
@@ -81,10 +82,13 @@
     }
   })
 
-  const handleCurrencySelect = (event) => {
+  const handleCurrencySelect = async (event) => {
     targetCurrencyCode.set(event.detail.value)
     targetCurrencyName.set(event.detail.name)
     setStoredCurrency(event.detail.value)
+    await saveUserSettings({ targetCurrency: event.detail.value }).catch((err) => {
+      console.error('Failed to save currency:', err)
+    })
   }
 
   const onAddClick = () => {

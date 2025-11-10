@@ -386,7 +386,6 @@ export async function fetchExchangeRates(base = 'CNY') {
     if (!rateApiKey) {
       const rates = { ...DEFAULT_EXCHANGE_RATE.conversion_rates }
       exchangeRates.set(rates)
-      return
     }
 
     const rates = await fetchLatestRates(rateApiKey, base)
