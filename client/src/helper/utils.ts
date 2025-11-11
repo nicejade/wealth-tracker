@@ -383,19 +383,28 @@ export async function fetchExchangeRates(base = 'CNY') {
     }
 
     const rateApiKey = localStorage.getItem(EXCHANGE_RATE_API_KEY)
-    if (!rateApiKey) {
-      const rates = { ...DEFAULT_EXCHANGE_RATE.conversion_rates }
-      exchangeRates.set(rates)
-    }
-
-    const rates = await fetchLatestRates(rateApiKey, base)
     const bitcoinApiKey = localStorage.getItem(BITCOIN_API_KEY)
-    if (bitcoinApiKey) {
-      const bitcoinPriceUSD = await fetchBitcoinPrice(bitcoinApiKey)
-      if (bitcoinPriceUSD !== null && rates['USD'] && rates[base]) {
-        const btcInBase = rates['USD'] / bitcoinPriceUSD
-        rates.BTC = Number(btcInBase.toFixed(10))
-      }
+
+    // 并发请求：汇率与 BTC 价格（若无 key 则优雅降级）
+    const ratesPromise = rateApiKey
+      ? fetchLatestRates(rateApiKey, base).catch(() => null)
+      : Promise.resolve(null)
+    const btcPricePromise = bitcoinApiKey
+      ? fetchBitcoinPrice(bitcoinApiKey).catch(() => null)
+      : Promise.resolve(null)
+
+    const [ratesResult, bitcoinPriceUSD] = await Promise.all([ratesPromise, btcPricePromise])
+
+    // 汇率失败则使用默认数据
+    const rates =
+      ratesResult && typeof ratesResult === 'object'
+        ? ratesResult
+        : { ...DEFAULT_EXCHANGE_RATE.conversion_rates }
+
+    // 计算 BTC 对基准货币的价格（单位：base）
+    if (bitcoinPriceUSD !== null && rates['USD'] && rates[base]) {
+      const btcInBase = rates['USD'] / bitcoinPriceUSD
+      rates.BTC = Number(btcInBase.toFixed(10))
     }
 
     setCachedRates(rates, base)
