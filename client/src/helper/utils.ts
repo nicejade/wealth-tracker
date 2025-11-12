@@ -152,6 +152,8 @@ export const fineTuningArrayLen = (sources) => {
 }
 
 export const computeChangePercent = (series) => {
+  if (series.length <= 0) return 0
+
   const lastSeries = series.map((item) => item.data).map((item) => item[item.length - 1])
   const lastSeriesSum = lastSeries.reduce((acc, cur) => acc + cur, 0)
 
