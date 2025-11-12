@@ -73,9 +73,29 @@ export const generateAdvice = (data) => {
 }
 
 export const getUserSettings = () => {
-  return $ajax.get(genApiPath('user-settings'), {})
+  return $ajax.get(genApiPath('settings'), {})
 }
 
 export const updateUserSettings = (data) => {
-  return $ajax.put(genApiPath('user-settings'), data)
+  return $ajax.put(genApiPath('settings'), data)
+}
+
+export const getCustomCurrencies = () => {
+  return $ajax.get(genApiPath('currencies'), {})
+}
+
+export const getAllCustomCurrencies = () => {
+  return $ajax.get(genApiPath('currencies/all'), {})
+}
+
+export const createCustomCurrency = (data) => {
+  return $ajax.post(genApiPath('currencies'), data)
+}
+
+export const updateCustomCurrency = (id, data) => {
+  return $ajax.put(genApiPath(`currencies/${id}`), data)
+}
+
+export const deleteCustomCurrency = (id) => {
+  return $ajax.delete(genApiPath(`currencies/${id}`), {})
 }

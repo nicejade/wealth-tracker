@@ -4,6 +4,7 @@ import advice from './advice'
 import insights from './insights'
 import password from './password'
 import userSettings from './userSettings'
+import customCurrency from './customCurrency'
 import { Assets } from './../models/assets'
 import { Record } from './../models/records'
 
@@ -54,4 +55,5 @@ export default [
   ...insights,
   ...password,
   ...userSettings,
+  ...customCurrency,
 ]

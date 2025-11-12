@@ -3,6 +3,10 @@
   "appDesc": "Wealth Tracker is an application focused on personal asset tracking and analysis. Its core functions are: comprehensively recording and displaying the user's asset status, helping users clearly understand their financial situation; combining the characteristics of each asset and the current economic environment, using AI technology for analysis, and providing appropriate financial advice.",
   "addition": "Add New",
   "setting": "Settings",
+  "settingTabs": {
+    "general": "General Settings",
+    "currencies": "Custom Currencies"
+  },
   "update": "Update",
   "reset": "Reset",
   "action": "Action",
@@ -86,6 +90,59 @@
   "genAssetAdviceTip": "After configuring AI settings (supporting providers like [OpenAI](https://openai.com/), [xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/), [DeepSeek](https://www.deepseek.com/), [Moonshot AI](https://www.moonshot.cn/)), generate your asset allocation recommendations based on the **prompt**. You can reference these suggestions to optimize your asset allocation. Of course, you can also modify the prompt or copy it to seek advice from other AI services.",
   "validRateApiTip": "API Key must be a combination of 24 letters and numbers",
   "validBitcoinApiTip": "Bitcoin API Key must be 40 characters long",
+  "settingFields": {
+    "exchangeRateApiKeyLabel": "Exchange Rate API Key",
+    "bitcoinApiKeyLabel": "Bitcoin API Key"
+  },
+  "customCurrency": {
+    "managerTitle": "Custom Currency Management",
+    "addCurrency": "Add Currency",
+    "form": {
+      "codeLabel": "Currency Code *",
+      "codePlaceholder": "e.g., ETH",
+      "symbolLabel": "Currency Symbol *",
+      "symbolPlaceholder": "e.g., Ξ",
+      "nameLabel": "Currency Name",
+      "namePlaceholder": "e.g., Ethereum",
+      "rateLabel": "Exchange Rate *",
+      "ratePlaceholder": "e.g., 0.001",
+      "rateHelper": "1 CNY = {rate} custom currency",
+      "activeLabel": "Active",
+      "activeHelper": "If disabled, it will not appear in currency selections"
+    },
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "validation": {
+      "codeSymbolRequired": "Currency code and symbol cannot be empty",
+      "ratePositive": "Exchange rate must be greater than 0"
+    },
+    "message": {
+      "saveFailed": "Save failed",
+      "deleteFailed": "Delete failed"
+    },
+    "confirm": {
+      "delete": "Are you sure you want to delete this custom currency?"
+    },
+    "table": {
+      "code": "Currency Code",
+      "symbol": "Symbol",
+      "name": "Name",
+      "rate": "Exchange Rate",
+      "status": "Status"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "empty": {
+      "title": "No custom currencies yet",
+      "tip": "Click \"Add Currency\" to create a custom currency"
+    }
+  },
   "currencys": {
     "CNY": "Chinese Yuan",
     "USD": "US Dollar",

@@ -15,7 +15,7 @@
   import { _ } from 'svelte-i18n'
   import Caption from './Caption.svelte'
   import SvgIcon from './SvgIcon.svelte'
-  import { language } from '../stores'
+  import { language, customCurrencies } from '../stores'
   import { SUPPORTED_CURRENCIES } from './../helper/constant'
   import { getCurrencySymbol } from './../helper/utils'
 
@@ -68,7 +68,7 @@
             <TableBodyCell class="p-5">
               <span
                 class="text-brand border-brand me-1 inline-flex items-center rounded-sm border bg-yellow-50 px-1 py-0.5 text-xs font-medium">
-                {getCurrencySymbol(item.currency)}
+                {getCurrencySymbol(item.currency, $customCurrencies)}
               </span>
               {item.amount}
             </TableBodyCell>

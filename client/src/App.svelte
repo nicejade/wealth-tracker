@@ -10,7 +10,8 @@
   import FillPassword from './components/FillPassword.svelte'
   import { initializeAuth } from './helper/auth'
   import { loadUserSettings } from './helper/settings'
-  import { isAuthenticated, isLoading } from './stores'
+  import { isAuthenticated, isLoading, customCurrencies } from './stores'
+  import { getCustomCurrencies } from './helper/apis'
   import './assets/styles/app.css'
 
   routes.children.forEach((element) => {
@@ -24,6 +25,15 @@
       await loadUserSettings()
     } catch (error) {
       console.error('Failed to load user settings:', error)
+    }
+    // 加载自定义货币
+    try {
+      const response: any = await getCustomCurrencies()
+      if (response.success) {
+        customCurrencies.set(response.data || [])
+      }
+    } catch (error) {
+      console.error('Failed to load custom currencies:', error)
     }
   })
 

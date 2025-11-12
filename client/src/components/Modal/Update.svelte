@@ -13,9 +13,9 @@
     ASSETS_RISK_ARR,
     ASSETS_LIQUIDITY_ARR,
     DEFAULT_ACCOUNT_ITEM,
-    SUPPORTED_CURRENCIES,
+    getAllCurrencies,
   } from './../../helper/constant'
-  import { alert, language } from './../../stores'
+  import { alert, customCurrencies } from './../../stores'
   import { deepClone } from './../../helper/utils'
   import type { ModalOptions } from 'flowbite'
 
@@ -27,7 +27,7 @@
   let datetimeError = ''
   let isUpdate = false
   let isChange = false
-  let supportedCurrencys: Currencys[] = SUPPORTED_CURRENCIES
+  let supportedCurrencys: Currencys[] = []
 
   export let action = ''
   export let items = deepClone(DEFAULT_ACCOUNT_ITEM)
@@ -37,11 +37,17 @@
     value: string
   }
 
-  $: if ($language) {
-    supportedCurrencys = SUPPORTED_CURRENCIES.map((item) => ({
-      name: $_(`currencys.${item.value}`) || '',
-      value: item.value,
-    }))
+  $: {
+    const allCurrencies = getAllCurrencies($customCurrencies)
+    supportedCurrencys = allCurrencies.map((item) => {
+      const name = item.isCustom
+        ? (item as any).name || item.value
+        : $_(`currencys.${item.value}`) || item.value
+      return {
+        name,
+        value: item.value,
+      }
+    })
   }
 
   $: isUpdate = action === ACTION_TYPES.update
@@ -61,7 +67,7 @@
   // tags 本地绑定数组，解决 Svelte 只能绑定到标识符/成员表达式的问题
   let tags: string[] = []
 
-  onMount(() => {
+  onMount(async () => {
     // 初始化（若 items.tags 存在且为字符串）
     if (typeof items?.tags === 'string') {
       tags = items.tags
@@ -69,9 +75,7 @@
         .map((s) => s.trim())
         .filter(Boolean)
     }
-  })
 
-  onMount(() => {
     const $targetEl = document.getElementById(MODAL_KEY)
     const options: ModalOptions = {
       placement: 'top-center',
@@ -117,7 +121,7 @@
   }
 
   const genCurrencyActive = (currency) => {
-    return SUPPORTED_CURRENCIES.findIndex((item) => item.value === currency)
+    return supportedCurrencys.findIndex((item) => item.value === currency)
   }
 
   const sendUpdateRequest = async () => {

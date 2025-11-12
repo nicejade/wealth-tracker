@@ -7,6 +7,14 @@ import 'isomorphic-fetch'
 import * as register from './register'
 import routes from './routes'
 import { sequelize } from './models/index'
+// Import models to ensure they are registered with Sequelize
+import './models/customCurrency'
+import './models/userSettings'
+import './models/assets'
+import './models/records'
+import './models/insights'
+import './models/password'
+import './models/session'
 
 const fastify = Fastify({ logger: true })
 

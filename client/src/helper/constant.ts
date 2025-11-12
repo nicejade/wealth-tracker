@@ -246,9 +246,44 @@ export const SUPPORTED_CURRENCIES = [
 ]
 
 // Helper function to get currency symbol
-export const getCurrencySymbol = (currencyCode: string): string => {
-  const currency = SUPPORTED_CURRENCIES.find((c) => c.value === currencyCode)
-  return currency?.symbol || currencyCode
+// Supports both system currencies and custom currencies
+export const getCurrencySymbol = (currencyCode: string, customCurrencies: any[] = []): string => {
+  // First check system currencies
+  const systemCurrency = SUPPORTED_CURRENCIES.find((c) => c.value === currencyCode)
+  if (systemCurrency) {
+    return systemCurrency.symbol
+  }
+
+  // Then check custom currencies
+  const customCurrency = customCurrencies.find((c) => c.code === currencyCode)
+  if (customCurrency) {
+    return customCurrency.symbol
+  }
+
+  // Fallback to currency code
+  return currencyCode
+}
+
+// Helper function to get all currencies (system + custom)
+export const getAllCurrencies = (customCurrencies: any[] = []) => {
+  const systemCurrencies = SUPPORTED_CURRENCIES.map((c) => ({
+    value: c.value,
+    symbol: c.symbol,
+    isCustom: false,
+  }))
+
+  const custom = customCurrencies
+    .filter((c) => c.isActive !== false)
+    .map((c) => ({
+      value: c.code,
+      symbol: c.symbol,
+      name: c.name || c.code,
+      isCustom: true,
+      id: c.id,
+      exchangeRate: c.exchangeRate,
+    }))
+
+  return [...systemCurrencies, ...custom]
 }
 
 export const DEFAULT_EXCHANGE_RATE = {

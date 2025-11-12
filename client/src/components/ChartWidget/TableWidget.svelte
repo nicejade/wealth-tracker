@@ -22,6 +22,7 @@
     targetCurrencyName,
     isResettable,
     totalAssetValue,
+    customCurrencies,
   } from '../../stores'
 
   $: if ($targetCurrencyCode || $language) {
@@ -114,7 +115,7 @@
           <TableBodyCell>
             <span
               class="text-brand border-brand me-1 inline-flex items-center rounded-sm border bg-yellow-50 px-1 py-0.5 text-xs font-medium">
-              {getCurrencySymbol(item.currency)}
+              {getCurrencySymbol(item.currency, $customCurrencies)}
             </span>
             {item.amount}
           </TableBodyCell>
@@ -151,7 +152,7 @@
           <strong class="text-brand font-bold">
             <span
               class="text-brand border-brand me-1 inline-flex items-center rounded-sm border bg-yellow-50 px-1 py-0.5 text-xs font-medium">
-              {getCurrencySymbol($targetCurrencyCode)}
+              {getCurrencySymbol($targetCurrencyCode, $customCurrencies)}
             </span>
             {$totalAssetValue}
           </strong>

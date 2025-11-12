@@ -3,6 +3,10 @@
   "appDesc": "生财有迹（Wealth Tracker）是一款专注于个人资产跟踪与分析的应用；其核心功能是：全面记录并展示用户的资产状况，帮助用户清晰地了解财务现状；结合每种资产的特性和当前经济环境，利用 AI 技术进行分析，并提供适宜的财务建议。",
   "addition": "新增",
   "setting": "设置",
+  "settingTabs": {
+    "general": "通用设置",
+    "currencies": "自定义货币"
+  },
   "update": "更新",
   "reset": "重置",
   "action": "操作",
@@ -86,6 +90,59 @@
   "genAssetAdviceTip": "在 AI（支持 [OpenAI](https://openai.com/)、[xAI](https://x.ai/)、[Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[月之暗面](https://www.moonshot.cn/)等服务商）设置后，根据上面的**提示词**，生成您的资产配置建议；您可以参考这些建议来优化您的资产配置。当然，您也可以对提示词进行修改，或者拷贝它，交由其他 AI 服务为您提供建议。",
   "validRateApiTip": "API Key 必须是 24 位数字和字母的组合",
   "validBitcoinApiTip": "比特币 API Key 必须是 40 位 Base64 字符集",
+  "settingFields": {
+    "exchangeRateApiKeyLabel": "汇率 API Key",
+    "bitcoinApiKeyLabel": "比特币 API Key"
+  },
+  "customCurrency": {
+    "managerTitle": "自定义货币管理",
+    "addCurrency": "添加货币",
+    "form": {
+      "codeLabel": "货币代码 *",
+      "codePlaceholder": "例如: ETH",
+      "symbolLabel": "货币符号 *",
+      "symbolPlaceholder": "例如: Ξ",
+      "nameLabel": "货币名称",
+      "namePlaceholder": "例如: 以太坊",
+      "rateLabel": "汇率 *",
+      "ratePlaceholder": "例如: 0.001",
+      "rateHelper": "1 CNY = {rate} 自定义货币",
+      "activeLabel": "启用",
+      "activeHelper": "若禁用，将不会出现在币种选择中"
+    },
+    "actions": {
+      "save": "保存",
+      "cancel": "取消",
+      "edit": "编辑",
+      "delete": "删除"
+    },
+    "validation": {
+      "codeSymbolRequired": "货币代码和符号不能为空",
+      "ratePositive": "汇率必须大于0"
+    },
+    "message": {
+      "saveFailed": "保存失败",
+      "deleteFailed": "删除失败"
+    },
+    "confirm": {
+      "delete": "确定要删除这个自定义货币吗？"
+    },
+    "table": {
+      "code": "货币代码",
+      "symbol": "符号",
+      "name": "名称",
+      "rate": "汇率",
+      "status": "状态"
+    },
+    "status": {
+      "active": "启用",
+      "inactive": "禁用"
+    },
+    "empty": {
+      "title": "暂无自定义货币",
+      "tip": "点击\"添加货币\"按钮添加自定义货币"
+    }
+  },
   "currencys": {
     "CNY": "人民币",
     "USD": "美元",

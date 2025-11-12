@@ -48,3 +48,6 @@ export const exchangeRates = writable({})
 export const targetCurrencyCode = writable('CNY')
 
 export const targetCurrencyName = writable('')
+
+// Custom currencies store
+export const customCurrencies = writable([])

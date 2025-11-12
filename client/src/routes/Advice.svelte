@@ -18,7 +18,7 @@
   import { PROMPT_TEMPLATE, LANG_ARR } from '../helper/constant'
   import { notice, alert } from '../stores'
   import { language } from '../stores'
-  import { exchangeRates, targetCurrencyCode } from '../stores'
+  import { exchangeRates, targetCurrencyCode, customCurrencies } from '../stores'
   import { loadUserSettings, saveUserSettings } from '../helper/settings'
   import type { Settings } from '../typings'
 
@@ -92,7 +92,7 @@
       return sum + convertedAmount
     }, 0)
 
-    const targetSymbol = getCurrencySymbol($targetCurrencyCode)
+    const targetSymbol = getCurrencySymbol($targetCurrencyCode, $customCurrencies)
     const formattedTotal = `${targetSymbol}${convertedTotalAssets.toLocaleString('en-US')}`
 
     prompt = formatTemplate(PROMPT_TEMPLATE, {
@@ -115,7 +115,7 @@
         .map((item) => {
           totalAssets += item.amount
           const { alias, amount, liquidity, risk, tags, currency } = item
-          const currencySymbol = getCurrencySymbol(currency || 'CNY')
+          const currencySymbol = getCurrencySymbol(currency || 'CNY', $customCurrencies)
           const formattedAmount = `${currencySymbol}${amount.toLocaleString()}`
           const tagsInfo = tags && tags.trim() ? `, Tags: ${tags}` : ''
           return `- Account name: ${alias}, Amount: ${formattedAmount}, Liquidity: ${liquidity.toLowerCase()}, Risk: ${risk.toLowerCase()}${tagsInfo}`

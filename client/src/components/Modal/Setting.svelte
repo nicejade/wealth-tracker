@@ -4,6 +4,7 @@
   import { Modal } from 'flowbite'
   import { _ } from 'svelte-i18n'
   import SvgIcon from '../SvgIcon.svelte'
+  import CustomCurrencyManager from '../CustomCurrencyManager.svelte'
   import { EXCHANGE_RATE_API_KEY, BITCOIN_API_KEY } from './../../helper/constant'
   import { fetchExchangeRates } from './../../helper/utils'
   import { hashPassword } from './../../helper/auth'
@@ -21,6 +22,11 @@
   let bitcoinApiKey: string = ''
   let password: string = ''
   let confirmPassword: string = ''
+  let activeTab: string = 'general'
+
+  const setTab = (tab: string) => {
+    activeTab = tab
+  }
 
   $: if (error) {
     alert.set(error)
@@ -133,9 +139,9 @@
   id={MODAL_KEY}
   tabindex="-1"
   class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0 md:h-full">
-  <div class="relative h-full w-full max-w-lg md:h-auto md:max-w-md">
+  <div class="relative h-full w-full max-w-2xl md:h-auto md:max-w-3xl">
     <!-- Modal content -->
-    <div class="relative mt-8 rounded-lg bg-white pb-8 shadow">
+    <div class="relative mt-8 rounded-lg bg-white pb-4 shadow">
       <!-- Modal header -->
       <div class="flex items-center justify-between rounded-t border-b p-5">
         <h3 class="flex items-center text-lg font-medium text-gray-900 md:text-base">
@@ -151,96 +157,129 @@
         </button>
       </div>
       <!-- Modal body -->
-      <div class="flex flex-col items-center justify-center p-6">
-        <div class="module-warp">
-          <label for="rateApiKey" class="custom-label !leading-5">
-            <a
-              target="_blank"
-              class="text-link hover:text-mark leading-3"
-              href="https://fine.niceshare.site/projects/wealth-tracker/#如何获取汇率-api-key">
-              Exchange Rate <br />
-              API Key
-            </a>
-          </label>
-          <input
-            type="text"
-            class="custom-input"
-            required
-            bind:value={rateApiKey}
-            placeholder={$_('validRateApiTip')} />
+      <div class="p-6">
+        <!-- Tabs Navigation -->
+        <div class="mb-4 border-b border-gray-200">
+          <ul class="-mb-px flex flex-wrap text-center text-base font-medium">
+            <li class="me-2">
+              <button
+                type="button"
+                on:click={() => setTab('general')}
+                class="inline-block rounded-t-lg border-b-2 p-4 {activeTab === 'general'
+                  ? 'border-brand text-brand'
+                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-600'}"
+                role="tab">
+                {$_('settingTabs.general')}
+              </button>
+            </li>
+            <li class="me-2">
+              <button
+                type="button"
+                on:click={() => setTab('currencies')}
+                class="inline-block rounded-t-lg border-b-2 p-4 {activeTab === 'currencies'
+                  ? 'border-brand text-brand'
+                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-600'}"
+                role="tab">
+                {$_('settingTabs.currencies')}
+              </button>
+            </li>
+          </ul>
         </div>
 
-        <div class="module-warp">
-          <label for="bitcoinApiKey" class="custom-label !leading-5">
-            <a
-              target="_blank"
-              class="text-link hover:text-mark leading-3"
-              href="https://api-ninjas.com/api/bitcoin">
-              Bitcoin <br />
-              API Key
-            </a>
-          </label>
-          <input
-            type="text"
-            class="custom-input"
-            bind:value={bitcoinApiKey}
-            placeholder={$_('validBitcoinApiTip')} />
-        </div>
+        <!-- Tab Content -->
+        {#if activeTab === 'general'}
+          <div class="flex flex-col items-center justify-center">
+            <div class="module-warp">
+              <label for="rateApiKey" class="custom-label !leading-5">
+                <a
+                  target="_blank"
+                  class="text-link hover:text-mark leading-3"
+                  href="https://fine.niceshare.site/projects/wealth-tracker/#如何获取汇率-api-key">
+                  {$_('settingFields.exchangeRateApiKeyLabel')}
+                </a>
+              </label>
+              <input
+                type="text"
+                class="custom-input"
+                required
+                bind:value={rateApiKey}
+                placeholder={$_('validRateApiTip')} />
+            </div>
 
-        <hr class="my-6 h-px w-full border-0 bg-gray-200" />
+            <div class="module-warp">
+              <label for="bitcoinApiKey" class="custom-label !leading-5">
+                <a
+                  target="_blank"
+                  class="text-link hover:text-mark leading-3"
+                  href="https://api-ninjas.com/api/bitcoin">
+                  {$_('settingFields.bitcoinApiKeyLabel')}
+                </a>
+              </label>
+              <input
+                type="text"
+                class="custom-input"
+                bind:value={bitcoinApiKey}
+                placeholder={$_('validBitcoinApiTip')} />
+            </div>
 
-        <div class="module-warp">
-          <label for="allowReset" class="custom-label">
-            {$_('allowReset')}
-          </label>
-          <Toggle id="allowReset" disabled checked={$isResettable} />
-        </div>
-
-        <div class="module-warp">
-          <label for="allowPassword" class="custom-label">
-            {$_('allowPassword')}
-          </label>
-          <Toggle id="allowPassword" disabled checked={$isPasswordAllowed} />
-        </div>
-
-        {#if $isPasswordAllowed}
-          <div class="inline-flex w-full items-center justify-center pb-4">
             <hr class="my-6 h-px w-full border-0 bg-gray-200" />
-            <span
-              class="text-warn absolute left-1/2 -translate-x-1/2 bg-white px-3 text-center font-medium leading-5">
-              {$_('setPasswordTip')}
-            </span>
-          </div>
 
-          <div class="module-warp">
-            <label for="passwordInput" class="custom-label">
-              {$_('setPassword')}
-            </label>
-            <input
-              id="passwordInput"
-              type="password"
-              class="custom-input"
-              bind:value={password}
-              placeholder={$_('passwordTip')} />
-          </div>
+            <div class="module-warp">
+              <label for="allowReset" class="custom-label">
+                {$_('allowReset')}
+              </label>
+              <Toggle id="allowReset" disabled checked={$isResettable} />
+            </div>
 
-          <div class="module-warp">
-            <label for="confirmPasswordInput" class="custom-label">
-              {$_('confirmPassword')}
-            </label>
-            <input
-              id="confirmPasswordInput"
-              type="password"
-              class="custom-input"
-              bind:value={confirmPassword}
-              placeholder={$_('confirmPasswordTip')} />
+            <div class="module-warp">
+              <label for="allowPassword" class="custom-label">
+                {$_('allowPassword')}
+              </label>
+              <Toggle id="allowPassword" disabled checked={$isPasswordAllowed} />
+            </div>
+
+            {#if $isPasswordAllowed}
+              <div class="inline-flex w-full items-center justify-center pb-4">
+                <hr class="my-6 h-px w-full border-0 bg-gray-200" />
+                <span
+                  class="text-warn absolute left-1/2 -translate-x-1/2 bg-white px-3 text-center font-medium leading-5">
+                  {$_('setPasswordTip')}
+                </span>
+              </div>
+
+              <div class="module-warp">
+                <label for="passwordInput" class="custom-label">
+                  {$_('setPassword')}
+                </label>
+                <input
+                  id="passwordInput"
+                  type="password"
+                  class="custom-input"
+                  bind:value={password}
+                  placeholder={$_('passwordTip')} />
+              </div>
+
+              <div class="module-warp">
+                <label for="confirmPasswordInput" class="custom-label">
+                  {$_('confirmPassword')}
+                </label>
+                <input
+                  id="confirmPasswordInput"
+                  type="password"
+                  class="custom-input"
+                  bind:value={confirmPassword}
+                  placeholder={$_('confirmPasswordTip')} />
+              </div>
+            {/if}
           </div>
+          <div class="mt-4 flex items-center justify-center">
+            <button type="button" on:click={handleConfirm} class="regular-btn" disabled={loading}>
+              {$_('confirm')}
+            </button>
+          </div>
+        {:else if activeTab === 'currencies'}
+          <CustomCurrencyManager />
         {/if}
-      </div>
-      <div class="flex items-center justify-center">
-        <button type="button" on:click={handleConfirm} class="regular-btn" disabled={loading}>
-          {$_('confirm')}
-        </button>
       </div>
     </div>
   </div>

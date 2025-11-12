@@ -3,6 +3,10 @@
   "appDesc": "Traceur de Richesse (Wealth Tracker) est une application dédiée au suivi et à l'analyse des actifs personnels. Ses fonctions principales sont : l'enregistrement et l'affichage complets de la situation patrimoniale de l'utilisateur, aidant les utilisateurs à comprendre clairement leur situation financière ; combinant les caractéristiques de chaque actif et l'environnement économique actuel, utilisant la technologie IA pour l'analyse, et fournissant des conseils financiers appropriés.",
   "addition": "Ajouter",
   "setting": "Paramètres",
+  "settingTabs": {
+    "general": "Paramètres généraux",
+    "currencies": "Devises personnalisées"
+  },
   "update": "Mettre à jour",
   "reset": "Réinitialiser",
   "action": "Action",
@@ -86,6 +90,59 @@
   "genAssetAdviceTip": "Après avoir configuré les paramètres IA (prenant en charge des fournisseurs tels que [OpenAI](https://openai.com/), [xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/), [DeepSeek](https://www.deepseek.com/), [Moonshot AI](https://www.moonshot.cn/)), générez vos recommandations d'allocation d'actifs basées sur l'**invite**. Vous pouvez vous référer à ces suggestions pour optimiser votre allocation d'actifs. Bien sûr, vous pouvez également modifier l'invite ou la copier pour obtenir des conseils auprès d'autres services IA.",
   "validRateApiTip": "La clé API doit être une combinaison de 24 lettres et chiffres",
   "validBitcoinApiTip": "La clé Bitcoin API doit être de 40 caractères",
+  "settingFields": {
+    "exchangeRateApiKeyLabel": "Clé API des taux de change",
+    "bitcoinApiKeyLabel": "Clé API Bitcoin"
+  },
+  "customCurrency": {
+    "managerTitle": "Gestion des devises personnalisées",
+    "addCurrency": "Ajouter une devise",
+    "form": {
+      "codeLabel": "Code de la devise *",
+      "codePlaceholder": "ex. : ETH",
+      "symbolLabel": "Symbole de la devise *",
+      "symbolPlaceholder": "ex. : Ξ",
+      "nameLabel": "Nom de la devise",
+      "namePlaceholder": "ex. : Ethereum",
+      "rateLabel": "Taux de change *",
+      "ratePlaceholder": "ex. : 0.001",
+      "rateHelper": "1 CNY = {rate} devise personnalisée",
+      "activeLabel": "Activer",
+      "activeHelper": "Si désactivé, n'apparaîtra pas dans la sélection de devise"
+    },
+    "actions": {
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "validation": {
+      "codeSymbolRequired": "Le code et le symbole de la devise sont obligatoires",
+      "ratePositive": "Le taux de change doit être supérieur à 0"
+    },
+    "message": {
+      "saveFailed": "Échec de l'enregistrement",
+      "deleteFailed": "Échec de la suppression"
+    },
+    "confirm": {
+      "delete": "Êtes-vous sûr de vouloir supprimer cette devise personnalisée ?"
+    },
+    "table": {
+      "code": "Code de la devise",
+      "symbol": "Symbole",
+      "name": "Nom",
+      "rate": "Taux de change",
+      "status": "Statut"
+    },
+    "status": {
+      "active": "Actif",
+      "inactive": "Inactif"
+    },
+    "empty": {
+      "title": "Aucune devise personnalisée pour le moment",
+      "tip": "Cliquez sur « Ajouter une devise » pour créer une devise personnalisée"
+    }
+  },
   "currencys": {
     "CNY": "Yuan Chinois",
     "USD": "Dollar Américain",

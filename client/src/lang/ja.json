@@ -3,6 +3,10 @@
   "appDesc": "財を生む軌跡（Wealth Tracker）は個人資産の追跡と分析に特化したアプリケーションです。その主な機能は：ユーザーの資産状況を包括的に記録・表示し、財務状況を明確に理解できるよう支援すること；各資産の特性と現在の経済環境を組み合わせ、AI技術を活用して分析し、適切な財務アドバイスを提供することです。",
   "addition": "追加",
   "setting": "設定",
+  "settingTabs": {
+    "general": "全般設定",
+    "currencies": "カスタム通貨"
+  },
   "update": "更新",
   "reset": "リセット",
   "action": "操作",
@@ -86,6 +90,59 @@
   "genAssetAdviceTip": "AI 設定（[OpenAI](https://openai.com/)、[xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[Moonshot AI](https://www.moonshot.cn/) などのプロバイダーをサポート）を行った後、**プロンプト**に基づいて資産配分の推奨事項を生成します。これらの提案を参考にして、資産配分を最適化できます。もちろん、プロンプトを変更したり、他のAIサービスに助言を求めるためにコピーしたりすることもできます。",
   "validRateApiTip": "APIキーは24桁の数字と文字の組み合わせでなければなりません",
   "validBitcoinApiTip": "ビットコインAPIキーは40桁のBase64文字列でなければなりません",
+  "settingFields": {
+    "exchangeRateApiKeyLabel": "為替レート API キー",
+    "bitcoinApiKeyLabel": "ビットコイン API キー"
+  },
+  "customCurrency": {
+    "managerTitle": "カスタム通貨管理",
+    "addCurrency": "通貨を追加",
+    "form": {
+      "codeLabel": "通貨コード *",
+      "codePlaceholder": "例: ETH",
+      "symbolLabel": "通貨記号 *",
+      "symbolPlaceholder": "例: Ξ",
+      "nameLabel": "通貨名",
+      "namePlaceholder": "例: イーサリアム",
+      "rateLabel": "為替レート *",
+      "ratePlaceholder": "例: 0.001",
+      "rateHelper": "1 CNY = {rate} カスタム通貨",
+      "activeLabel": "有効",
+      "activeHelper": "無効の場合、通貨選択に表示されません"
+    },
+    "actions": {
+      "save": "保存",
+      "cancel": "キャンセル",
+      "edit": "編集",
+      "delete": "削除"
+    },
+    "validation": {
+      "codeSymbolRequired": "通貨コードと記号は必須です",
+      "ratePositive": "為替レートは0より大きくなければなりません"
+    },
+    "message": {
+      "saveFailed": "保存に失敗しました",
+      "deleteFailed": "削除に失敗しました"
+    },
+    "confirm": {
+      "delete": "このカスタム通貨を削除してもよろしいですか？"
+    },
+    "table": {
+      "code": "通貨コード",
+      "symbol": "記号",
+      "name": "名称",
+      "rate": "為替レート",
+      "status": "ステータス"
+    },
+    "status": {
+      "active": "有効",
+      "inactive": "無効"
+    },
+    "empty": {
+      "title": "カスタム通貨がありません",
+      "tip": "「通貨を追加」をクリックしてカスタム通貨を作成してください"
+    }
+  },
   "currencys": {
     "CNY": "中国人民元",
     "USD": "米ドル",

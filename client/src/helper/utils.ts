@@ -11,9 +11,9 @@ import {
   EXCHANGE_RATE_API_KEY,
   BITCOIN_API_KEY,
   TARGET_CURRENCY,
-  SUPPORTED_CURRENCIES,
 } from './../helper/constant'
-import { exchangeRates } from './../stores'
+import { exchangeRates, customCurrencies } from './../stores'
+export { getCurrencySymbol } from './constant'
 
 const renderer: any = new marked.Renderer()
 const linkRenderer = renderer.link
@@ -30,11 +30,6 @@ export const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, del
 
 export const randomInRange = (min, max) => {
   return Math.random() * (max - min) + min
-}
-
-export const getCurrencySymbol = (currencyCode: string): string => {
-  const currency = SUPPORTED_CURRENCIES.find((c) => c.value === currencyCode)
-  return currency?.symbol || ''
 }
 
 export const isNeedScroll = () => {
@@ -377,8 +372,13 @@ const fetchBitcoinPrice = async (apiKey: string): Promise<number | null> => {
 export async function fetchExchangeRates(base = 'CNY') {
   try {
     const cachedRates = getCachedRates(base)
+    const customCurrs = get(customCurrencies)
+
+    // 如果缓存存在且自定义货币没有变化，直接使用缓存
     if (cachedRates) {
-      exchangeRates.set(cachedRates)
+      // 合并自定义货币汇率
+      const ratesWithCustom = mergeCustomCurrencyRates(cachedRates, customCurrs, base)
+      exchangeRates.set(ratesWithCustom)
       return
     }
 
@@ -407,13 +407,57 @@ export async function fetchExchangeRates(base = 'CNY') {
       rates.BTC = Number(btcInBase.toFixed(10))
     }
 
+    // 合并自定义货币汇率
+    const ratesWithCustom = mergeCustomCurrencyRates(rates, customCurrs, base)
+
     setCachedRates(rates, base)
-    exchangeRates.set(rates)
+    exchangeRates.set(ratesWithCustom)
   } catch (error) {
     console.error('Failed to fetch exchange rates:', error)
     const rates = { ...DEFAULT_EXCHANGE_RATE.conversion_rates }
-    exchangeRates.set(rates)
+    const customCurrs = get(customCurrencies)
+    const ratesWithCustom = mergeCustomCurrencyRates(rates, customCurrs, base)
+    exchangeRates.set(ratesWithCustom)
   }
+}
+
+/**
+ * 合并自定义货币汇率到汇率对象中
+ * @param rates 基础汇率对象（相对于基准货币CNY）
+ * @param customCurrencies 自定义货币数组
+ * @param base 基准货币（默认CNY）
+ * @returns 合并后的汇率对象
+ */
+function mergeCustomCurrencyRates(
+  rates: any,
+  customCurrencies: any[] = [],
+  base: string = 'CNY',
+): any {
+  const mergedRates = { ...rates }
+
+  // custom.exchangeRate 表示 1 CNY = exchangeRate 自定义货币
+  customCurrencies.forEach((custom) => {
+    if (custom.isActive === false || !custom.code || !custom.exchangeRate) return
+
+    const ex = parseFloat(String(custom.exchangeRate))
+    if (Number.isNaN(ex)) return
+
+    if (base === 'CNY') {
+      // 直接使用：1 CNY = ex 自定义货币
+      mergedRates[custom.code] = parseFloat(ex.toFixed(10))
+    } else {
+      // 1 base = rates['CNY'] CNY，且 1 CNY = ex 自定义货币
+      const cnyPerBase = rates['CNY'] ?? null
+      if (cnyPerBase && !Number.isNaN(Number(cnyPerBase))) {
+        mergedRates[custom.code] = parseFloat((cnyPerBase * ex).toFixed(10))
+      } else {
+        // 无法获取 rates['CNY'] 时回退到使用 base=1 的近似值
+        mergedRates[custom.code] = parseFloat(ex.toFixed(10))
+      }
+    }
+  })
+
+  return mergedRates
 }
 
 export function convertCurrency(amount, fromCurrency, toCurrency, rates) {
