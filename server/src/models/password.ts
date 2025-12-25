@@ -35,7 +35,9 @@ export const hash = async (password: string): Promise<string> => {
 export const verify = async (password: string, hash: string): Promise<boolean> => {
   const pepper = process.env.PEPPER_SECRET || ''
   const saltedPassword = password + pepper
-  return bcrypt.compare(saltedPassword, hash)
+  // 修复跨平台迁移问题：去除 hash 值中可能存在的空白字符
+  const cleanHash = hash.trim()
+  return bcrypt.compare(saltedPassword, cleanHash)
 }
 
 export default Password

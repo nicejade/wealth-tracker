@@ -40,7 +40,9 @@ export const verifyPassword = async (request: FastifyRequest, reply: FastifyRepl
     return reply.code(400).send({ error: 'No password set' })
   }
 
-  const isValid = await verify(password, storedPassword.hash)
+  // 修复跨平台迁移问题：去除 hash 值中可能存在的空白字符
+  const cleanHash = storedPassword.hash.trim()
+  const isValid = await verify(password, cleanHash)
   if (!isValid) {
     return reply.code(401).send({ message: 'Invalid password' })
   }
