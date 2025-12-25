@@ -2,8 +2,8 @@
   import { onMount } from 'svelte'
   import dayjs from 'dayjs'
   import { _ } from 'svelte-i18n'
-  import { CardPlaceholder } from 'flowbite-svelte'
   import { Modal } from 'flowbite-svelte'
+  import Skeleton from '../components/Skeleton.svelte'
   import Header from '../components/Header.svelte'
   import Footer from '../components/Footer.svelte'
   import OperatingArea from '../components/OperatingArea.svelte'
@@ -179,7 +179,7 @@
     on:destroy={handleDestroy}
     on:reset={handleReset} />
   {#if !isShowChart}
-    <CardPlaceholder size="2xl" class="w-full max-w-full" />
+    <Skeleton type="all" />
   {/if}
 
   {#if isShowChart && convertedAssetsArr.length}
