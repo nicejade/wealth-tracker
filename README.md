@@ -119,6 +119,7 @@ docker run -d -p 8888:8888 -v "$(pwd)/data:/app/data" nicejade/wealth-tracker:la
 - `ALLOW_PASSWORD`: 设置为 `true` 启用密码保护功能;
 - `PEPPER_SECRET`: 设置它为用户密码提供更强大的保护；
 - `CAN_BE_RESET`: 设置为 `true` 允许重置数据库功能;
+- `GOOGLE_ANALYTICS_KEY`: Google Analytics 衡量 ID (如 `G-XXXXX`)，配置后将开启页面访问与关键行为埋点（需在构建客户端时注入，新建 根据 `.env.example` 新建 `.env`，填入 ID）。
 
 ```bash
 docker run -d -p 8888:8888 \

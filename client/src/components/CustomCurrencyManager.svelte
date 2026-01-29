@@ -90,10 +90,10 @@
 
       if (editingId) {
         response = await updateCustomCurrency(editingId, editingCurrency)
-        trackEvent('custom_currency_update', { code: editingCurrency.code })
+        trackEvent('custom-currency-update', { code: editingCurrency.code })
       } else {
         response = await createCustomCurrency(editingCurrency)
-        trackEvent('custom_currency_create', { code: editingCurrency.code })
+        trackEvent('custom-currency-create', { code: editingCurrency.code })
       }
 
       if (response.success) {
@@ -129,7 +129,7 @@
       loading = true
       const response: any = await deleteCustomCurrency(deleteId)
       if (response.success) {
-        trackEvent('custom_currency_delete')
+        trackEvent('custom-currency-delete')
         await loadCurrencies()
         // 重新获取汇率
         await fetchExchangeRates()

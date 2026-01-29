@@ -4,6 +4,7 @@
   import { locale } from 'svelte-i18n'
   import SvgIcon from './SvgIcon.svelte'
   import { language, theme } from '../stores'
+  import { trackEvent } from '../helper/analytics'
   import { saveUserSettings } from './../helper/settings'
   import { TITLE, DEFAULT_THEME, LANG_ARR } from './../helper/constant'
 
@@ -96,6 +97,7 @@
   const onToggleTheme = async () => {
     const newTheme = $theme === DEFAULT_THEME ? 'dark' : DEFAULT_THEME
     theme.set(newTheme)
+    trackEvent('theme-toggle', { theme: newTheme })
     // 保存到服务器（响应式更新会自动触发，但这里显式调用以确保立即保存）
     await saveUserSettings({ theme: newTheme }).catch((err) => {
       console.error('Failed to save theme:', err)
@@ -106,6 +108,7 @@
     lang = item.value
     language.set(item.value)
     updateUrlLang(item.value)
+    trackEvent('language-change', { language: item.value })
 
     await saveUserSettings({ language: item.value }).catch((err) => {
       console.error('Failed to save language:', err)
@@ -115,7 +118,11 @@
 
 <header class="flex h-20 items-center justify-between" style="z-index: 1000;">
   <h1 class="h-full leading-none">
-    <a href="/" title={TITLE} class="flex h-full items-center space-x-2 focus-visible:outline-none">
+    <a
+      href="/"
+      title={TITLE}
+      class="flex h-full items-center space-x-2 focus-visible:outline-none"
+      on:click={() => trackEvent('logo-click')}>
       <img src="/logo.png" alt="Sink" class="h-5 w-5" />
       <span class="title font-[cursive] text-xl font-semibold">{TITLE}</span>
     </a>
@@ -126,7 +133,8 @@
       rel="noopener"
       class="focus-visible-ring inline-flex rounded-md p-2 leading-5 outline-none hover:bg-gray-100"
       href="https://x.com/intent/user?screen_name=MarshalXuan"
-      title="X | Twitter Follow MarshalXuan">
+      title="X | Twitter Follow MarshalXuan"
+      on:click={() => trackEvent('social-link-click', { platform: 'x' })}>
       <SvgIcon name="x" width={20} height={20} color="#212121" />
     </a>
     <button
@@ -169,7 +177,8 @@
       title="Github"
       class="inline-flex w-full items-center rounded-full bg-gray-900 px-6 py-3 text-sm
       leading-4 text-white hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-0
-      focus:ring-offset-2 md:hidden md:w-auto md:rounded-full md:px-3 md:focus:ring-2">
+      focus:ring-offset-2 md:hidden md:w-auto md:rounded-full md:px-3 md:focus:ring-2"
+      on:click={() => trackEvent('social-link-click', { platform: 'github' })}>
       <SvgIcon name="githubx" width={20} height={20} color="#ffffff" />
       <strong class="ml-2 font-semibold">GitHub</strong>
     </a>

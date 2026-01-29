@@ -83,26 +83,31 @@
     currentAssetItem.type = Date.now().toString()
     updateActionType = ACTION_TYPES.create
     isShowUpdateModal = true
+    trackEvent('asset-add-click')
   }
 
   const handleUpate = (event) => {
     currentAssetItem = event.detail
     updateActionType = ACTION_TYPES.update
     isShowUpdateModal = true
+    trackEvent('asset-update-click', { asset_type: currentAssetItem.type })
   }
 
   const handleDestroy = (event) => {
     const { type } = event.detail
     typeToBeDestroyed = type
     isShowComfirmModal = true
+    trackEvent('asset-delete-click', { asset_type: type })
   }
 
   const handleReset = () => {
     isShowResetModal = true
+    trackEvent('database-reset-click')
   }
 
   const handleUpdateConfirm = () => {
     fetchDatabase()
+    trackEvent('asset-update-confirm', { action_type: updateActionType })
   }
 
   const handleUpdateClose = () => {
@@ -112,7 +117,7 @@
   const handleComfirm = async () => {
     try {
       await destroyAssets({ type: typeToBeDestroyed })
-      trackEvent('asset_delete', { asset_type: typeToBeDestroyed })
+      trackEvent('asset-delete', { asset_type: typeToBeDestroyed })
       fetchDatabase()
       isShowComfirmModal = false
     } catch (error) {
@@ -127,7 +132,7 @@
   const handleResetComfirm = async () => {
     try {
       await resetDatabase()
-      trackEvent('database_reset')
+      trackEvent('database-reset')
       isShowResetModal = false
       window.location.reload()
     } catch (error) {
@@ -244,7 +249,10 @@
     <h2 class="gradient-text typing-text my-4 text-xl text-white">
       {$_('getAIAdviceDescription')}
     </h2>
-    <a href="/advice" class="regular-btn hover:text-brand inline-block text-center text-base">
+    <a
+      href="/advice"
+      class="regular-btn hover:text-brand inline-block text-center text-base"
+      on:click={() => trackEvent('get-ai-advice-click')}>
       {$_('getAIAdvice')}
     </a>
   </div>

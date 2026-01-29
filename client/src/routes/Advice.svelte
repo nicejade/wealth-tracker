@@ -181,7 +181,7 @@
 
   const onGenAdviceClick = async () => {
     try {
-      trackEvent('ai_advice_request', {
+      trackEvent('ai-advice-request', {
         model: settings.model,
       })
       handleGptStream({ prompt, settings })

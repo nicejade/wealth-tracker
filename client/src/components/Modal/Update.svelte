@@ -133,21 +133,21 @@
       }
       if (action === ACTION_TYPES.create) {
         await createAssets(items)
-        trackEvent('asset_create', {
+        trackEvent('asset-create', {
           asset_type: items.type,
           currency: items.currency,
         })
       }
       if (action === ACTION_TYPES.update) {
         await updateAssets(items)
-        trackEvent('asset_update', {
+        trackEvent('asset-update', {
           asset_type: items.type,
           currency: items.currency,
         })
       }
       if (action === ACTION_TYPES.change) {
         await updateRecords(items)
-        trackEvent('record_update', {
+        trackEvent('record-update', {
           asset_type: items.type,
           currency: items.currency,
         })

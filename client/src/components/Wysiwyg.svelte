@@ -253,7 +253,7 @@
     exportMarkdown: () => {
       const markdown = editor?.storage.markdown.getMarkdown()
       if (markdown) {
-        trackEvent('insight_export_markdown')
+        trackEvent('insight-export-markdown')
         // Create a downloadable file
         const blob = new Blob([markdown], { type: 'text/markdown' })
         const url = URL.createObjectURL(blob)
