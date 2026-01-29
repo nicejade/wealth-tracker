@@ -17,6 +17,7 @@
     getInsightsCalendarData,
   } from '../helper/apis'
   import { updatePageMetaInfo } from '../helper/utils'
+  import { trackEvent } from '../helper/analytics'
   import { notice, alert } from '../stores'
   import type { LinkType } from 'flowbite-svelte'
 
@@ -173,9 +174,11 @@
 
       if (editingInsight) {
         await updateInsights({ ...data, id: editingInsight.id })
+        trackEvent('insight_update')
         notice.set($_('insights.updateSuccess'))
       } else {
         await createInsights(data)
+        trackEvent('insight_create')
         notice.set($_('insights.saveSuccess'))
       }
 
@@ -207,6 +210,7 @@
   const confirmDelete = async () => {
     try {
       await destroyInsights({ id: deletingInsightId })
+      trackEvent('insight_delete')
       notice.set($_('insights.deleteSuccess'))
       isShowDeleteModal = false
       deletingInsightId = null

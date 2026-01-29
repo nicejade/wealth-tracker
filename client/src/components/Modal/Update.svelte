@@ -17,6 +17,7 @@
   } from './../../helper/constant'
   import { alert, customCurrencies } from './../../stores'
   import { deepClone } from './../../helper/utils'
+  import { trackEvent } from './../../helper/analytics'
   import type { ModalOptions } from 'flowbite'
 
   dayjs.extend(isSameOrBefore)
@@ -132,12 +133,24 @@
       }
       if (action === ACTION_TYPES.create) {
         await createAssets(items)
+        trackEvent('asset_create', {
+          asset_type: items.type,
+          currency: items.currency,
+        })
       }
       if (action === ACTION_TYPES.update) {
         await updateAssets(items)
+        trackEvent('asset_update', {
+          asset_type: items.type,
+          currency: items.currency,
+        })
       }
       if (action === ACTION_TYPES.change) {
         await updateRecords(items)
+        trackEvent('record_update', {
+          asset_type: items.type,
+          currency: items.currency,
+        })
       }
       dispatch('confirm', items)
       modal.hide()

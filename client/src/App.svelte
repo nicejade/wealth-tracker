@@ -10,6 +10,7 @@
   import FillPassword from './components/FillPassword.svelte'
   import { initializeAuth } from './helper/auth'
   import { loadUserSettings } from './helper/settings'
+  import { trackPageView } from './helper/analytics'
   import { isAuthenticated, isLoading, customCurrencies } from './stores'
   import { getCustomCurrencies } from './helper/apis'
   import './assets/styles/app.css'
@@ -39,6 +40,16 @@
 
   const router = createRouter({
     routes,
+  })
+
+  // 订阅路由变化以发送页面浏览数据
+  router.activeRoute.subscribe((route) => {
+    if (route && route.url) {
+      // 延迟一下确保 document.title 已经更新（如果是在组件中更新的）
+      setTimeout(() => {
+        trackPageView(route.url)
+      }, 100)
+    }
   })
 </script>
 

@@ -9,6 +9,10 @@ release2docker.sh
 
 # Client assets
 client/dist
+client/.env
+client/public/google*.html
+
+# Server assets
 server/public
 
 # Datebase

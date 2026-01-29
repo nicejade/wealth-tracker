@@ -18,6 +18,7 @@
   import TableCell from '@tiptap/extension-table-cell'
   import { Markdown } from 'tiptap-markdown'
   import SvgIcon from './SvgIcon.svelte'
+  import { trackEvent } from '../helper/analytics'
 
   // Props
   export let content = ''
@@ -252,6 +253,7 @@
     exportMarkdown: () => {
       const markdown = editor?.storage.markdown.getMarkdown()
       if (markdown) {
+        trackEvent('insight_export_markdown')
         // Create a downloadable file
         const blob = new Blob([markdown], { type: 'text/markdown' })
         const url = URL.createObjectURL(blob)

@@ -15,6 +15,7 @@
     getCurrencySymbol,
     convertCurrency,
   } from '../helper/utils'
+  import { trackEvent } from '../helper/analytics'
   import { PROMPT_TEMPLATE, LANG_ARR } from '../helper/constant'
   import { notice, alert } from '../stores'
   import { language } from '../stores'
@@ -180,6 +181,9 @@
 
   const onGenAdviceClick = async () => {
     try {
+      trackEvent('ai_advice_request', {
+        model: settings.model,
+      })
       handleGptStream({ prompt, settings })
     } catch (error) {
       loading = false

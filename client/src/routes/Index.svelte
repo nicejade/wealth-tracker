@@ -16,6 +16,7 @@
   import { getAssets, destroyAssets, getRecords, resetDatabase } from '../helper/apis'
   import { ACTION_TYPES, DEFAULT_ACCOUNT_ITEM } from './../helper/constant'
   import type { AssetsItem, RecordsItem } from '../typings'
+  import { trackEvent } from '../helper/analytics'
   import {
     convertCurrency,
     deepClone,
@@ -111,6 +112,7 @@
   const handleComfirm = async () => {
     try {
       await destroyAssets({ type: typeToBeDestroyed })
+      trackEvent('asset_delete', { asset_type: typeToBeDestroyed })
       fetchDatabase()
       isShowComfirmModal = false
     } catch (error) {
@@ -125,6 +127,7 @@
   const handleResetComfirm = async () => {
     try {
       await resetDatabase()
+      trackEvent('database_reset')
       isShowResetModal = false
       window.location.reload()
     } catch (error) {
