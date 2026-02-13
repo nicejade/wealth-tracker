@@ -3,8 +3,8 @@ import Password, { hash, verify } from '../models/password'
 import { createSession, validateSession } from '../models/session'
 
 export const checkPassword = async (request: FastifyRequest) => {
-  const canBeReset: boolean = !!process.env.CAN_BE_RESET || false
-  const allowPassword: boolean = !!process.env.ALLOW_PASSWORD || false
+  const canBeReset = process.env.CAN_BE_RESET === 'true'
+  const allowPassword = process.env.ALLOW_PASSWORD === 'true'
 
   const havePassword = !!(await Password.findOne({ where: {} }))
   const sessionId = request.cookies.sessionId
@@ -18,9 +18,22 @@ export const checkPassword = async (request: FastifyRequest) => {
   return { allowPassword, needPassword: havePassword, havePassword, canBeReset }
 }
 
-export const setPassword = async (request: FastifyRequest) => {
+export const setPassword = async (request: FastifyRequest, reply: FastifyReply) => {
   const { password } = request.body as { password: string }
   const existingPassword = await Password.findOne({ where: {} })
+
+  if (typeof password !== 'string' || !password.trim()) {
+    return reply.code(400).send({ message: 'Password is required' })
+  }
+
+  // If password already exists, only authenticated session can update it.
+  if (existingPassword) {
+    const sessionId = request.cookies.sessionId
+    if (!sessionId || !(await validateSession(sessionId))) {
+      return reply.code(401).send({ message: 'Unauthorized' })
+    }
+  }
+
   const hashStr = await hash(password)
 
   if (existingPassword) {

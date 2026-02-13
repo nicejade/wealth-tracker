@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import fp from 'fastify-plugin'
 import { checkPassword } from '../controllers/password'
 
-const whiteList = ['/api/heart', '/api/password/check', '/api/password/verify', '/api/password/set']
+const whiteList = ['/api/heart', '/api/password/check', '/api/password/verify']
 
 export default fp(async (fastify) => {
   fastify.addHook('preHandler', async (request: FastifyRequest, reply: FastifyReply) => {
