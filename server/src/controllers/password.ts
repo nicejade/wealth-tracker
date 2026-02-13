@@ -5,8 +5,12 @@ import { createSession, validateSession } from '../models/session'
 export const checkPassword = async (request: FastifyRequest) => {
   const canBeReset = process.env.CAN_BE_RESET === 'true'
   const allowPassword = process.env.ALLOW_PASSWORD === 'true'
-
   const havePassword = !!(await Password.findOne({ where: {} }))
+
+  if (!allowPassword) {
+    return { allowPassword, needPassword: false, havePassword, canBeReset }
+  }
+
   const sessionId = request.cookies.sessionId
   if (sessionId) {
     const isValid = await validateSession(sessionId)

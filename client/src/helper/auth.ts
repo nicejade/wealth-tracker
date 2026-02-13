@@ -11,7 +11,6 @@ export const initializeAuth = async () => {
     const { canBeReset, allowPassword, havePassword, needPassword } = (await checkPassword()) as any
     isResettable.set(canBeReset)
     isAuthenticated.set(!needPassword)
-    /* 「设置探矿」密码区展示条件：允许开启密码 || 已经设置密码 */
     isPasswordAllowed.set(allowPassword || havePassword)
   } catch (error) {
     console.error('Failed to check password status:', error)
