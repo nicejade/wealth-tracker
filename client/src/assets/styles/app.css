@@ -43,3 +43,10 @@ svg {
   background-clip: text;
   -webkit-background-clip: text;
 }
+
+/* Flowbite Modal Backdrop — override opaque bg-gray-900 with a translucent overlay */
+[modal-backdrop] {
+  background-color: rgba(107, 114, 128, 0.45) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}

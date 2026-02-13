@@ -57,6 +57,7 @@
     const $targetEl = document.getElementById(MODAL_KEY)
     const options: ModalOptions = {
       placement: 'top-center',
+      backdropClasses: 'fixed inset-0 z-40',
       backdrop: 'static',
       closable: true,
       onHide: () => {
