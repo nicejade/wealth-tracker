@@ -2,6 +2,31 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import Password, { hash, verify } from '../models/password'
 import { createSession, validateSession } from '../models/session'
 
+/**
+ * Detect whether the incoming request was made over HTTPS,
+ * either directly or through a reverse proxy (e.g. Nginx).
+ */
+const isRequestSecure = (request: FastifyRequest): boolean => {
+  return (
+    request.protocol === 'https' ||
+    request.headers['x-forwarded-proto'] === 'https'
+  )
+}
+
+/**
+ * Build a consistent cookie options object based on the current request context.
+ */
+const buildSessionCookieOptions = (request: FastifyRequest) => {
+  const secure = isRequestSecure(request)
+  return {
+    httpOnly: true,
+    secure,
+    sameSite: 'strict' as const,
+    path: '/',
+    maxAge: 15 * 60, // 15 minutes
+  }
+}
+
 export const checkPassword = async (request: FastifyRequest) => {
   const canBeReset = process.env.CAN_BE_RESET === 'true'
   const allowPassword = process.env.ALLOW_PASSWORD === 'true'
@@ -15,7 +40,7 @@ export const checkPassword = async (request: FastifyRequest) => {
   if (sessionId) {
     const isValid = await validateSession(sessionId)
     if (isValid) {
-      return { allowPassword, needPassword: false, havePassword, canBeReset } // 会话有效，视为已通过验证
+      return { allowPassword, needPassword: false, havePassword, canBeReset }
     }
   }
 
@@ -46,6 +71,11 @@ export const setPassword = async (request: FastifyRequest, reply: FastifyReply) 
     await Password.create({ hash: hashStr })
   }
 
+  // Create a session so the user stays authenticated after setting the password,
+  // avoiding being immediately locked out and prompted to re-enter.
+  const sessionId = await createSession()
+  reply.setCookie('sessionId', sessionId, buildSessionCookieOptions(request))
+
   return { success: true }
 }
 
@@ -66,14 +96,8 @@ export const verifyPassword = async (request: FastifyRequest, reply: FastifyRepl
 
   const sessionId = await createSession()
 
-  // Set HTTP Only Cookie
-  reply.setCookie('sessionId', sessionId, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-    path: '/',
-    maxAge: 15 * 60, // 15 分钟有效期
-  })
+  // Set HTTP Only Cookie — secure flag is auto-detected from actual protocol
+  reply.setCookie('sessionId', sessionId, buildSessionCookieOptions(request))
 
   return { success: true }
 }
