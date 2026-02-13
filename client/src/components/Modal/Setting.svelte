@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher } from 'svelte'
-  import { Toggle } from 'flowbite-svelte'
   import { Modal } from 'flowbite'
   import { _ } from 'svelte-i18n'
   import SvgIcon from '../SvgIcon.svelte'
@@ -229,14 +228,42 @@
               <label for="allowReset" class="custom-label">
                 {$_('allowReset')}
               </label>
-              <Toggle id="allowReset" disabled checked={$isResettable} />
+              <button
+                id="allowReset"
+                type="button"
+                role="switch"
+                aria-checked={$isResettable}
+                aria-label={$_('allowReset')}
+                disabled
+                class="relative inline-flex h-6 w-11 cursor-not-allowed items-center rounded-full transition-colors {$isResettable
+                  ? 'bg-brand'
+                  : 'bg-gray-300'}">
+                <span
+                  class="inline-block h-5 w-5 transform rounded-full bg-white shadow-sm transition-transform {$isResettable
+                    ? 'translate-x-5'
+                    : 'translate-x-0.5'}" />
+              </button>
             </div>
 
             <div class="module-warp">
               <label for="allowPassword" class="custom-label">
                 {$_('allowPassword')}
               </label>
-              <Toggle id="allowPassword" disabled checked={$isPasswordAllowed} />
+              <button
+                id="allowPassword"
+                type="button"
+                role="switch"
+                aria-checked={$isPasswordAllowed}
+                aria-label={$_('allowPassword')}
+                disabled
+                class="relative inline-flex h-6 w-11 cursor-not-allowed items-center rounded-full transition-colors {$isPasswordAllowed
+                  ? 'bg-brand'
+                  : 'bg-gray-300'}">
+                <span
+                  class="inline-block h-5 w-5 transform rounded-full bg-white shadow-sm transition-transform {$isPasswordAllowed
+                    ? 'translate-x-5'
+                    : 'translate-x-0.5'}" />
+              </button>
             </div>
 
             {#if $isPasswordAllowed}
