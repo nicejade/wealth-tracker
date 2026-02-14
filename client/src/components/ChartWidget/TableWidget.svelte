@@ -35,6 +35,40 @@
   }
 
   export let options = []
+  let typeSortOrder = 'none'
+  let sortedOptions = []
+
+  const getTypeLabel = (item) => (item.alias || item.type || '').trim()
+  const getSortBucket = (label) => {
+    if (!label) return 3
+    const firstChar = label[0]
+    if (/\d/.test(firstChar) || /[^\p{L}\p{N}]/u.test(firstChar)) return 0
+    if (/\p{Script=Latin}/u.test(firstChar)) return 1
+    if (/[\u3400-\u9FFF]/.test(firstChar)) return 2
+    return 3
+  }
+
+  const baseSortOptions = { numeric: true, sensitivity: 'base' }
+  const defaultCollator = new Intl.Collator('en', baseSortOptions)
+  const pinyinCollator = new Intl.Collator('zh-u-co-pinyin', baseSortOptions)
+  const compareByTypeLabel = (left, right) => {
+    const leftLabel = getTypeLabel(left)
+    const rightLabel = getTypeLabel(right)
+    const bucketDiff = getSortBucket(leftLabel) - getSortBucket(rightLabel)
+    if (bucketDiff !== 0) return bucketDiff
+    if (getSortBucket(leftLabel) === 2) return pinyinCollator.compare(leftLabel, rightLabel)
+    return defaultCollator.compare(leftLabel, rightLabel)
+  }
+
+  $: {
+    if (typeSortOrder === 'asc') {
+      sortedOptions = [...options].sort(compareByTypeLabel)
+    } else if (typeSortOrder === 'desc') {
+      sortedOptions = [...options].sort((left, right) => compareByTypeLabel(right, left))
+    } else {
+      sortedOptions = options
+    }
+  }
 
   // 计算转换后的总资产并更新到 store
   $: {
@@ -91,6 +125,16 @@
   const onResetClick = () => {
     dispatch('reset')
   }
+
+  const onTypeSortToggle = () => {
+    if (typeSortOrder === 'none') {
+      typeSortOrder = 'asc'
+    } else if (typeSortOrder === 'asc') {
+      typeSortOrder = 'desc'
+    } else {
+      typeSortOrder = 'none'
+    }
+  }
 </script>
 
 <Card
@@ -102,14 +146,26 @@
   </div>
   <Table hoverable={true} striped={true} class="divide-y last:border-b-0">
     <TableHead class="text-sm">
-      <TableHeadCell>{$_('type')}</TableHeadCell>
+      <TableHeadCell>
+        <button
+          type="button"
+          class="hover:text-brand inline-flex items-center gap-2 focus:outline-none"
+          on:click={onTypeSortToggle}>
+          <span>{$_('type')}</span>
+          {#if typeSortOrder === 'asc'}
+            <span class="text-xs">A-Z</span>
+          {:else if typeSortOrder === 'desc'}
+            <span class="text-xs">Z-A</span>
+          {/if}
+        </button>
+      </TableHeadCell>
       <TableHeadCell>{$_('amount')}</TableHeadCell>
       <TableHeadCell>{$_('currency')}</TableHeadCell>
       <TableBodyCell><span class="px-4 py-2">{$_('action')}</span></TableBodyCell>
       <TableBodyCell><span class="px-4 py-2">{$_('action')}</span></TableBodyCell>
     </TableHead>
     <TableBody tableBodyClass="py-4">
-      {#each options as item (item.type)}
+      {#each sortedOptions as item (item.type)}
         <TableBodyRow>
           <TableBodyCell>{item.alias || item.type}</TableBodyCell>
           <TableBodyCell>
