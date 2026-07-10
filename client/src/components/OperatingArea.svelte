@@ -123,6 +123,12 @@
       <SvgIcon name="edit" />
       <strong class="operating-text">{$_('insightsNav')}</strong>
     </a>
+    <a
+      href="/report"
+      class="hover:text-brand focus-visible-ring space-x-2 rounded-full border border-gray-300 px-4 py-2 text-black hover:bg-gray-100">
+      <SvgIcon name="align" />
+      <strong class="operating-text">{$_('report.nav')}</strong>
+    </a>
   </div>
   <div class="flex items-center space-x-4 md:w-full md:justify-between md:space-x-0">
     <CustomSelect

@@ -81,6 +81,22 @@ export default {
     },
     {
       "meta": {},
+      "id": "_default_Report_svelte",
+      "_regex": {},
+      "_paramKeys": {},
+      "name": "Report",
+      "file": {
+        "path": "src/routes/Report.svelte",
+        "dir": "src/routes",
+        "base": "Report.svelte",
+        "ext": ".svelte",
+        "name": "Report"
+      },
+      "asyncModule": () => import('../src/routes/Report.svelte'),
+      "children": []
+    },
+    {
+      "meta": {},
       "id": "_default_Status_svelte",
       "_regex": {},
       "_paramKeys": {},

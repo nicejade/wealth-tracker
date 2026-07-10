@@ -196,6 +196,26 @@
     "SGD": "Singapore Dollar",
     "CHF": "Swiss Franc"
   },
+  "report": {
+    "nav": "Report",
+    "title": "Wealth Report",
+    "subtitle": "An auto-generated structured wealth report from your history, revealing net worth changes and structural drift.",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "netWorth": "Ending Net Worth",
+    "netWorthChange": "Net Worth Change",
+    "vsLastPeriod": "vs. Last Period",
+    "topMovers": "Top 3 Movers",
+    "riskDrift": "Risk Structure Drift",
+    "liquidityDrift": "Liquidity Structure Drift",
+    "periodLabel": "Period: {period}",
+    "noMovers": "No notable account changes this period",
+    "noData": "Not enough data to generate a report. Please record and update your assets first.",
+    "generateAI": "Generate AI Monthly Report",
+    "generateAIAnnual": "Generate AI Annual Report",
+    "aiReportSuccess": "AI wealth report generated successfully",
+    "aiReportTip": "Click the button above and the AI will turn this period's structured data (net worth change, top movers, risk and liquidity drift, and period-over-period comparison) into a professional, actionable wealth report."
+  },
   "insights": {
     "title": "Wealth Insights",
     "addInsight": "Add Insight",

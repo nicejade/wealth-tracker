@@ -193,6 +193,51 @@ Please ensure recommendations:
   - Offer specific implementation steps
   - Respond in {language}`
 
+export const REPORT_PROMPT_TEMPLATE = `As a professional wealth manager, write a {periodName} wealth report for the user based on the structured data below. Be insightful, concrete, and actionable, and reference the figures directly.
+
+## Reporting Period
+{period}
+
+## Net Worth
+- Net worth at period start: {startNetWorth}
+- Net worth at period end: {endNetWorth}
+- Change this period: {netChange} ({netChangePercent})
+- Previous period change (for momentum comparison): {prevChangePercent}
+
+## Top Movers (by absolute change)
+{topMovers}
+
+## Risk Structure Drift (share of positive assets, start → end)
+{riskDrift}
+
+## Liquidity Structure Drift (share of positive assets, start → end)
+{liquidityDrift}
+
+## Output Requirements
+Produce a well-structured markdown report covering:
+
+1. Overview & Headline
+  - Summarize the net worth trend and its momentum versus the previous period
+
+2. Key Movers Analysis
+  - Explain what drove the largest account changes and what to watch next
+
+3. Risk & Liquidity Structure
+  - Interpret the structural drift and flag any concentration or liquidity risks
+
+4. Actionable Suggestions
+  - Provide specific, prioritized steps for the next period
+
+5. Closing
+  - A brief, encouraging summary
+
+Please ensure the report:
+  - Cites the concrete figures provided above
+  - Uses markdown headings and bullet points
+  - Stays concise and easy to scan
+  - Includes a short risk disclaimer
+  - Responds in {language}`
+
 export const TARGET_CURRENCY = 'target-currency'
 
 export const EXCHANGE_RATE_API_KEY = 'exchange-rate-api-key'

@@ -196,6 +196,26 @@
     "SGD": "新加坡元",
     "CHF": "瑞士法郎"
   },
+  "report": {
+    "nav": "報告",
+    "title": "財富報告",
+    "subtitle": "基於歷史記錄自動生成的結構化財富報告，洞悉淨值變化與結構漂移。",
+    "monthly": "月度",
+    "annual": "年度",
+    "netWorth": "期末淨值",
+    "netWorthChange": "淨值環比",
+    "vsLastPeriod": "與上期同比",
+    "topMovers": "變動最大帳戶 Top 3",
+    "riskDrift": "風險結構漂移",
+    "liquidityDrift": "流動性結構漂移",
+    "periodLabel": "報告週期：{period}",
+    "noMovers": "本期帳戶無明顯變動",
+    "noData": "暫無足夠資料生成報告，請先記錄並更新您的資產。",
+    "generateAI": "生成 AI 財富月報",
+    "generateAIAnnual": "生成 AI 財富年報",
+    "aiReportSuccess": "AI 財富報告生成成功",
+    "aiReportTip": "點擊右上角按鈕，AI 將基於本期結構化報告資料（淨值環比、變動最大帳戶、風險與流動性結構漂移及同期對比），為您生成專業、可執行的財富分析報告。"
+  },
   "insights": {
     "title": "財富見解",
     "addInsight": "新增見解",

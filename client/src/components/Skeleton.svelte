@@ -16,7 +16,8 @@
         <div class="h-4 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
       </div>
       {#each Array(rows) as _}
-        <div class="flex items-center justify-between border-t border-gray-100 pt-4 dark:border-gray-800">
+        <div
+          class="flex items-center justify-between border-t border-gray-100 pt-4 dark:border-gray-800">
           <div>
             <div class="mb-2.5 h-4 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
             <div class="h-3 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
@@ -54,4 +55,3 @@
     </div>
   {/if}
 </div>
-

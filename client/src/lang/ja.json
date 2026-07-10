@@ -196,6 +196,26 @@
     "SGD": "シンガポールドル",
     "CHF": "スイスフラン"
   },
+  "report": {
+    "nav": "レポート",
+    "title": "資産レポート",
+    "subtitle": "履歴から自動生成される構造化された資産レポートで、純資産の変化と構成の変動を把握します。",
+    "monthly": "月次",
+    "annual": "年次",
+    "netWorth": "期末純資産",
+    "netWorthChange": "純資産の前期比",
+    "vsLastPeriod": "前期との比較",
+    "topMovers": "変動が大きい口座 Top 3",
+    "riskDrift": "リスク構成の変動",
+    "liquidityDrift": "流動性構成の変動",
+    "periodLabel": "対象期間：{period}",
+    "noMovers": "今期は目立った口座の変動はありません",
+    "noData": "レポートを生成するにはデータが不足しています。まず資産を記録・更新してください。",
+    "generateAI": "AI 月次レポートを生成",
+    "generateAIAnnual": "AI 年次レポートを生成",
+    "aiReportSuccess": "AI 資産レポートの生成に成功しました",
+    "aiReportTip": "上のボタンをクリックすると、AI が今期の構造化データ（純資産の前期比、変動が大きい口座、リスクと流動性の構成変動、前期比較）に基づき、専門的で実行可能な資産分析レポートを作成します。"
+  },
   "insights": {
     "title": "資産洞察",
     "addInsight": "洞察を追加",

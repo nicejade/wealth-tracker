@@ -31,8 +31,7 @@
     activeTab = tab
   }
 
-  const dataActionBtnClass =
-    'regular-btn focus-visible-ring h-10 !min-w-fit !px-4 !py-0 !text-sm'
+  const dataActionBtnClass = 'regular-btn focus-visible-ring h-10 !min-w-fit !px-4 !py-0 !text-sm'
 
   const downloadFile = (content: string, filename: string, mime: string) => {
     const blob = new Blob([content], { type: mime })

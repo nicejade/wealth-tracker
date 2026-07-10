@@ -196,6 +196,26 @@
     "SGD": "Dollar de Singapour",
     "CHF": "Franc Suisse"
   },
+  "report": {
+    "nav": "Rapport",
+    "title": "Rapport de Patrimoine",
+    "subtitle": "Un rapport de patrimoine structuré généré automatiquement à partir de votre historique, révélant l'évolution de la valeur nette et les dérives de structure.",
+    "monthly": "Mensuel",
+    "annual": "Annuel",
+    "netWorth": "Valeur Nette Finale",
+    "netWorthChange": "Évolution de la Valeur Nette",
+    "vsLastPeriod": "vs Période Précédente",
+    "topMovers": "Top 3 des Variations",
+    "riskDrift": "Dérive de la Structure de Risque",
+    "liquidityDrift": "Dérive de la Structure de Liquidité",
+    "periodLabel": "Période : {period}",
+    "noMovers": "Aucune variation notable des comptes cette période",
+    "noData": "Données insuffisantes pour générer un rapport. Veuillez d'abord enregistrer et mettre à jour vos actifs.",
+    "generateAI": "Générer le Rapport Mensuel IA",
+    "generateAIAnnual": "Générer le Rapport Annuel IA",
+    "aiReportSuccess": "Rapport de patrimoine IA généré avec succès",
+    "aiReportTip": "Cliquez sur le bouton ci-dessus et l'IA transformera les données structurées de cette période (évolution de la valeur nette, principales variations, dérive du risque et de la liquidité, et comparaison entre périodes) en un rapport de patrimoine professionnel et exploitable."
+  },
   "insights": {
     "title": "Perspectives de Richesse",
     "addInsight": "Ajouter une Perspective",

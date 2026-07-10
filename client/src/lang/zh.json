@@ -196,6 +196,26 @@
     "SGD": "新加坡元",
     "CHF": "瑞士法郎"
   },
+  "report": {
+    "nav": "报告",
+    "title": "财富报告",
+    "subtitle": "基于历史记录自动生成的结构化财富报告，洞悉净值变化与结构漂移。",
+    "monthly": "月度",
+    "annual": "年度",
+    "netWorth": "期末净值",
+    "netWorthChange": "净值环比",
+    "vsLastPeriod": "与上期同比",
+    "topMovers": "变动最大账户 Top 3",
+    "riskDrift": "风险结构漂移",
+    "liquidityDrift": "流动性结构漂移",
+    "periodLabel": "报告周期：{period}",
+    "noMovers": "本期账户无明显变动",
+    "noData": "暂无足够数据生成报告，请先记录并更新您的资产。",
+    "generateAI": "生成 AI 财富月报",
+    "generateAIAnnual": "生成 AI 财富年报",
+    "aiReportSuccess": "AI 财富报告生成成功",
+    "aiReportTip": "点击右上角按钮，AI 将基于本期结构化报告数据（净值环比、变动最大账户、风险与流动性结构漂移及同期对比），为您生成专业、可执行的财富分析报告。"
+  },
   "insights": {
     "title": "财富见解",
     "addInsight": "新增见解",

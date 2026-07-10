@@ -9,7 +9,7 @@
   <div class="flex flex-col">
     <Heading tag="h2" class="text-xl">{title}</Heading>
     {#if subtitle}
-      <p class="text-grey w-full text-base font-light">
+      <p class="w-full text-sm font-light leading-relaxed text-gray-400">
         {subtitle}
       </p>
     {/if}

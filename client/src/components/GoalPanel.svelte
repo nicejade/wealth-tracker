@@ -234,7 +234,10 @@
 <Card size="xl" class="w-full max-w-none shadow-none md:p-4 2xl:col-span-2">
   <div class="mb-4 flex flex-row gap-3 sm:flex-row sm:items-start sm:justify-between">
     <Caption title={$_('goal.title')} subtitle={$_('goal.subtitle')}></Caption>
-    <button type="button" class="regular-btn h-10 !px-4 !py-0 focus-visible-ring !min-w-fit" on:click={handleAdd}>
+    <button
+      type="button"
+      class="regular-btn h-10 !px-4 !py-0 focus-visible-ring !min-w-fit"
+      on:click={handleAdd}>
       {$_('goal.addGoal')}
     </button>
   </div>
