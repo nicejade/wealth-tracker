@@ -5,7 +5,7 @@
   import { _ } from 'svelte-i18n'
   import { Spinner } from 'flowbite-svelte'
   import { hashPassword } from './../helper/auth'
-  import { verifyPassword } from './../helper/apis'
+  import { setPassword, verifyPassword } from './../helper/apis'
   import { alert, isAuthenticated, isLoading } from './../stores'
   import { sleep } from '../helper/utils'
 
@@ -24,7 +24,18 @@
 
     try {
       const hashedPassword = await hashPassword(password)
-      await verifyPassword(hashedPassword)
+      try {
+        await verifyPassword(hashedPassword)
+      } catch {
+        // Legacy: password was set over plain HTTP when Web Crypto was unavailable,
+        // so the server stored bcrypt(plaintext). Retry once, then upgrade storage.
+        await verifyPassword(password)
+        try {
+          await setPassword(hashedPassword)
+        } catch (upgradeError) {
+          console.warn('Failed to upgrade legacy password hash:', upgradeError)
+        }
+      }
       isAuthenticated.set(true)
       failedAttempts = 0
     } catch (error) {

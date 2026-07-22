@@ -1,5 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import Password, { hash, verify } from '../models/password'
+import Password, {
+  hash,
+  normalizePasswordInput,
+  verifyPasswordCandidates,
+} from '../models/password'
 import { createSession, validateSession } from '../models/session'
 import { parseBooleanEnv } from '../helper/constant'
 
@@ -8,10 +12,7 @@ import { parseBooleanEnv } from '../helper/constant'
  * either directly or through a reverse proxy (e.g. Nginx).
  */
 const isRequestSecure = (request: FastifyRequest): boolean => {
-  return (
-    request.protocol === 'https' ||
-    request.headers['x-forwarded-proto'] === 'https'
-  )
+  return request.protocol === 'https' || request.headers['x-forwarded-proto'] === 'https'
 }
 
 /**
@@ -64,7 +65,9 @@ export const setPassword = async (request: FastifyRequest, reply: FastifyReply) 
     }
   }
 
-  const hashStr = await hash(password)
+  // Always store the canonical client-style prehash so login works from
+  // both HTTPS and plain HTTP (Web Crypto is unavailable on non-secure origins).
+  const hashStr = await hash(normalizePasswordInput(password))
 
   if (existingPassword) {
     await existingPassword.update({ hash: hashStr })
@@ -88,9 +91,9 @@ export const verifyPassword = async (request: FastifyRequest, reply: FastifyRepl
     return reply.code(400).send({ error: 'No password set' })
   }
 
-  // 修复跨平台迁移问题：去除 hash 值中可能存在的空白字符
-  const cleanHash = storedPassword.hash.trim()
-  const isValid = await verify(password, cleanHash)
+  // Accept plaintext or legacy client prehash so HTTP / HTTPS logins both work
+  // against passwords set from either context (see issue #42).
+  const isValid = await verifyPasswordCandidates(password, storedPassword.hash)
   if (!isValid) {
     return reply.code(401).send({ message: 'Invalid password' })
   }
