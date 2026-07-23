@@ -5,31 +5,40 @@
   import Footer from '../components/Footer.svelte'
   import Caption from '../components/Caption.svelte'
   import { Button, Spinner, Card, Textarea } from 'flowbite-svelte'
-  import { getAssets } from '../helper/apis'
+  import { getAssets, getRecords } from '../helper/apis'
   import {
     isNeedScroll,
     genAdviceWithStream,
     parse,
     sleep,
     updatePageMetaInfo,
-    getCurrencySymbol,
-    convertCurrency,
+    fetchExchangeRates,
   } from '../helper/utils'
+  import { buildSystemContext } from '../helper/aiContext'
+  import type { ChatMessage } from '../helper/aiContext'
   import { trackEvent } from '../helper/analytics'
-  import { PROMPT_TEMPLATE, LANG_ARR } from '../helper/constant'
+  import { LANG_ARR } from '../helper/constant'
   import { notice, alert } from '../stores'
   import { language } from '../stores'
   import { exchangeRates, targetCurrencyCode, customCurrencies } from '../stores'
   import { loadUserSettings, saveUserSettings } from '../helper/settings'
-  import type { Settings } from '../typings'
+  import type { RecordsItem, Settings } from '../typings'
 
-  let loading: boolean = false
+  interface DisplayMessage {
+    id: string
+    role: 'user' | 'assistant'
+    content: string
+    streaming?: boolean
+  }
+
+  let loading = false
   let rawAssetsArr: Array<any> = []
-  let advice: string = ``
+  let rawRecordsArr: Array<any> = []
+  let messages: DisplayMessage[] = []
+  let userInput = ''
+  let systemContext = ''
   let htmlBodyNode: HTMLBodyElement = null
-  let totalAssets: number = 0
-  let convertedTotalAssets: number = 0
-  let prompt: string = ''
+  let chatContainer: HTMLDivElement = null
   let settings: Settings = {
     apiKey: '',
     baseURL: 'https://api.x.ai/v1/',
@@ -38,18 +47,35 @@
   }
 
   $: if ($language || $targetCurrencyCode || $exchangeRates) {
-    updatePrompt()
+    rebuildSystemContext()
+  }
+
+  const findNameByValue = (sourceArr, value) => {
+    const target = sourceArr.find((item) => item.value === value)
+    return target ? target.name : ''
+  }
+
+  const rebuildSystemContext = () => {
+    if (!rawAssetsArr.length) return
+    systemContext = buildSystemContext({
+      assets: rawAssetsArr,
+      records: rawRecordsArr,
+      targetCurrency: $targetCurrencyCode,
+      exchangeRates: $exchangeRates,
+      customCurrencies: $customCurrencies,
+      languageName: findNameByValue(LANG_ARR, $language),
+    })
   }
 
   onMount(async () => {
     updatePageMetaInfo({
-      title: $_('financialAdvice'),
-      description: $_('financialAdviceDetails'),
+      title: $_('chat.title'),
+      description: $_('chat.subtitle'),
     })
 
     htmlBodyNode = document.getElementsByTagName('body')[0]
+    fetchExchangeRates()
 
-    // 从服务器加载设置
     try {
       const userSettings = await loadUserSettings()
       settings = {
@@ -60,7 +86,6 @@
       }
     } catch (error) {
       console.error('Failed to load settings:', error)
-      // 如果加载失败，从 localStorage 读取（向后兼容）
       settings = {
         apiKey: localStorage.getItem('apiKey') || '',
         baseURL: localStorage.getItem('baseURL') || 'https://api.x.ai/v1/',
@@ -70,67 +95,16 @@
     }
 
     try {
-      rawAssetsArr = (await getAssets()) as Array<any>
-      updatePrompt()
+      const results = await Promise.all([getAssets(), getRecords()])
+      rawAssetsArr = results[0] as any[]
+      const records: RecordsItem = results[1]
+      rawRecordsArr = records.data || []
+      rebuildSystemContext()
     } catch (error) {
-      console.error('Error fetching assets:', error)
+      console.error('Error fetching data:', error)
       alert.set(error.message)
     }
   })
-
-  const updatePrompt = () => {
-    if (!rawAssetsArr.length) return
-
-    const assetsInfo = genAssetsInfo()
-    // Calculate converted total assets with fallback for missing exchange rates
-    convertedTotalAssets = rawAssetsArr.reduce((sum, item) => {
-      const convertedAmount =
-        $exchangeRates && Object.keys($exchangeRates).length > 0
-          ? convertCurrency(item.amount, item.currency, $targetCurrencyCode, $exchangeRates)
-          : item.currency === $targetCurrencyCode
-            ? item.amount
-            : 0
-      return sum + convertedAmount
-    }, 0)
-
-    const targetSymbol = getCurrencySymbol($targetCurrencyCode, $customCurrencies)
-    const formattedTotal = `${targetSymbol}${convertedTotalAssets.toLocaleString('en-US')}`
-
-    prompt = formatTemplate(PROMPT_TEMPLATE, {
-      language: findNameByValue(LANG_ARR, $language),
-      total: formattedTotal,
-      status: assetsInfo,
-    })
-  }
-
-  const formatTemplate = (template: string, data: Record<string, any>) => {
-    return template.replace(/\{([^}]+)\}/g, (match, key) => {
-      const trimmedKey = key.trim()
-      return data[trimmedKey] ?? match
-    })
-  }
-
-  const genAssetsInfo = () => {
-    try {
-      return rawAssetsArr
-        .map((item) => {
-          totalAssets += item.amount
-          const { alias, amount, liquidity, risk, tags, currency } = item
-          const currencySymbol = getCurrencySymbol(currency || 'CNY', $customCurrencies)
-          const formattedAmount = `${currencySymbol}${amount.toLocaleString()}`
-          const tagsInfo = tags && tags.trim() ? `, Tags: ${tags}` : ''
-          return `- Account name: ${alias}, Amount: ${formattedAmount}, Liquidity: ${liquidity.toLowerCase()}, Risk: ${risk.toLowerCase()}${tagsInfo}`
-        })
-        .join('\n  ')
-    } catch (error) {
-      console.error('Error fetching assets:', error)
-    }
-  }
-
-  const findNameByValue = (sourceArr, value) => {
-    const target = sourceArr.find((item) => item.value === value)
-    return target ? target.name : ''
-  }
 
   const saveSettings = async () => {
     await saveUserSettings({
@@ -140,56 +114,127 @@
       temperature: settings.temperature,
     }).catch((err) => {
       console.error('Failed to save settings:', err)
-      // 如果保存失败，保存到 localStorage 作为 fallback
       Object.entries(settings).forEach(([key, value]) => {
-        return localStorage.setItem(key, String(value))
+        localStorage.setItem(key, String(value))
       })
     })
   }
 
   const scrollChatToBottom = async () => {
     if (!isNeedScroll()) return
-
     await sleep(10)
-    htmlBodyNode.scrollTo({ top: 2e6, behavior: 'smooth' })
+    if (chatContainer) {
+      chatContainer.scrollTop = chatContainer.scrollHeight
+    } else {
+      htmlBodyNode?.scrollTo({ top: 2e6, behavior: 'smooth' })
+    }
   }
 
-  const handleGptStream = (params) => {
-    const options = {
-      onUpdate: (res) => {
-        if (loading) loading = false
-        if (res.stream) {
-          advice += res.stream
-        } else if (res.error) {
-          advice += res.error
-          alert.set(res.error)
-        }
-        scrollChatToBottom()
-      },
-      onFinish: () => {
-        loading = false
-        notice.set($_('assetAllocationAdvice'))
-      },
-      onError: (error) => {
-        loading = false
-        alert.set(error.message)
-      },
+  const buildApiMessages = (history: DisplayMessage[]): ChatMessage[] => {
+    const apiMessages: ChatMessage[] = [{ role: 'system', content: systemContext }]
+    history.forEach((msg) => {
+      if (msg.content) {
+        apiMessages.push({ role: msg.role, content: msg.content })
+      }
+    })
+    return apiMessages
+  }
+
+  const sendMessage = async (text: string) => {
+    const trimmed = text.trim()
+    if (!trimmed || loading) return
+
+    if (!settings.apiKey) {
+      alert.set($_('chat.noApiKey'))
+      return
     }
+
+    if (!rawAssetsArr.length) {
+      alert.set($_('chat.noAssets'))
+      return
+    }
+
+    rebuildSystemContext()
+
+    const userMsg: DisplayMessage = {
+      id: `user-${Date.now()}`,
+      role: 'user',
+      content: trimmed,
+    }
+    const assistantMsg: DisplayMessage = {
+      id: `assistant-${Date.now()}`,
+      role: 'assistant',
+      content: '',
+      streaming: true,
+    }
+
+    messages = [...messages, userMsg, assistantMsg]
+    userInput = ''
     loading = true
-    genAdviceWithStream(params, options)
+    scrollChatToBottom()
+
+    trackEvent('ai-chat-request', { model: settings.model })
+
+    const historyBeforeAssistant = messages.slice(0, -1)
+
+    genAdviceWithStream(
+      {
+        messages: buildApiMessages(historyBeforeAssistant),
+        settings,
+      },
+      {
+        onUpdate: (res) => {
+          if (res.stream) {
+            messages = messages.map((msg) =>
+              msg.id === assistantMsg.id ? { ...msg, content: msg.content + res.stream } : msg,
+            )
+          } else if (res.error) {
+            messages = messages.map((msg) =>
+              msg.id === assistantMsg.id ? { ...msg, content: res.error, streaming: false } : msg,
+            )
+            alert.set(res.error)
+          }
+          scrollChatToBottom()
+        },
+        onFinish: () => {
+          loading = false
+          messages = messages.map((msg) =>
+            msg.id === assistantMsg.id ? { ...msg, streaming: false } : msg,
+          )
+          notice.set($_('chat.responseDone'))
+        },
+        onError: (error) => {
+          loading = false
+          messages = messages.map((msg) =>
+            msg.id === assistantMsg.id
+              ? { ...msg, content: error.message || $_('chat.error'), streaming: false }
+              : msg,
+          )
+          alert.set(error.message)
+        },
+      },
+    )
   }
 
-  const onGenAdviceClick = async () => {
-    try {
-      trackEvent('ai-advice-request', {
-        model: settings.model,
-      })
-      handleGptStream({ prompt, settings })
-    } catch (error) {
-      loading = false
-      alert.set(error.message)
+  const onSendClick = () => sendMessage(userInput)
+
+  const onKeydown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault()
+      onSendClick()
     }
   }
+
+  const onSuggestedClick = (question: string) => {
+    sendMessage(question)
+  }
+
+  const onClearChat = () => {
+    messages = []
+    userInput = ''
+  }
+
+  const suggestedQuestions = ['chat.suggestedQ1', 'chat.suggestedQ2', 'chat.suggestedQ3']
 </script>
 
 <Header />
@@ -248,41 +293,114 @@
 
   <Card class="w-full max-w-none shadow-none 2xl:col-span-2">
     <div class="mb-4 flex w-full items-center justify-between">
-      <div class="mb-4 flex w-5/6 justify-between">
-        <Caption title={$_('financialAdvice')} subtitle={$_('financialAdviceDetails')}></Caption>
+      <Caption title={$_('chat.title')} subtitle={$_('chat.subtitle')}></Caption>
+      {#if messages.length}
+        <Button
+          class="regular-btn !min-w-fit text-center focus-within:ring-0"
+          color="light"
+          size="sm"
+          on:click={onClearChat}
+          disabled={loading}>
+          {$_('chat.clear')}
+        </Button>
+      {/if}
+    </div>
+
+    <div
+      bind:this={chatContainer}
+      class="chat-container mb-4 flex max-h-[32rem] min-h-[16rem] flex-col gap-4 overflow-y-auto rounded-lg border border-gray-100 p-4">
+      {#if !messages.length}
+        <div class="flex flex-1 flex-col items-center justify-center gap-4 py-8 text-center">
+          <article
+            class="markdown-article text-grey prose md:prose-sm md:prose-pre:max-w-md lg:prose-md max-w-lg">
+            {@html parse($_('chat.emptyTip'))}
+          </article>
+          <div class="flex flex-wrap justify-center gap-2">
+            {#each suggestedQuestions as key}
+              <button
+                class="suggested-chip hover:border-brand rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-600 transition-colors hover:text-gray-900"
+                on:click={() => onSuggestedClick($_(key))}
+                disabled={loading}>
+                {$_(key)}
+              </button>
+            {/each}
+          </div>
+        </div>
+      {:else}
+        {#each messages as msg (msg.id)}
+          <div class="flex {msg.role === 'user' ? 'justify-end' : 'justify-start'}">
+            <div
+              class="max-w-[85%] rounded-2xl px-4 py-3 {msg.role === 'user'
+                ? 'bg-brand text-white'
+                : 'bg-gray-50 text-gray-800'}">
+              {#if msg.role === 'assistant'}
+                <article
+                  class="markdown-article prose prose-sm md:prose-sm max-w-none {msg.streaming &&
+                  !msg.content
+                    ? 'text-gray-400'
+                    : ''}">
+                  {#if msg.streaming && !msg.content}
+                    <span class="inline-flex items-center gap-2">
+                      <Spinner color="red" size="4" />
+                      {$_('chat.thinking')}
+                    </span>
+                  {:else}
+                    {@html parse(msg.content).replace(/>\s+</g, '><').replace(/\n/g, '').trim()}
+                  {/if}
+                </article>
+              {:else}
+                <p class="whitespace-pre-wrap text-sm leading-relaxed">{msg.content}</p>
+              {/if}
+            </div>
+          </div>
+        {/each}
+      {/if}
+    </div>
+
+    {#if messages.length}
+      <div class="mb-3 flex flex-wrap gap-2">
+        {#each suggestedQuestions as key}
+          <button
+            class="suggested-chip hover:border-brand rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-500 transition-colors hover:text-gray-800"
+            on:click={() => onSuggestedClick($_(key))}
+            disabled={loading}>
+            {$_(key)}
+          </button>
+        {/each}
       </div>
+    {/if}
+
+    <div class="flex w-full items-end gap-3">
+      <Textarea
+        id="chat-input"
+        bind:value={userInput}
+        on:keydown={onKeydown}
+        rows={2}
+        placeholder={$_('chat.inputPlaceholder')}
+        disabled={loading}
+        class="focus-within:border-brand flex-1 focus-within:ring-0" />
       <Button
-        class="regular-btn gradient-text hover:border-brand !min-w-fit text-center focus-within:ring-0"
-        on:click={onGenAdviceClick}
-        disabled={loading}>
+        class="regular-btn gradient-text hover:border-brand !min-w-fit shrink-0 text-center focus-within:ring-0"
+        on:click={onSendClick}
+        disabled={loading || !userInput.trim()}>
         {#if loading}
           <Spinner color="red" class="mr-2" size="4" />
         {/if}
-        {$_('getAIAdvice')}
+        {$_('chat.send')}
       </Button>
     </div>
-    <div class="mb-4 flex w-full items-center justify-between">
-      <Textarea
-        id="prompt"
-        value={prompt}
-        rows={18}
-        class=" focus-within:border-brand focus-within:ring-0" />
-    </div>
-    {#if advice}
-      <div class="text-brand my-4 w-full whitespace-pre-line rounded-lg p-2 shadow">
-        <article class="markdown-article prose md:prose-sm md:prose-pre:max-w-md lg:prose-md">
-          {@html parse(advice).replace(/>\s+</g, '><').replace(/\n/g, '').trim()}
-        </article>
-      </div>
-    {:else}
-      <div class="my-4 flex w-full items-center justify-center">
-        <article
-          class="markdown-article text-grey prose md:prose-sm md:prose-pre:max-w-md lg:prose-md">
-          {@html parse($_('genAssetAdviceTip'))}
-        </article>
-      </div>
-    {/if}
   </Card>
 </div>
 
 <Footer />
+
+<style>
+  .chat-container {
+    scroll-behavior: smooth;
+  }
+
+  .suggested-chip:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>

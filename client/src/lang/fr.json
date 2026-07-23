@@ -92,6 +92,22 @@
   "financialAdviceDetails": "Sur la base de votre situation patrimoniale et de l'environnement du marché, nous vous fournissons des conseils financiers personnalisés et des stratégies d'investissement.",
   "assetAllocationAdvice": "L'IA a généré avec succès des conseils d'allocation d'actifs",
   "genAssetAdviceTip": "Après avoir configuré les paramètres IA (prenant en charge des fournisseurs tels que [OpenAI](https://openai.com/), [xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/), [DeepSeek](https://www.deepseek.com/), [Moonshot AI](https://www.moonshot.cn/)), générez vos recommandations d'allocation d'actifs basées sur l'**invite**. Vous pouvez vous référer à ces suggestions pour optimiser votre allocation d'actifs. Bien sûr, vous pouvez également modifier l'invite ou la copier pour obtenir des conseils auprès d'autres services IA.",
+  "chat": {
+    "title": "Q&R patrimoniale IA",
+    "subtitle": "Dialogue multi-tours pour répondre à vos questions financières à partir de vos actifs et de votre historique",
+    "inputPlaceholder": "Posez une question, ex. : Ma liquidité couvre combien de mois de dépenses ?",
+    "send": "Envoyer",
+    "clear": "Effacer la conversation",
+    "thinking": "Réflexion…",
+    "responseDone": "Réponse IA terminée",
+    "error": "Échec de la génération de la réponse",
+    "noApiKey": "Veuillez d'abord configurer votre clé API ci-dessus",
+    "noAssets": "Aucune donnée d'actifs. Veuillez d'abord enregistrer vos actifs.",
+    "suggestedQ1": "Ma liquidité couvre combien de mois de dépenses ?",
+    "suggestedQ2": "Quel compte m'a freiné au cours de l'année passée ?",
+    "suggestedQ3": "Le risque de mon allocation d'actifs est-il trop élevé ?",
+    "emptyTip": "Après avoir configuré votre fournisseur IA, vous pouvez avoir une **conversation multi-tours** basée sur vos **données d'actifs** et vos **résumés historiques**. Essayez une question suggérée ci-dessous, ou saisissez la vôtre."
+  },
   "validRateApiTip": "La clé API doit être une combinaison de 24 lettres et chiffres",
   "validBitcoinApiTip": "La clé Bitcoin API doit être de 40 caractères",
   "settingFields": {

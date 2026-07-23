@@ -92,6 +92,22 @@
   "financialAdviceDetails": "基于您的资产状况和市场环境，为您提供个性化的财务建议和投资策略。",
   "assetAllocationAdvice": "AI 成功生成资产配置建议",
   "genAssetAdviceTip": "在 AI（支持 [OpenAI](https://openai.com/)、[xAI](https://x.ai/)、[Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[月之暗面](https://www.moonshot.cn/)等服务商）设置后，根据上面的**提示词**，生成您的资产配置建议；您可以参考这些建议来优化您的资产配置。当然，您也可以对提示词进行修改，或者拷贝它，交由其他 AI 服务为您提供建议。",
+  "chat": {
+    "title": "AI 财富问答",
+    "subtitle": "基于您的资产与历史记录，多轮对话解答财务问题",
+    "inputPlaceholder": "输入您的问题，例如：我的流动性够覆盖几个月支出？",
+    "send": "发送",
+    "clear": "清空对话",
+    "thinking": "思考中…",
+    "responseDone": "AI 回复完成",
+    "error": "生成回复时出错",
+    "noApiKey": "请先在上方配置 API Key",
+    "noAssets": "暂无资产数据，请先记录资产",
+    "suggestedQ1": "我的流动性够覆盖几个月支出？",
+    "suggestedQ2": "过去一年哪个账户拖了后腿？",
+    "suggestedQ3": "我的资产配置风险是否过高？",
+    "emptyTip": "配置 AI 服务商后，即可基于您的**资产数据**和**历史摘要**进行多轮问答。试试点击下方推荐问题，或直接输入您关心的财务问题。"
+  },
   "validRateApiTip": "API Key 必须是 24 位数字和字母的组合",
   "validBitcoinApiTip": "比特币 API Key 必须是 40 位 Base64 字符集",
   "settingFields": {

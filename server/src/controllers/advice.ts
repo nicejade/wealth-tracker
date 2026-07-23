@@ -6,9 +6,15 @@ interface AIConfig {
   apiKey?: string
 }
 
+interface ChatMessage {
+  role: 'system' | 'user' | 'assistant'
+  content: string
+}
+
 interface AdviceRequest {
   settings: any
-  prompt: string
+  prompt?: string
+  messages?: ChatMessage[]
 }
 
 interface OpenAIConfig {
@@ -32,15 +38,20 @@ const getOpenAIConfig = (aiConfig: AIConfig): OpenAIConfig => {
   return { apiKey, baseURL }
 }
 
-const callOpenAI = async (openai: OpenAI, prompt: string, model: string) => {
+const callOpenAI = async (
+  openai: OpenAI,
+  messages: ChatMessage[],
+  model: string,
+  temperature = 0.7,
+) => {
   console.log(`generateAdvice - start callOpenAI with model:`, model)
 
   try {
     const stream = await openai.chat.completions.create({
       model,
-      messages: [{ role: 'user', content: prompt }],
+      messages,
       max_tokens: 8192,
-      temperature: 0.7,
+      temperature,
       stream: true,
     })
 
@@ -53,14 +64,28 @@ const callOpenAI = async (openai: OpenAI, prompt: string, model: string) => {
 }
 
 export const generateAdvice = async (request, reply) => {
-  const { settings, prompt } = request?.body as AdviceRequest
-  const { model = 'gpt-4o-mini' } = settings || {}
+  const { settings, prompt, messages } = request?.body as AdviceRequest
+  const { model = 'gpt-4o-mini', temperature = 0.7 } = settings || {}
 
   const validation = validateRequest(settings)
   if (!validation.isValid) {
     return reply.code(400).send({
       statusCode: 400,
       message: validation.error,
+    })
+  }
+
+  const chatMessages: ChatMessage[] =
+    messages && messages.length > 0
+      ? messages
+      : prompt
+        ? [{ role: 'user', content: prompt }]
+        : []
+
+  if (!chatMessages.length) {
+    return reply.code(400).send({
+      statusCode: 400,
+      message: 'prompt or messages is required',
     })
   }
 
@@ -84,7 +109,7 @@ export const generateAdvice = async (request, reply) => {
     console.log(`AI config:`, config)
 
     const openai = new OpenAI(config)
-    const result = await callOpenAI(openai, prompt, model)
+    const result = await callOpenAI(openai, chatMessages, model, Number(temperature) || 0.7)
 
     if (result.success && result.stream) {
       for await (const chunk of result.stream) {

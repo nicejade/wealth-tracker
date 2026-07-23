@@ -92,6 +92,22 @@
   "financialAdviceDetails": "あなたの資産状況と市場環境に基づいて、パーソナライズされた財務アドバイスと投資戦略を提供します。",
   "assetAllocationAdvice": "AI が資産配分のアドバイスを生成しました",
   "genAssetAdviceTip": "AI 設定（[OpenAI](https://openai.com/)、[xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/)、[DeepSeek](https://www.deepseek.com/)、[Moonshot AI](https://www.moonshot.cn/) などのプロバイダーをサポート）を行った後、**プロンプト**に基づいて資産配分の推奨事項を生成します。これらの提案を参考にして、資産配分を最適化できます。もちろん、プロンプトを変更したり、他のAIサービスに助言を求めるためにコピーしたりすることもできます。",
+  "chat": {
+    "title": "AI 資産 Q&A",
+    "subtitle": "資産と履歴に基づくマルチターン対話で財務の疑問に回答",
+    "inputPlaceholder": "質問を入力してください（例：流動性は何ヶ月分の支出をカバーできますか？）",
+    "send": "送信",
+    "clear": "会話をクリア",
+    "thinking": "考え中…",
+    "responseDone": "AI の回答が完了しました",
+    "error": "回答の生成に失敗しました",
+    "noApiKey": "先に上記で API Key を設定してください",
+    "noAssets": "資産データがありません。先に資産を記録してください",
+    "suggestedQ1": "流動性は何ヶ月分の支出をカバーできますか？",
+    "suggestedQ2": "過去1年でどのアカウントが足を引っ張りましたか？",
+    "suggestedQ3": "資産配分のリスクは高すぎますか？",
+    "emptyTip": "AI プロバイダーを設定後、**資産データ**と**履歴サマリー**に基づく**マルチターン対話**が可能です。下の推奨質問を試すか、自分の財務に関する質問を入力してください。"
+  },
   "validRateApiTip": "APIキーは24桁の数字と文字の組み合わせでなければなりません",
   "validBitcoinApiTip": "ビットコインAPIキーは40桁のBase64文字列でなければなりません",
   "settingFields": {

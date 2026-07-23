@@ -92,6 +92,22 @@
   "financialAdviceDetails": "Based on your asset status and market environment, we provide personalized financial advice and investment strategies for you.",
   "assetAllocationAdvice": "AI successfully generated asset allocation advice",
   "genAssetAdviceTip": "After configuring AI settings (supporting providers like [OpenAI](https://openai.com/), [xAI](https://x.ai/), [Anthropic](https://www.anthropic.com/), [DeepSeek](https://www.deepseek.com/), [Moonshot AI](https://www.moonshot.cn/)), generate your asset allocation recommendations based on the **prompt**. You can reference these suggestions to optimize your asset allocation. Of course, you can also modify the prompt or copy it to seek advice from other AI services.",
+  "chat": {
+    "title": "AI Wealth Q&A",
+    "subtitle": "Multi-turn dialogue to answer financial questions based on your assets and history",
+    "inputPlaceholder": "Ask a question, e.g. How many months of expenses can my liquidity cover?",
+    "send": "Send",
+    "clear": "Clear chat",
+    "thinking": "Thinking…",
+    "responseDone": "AI response complete",
+    "error": "Failed to generate response",
+    "noApiKey": "Please configure your API Key above first",
+    "noAssets": "No asset data yet. Please record your assets first.",
+    "suggestedQ1": "How many months of expenses can my liquidity cover?",
+    "suggestedQ2": "Which account held me back in the past year?",
+    "suggestedQ3": "Is my asset allocation risk too high?",
+    "emptyTip": "After configuring your AI provider, you can have a **multi-turn conversation** grounded in your **asset data** and **historical summaries**. Try a suggested question below, or type your own financial question."
+  },
   "validRateApiTip": "API Key must be a combination of 24 letters and numbers",
   "validBitcoinApiTip": "Bitcoin API Key must be 40 characters long",
   "settingFields": {
