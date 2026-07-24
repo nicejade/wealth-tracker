@@ -80,7 +80,7 @@
     const $targetEl = document.getElementById(MODAL_KEY)
     const options: ModalOptions = {
       placement: 'top-center',
-      backdropClasses: 'fixed inset-0 z-40',
+      backdropClasses: 'fixed inset-0 z-[1000]',
       backdrop: 'static',
       closable: true,
       onHide: () => {
@@ -199,7 +199,7 @@
   id="update-modal"
   tabindex="-1"
   class="z-9999 fixed left-0 right-0 top-0 hidden h-[calc(100%-1rem)] w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0 md:h-full">
-  <div class="relative h-full w-full max-w-lg md:h-auto md:max-w-md">
+  <div class="relative mx-auto w-full max-w-lg md:max-w-md">
     <!-- Modal content -->
     <div class="relative mt-16 rounded-lg bg-white pb-8 shadow">
       <!-- Modal header -->
@@ -217,7 +217,7 @@
         </button>
       </div>
       <!-- Modal body -->
-      <div class="flex flex-col items-center justify-center p-6">
+      <div class="flex flex-col items-center justify-center overflow-visible p-6">
         <div class="module-warp">
           <label for="update-alias" class="custom-label">
             {$_('account')}
@@ -231,11 +231,12 @@
             placeholder={$_('placeholderOfAlias')}
             required />
         </div>
-        <div class="module-warp">
+        <!-- Higher z on earlier rows so open lists paint above fields below -->
+        <div class="module-warp relative z-30">
           <label for="update-currency" class="custom-label">
             {$_('currency')}
           </label>
-          <div class="w-full">
+          <div class="w-full overflow-visible">
             <CustomSelect
               options={supportedCurrencys}
               active={genCurrencyActive(items.currency)}
@@ -243,11 +244,11 @@
               on:selected={handleCurrencySelect} />
           </div>
         </div>
-        <div class="module-warp">
-          <label for="update-currency" class="custom-label">
+        <div class="module-warp relative z-20">
+          <label for="update-risk" class="custom-label">
             {$_('risk')}
           </label>
-          <div class="w-full">
+          <div class="w-full overflow-visible">
             <CustomSelect
               options={localizedRiskArr}
               active={genRiskActive(items.risk)}
@@ -255,11 +256,11 @@
               on:selected={handleRiskSelect} />
           </div>
         </div>
-        <div class="module-warp">
-          <label for="update-currency" class="custom-label">
+        <div class="module-warp relative z-10">
+          <label for="update-liquidity" class="custom-label">
             {$_('liquidity')}
           </label>
-          <div class="w-full">
+          <div class="w-full overflow-visible">
             <CustomSelect
               options={localizedLiquidityArr}
               active={genLiquidityActive(items.liquidity)}

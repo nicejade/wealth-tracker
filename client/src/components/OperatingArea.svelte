@@ -22,6 +22,8 @@
   let supportedCurrencys: Currencys[] = SUPPORTED_CURRENCIES
   let isSticky: boolean = false
   let operatingArea: HTMLElement
+  let spacerHeight: number = 0
+  let originalTop = 0
 
   $: if ($language) {
     supportedCurrencys = SUPPORTED_CURRENCIES.map((item) => ({
@@ -33,47 +35,55 @@
   onMount(() => {
     targetCurrencyCode.set(getStoredCurrency())
 
-    // Setup scroll listener for sticky behavior
-    let originalTop = 0
-
-    const handleScroll = () => {
-      if (operatingArea) {
-        // Get the original position of the component on first load
-        if (originalTop === 0 && window.scrollY === 0) {
-          originalTop = operatingArea.offsetTop
-        }
-
-        // Only enable sticky behavior on screens larger than 768px
-        const isLargeScreen = window.innerWidth > 768
-
-        if (isLargeScreen) {
-          // Component becomes sticky when it reaches the top
-          // and returns to normal when scrolled back to its original position
-          const shouldBeSticky = window.scrollY >= originalTop
-          isSticky = shouldBeSticky
-        } else {
-          // On mobile/small screens, always keep normal state
-          isSticky = false
-        }
+    const measure = () => {
+      if (!operatingArea) return
+      // Measure natural position only when not sticky (offsetTop is reliable in flow)
+      if (!isSticky) {
+        originalTop = operatingArea.offsetTop
+        spacerHeight = operatingArea.offsetHeight
       }
     }
 
-    // Initial check
-    setTimeout(() => {
-      if (operatingArea) {
-        originalTop = operatingArea.offsetTop
-      }
-    }, 100)
+    const handleScroll = () => {
+      if (!operatingArea) return
 
-    // Handle window resize to update sticky behavior
+      const isLargeScreen = window.innerWidth > 768
+      if (!isLargeScreen) {
+        if (isSticky) isSticky = false
+        return
+      }
+
+      if (!isSticky && originalTop === 0) {
+        originalTop = operatingArea.offsetTop
+        spacerHeight = operatingArea.offsetHeight
+      }
+
+      const shouldBeSticky = window.scrollY >= originalTop
+      if (shouldBeSticky !== isSticky) {
+        if (shouldBeSticky) {
+          spacerHeight = operatingArea.offsetHeight
+        }
+        // Instant toggle — no transform / layout animation
+        isSticky = shouldBeSticky
+      }
+    }
+
     const handleResize = () => {
       const isLargeScreen = window.innerWidth > 768
       if (!isLargeScreen) {
         isSticky = false
+        return
+      }
+      // Recalculate anchor after layout changes
+      if (!isSticky && operatingArea) {
+        originalTop = operatingArea.offsetTop
+        spacerHeight = operatingArea.offsetHeight
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
+    setTimeout(measure, 100)
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
     window.addEventListener('resize', handleResize)
 
     return () => {
@@ -104,11 +114,15 @@
   }
 </script>
 
+{#if isSticky}
+  <div class="operating-area-spacer" style="height: {spacerHeight}px" aria-hidden="true"></div>
+{/if}
+
 <div
   bind:this={operatingArea}
-  class="operating-area flex h-16 w-full flex-row items-center justify-between rounded-full border border-gray-300 px-6 shadow-sm md:h-36 md:flex-col md:items-start md:justify-around md:rounded-md"
+  class="operating-area liquid-glass flex h-[4.25rem] w-full flex-row items-center justify-between overflow-visible rounded-full px-5 md:h-36 md:flex-col md:items-start md:justify-around md:rounded-[1.375rem] md:px-4"
   class:sticky={isSticky}>
-  <div class="flex items-center space-x-4 md:w-full md:justify-between md:space-x-0">
+  <div class="flex items-center space-x-2 md:w-full md:justify-between md:space-x-0">
     <button
       class="operating-btn focus-visible-ring"
       on:click={() => {
@@ -117,20 +131,17 @@
       <SvgIcon name="dollar" />
       <strong class="operating-text">{$_('addition')}</strong>
     </button>
-    <a
-      href="/insights"
-      class="hover:text-brand focus-visible-ring space-x-2 rounded-full border border-gray-300 px-4 py-2 text-black hover:bg-gray-100">
+    <a href="/insights" class="nav-chip focus-visible-ring">
       <SvgIcon name="edit" />
       <strong class="operating-text">{$_('insightsNav')}</strong>
     </a>
-    <a
-      href="/report"
-      class="hover:text-brand focus-visible-ring space-x-2 rounded-full border border-gray-300 px-4 py-2 text-black hover:bg-gray-100">
+    <a href="/report" class="nav-chip focus-visible-ring">
       <SvgIcon name="align" />
       <strong class="operating-text">{$_('report.nav')}</strong>
     </a>
   </div>
-  <div class="flex items-center space-x-4 md:w-full md:justify-between md:space-x-0">
+  <div
+    class="operating-area-end relative z-20 flex shrink-0 items-center gap-3 overflow-visible md:w-full md:justify-between">
     <CustomSelect
       label={$_('currency')}
       options={supportedCurrencys}
@@ -138,6 +149,7 @@
       listboxClass="w-36"
       on:selected={handleCurrencySelect} />
     <button
+      type="button"
       class="operating-btn focus-visible-ring"
       on:click={() => {
         onSettingClick()
@@ -153,50 +165,36 @@
 {/if}
 
 <style>
+  .operating-area-spacer {
+    width: 100%;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
   .operating-area {
-    /* Glassmorphism effect */
     z-index: 10;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition:
-      background-color 0.3s ease,
-      backdrop-filter 0.3s ease,
-      -webkit-backdrop-filter 0.3s ease,
-      border 0.3s ease,
-      box-shadow 0.3s ease;
+    overflow: visible;
+    /* No transform/position transitions — sticky must snap, not slide */
   }
 
   .operating-area.sticky {
-    z-index: 100;
+    /* Below modals (1000+) so dialogs are never covered by the sticky bar */
+    z-index: 40;
     position: fixed;
-    top: 10px;
+    top: 12px;
     left: 50%;
-    right: 50%;
+    right: auto;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
     width: calc(100% - 2rem);
     max-width: 896px;
-    margin: 0 auto;
+    margin: 0;
+    overflow: visible;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+      0 16px 48px rgba(15, 23, 42, 0.1);
   }
 
-  /* Enhanced glassmorphism on hover */
-  .operating-area:hover {
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  .operating-area.sticky:hover {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-  }
-
-  /* Ensure sticky behavior only works on screens larger than 768px */
   @media (max-width: 768px) {
     .operating-area.sticky {
       position: relative;
@@ -204,14 +202,10 @@
       left: auto;
       transform: none;
       z-index: auto;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: none;
       width: auto;
       max-width: none;
       margin: 0;
+      box-shadow: var(--glass-shadow);
     }
   }
 </style>

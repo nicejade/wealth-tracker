@@ -308,17 +308,17 @@
 
     <div
       bind:this={chatContainer}
-      class="chat-container mb-4 flex max-h-[32rem] min-h-[16rem] flex-col gap-4 overflow-y-auto rounded-lg border border-gray-100 p-4">
+      class="chat-container mb-4 flex max-h-[32rem] min-h-[16rem] flex-col gap-4 overflow-y-auto rounded-2xl border border-line bg-surface-muted p-4">
       {#if !messages.length}
         <div class="flex flex-1 flex-col items-center justify-center gap-4 py-8 text-center">
           <article
-            class="markdown-article text-grey prose md:prose-sm md:prose-pre:max-w-md lg:prose-md max-w-lg">
+            class="markdown-article prose text-ink-secondary md:prose-sm md:prose-pre:max-w-md lg:prose-md max-w-lg">
             {@html parse($_('chat.emptyTip'))}
           </article>
           <div class="flex flex-wrap justify-center gap-2">
             {#each suggestedQuestions as key}
               <button
-                class="suggested-chip hover:border-brand rounded-full border border-gray-200 px-3 py-1.5 text-sm text-gray-600 transition-colors hover:text-gray-900"
+                class="suggested-chip rounded-full border border-line bg-white px-3.5 py-1.5 text-sm font-medium text-ink-secondary shadow-soft transition-all duration-180 ease-apple hover:border-brand/40 hover:text-ink-primary active:scale-[0.98]"
                 on:click={() => onSuggestedClick($_(key))}
                 disabled={loading}>
                 {$_(key)}
@@ -330,9 +330,9 @@
         {#each messages as msg (msg.id)}
           <div class="flex {msg.role === 'user' ? 'justify-end' : 'justify-start'}">
             <div
-              class="max-w-[85%] rounded-2xl px-4 py-3 {msg.role === 'user'
-                ? 'bg-brand text-white'
-                : 'bg-gray-50 text-gray-800'}">
+              class="max-w-[85%] rounded-2xl px-4 py-3 shadow-soft {msg.role === 'user'
+                ? 'bg-ink-primary text-white'
+                : 'border border-line bg-white text-ink-primary'}">
               {#if msg.role === 'assistant'}
                 <article
                   class="markdown-article prose prose-sm md:prose-sm max-w-none {msg.streaming &&

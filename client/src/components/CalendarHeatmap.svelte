@@ -160,7 +160,7 @@
 </script>
 
 <!-- 日历热力图组件 - 仅在非移动端显示 -->
-<div class="w-full rounded-lg border border-gray-200 bg-white p-6 shadow-sm md:hidden">
+<div class="surface-card w-full p-6 md:hidden">
   <!-- 标题和控制器 -->
   <div class="mb-6 flex items-center justify-between">
     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">

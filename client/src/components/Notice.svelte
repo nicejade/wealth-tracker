@@ -24,21 +24,21 @@
 
 {#if $notice}
   <div
-    class="absolute right-1/2 top-16 mb-4 flex w-max translate-x-2/4 items-center space-x-2 rounded-lg bg-white p-4 shadow"
-    role="notice"
+    class="liquid-glass z-100 fixed right-1/2 top-16 z-50 mb-4 flex w-max max-w-[min(36rem,calc(100vw-2rem))] translate-x-2/4 items-center space-x-3 rounded-2xl p-3.5"
+    role="status"
     id="notice-info"
-    transition:fade={{ delay: 100, duration: 300 }}>
-    <div class="flex h-8 w-8 items-center rounded-lg bg-green-100 px-2">
+    transition:fade={{ delay: 100, duration: 250 }}>
+    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-50">
       <SvgIcon name="notice" color="#2edfa3" />
     </div>
     <span class="sr-only">Info</span>
-    <div class="ml-3 text-base text-black md:text-sm">
+    <div class="ml-0 text-base font-medium tracking-tight text-ink-primary md:text-sm">
       {$notice}
     </div>
     <button
       type="button"
       data-dismiss-target="#notice-info"
-      class="-mx-1.5 -my-1.5 ml-auto inline-flex h-8 w-8 rounded-lg p-1.5 text-white hover:bg-green-100"
+      class="-mx-0.5 -my-0.5 ml-auto inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-50 transition-colors duration-180 ease-apple hover:bg-emerald-100"
       aria-label="Close"
       on:click={onCloseClick}>
       <SvgIcon name="close" color="#2edfa3" />

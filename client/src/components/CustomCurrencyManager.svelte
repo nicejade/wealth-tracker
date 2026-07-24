@@ -248,12 +248,12 @@
           </div>
         </div>
       </div>
-      <div class="mt-4 flex w-full justify-center space-x-12">
-        <button type="button" class="comfirm-btn" on:click={saveCurrency} disabled={loading}>
-          {$_('customCurrency.actions.save')}
-        </button>
+      <div class="mt-4 flex w-full items-center justify-center gap-3">
         <button type="button" class="cancel-btn" on:click={cancelEdit}>
           {$_('customCurrency.actions.cancel')}
+        </button>
+        <button type="button" class="primary-btn" on:click={saveCurrency} disabled={loading}>
+          {$_('customCurrency.actions.save')}
         </button>
       </div>
     </div>

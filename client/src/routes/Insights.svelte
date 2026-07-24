@@ -304,7 +304,7 @@
       <div class="space-y-4">
         {#each insights as insight (insight.id)}
           <section
-            class="group cursor-pointer rounded-lg shadow transition-all duration-200 hover:border-blue-200 hover:shadow-lg">
+            class="group surface-card cursor-pointer transition-all duration-250 ease-apple hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-card">
             <div
               class="p-6"
               on:click={() => handleView(insight)}
@@ -393,9 +393,9 @@
     <div>
       <Wysiwyg bind:content />
     </div>
-    <div class="flex justify-center space-x-6">
-      <button type="button" class="cancel-btn outline" on:click={resetForm}>{$_('cancel')}</button>
-      <button type="button" class="comfirm-btn outline" on:click={handleSave}>
+    <div class="flex items-center justify-center gap-3">
+      <button type="button" class="cancel-btn" on:click={resetForm}>{$_('cancel')}</button>
+      <button type="button" class="primary-btn" on:click={handleSave}>
         {editingInsight ? $_('update') : $_('insights.save')}
       </button>
     </div>
@@ -433,11 +433,11 @@
       <SvgIcon name="warning" width={36} height={36} color="#ff4582" />
     </div>
     <h3 class="text-warn mb-5 text-lg font-normal">{$_('insights.deleteConfirmTitle')}</h3>
-    <div class="flex justify-center space-x-4">
-      <button class="comfirm-btn" on:click={confirmDelete}>{$_('confirm')}</button>
-      <button class="cancel-btn" on:click={() => (isShowDeleteModal = false)}>
+    <div class="flex items-center justify-center gap-3">
+      <button type="button" class="cancel-btn" on:click={() => (isShowDeleteModal = false)}>
         {$_('cancel')}
       </button>
+      <button type="button" class="comfirm-btn" on:click={confirmDelete}>{$_('confirm')}</button>
     </div>
   </div>
 </Modal>
@@ -476,7 +476,7 @@
     {/if}
 
     <div class="flex justify-center">
-      <button class="cancel-btn" on:click={() => (isShowDayInsightsModal = false)}>
+      <button type="button" class="regular-btn !me-0" on:click={() => (isShowDayInsightsModal = false)}>
         {$_('close')}
       </button>
     </div>

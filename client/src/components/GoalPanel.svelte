@@ -210,7 +210,7 @@
   const goalModalAction = (node: HTMLElement) => {
     const options: ModalOptions = {
       placement: 'top-center',
-      backdropClasses: 'fixed inset-0 z-40',
+      backdropClasses: 'fixed inset-0 z-[1000]',
       backdrop: 'static',
       closable: true,
       onHide: () => {
@@ -247,13 +247,13 @@
   {:else}
     <div class="flex flex-col space-y-6">
       {#each enrichedGoals as goal (goal.id)}
-        <div class="rounded-lg border border-gray-200 p-4">
+        <div class="inset-panel">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center space-x-2">
-              <strong class="text-base text-black">{goal.name}</strong>
+              <strong class="text-base font-semibold tracking-tight text-ink-primary">{goal.name}</strong>
               {#if goal.progress >= 100}
                 <span
-                  class="border-success text-success inline-flex items-center rounded-sm border bg-green-50 px-1 py-0.5 text-xs font-medium">
+                  class="border-success text-success inline-flex items-center rounded-full border bg-green-50 px-2 py-0.5 text-xs font-medium">
                   {$_('goal.achieved')}
                 </span>
               {/if}
@@ -276,19 +276,19 @@
             </div>
           </div>
 
-          <div class="mt-3 flex items-center space-x-3">
-            <div class="h-3 flex-1 overflow-hidden rounded-full bg-gray-100">
+          <div class="mt-3.5 flex items-center space-x-3">
+            <div class="h-2 flex-1 overflow-hidden rounded-full bg-black/[0.06]">
               <div
-                class="bg-brand h-full rounded-full transition-all duration-500"
+                class="bg-brand h-full rounded-full transition-all duration-500 ease-apple"
                 style="width: {Math.max(Math.min(goal.progress, 100), 0)}%">
               </div>
             </div>
-            <strong class="text-brand min-w-[64px] text-right text-sm">
+            <strong class="text-brand min-w-[64px] text-right text-sm font-semibold tabular-nums">
               {goal.progress.toFixed(1)}%
             </strong>
           </div>
 
-          <div class="text-grey mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
+          <div class="mt-3.5 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm text-ink-tertiary">
             <span>
               {$_('goal.targetAmount')}:
               <strong class="text-blue">
@@ -326,17 +326,17 @@
     use:goalModalAction
     tabindex="-1"
     class="z-9999 fixed left-0 right-0 top-0 hidden h-[calc(100%-1rem)] w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0 md:h-full">
-    <div class="relative h-full w-full max-w-lg md:h-auto md:max-w-md">
-      <div class="relative mt-16 rounded-lg bg-white pb-8 shadow">
-        <div class="flex items-center justify-between rounded-t border-b p-5">
-          <h3 class="flex items-center text-lg font-medium text-gray-900 md:text-base">
-            <SvgIcon name="adjustment" width={20} height={20} color="#1e293b" />
+    <div class="relative mx-auto w-full max-w-lg md:max-w-md">
+      <div class="relative mt-16 rounded-2xl border border-line bg-white pb-8 shadow-elevated">
+        <div class="flex items-center justify-between rounded-t-2xl border-b border-line px-6 py-5">
+          <h3 class="flex items-center gap-2 text-lg font-semibold tracking-tight text-ink-primary md:text-base">
+            <SvgIcon name="adjustment" width={20} height={20} color="#1D1D1F" />
             {isEditing ? $_('goal.editGoal') : $_('goal.addGoal')}
           </h3>
           <button
             type="button"
             on:click={closeGoalModal}
-            class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900">
+            class="ml-auto inline-flex items-center rounded-full bg-transparent p-2 text-sm text-ink-tertiary transition-colors duration-180 ease-apple hover:bg-black/[0.04] hover:text-ink-primary">
             <SvgIcon name="close" width={20} height={20} />
             <span class="sr-only">Close modal</span>
           </button>

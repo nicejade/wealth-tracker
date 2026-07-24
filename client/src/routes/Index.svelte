@@ -184,7 +184,7 @@
   </ul>
 </div>
 
-<div class="flex w-full flex-col items-center justify-center space-y-8">
+<div class="flex w-full flex-col items-center justify-center space-y-7">
   <OperatingArea on:add={handleAdd} />
   <WealthSummary />
   <TableWidget
@@ -255,15 +255,15 @@
   </div>
 </Modal>
 
-<div class="my-4 flex w-full flex-col items-center text-center">
+<div class="my-8 flex w-full flex-col items-center text-center">
   <div
-    class="to-brand-dark relative my-4 flex w-full flex-col items-center justify-center space-y-8 rounded-lg bg-gradient-to-br from-gray-100 p-8 md:px-4 md:py-6">
-    <h2 class="gradient-text typing-text my-4 text-xl text-white">
+    class="cta-band relative my-2 flex w-full flex-col items-center justify-center space-y-6 p-10 md:px-5 md:py-8">
+    <h2 class="gradient-text typing-text my-1 text-xl font-semibold tracking-tight">
       {$_('getAIAdviceDescription')}
     </h2>
     <a
       href="/advice"
-      class="regular-btn hover:text-brand inline-block text-center text-base"
+      class="primary-btn inline-block text-center text-base"
       on:click={() => trackEvent('get-ai-advice-click')}>
       {$_('getAIAdvice')}
     </a>
@@ -309,7 +309,7 @@
       border-color: transparent;
     }
     50% {
-      border-color: white;
+      border-color: #1d1d1f;
     }
   }
 </style>

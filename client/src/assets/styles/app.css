@@ -4,33 +4,143 @@
 @plugin "flowbite-typography";
 
 :root {
-  --color-mark: #f59e0b;
-  --color-mark-rgb: 245, 158, 11;
-  --color-link: #0ea5e9;
-  --color-link-rgb: 14, 165, 233;
+  --color-mark: #ff4582;
+  --color-mark-rgb: 255, 69, 130;
+  --color-link: #0071e3;
+  --color-link-rgb: 0, 113, 227;
+  --color-brand: #f59e0b;
+  --color-brand-rgb: 245, 158, 11;
+  /*
+   * Type ink ladder — exactly three steps (Apple-like).
+   * Primary: titles / names / body emphasis
+   * Secondary: labels / supporting copy
+   * Tertiary: meta / empty / de-emphasized
+   * Keep steps readable but not high-contrast “black vs pale gray”.
+   */
+  --color-ink: #1d1d1f;
+  --color-ink-secondary: #636366;
+  --color-ink-tertiary: #8e8e93;
+  --color-surface-page: #f5f5f7;
+  --color-surface-card: #ffffff;
+  --color-surface-muted: #fbfbfd;
+  --color-line: rgba(0, 0, 0, 0.08);
+  --color-line-strong: rgba(0, 0, 0, 0.14);
+  --color-line-accent: rgba(245, 158, 11, 0.5);
   --app-font-family:
-    'Noto Sans SC', STXihei, '华文细黑', 'Microsoft YaHei', '微软雅黑', 'PingFang SC',
-    'Hiragino Sans GB', sans-serif;
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'PingFang SC',
+    'Hiragino Sans GB', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif;
+  /* Soft-skill / Apple spring: heavy ease-out */
+  --ease-apple: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.15, 0.64, 1);
+  /* Shape lock: cards soft, controls pill/12px */
+  --radius-shell: 1.375rem;
+  --radius-card: 1.125rem;
+  --radius-inset: 0.875rem;
+  --radius-control: 0.75rem;
+  /* Tinted ambient shadows (not pure black) */
+  --shadow-soft:
+    0 1px 1px rgba(15, 23, 42, 0.03), 0 4px 12px rgba(15, 23, 42, 0.04),
+    0 12px 32px rgba(15, 23, 42, 0.03);
+  --shadow-card:
+    0 2px 4px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06),
+    0 20px 48px rgba(15, 23, 42, 0.04);
+  --shadow-elevated:
+    0 4px 8px rgba(15, 23, 42, 0.05), 0 16px 40px rgba(15, 23, 42, 0.1);
+  --shadow-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  --glass-bg:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.52)),
+    rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72), inset 0 -1px 0 rgba(255, 255, 255, 0.12),
+    0 10px 40px rgba(15, 23, 42, 0.08);
+}
+
+/*
+ * Dark theme uses filter: invert(1) hue-rotate(180deg).
+ * Pre-invert black ≈ post-invert light stroke. Keep opacity modest so edges
+ * read as soft hairlines, not bright white outlines.
+ */
+html.theme-dark {
+  --color-line: rgba(0, 0, 0, 0.2);
+  --color-line-strong: rgba(0, 0, 0, 0.26);
+  --color-line-accent: rgba(120, 55, 0, 0.48);
+  --shadow-soft:
+    0 1px 1px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.06);
+  --shadow-card:
+    0 2px 4px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.1), 0 20px 48px rgba(0, 0, 0, 0.08);
+  --shadow-elevated: 0 4px 8px rgba(0, 0, 0, 0.1), 0 16px 40px rgba(0, 0, 0, 0.12);
+  --glass-bg:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.22)),
+    rgba(255, 255, 255, 0.32);
+  --glass-border: rgba(0, 0, 0, 0.16);
+  --glass-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 10px 36px rgba(0, 0, 0, 0.1);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
 }
 
 html,
 body {
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  color: var(--color-ink);
   font-family: var(--app-font-family);
+  letter-spacing: -0.011em;
+  /* Soft Structuralism: ambient wash, not flat slab */
+  background-color: var(--color-surface-page);
+  background-image:
+    radial-gradient(ellipse 90% 55% at 50% -18%, rgba(245, 158, 11, 0.07), transparent 55%),
+    radial-gradient(ellipse 55% 40% at 100% 0%, rgba(0, 113, 227, 0.045), transparent 50%),
+    radial-gradient(ellipse 50% 35% at 0% 100%, rgba(46, 223, 163, 0.03), transparent 45%);
+  background-attachment: fixed;
 }
 
 #app {
+  position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   font-family: var(--app-font-family);
+  /* Do NOT use isolation:isolate here — Flowbite mounts modal backdrops on
+     <body>; isolating #app traps dialogs under the backdrop so content vanishes. */
+}
+
+/* Film grain: fixed, non-interactive; keep below modals (z-40+) */
+#app::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: multiply;
+}
+
+html.theme-dark #app::after {
+  opacity: 0.05;
+  mix-blend-mode: soft-light;
+}
+
+::selection {
+  background-color: rgba(0, 113, 227, 0.16);
+  color: var(--color-ink);
 }
 
 a {
-  transition: color 0.2s ease 0.2s;
+  transition:
+    color 0.22s var(--ease-apple),
+    opacity 0.22s var(--ease-apple);
 }
 a:hover {
-  color: #f59e0b;
+  color: var(--color-brand);
 }
 
 svg {
@@ -39,14 +149,209 @@ svg {
 
 .gradient-text {
   -webkit-text-fill-color: transparent;
-  background: linear-gradient(90deg, #f59e0b, #ff4582, #0ea5e9);
+  background: linear-gradient(135deg, #f59e0b 0%, #ff6b35 45%, #0071e3 100%);
   background-clip: text;
   -webkit-background-clip: text;
 }
 
-/* Flowbite Modal Backdrop — override opaque bg-gray-900 with a translucent overlay */
+/* Flowbite Modal Backdrop (appended to body) */
 [modal-backdrop] {
-  background-color: rgba(107, 114, 128, 0.45) !important;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  z-index: 1000 !important;
+  background-color: rgba(15, 23, 42, 0.4) !important;
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+}
+
+/*
+ * Modal shell must stay transparent. Flowbite puts role=dialog / aria on the
+ * full-viewport wrapper; painting it white creates a huge blank slab behind
+ * the actual panel.
+ */
+#setting-modal,
+#update-modal,
+#goal-modal,
+[id$='-modal'] {
+  z-index: 1010 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+#setting-modal > div,
+#update-modal > div,
+#goal-modal > div,
+[id$='-modal'] > div {
+  background: transparent !important;
+  /* Prefer content height; avoid a full-viewport white column */
+  height: auto !important;
+  max-height: none;
+}
+
+/* Only the inner content panel is solid white */
+#setting-modal > div > .bg-white,
+#update-modal > div > .bg-white,
+#goal-modal > div > .bg-white,
+[id$='-modal'] > div > .bg-white.shadow,
+[id$='-modal'] > div > .bg-white {
+  border-radius: var(--radius-shell) !important;
+  box-shadow: var(--shadow-elevated) !important;
+  border: 1px solid var(--color-line);
+  background-color: #ffffff !important;
+}
+
+/* Primary Flowbite cards: elevated soft surfaces */
+#main .flex.rounded-lg.border.bg-white,
+#main .flex.rounded-lg.border {
+  border-radius: var(--radius-shell);
+  border-color: var(--color-line);
+  box-shadow: var(--shadow-soft);
+  background-color: var(--color-surface-card);
+  transition:
+    box-shadow 0.35s var(--ease-apple),
+    transform 0.35s var(--ease-apple),
+    border-color 0.35s var(--ease-apple);
+}
+
+#main .flex.rounded-lg.border:hover {
+  box-shadow: var(--shadow-card);
+}
+
+/* Tables — primary body + secondary headers only */
+#main table thead th {
+  color: var(--color-ink-secondary);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-size: 0.8125rem;
+  text-transform: none;
+}
+
+#main table tbody td {
+  color: var(--color-ink);
+}
+
+/* Collapse ad-hoc grays into the 3-step ladder inside the app shell */
+#main .text-black,
+#main .text-gray-900 {
+  color: var(--color-ink) !important;
+}
+#main .text-gray-600,
+#main .text-gray-700,
+#main .text-gray-500 {
+  color: var(--color-ink-secondary) !important;
+}
+#main .text-gray-400,
+#main .text-gray-300 {
+  color: var(--color-ink-tertiary) !important;
+}
+
+.tabular-nums,
+#main strong,
+#main table td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* —— Dark theme border boost —— */
+html.theme-dark .border-line,
+html.theme-dark .border-silver,
+html.theme-dark .border-gray-50,
+html.theme-dark .border-gray-100,
+html.theme-dark .border-gray-200,
+html.theme-dark .border-gray-300,
+html.theme-dark .border-gray-400,
+html.theme-dark .divide-gray-100 > :not([hidden]) ~ :not([hidden]),
+html.theme-dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]),
+html.theme-dark .divide-y > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--color-line) !important;
+}
+
+html.theme-dark .surface-card,
+html.theme-dark .surface-inset,
+html.theme-dark .inset-panel,
+html.theme-dark .surface-glass,
+html.theme-dark .metric-shell,
+html.theme-dark #main .flex.rounded-lg.border,
+html.theme-dark #main .flex.rounded-lg.border.bg-white {
+  border-color: var(--color-line) !important;
+  box-shadow: var(--shadow-soft);
+}
+
+html.theme-dark .surface-card-accent,
+html.theme-dark .metric-shell-accent {
+  border-color: var(--color-line-accent) !important;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Dropdown menus must sit above glass chrome */
+html.theme-dark .custom-select-options {
+  border-color: var(--color-line-strong) !important;
+}
+
+html.theme-dark #main table,
+html.theme-dark #main thead,
+html.theme-dark #main tbody,
+html.theme-dark #main tr,
+html.theme-dark #main th,
+html.theme-dark #main td {
+  border-color: var(--color-line) !important;
+}
+
+html.theme-dark footer {
+  border-color: var(--color-line-strong);
+}
+
+/* Controls share the softer line (not line-strong) in dark */
+html.theme-dark .regular-btn,
+html.theme-dark .operating-btn,
+html.theme-dark .cancel-btn,
+html.theme-dark .nav-chip,
+html.theme-dark .operating-area,
+html.theme-dark .liquid-glass {
+  border-color: var(--color-line) !important;
+}
+
+/* Inputs: rest uses soft line; keep focus gold (do not override :focus) */
+html.theme-dark .custom-input:not(:focus):not(:active),
+html.theme-dark .custom-select button:not(:focus):not(:active) {
+  border-color: var(--color-line) !important;
+}
+
+html.theme-dark .version-badge {
+  border-color: rgba(0, 0, 0, 0.14) !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  box-shadow: none;
+}
+
+html.theme-dark .ring-1,
+html.theme-dark .ring-black {
+  --tw-ring-color: rgba(0, 0, 0, 0.18);
+}
+
+/* Soften sticky bar edge after invert */
+html.theme-dark .operating-area.sticky {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 12px 36px rgba(0, 0, 0, 0.1) !important;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .operating-area,
+  .surface-glass,
+  .liquid-glass {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

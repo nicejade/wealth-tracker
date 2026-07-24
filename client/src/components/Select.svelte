@@ -34,19 +34,25 @@
     selectedItemCopy = deepClone(selectedItem)
     dispatch('selected', selectedItem)
   }
+
+  // Form rows pass w-full; toolbar passes fixed widths (w-36). Never expand unless asked.
+  $: isFullWidth = /\bw-full\b/.test(listboxClass)
 </script>
 
-<div class="flex items-center justify-center space-x-2 text-gray-600">
+<div
+  class="custom-select flex items-center justify-center space-x-2 text-ink-secondary"
+  class:w-full={isFullWidth}
+  class:shrink-0={!isFullWidth}>
   {#if label}
-    <label for="custom-select" class="font-medium">{label}</label>
+    <label for="custom-select" class="shrink-0 text-sm font-medium tracking-tight">{label}</label>
   {/if}
   <Listbox bind:value={selectedItem} let:open class={listboxClass}>
-    <div class="relative">
+    <div class="relative w-full">
       <ListboxButton
-        class="focus-visible-ring relative h-10 w-full cursor-pointer rounded-lg border border-solid bg-white pl-3 pr-10 text-left hover:bg-gray-100 focus:outline-none sm:text-sm">
-        <span class="block truncate">{selectedItem.name}</span>
+        class="relative h-10 w-full cursor-pointer rounded-full border border-line bg-white pl-3.5 pr-10 text-left text-ink-primary shadow-soft transition-[border-color] duration-180 ease-apple hover:bg-surface-muted focus:border-brand focus:outline-none focus:ring-0 focus:ring-offset-0 active:border-brand sm:text-sm">
+        <span class="block truncate text-sm font-medium">{selectedItem?.name}</span>
         <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-          <SvgIcon name="selector" width={20} height={20} />
+          <SvgIcon name="selector" width={18} height={18} />
         </span>
       </ListboxButton>
 
@@ -59,22 +65,20 @@
           leaveTo="transform scale-95 opacity-0">
           <ListboxOptions
             static
-            style="z-index: 49"
-            class="absolute mt-2 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base
-            shadow ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            class="custom-select-options absolute left-0 top-full z-50 mt-1.5 max-h-60 w-full min-w-full overflow-auto rounded-xl border border-line bg-white py-1.5 text-base shadow-elevated focus:outline-none sm:text-sm">
             {#each options as item (item.name)}
               <ListboxOption let:selected let:active value={item} disabled={item.disabled}>
                 <li
                   class="relative select-none py-2 pl-10 pr-4
-                  {item.disabled ? 'text-grey cursor-not-allowed' : 'cursor-pointer'}
-                  {active ? 'text-brand bg-blue-100' : 'text-black'}">
+                  {item.disabled ? 'cursor-not-allowed text-ink-tertiary' : 'cursor-pointer'}
+                  {active ? 'bg-blue-soft text-blue' : 'text-ink-primary'}">
                   <span
-                    class="{selected ? 'text-brand font-medium' : 'font-normal'} block truncate">
+                    class="{selected ? 'font-semibold text-blue' : 'font-normal'} block truncate">
                     {item.name}
                   </span>
                   {#if selected}
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-500">
-                      <SvgIcon name="check" color="#f59e0b" />
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue">
+                      <SvgIcon name="check" color="#0071E3" />
                     </span>
                   {/if}
                 </li>
@@ -86,3 +90,15 @@
     </div>
   </Listbox>
 </div>
+
+<style>
+  .custom-select {
+    position: relative;
+  }
+
+  :global(.custom-select-options) {
+    background-color: #ffffff !important;
+    box-shadow: var(--shadow-elevated) !important;
+  }
+</style>
+

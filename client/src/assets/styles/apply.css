@@ -1,44 +1,222 @@
+/* —— Shape-locked controls (pill interactive / soft card) —— */
 .regular-btn {
-  @apply min-w-28 rounded-full border border-gray-300 bg-white px-4 py-2 text-center text-base font-bold text-gray-600 hover:bg-gray-100 md:text-sm;
+  @apply inline-flex min-w-28 cursor-pointer items-center justify-center rounded-full border border-line bg-white px-5 py-2.5 text-center text-[0.9375rem] font-semibold tracking-tight text-ink-primary transition-all duration-250 ease-apple hover:bg-surface-muted active:scale-[0.98] md:text-sm;
+  box-shadow: var(--shadow-soft);
+}
+
+.regular-btn:hover {
+  box-shadow: var(--shadow-card);
 }
 
 .operating-btn {
-  @apply min-w-20 rounded-full border border-gray-300 bg-white px-4 py-2 text-center text-base font-bold text-gray-600 hover:bg-gray-100 md:text-sm;
+  @apply inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-line bg-white/70 px-4 py-2 text-center text-[0.9375rem] font-semibold tracking-tight text-ink-primary transition-all duration-250 ease-apple hover:bg-white active:scale-[0.98] md:text-sm;
 }
 
 .operating-text {
-  @apply text-base text-gray-600 md:text-sm;
+  @apply whitespace-nowrap text-[0.9375rem] font-medium tracking-tight text-ink-secondary md:text-sm;
 }
 
+/* Destructive confirm only (delete / danger) — not for save/update */
 .comfirm-btn {
-  @apply min-w-28 rounded-full border border-mark bg-white px-4 py-2 text-base font-bold !text-mark hover:bg-gray-100 md:text-sm;
+  @apply inline-flex min-w-28 cursor-pointer items-center justify-center rounded-full border border-mark/30 bg-white px-5 py-2.5 text-[0.9375rem] font-semibold tracking-tight !text-mark transition-all duration-250 ease-apple hover:bg-red-50 active:scale-[0.98] md:text-sm;
+  box-shadow: var(--shadow-soft);
 }
 
+/* Secondary / dismiss — margin left to parent gap utilities */
 .cancel-btn {
-  @apply me-6 min-w-28 rounded-full border border-grey bg-white px-4 py-2 text-base font-bold !text-gray-600 hover:bg-gray-100 focus:ring-0 md:text-sm;
+  @apply inline-flex min-w-28 cursor-pointer items-center justify-center rounded-full border border-line bg-white px-5 py-2.5 text-[0.9375rem] font-semibold tracking-tight !text-ink-secondary transition-all duration-250 ease-apple hover:bg-surface-muted focus:ring-0 active:scale-[0.98] md:text-sm;
+  box-shadow: var(--shadow-soft);
 }
 
+/* Primary CTA: solid ink (save / update / confirm intent) */
+.primary-btn {
+  @apply inline-flex min-w-28 cursor-pointer items-center justify-center rounded-full bg-ink-primary px-5 py-2.5 text-[0.9375rem] font-semibold tracking-tight text-white transition-all duration-250 ease-apple hover:opacity-90 active:scale-[0.98] md:text-sm;
+  box-shadow: var(--shadow-soft);
+}
+
+.primary-btn:hover {
+  box-shadow: var(--shadow-card);
+}
+
+/* —— Form controls ——
+ * Rest state unchanged; focus/active = brand gold border only (no ring / no bg flip).
+ */
 .custom-input {
-  @apply border-silver w-full rounded-md border bg-gray-50 p-2 text-gray-600 placeholder-grey caret-link focus:border-transparent focus:outline-none focus:ring-1 focus:ring-link md:text-sm;
+  @apply w-full rounded-xl border border-line bg-surface-muted p-2.5 text-ink-primary placeholder-ink-tertiary shadow-none transition-[border-color] duration-180 ease-apple focus:border-brand focus:outline-none focus:ring-0 focus:ring-offset-0 active:border-brand md:text-sm;
+  caret-color: #f59e0b;
+}
+
+/* Selects / tag fields: gold border while focused or expanded */
+.custom-select button:focus,
+.custom-select button:active,
+.custom-select button[aria-expanded='true'],
+.custom-select button[data-headlessui-state*='open'] {
+  border-color: #f59e0b !important;
+  outline: none !important;
+  box-shadow: none !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+}
+
+/* Native inputs that skip .custom-input still get the same focus rule inside forms */
+#main input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']):not(.hidden):focus,
+#main textarea:focus,
+#setting-modal input:not([type='checkbox']):not([type='radio']):focus,
+#update-modal input:not([type='checkbox']):not([type='radio']):focus,
+#goal-modal input:not([type='checkbox']):not([type='radio']):focus {
+  border-color: #f59e0b !important;
+  outline: none !important;
+  box-shadow: none !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
 }
 
 .custom-label {
-  @apply w-56 text-base font-bold md:pb-2 md:text-sm;
+  @apply w-56 text-base font-semibold tracking-tight text-ink-primary md:pb-2 md:text-sm;
 }
 
+/* —— Chrome —— */
 .social-link {
-  @apply inline-flex rounded-md p-2 leading-5 hover:bg-gray-100;
+  @apply inline-flex rounded-full p-2 leading-5 text-ink-secondary transition-all duration-250 ease-apple hover:bg-black/[0.04] hover:text-ink-primary active:scale-[0.96];
 }
 
 .module-warp {
-  @apply flex w-full flex-row items-center justify-between pb-4 text-base md:flex-wrap md:text-sm;
+  @apply relative flex w-full flex-row items-center justify-between overflow-visible pb-4 text-base md:flex-wrap md:text-sm;
 }
 
 .markdown-article {
-  @apply mx-auto flex w-full max-w-full flex-col justify-between rounded-lg px-4;
+  @apply mx-auto flex w-full max-w-full flex-col justify-between rounded-xl px-4;
 }
 
-/* Reusable utility class to apply focus-visible ring styles (use with buttons, links, etc.) */
 .focus-visible-ring {
-  @apply focus-visible:border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  @apply focus-visible:border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-page;
+}
+
+.nav-chip {
+  @apply inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border border-line bg-white/70 px-4 py-2 text-ink-primary transition-all duration-250 ease-apple hover:bg-white hover:text-brand active:scale-[0.98];
+}
+
+.inset-panel {
+  border-radius: var(--radius-inset);
+  border: 1px solid var(--color-line);
+  background: var(--color-surface-muted);
+  padding: 1rem;
+  box-shadow: var(--shadow-inset-highlight);
+}
+
+/* Metric cards: single edge (no nested double border) */
+.metric-shell {
+  border-radius: var(--radius-shell);
+  border: 1px solid var(--color-line);
+  background: var(--color-surface-card);
+  padding: 1.15rem 1rem;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  transition:
+    box-shadow 0.35s var(--ease-apple),
+    transform 0.35s var(--ease-apple),
+    border-color 0.35s var(--ease-apple);
+}
+
+.metric-shell:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-1px);
+}
+
+.metric-shell-accent {
+  border-radius: var(--radius-shell);
+  border: 1px solid var(--color-line-accent);
+  background: linear-gradient(165deg, #fffaf0 0%, #ffffff 58%);
+  padding: 1.15rem 1rem;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  transition:
+    box-shadow 0.35s var(--ease-apple),
+    transform 0.35s var(--ease-apple),
+    border-color 0.35s var(--ease-apple);
+}
+
+.metric-shell-accent:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-1px);
+}
+
+/* Compat: core was nested plate; now a no-op wrapper for markup reuse */
+.metric-core {
+  display: contents;
+}
+
+/* —— Type roles (3-step ink only) —— */
+.text-ink-1 {
+  color: var(--color-ink);
+}
+.text-ink-2 {
+  color: var(--color-ink-secondary);
+}
+.text-ink-3 {
+  color: var(--color-ink-tertiary);
+}
+
+.metric-label {
+  margin-bottom: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--color-ink-secondary);
+}
+
+.metric-value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .metric-value {
+    font-size: 1.125rem;
+  }
+}
+
+/* Liquid-glass web approx (labeled; not official Apple Liquid Glass)
+   overflow:visible so dropdowns / popovers are not clipped */
+.liquid-glass {
+  position: relative;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(180%) contrast(1.05);
+  -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(1.05);
+  box-shadow: var(--glass-shadow);
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.55), transparent 38%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14), transparent 40%, rgba(255, 255, 255, 0.1));
+  pointer-events: none;
+}
+
+.liquid-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* CTA band */
+.cta-band {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-shell);
+  border: 1px solid var(--color-line);
+  background:
+    radial-gradient(ellipse 80% 80% at 20% 0%, rgba(245, 158, 11, 0.1), transparent 55%),
+    radial-gradient(ellipse 70% 70% at 100% 100%, rgba(0, 113, 227, 0.08), transparent 50%),
+    linear-gradient(160deg, #ffffff 0%, #fbfbfd 100%);
+  box-shadow: var(--shadow-soft);
 }

@@ -152,9 +152,9 @@
   }
 
   const baseInputClass =
-    'focus:ring-0 border-none hover:border-none px-2 text-gray-600 active:border-none focus:border-none flex-1 min-w-[6rem] bg-transparent outline-none placeholder-grey text-base md:text-sm'
+    'focus:ring-0 border-none hover:border-none px-2 text-ink-primary active:border-none focus:border-none flex-1 min-w-[6rem] bg-transparent outline-none placeholder-ink-tertiary caret-brand text-base md:text-sm'
   const containerClass =
-    'relative flex flex-wrap items-center gap-2 rounded-lg border border-silver border-solid bg-white'
+    'relative flex flex-wrap items-center gap-2 rounded-xl border border-line border-solid bg-surface-muted transition-[border-color] duration-180 ease-apple focus-within:border-brand focus-within:outline-none focus-within:ring-0'
   const tagClass =
     'inline-flex items-center gap-1 rounded-md bg-silver text-gray-700 px-1 py-1 mx-1 text-sm'
   const tagBtnClass = 'hover:text-red-500 cursor-pointer'

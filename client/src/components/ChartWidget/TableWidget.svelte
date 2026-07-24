@@ -183,14 +183,14 @@
             {item.alias || item.type}
             {#if isLiability(item)}
               <span
-                class="text-mark border-mark ms-1 inline-flex items-center rounded-sm border bg-pink-50 px-1 py-0.5 text-xs font-medium">
+                class="text-mark border-mark ms-1 inline-flex items-center rounded-full border bg-pink-50 px-2 py-0.5 text-xs font-medium">
                 {$_('liability')}
               </span>
             {/if}
           </TableBodyCell>
           <TableBodyCell>
             <span
-              class="text-brand border-brand me-1 inline-flex items-center rounded-sm border bg-yellow-50 px-1 py-0.5 text-xs font-medium">
+              class="text-brand border-brand me-1 inline-flex items-center rounded-full border bg-brand-soft px-2 py-0.5 text-xs font-medium">
               {getCurrencySymbol(item.currency, $customCurrencies)}
             </span>
             <span class:text-mark={isLiability(item)}>{item.amount}</span>
@@ -227,7 +227,7 @@
         <TableBodyCell>
           <strong class="text-brand font-bold">
             <span
-              class="text-brand border-brand me-1 inline-flex items-center rounded-sm border bg-yellow-50 px-1 py-0.5 text-xs font-medium">
+              class="text-brand border-brand me-1 inline-flex items-center rounded-full border bg-brand-soft px-2 py-0.5 text-xs font-medium">
               {getCurrencySymbol($targetCurrencyCode, $customCurrencies)}
             </span>
             {$netWorthValue}

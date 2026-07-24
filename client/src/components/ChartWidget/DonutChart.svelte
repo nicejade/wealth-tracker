@@ -131,24 +131,27 @@
   <!-- 风险与流动性分布概览 -->
   <div class="my-4 grid grid-cols-2 gap-4 md:grid-cols-1">
     <!-- 风险分布 -->
-    <div class="rounded-lg border border-gray-200 p-4">
-      <h3 class="mb-3 text-lg font-semibold text-gray-800">{$_('risk')} {$_('distribution')}</h3>
+    <div class="inset-panel">
+      <h3 class="mb-3 text-base font-semibold tracking-tight text-ink-primary">
+        {$_('risk')} {$_('distribution')}
+      </h3>
       <div class="space-y-3">
         {#each riskDistribution as item}
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-2">
               <div class="h-3 w-3 rounded-full" style="background-color: {item.color}"></div>
-              <span class="text-sm font-medium text-gray-700">{item.name}</span>
+              <span class="text-sm font-medium text-ink-secondary">{item.name}</span>
             </div>
-            <span class="text-blue text-sm font-bold">{item.value.toFixed(2)}%</span>
+            <span class="text-blue text-sm font-semibold tabular-nums"
+              >{item.value.toFixed(2)}%</span>
           </div>
         {/each}
       </div>
     </div>
 
     <!-- 流动性分布 -->
-    <div class="rounded-lg border border-gray-200 p-4">
-      <h3 class="mb-3 text-lg font-semibold text-gray-800">
+    <div class="inset-panel">
+      <h3 class="mb-3 text-base font-semibold tracking-tight text-ink-primary">
         {$_('liquidity')}
         {$_('distribution')}
       </h3>
@@ -157,9 +160,10 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-2">
               <div class="h-3 w-3 rounded-full" style="background-color: {item.color}"></div>
-              <span class="text-sm font-medium text-gray-700">{item.name}</span>
+              <span class="text-sm font-medium text-ink-secondary">{item.name}</span>
             </div>
-            <span class="text-blue text-sm font-bold">{item.value.toFixed(2)}%</span>
+            <span class="text-blue text-sm font-semibold tabular-nums"
+              >{item.value.toFixed(2)}%</span>
           </div>
         {/each}
       </div>

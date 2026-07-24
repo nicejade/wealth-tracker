@@ -156,18 +156,20 @@
     return `${value >= 0 ? '+' : ''}${value.toFixed(1)}pp`
   }
 
+  // Semantic colors for deltas; flat zero uses tertiary ink (not a 4th gray).
   const changeClass = (value: number): string => {
     if (value > 0) return 'text-success'
     if (value < 0) return 'text-mark'
-    return 'text-gray-400'
+    return 'text-ink-tertiary'
   }
 
   const changeWeightClass = (value: number, strong = false): string => {
-    if (value === 0) return 'font-normal'
-    return strong ? 'font-extrabold' : 'font-semibold'
+    if (value === 0) return 'font-medium'
+    return strong ? 'font-semibold' : 'font-semibold'
   }
 
-  const mutedClass = 'font-light text-gray-400'
+  // Meta / empty / captions — ink step 3 only
+  const mutedClass = 'font-normal text-ink-tertiary'
 
   const riskLabel = (key: string): string => $_(key.toLowerCase())
   const liquidityLabel = (key: string): string => $_(key.toLowerCase())
@@ -303,20 +305,20 @@
     <div class="flex w-full items-center justify-between md:flex-col md:items-start md:space-y-4">
       <Caption title={$_('report.title')} subtitle={$_('report.subtitle')}></Caption>
       <div class="flex items-center space-x-3 md:w-full md:justify-between">
-        <div class="inline-flex rounded-full border border-gray-300 p-1">
+        <div class="inline-flex rounded-full border border-line p-1">
           <button
-            class="min-w-16 rounded-full px-4 py-1.5 text-sm transition-colors {periodType ===
+            class="min-w-16 rounded-full px-4 py-1.5 text-sm transition-colors duration-250 ease-apple {periodType ===
             'month'
               ? 'bg-brand font-semibold text-white'
-              : 'font-normal text-gray-500 hover:bg-gray-100'}"
+              : 'font-medium text-ink-secondary hover:bg-black/[0.04]'}"
             on:click={() => setPeriod('month')}>
             {$_('report.monthly')}
           </button>
           <button
-            class="min-w-16 rounded-full px-4 py-1.5 text-sm transition-colors {periodType ===
+            class="min-w-16 rounded-full px-4 py-1.5 text-sm transition-colors duration-250 ease-apple {periodType ===
             'year'
               ? 'bg-brand font-semibold text-white'
-              : 'font-normal text-gray-500 hover:bg-gray-100'}"
+              : 'font-medium text-ink-secondary hover:bg-black/[0.04]'}"
             on:click={() => setPeriod('year')}>
             {$_('report.annual')}
           </button>
@@ -350,43 +352,39 @@
     </Card>
   {:else}
     <!-- Net worth summary -->
-    <div class="grid w-full grid-cols-3 gap-4 md:grid-cols-1 md:gap-2">
-      <div class="rounded-lg border border-gray-200 bg-white p-4 text-center">
-        <p class="text-sm font-light text-black">{$_('report.netWorth')}</p>
-        <strong class="text-brand text-xl font-extrabold md:text-lg">
-          {money(report.netWorth.end)}
-        </strong>
-        <p class="mt-1 text-xs {mutedClass}">
+    <div class="grid w-full grid-cols-3 gap-3.5 md:grid-cols-1 md:gap-3">
+      <div class="metric-shell">
+        <p class="metric-label">{$_('report.netWorth')}</p>
+        <strong class="metric-value text-brand">{money(report.netWorth.end)}</strong>
+        <p class="mt-1.5 text-xs {mutedClass}">
           {$_('report.periodLabel', { values: { period: report.anchors.label } })}
         </p>
       </div>
-      <div class="rounded-lg border border-gray-200 bg-white p-4 text-center">
-        <p class="text-sm font-light text-black">{$_('report.netWorthChange')}</p>
+      <div class="metric-shell">
+        <p class="metric-label">{$_('report.netWorthChange')}</p>
         <strong
-          class="text-xl md:text-lg {changeClass(report.netWorth.change)} {changeWeightClass(
+          class="metric-value {changeClass(report.netWorth.change)} {changeWeightClass(
             report.netWorth.change,
             true,
-          )}">
-          {signedMoney(report.netWorth.change)}
-        </strong>
+          )}">{signedMoney(report.netWorth.change)}</strong>
         <p
-          class="mt-1 text-xs {changeClass(report.netWorth.changePercent || 0)} {report.netWorth
+          class="mt-1.5 text-xs {changeClass(report.netWorth.changePercent || 0)} {report.netWorth
             .changePercent
             ? 'font-medium'
             : mutedClass}">
           {percent(report.netWorth.changePercent)}
         </p>
       </div>
-      <div class="border-brand rounded-lg border bg-yellow-50 p-4 text-center">
-        <p class="text-sm font-light text-black">{$_('report.vsLastPeriod')}</p>
+      <div class="metric-shell-accent">
+        <p class="metric-label">
+          {$_('report.vsLastPeriod')}
+        </p>
         <strong
-          class="text-xl md:text-lg {changeClass(report.prevNetWorth.change)} {changeWeightClass(
+          class="metric-value {changeClass(report.prevNetWorth.change)} {changeWeightClass(
             report.prevNetWorth.change,
             true,
-          )}">
-          {percent(report.prevNetWorth.changePercent)}
-        </strong>
-        <p class="mt-1 text-xs {mutedClass}">{signedMoney(report.prevNetWorth.change)}</p>
+          )}">{percent(report.prevNetWorth.changePercent)}</strong>
+        <p class="mt-1.5 text-xs {mutedClass}">{signedMoney(report.prevNetWorth.change)}</p>
       </div>
     </div>
 
@@ -397,21 +395,18 @@
         {#if report.topMovers.length}
           {#each report.topMovers as mover (mover.type)}
             <div class="flex items-center justify-between py-3">
-              <div class="flex flex-col">
-                <span class="text-base font-medium text-black">{mover.alias}</span>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-base font-medium text-ink-primary">{mover.alias}</span>
                 <span class="text-xs {mutedClass}">
                   {money(mover.start)} → {money(mover.end)}
                 </span>
               </div>
-              <div class="flex flex-col items-end">
+              <div class="flex flex-col items-end gap-0.5">
                 <span
                   class="text-base {changeClass(mover.change)} {changeWeightClass(mover.change)}">
                   {signedMoney(mover.change)}
                 </span>
-                <span
-                  class="text-xs {changeClass(mover.change)} {mover.change
-                    ? 'font-medium'
-                    : 'font-light'}">
+                <span class="text-xs font-medium {changeClass(mover.change)}">
                   {percent(mover.changePercent)}
                 </span>
               </div>
@@ -431,7 +426,7 @@
           <div class="mt-4 flex flex-col space-y-3">
             {#each report.riskDrift as item (item.key)}
               <div class="flex items-center justify-between text-sm">
-                <span class="w-16 font-medium text-black">{riskLabel(item.key)}</span>
+                <span class="w-16 font-medium text-ink-primary">{riskLabel(item.key)}</span>
                 <span class="flex-1 px-2 text-right text-xs {mutedClass}">
                   {item.startShare.toFixed(1)}% → {item.endShare.toFixed(1)}%
                 </span>
@@ -450,7 +445,7 @@
           <div class="mt-4 flex flex-col space-y-3">
             {#each report.liquidityDrift as item (item.key)}
               <div class="flex items-center justify-between text-sm">
-                <span class="w-16 font-medium text-black">{liquidityLabel(item.key)}</span>
+                <span class="w-16 font-medium text-ink-primary">{liquidityLabel(item.key)}</span>
                 <span class="flex-1 px-2 text-right text-xs {mutedClass}">
                   {item.startShare.toFixed(1)}% → {item.endShare.toFixed(1)}%
                 </span>
@@ -494,7 +489,7 @@
         </div>
       {:else}
         <div class="my-4 flex w-full items-center justify-center px-2">
-          <p class="max-w-2xl text-center text-sm font-light leading-relaxed text-gray-400">
+          <p class="max-w-2xl text-center text-sm font-normal leading-relaxed text-ink-tertiary">
             {$_('report.aiReportTip')}
           </p>
         </div>

@@ -54,9 +54,18 @@
 </script>
 
 {#if !$isAuthenticated && !$isLoading}
-  <div class="fixed inset-0 flex items-center justify-center">
-    <div class="flex flex-col space-y-8">
-      <form class="relative flex flex-row items-center" on:submit|preventDefault={handleSubmit}>
+  <div class="fixed inset-0 flex items-center justify-center px-4">
+    <div class="metric-shell w-full max-w-md !p-8 text-left md:!p-6">
+      <div class="mb-8 text-center">
+        <img src="/logo.png" alt="logo" class="mx-auto mb-4 h-10 w-10 rounded-[8px] shadow-soft" />
+        <h2 class="text-xl font-semibold tracking-tight text-ink-primary">
+          {$_('enterPassword')}
+        </h2>
+        <p class="mt-1.5 text-sm text-ink-tertiary">Wealth Tracker</p>
+      </div>
+      <form
+        class="relative flex flex-row items-center gap-3"
+        on:submit|preventDefault={handleSubmit}>
         <input type="text" name="username" autocomplete="username" class="hidden" value="wealth" />
         <input
           id="password"
@@ -66,7 +75,7 @@
           autocomplete="new-password"
           class="custom-input ml-0"
           placeholder={$_('enterPassword')} />
-        <button type="submit" disabled={isSubmitting} class="regular-btn ml-6">
+        <button type="submit" disabled={isSubmitting} class="primary-btn !min-w-fit shrink-0">
           {#if isSubmitting}
             <Spinner color="blue" size="5" />
           {/if}
