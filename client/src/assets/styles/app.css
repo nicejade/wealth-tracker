@@ -37,6 +37,9 @@
   --radius-card: 1.125rem;
   --radius-inset: 0.875rem;
   --radius-control: 0.75rem;
+  /* Content column: slightly wider than max-w-3xl for charts / tables */
+  --app-shell-max: 52rem; /* 832px */
+  --app-shell-max-wide: 60rem; /* 960px, large desktops */
   /* Tinted ambient shadows (not pure black) */
   --shadow-soft:
     0 1px 1px rgba(15, 23, 42, 0.03), 0 4px 12px rgba(15, 23, 42, 0.04),
@@ -108,6 +111,31 @@ body {
   font-family: var(--app-font-family);
   /* Do NOT use isolation:isolate here — Flowbite mounts modal backdrops on
      <body>; isolating #app traps dialogs under the backdrop so content vanishes. */
+}
+
+/* Centered content column — keep sticky toolbar in sync via same tokens */
+#main.app-shell,
+.app-shell {
+  width: 100%;
+  max-width: var(--app-shell-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* This project: md = max-width 768px (mobile) */
+@media (max-width: 768px) {
+  #main.app-shell,
+  .app-shell {
+    max-width: 100%;
+  }
+}
+
+/* This project: lg = min-width 1560px */
+@media (min-width: 1560px) {
+  #main.app-shell,
+  .app-shell {
+    max-width: var(--app-shell-max-wide);
+  }
 }
 
 /* Film grain: fixed, non-interactive; keep below modals (z-40+) */

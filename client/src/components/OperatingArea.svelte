@@ -186,13 +186,20 @@
     right: auto;
     transform: translateX(-50%);
     width: calc(100% - 2rem);
-    max-width: 896px;
+    /* Match #main.app-shell content width tokens */
+    max-width: var(--app-shell-max, 52rem);
     margin: 0;
     overflow: visible;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.45),
       inset 0 -1px 0 rgba(255, 255, 255, 0.08),
       0 16px 48px rgba(15, 23, 42, 0.1);
+  }
+
+  @media (min-width: 1560px) {
+    .operating-area.sticky {
+      max-width: var(--app-shell-max-wide, 60rem);
+    }
   }
 
   @media (max-width: 768px) {
