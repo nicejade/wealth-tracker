@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" role="img" aria-label="Star History Chart">
+  <text x="40" y="48" fill="#1d1d1f" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="600">Star History</text>
+  <text x="40" y="76" fill="#636366" font-family="system-ui, -apple-system, sans-serif" font-size="13">nicejade/wealth-tracker</text>
+  <polyline fill="url(#area)" stroke="none" points="60,320 140,300 220,280 300,240 380,220 460,180 540,160 620,120 700,90 740,80 740,340 60,340"/>
+  <polyline fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="60,320 140,300 220,280 300,240 380,220 460,180 540,160 620,120 700,90 740,80"/>
+  <defs>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -243,7 +243,12 @@ cd server && npm start
 
 ## Star 历史
 
-[![Star History Chart](https://api.star-history.com/svg?repos=nicejade/wealth-tracker&type=Date)](https://www.star-history.com/#nicejade/wealth-tracker&Date)
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/shieldcn/star-chart-dark.svg" />
+    <img alt="Star History Chart" src=".github/shieldcn/star-chart-light.svg" width="800" />
+  </picture>
+</p>
 
 ## 执照
 

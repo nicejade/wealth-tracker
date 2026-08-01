@@ -1,0 +1,40 @@
+name: Star History
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  watch:
+    types: [started]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: star-history
+  cancel-in-progress: true
+
+jobs:
+  star-history:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Brand accent #f59e0b (--color-brand); transparent bg follows GitHub light/dark
+      - uses: jal-co/shieldcn@v1
+        with:
+          repo: ${{ github.repository }}
+          mode: both
+          theme: orange
+          color: f59e0b
+          background: transparent
+          border: 'false'
+          area: 'true'
+          logo: 'false'
+          title: Star History
+          font: geist
+          width: '800'
+          height: '400'
+          output: .github/shieldcn/star-chart.svg
+          commit: 'true'
+          commit-message: 'chore: update star history chart [skip ci]'
