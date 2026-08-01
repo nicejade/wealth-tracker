@@ -18,7 +18,7 @@ const HEIGHT = 360
 const BRAND = '#f59e0b'
 const MAX_POINTS = 48
 const Y_TICKS = 4
-const X_TICKS = 4
+const X_TICKS = 6
 const MAX_PAGE = 400
 
 const THEMES = {
@@ -65,7 +65,10 @@ function formatCount(n) {
 function dateLabel(iso) {
   const d = new Date(iso)
   if (Number.isNaN(d.getTime())) return ''
-  return d.toLocaleDateString('en-US', { month: 'short', year: '2-digit' })
+  const yy = String(d.getUTCFullYear()).slice(-2)
+  const mm = String(d.getUTCMonth() + 1).padStart(2, '0')
+  const dd = String(d.getUTCDate()).padStart(2, '0')
+  return `${yy}-${mm}-${dd}`
 }
 
 function evenSpread(start, end, count) {
@@ -166,7 +169,7 @@ async function getStarHistory(total) {
 
 function renderSvg(points, mode) {
   const theme = THEMES[mode]
-  const pad = { top: 24, right: 28, bottom: 36, left: 52 }
+  const pad = { top: 24, right: 36, bottom: 36, left: 52 }
   const plotW = WIDTH - pad.left - pad.right
   const plotH = HEIGHT - pad.top - pad.bottom
 
@@ -198,7 +201,7 @@ function renderSvg(points, mode) {
     const t = tMin + ((tMax - tMin) * i) / (X_TICKS - 1)
     const x = r2(xOf(t))
     const anchor = i === 0 ? 'start' : i === X_TICKS - 1 ? 'end' : 'middle'
-    xLabels += `<text x="${x}" y="${pad.top + plotH + 22}" text-anchor="${anchor}" font-size="11" fill="${theme.muted}" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">${esc(dateLabel(new Date(t).toISOString()))}</text>`
+    xLabels += `<text x="${x}" y="${pad.top + plotH + 22}" text-anchor="${anchor}" font-size="10" fill="${theme.muted}" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">${esc(dateLabel(new Date(t).toISOString()))}</text>`
   }
 
   const last = points[points.length - 1]
