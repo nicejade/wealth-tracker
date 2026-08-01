@@ -6,6 +6,12 @@ on:
   watch:
     types: [started]
   workflow_dispatch:
+  # Regenerate immediately when the generator / workflow itself changes
+  push:
+    branches: [main]
+    paths:
+      - '.github/scripts/generate-star-history.mjs'
+      - '.github/workflows/star-history.yml'
 
 permissions:
   contents: write
@@ -26,7 +32,7 @@ jobs:
 
       - name: Generate star history SVGs
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.STAR_HISTORY_TOKEN || github.token }}
           STAR_HISTORY_OWNER: ${{ github.repository_owner }}
           STAR_HISTORY_REPO: ${{ github.event.repository.name }}
         run: node .github/scripts/generate-star-history.mjs

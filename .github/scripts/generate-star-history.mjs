@@ -1,8 +1,9 @@
 /**
  * Generate brand-styled star-history SVGs for the README.
- * Fetches stargazer timestamps via the GitHub API (requires GITHUB_TOKEN
- * with collaborator access), then writes light + dark charts with axes
- * and no redundant title (README already has "Star 历史").
+ *
+ * Requires GITHUB_TOKEN with collaborator access to stargazer timestamps
+ * (available as ${{ github.token }} inside this repo's Actions). Fails hard
+ * if history cannot be fetched — never writes a fake straight-line chart.
  */
 
 import { mkdirSync, writeFileSync } from 'node:fs'
@@ -10,24 +11,23 @@ import { join } from 'node:path'
 
 const OWNER = process.env.STAR_HISTORY_OWNER || 'nicejade'
 const REPO = process.env.STAR_HISTORY_REPO || 'wealth-tracker'
-const TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || ''
+const TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || process.env.STAR_HISTORY_TOKEN || ''
 const OUT_DIR = process.env.STAR_HISTORY_OUT || '.github/shieldcn'
 const WIDTH = 800
 const HEIGHT = 360
 const BRAND = '#f59e0b'
-const SAMPLE_POINTS = 48
+const MAX_POINTS = 48
 const Y_TICKS = 4
 const X_TICKS = 4
+const MAX_PAGE = 400
 
 const THEMES = {
   light: {
-    fg: '#1d1d1f',
     muted: '#636366',
     grid: 'rgba(0,0,0,0.08)',
     areaOpacity: 0.22,
   },
   dark: {
-    fg: '#fafafa',
     muted: '#a1a1aa',
     grid: 'rgba(255,255,255,0.12)',
     areaOpacity: 0.28,
@@ -68,79 +68,99 @@ function dateLabel(iso) {
   return d.toLocaleDateString('en-US', { month: 'short', year: '2-digit' })
 }
 
-async function ghJson(url) {
-  const headers = {
-    Accept: 'application/vnd.github.star+json',
-    'User-Agent': 'wealth-tracker-star-history',
-    'X-GitHub-Api-Version': '2022-11-28',
+function evenSpread(start, end, count) {
+  if (count <= 1) return [start]
+  const out = []
+  for (let i = 0; i < count; i++) {
+    out.push(Math.round(start + ((end - start) * i) / (count - 1)))
   }
-  if (TOKEN) headers.Authorization = `Bearer ${TOKEN}`
+  return [...new Set(out)]
+}
 
-  const res = await fetch(url, { headers })
+async function ghFetch(url, accept) {
+  if (!TOKEN) {
+    throw new Error('GITHUB_TOKEN is required to read stargazer timestamps')
+  }
+  const res = await fetch(url, {
+    headers: {
+      Accept: accept,
+      Authorization: `Bearer ${TOKEN}`,
+      'User-Agent': 'wealth-tracker-star-history',
+      'X-GitHub-Api-Version': '2022-11-28',
+    },
+  })
+  if (res.status === 403 || res.status === 429) {
+    throw new Error(
+      `GitHub rate limited (${res.status}). Remaining: ${res.headers.get('x-ratelimit-remaining') ?? '?'}`,
+    )
+  }
   if (!res.ok) {
     const body = await res.text()
-    throw new Error(`GitHub API ${res.status} ${url}: ${body.slice(0, 200)}`)
+    throw new Error(`GitHub ${res.status} ${url}: ${body.slice(0, 240)}`)
   }
-  const link = res.headers.get('link') || ''
-  const data = await res.json()
-  return { data, link }
+  return res
 }
 
-function nextPage(linkHeader) {
-  const m = linkHeader.match(/<([^>]+)>;\s*rel="next"/)
-  return m ? m[1] : null
-}
-
-async function fetchStarredAt() {
-  const times = []
-  let url = `https://api.github.com/repos/${OWNER}/${REPO}/stargazers?per_page=100`
-  while (url) {
-    const { data, link } = await ghJson(url)
-    for (const row of data) {
-      if (row.starred_at) times.push(new Date(row.starred_at).getTime())
-    }
-    url = nextPage(link)
-  }
-  times.sort((a, b) => a - b)
-  return times
+async function fetchStarPage(page) {
+  const url = `https://api.github.com/repos/${encodeURIComponent(OWNER)}/${encodeURIComponent(REPO)}/stargazers?per_page=100&page=${page}`
+  const res = await ghFetch(url, 'application/vnd.github.v3.star+json')
+  const json = await res.json()
+  if (!Array.isArray(json)) return []
+  return json.map((s) => s.starred_at).filter((d) => typeof d === 'string')
 }
 
 async function fetchMeta() {
-  const headers = {
-    Accept: 'application/vnd.github+json',
-    'User-Agent': 'wealth-tracker-star-history',
-    'X-GitHub-Api-Version': '2022-11-28',
-  }
-  if (TOKEN) headers.Authorization = `Bearer ${TOKEN}`
-  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}`, { headers })
-  if (!res.ok) throw new Error(`Failed to fetch repo meta: ${res.status}`)
+  const res = await ghFetch(
+    `https://api.github.com/repos/${encodeURIComponent(OWNER)}/${encodeURIComponent(REPO)}`,
+    'application/vnd.github.v3+json',
+  )
   return res.json()
 }
 
-/** Build cumulative [t, stars] samples for a smooth chart. */
-function buildSeries(times, totalNow) {
-  if (!times.length) {
-    const now = Date.now()
-    return [{ t: now - 86_400_000, v: 0 }, { t: now, v: totalNow || 0 }]
+/**
+ * Reconstruct cumulative star history.
+ * Small/medium repos: every page (exact). Large: sample pages evenly.
+ */
+async function getStarHistory(total) {
+  const pages = Math.min(MAX_PAGE, Math.max(1, Math.ceil(total / 100)))
+  const pageNums =
+    pages <= MAX_POINTS ? evenSpread(1, pages, pages) : evenSpread(1, pages, MAX_POINTS)
+
+  const results = await Promise.all(pageNums.map((p) => fetchStarPage(p)))
+  const points = []
+
+  if (pages <= MAX_POINTS) {
+    // Exact: flatten all starred_at, cumulative index.
+    const dates = results.flat()
+    if (!dates.length) {
+      throw new Error('Stargazers API returned no starred_at timestamps')
+    }
+    const step = Math.max(1, Math.floor(dates.length / MAX_POINTS))
+    for (let i = 0; i < dates.length; i += step) {
+      points.push({ t: new Date(dates[i]).getTime(), v: i + 1 })
+    }
+    const lastIdx = dates.length - 1
+    if (points[points.length - 1].v !== dates.length) {
+      points.push({ t: new Date(dates[lastIdx]).getTime(), v: dates.length })
+    }
+  } else {
+    // Sampled: first star of each sampled page ≈ page * 100.
+    pageNums.forEach((page, i) => {
+      const first = results[i][0]
+      if (!first) return
+      points.push({ t: new Date(first).getTime(), v: Math.min(total, (page - 1) * 100 + 1) })
+    })
   }
 
-  const points = []
-  const n = times.length
-  const step = Math.max(1, Math.floor(n / SAMPLE_POINTS))
-  for (let i = 0; i < n; i += step) {
-    points.push({ t: times[i], v: i + 1 })
-  }
-  const last = times[n - 1]
-  if (points[points.length - 1].t !== last) {
-    points.push({ t: last, v: n })
-  }
-  // Anchor at "now" with live total so the chart never undercounts.
+  // Anchor at "now" with live total.
   const now = Date.now()
+  if (!points.length) throw new Error('No star history points reconstructed')
   if (now > points[points.length - 1].t) {
-    points.push({ t: now, v: Math.max(totalNow || n, n) })
+    points.push({ t: now, v: total })
   } else {
-    points[points.length - 1].v = Math.max(totalNow || n, n)
+    points[points.length - 1].v = total
   }
+
   return points
 }
 
@@ -157,6 +177,7 @@ function renderSvg(points, mode) {
   const xOf = (t) => pad.left + ((t - tMin) / (tMax - tMin || 1)) * plotW
   const yOf = (v) => pad.top + plotH - (v / yMax) * plotH
 
+  // Smooth path via polyline through sampled points (real timestamps).
   const linePts = points.map((p) => `${r2(xOf(p.t))},${r2(yOf(p.v))}`).join(' ')
   const areaPts = [
     `${r2(xOf(points[0].t))},${r2(pad.top + plotH)}`,
@@ -201,30 +222,27 @@ function renderSvg(points, mode) {
 }
 
 async function main() {
+  if (!TOKEN) {
+    throw new Error(
+      'Missing GITHUB_TOKEN. Run in GitHub Actions, or export a PAT with stargazer read access.',
+    )
+  }
+
   const meta = await fetchMeta()
   const total = meta.stargazers_count || 0
   console.log(`Repo ${OWNER}/${REPO}: ${total} stars`)
 
-  let series
-  try {
-    const times = await fetchStarredAt()
-    console.log(`Fetched ${times.length} stargazer timestamps`)
-    series = buildSeries(times, total)
-  } catch (err) {
-    console.warn(`Stargazer history unavailable (${err.message}); using created_at → now`)
-    const created = new Date(meta.created_at).getTime()
-    series = [
-      { t: created, v: 0 },
-      { t: Date.now(), v: total },
-    ]
+  if (total <= 0) {
+    throw new Error('Repository has 0 stars — nothing to chart')
   }
 
-  mkdirSync(OUT_DIR, { recursive: true })
+  const series = await getStarHistory(total)
+  console.log(`Reconstructed ${series.length} curve points (real starred_at)`)
 
+  mkdirSync(OUT_DIR, { recursive: true })
   for (const mode of ['light', 'dark']) {
-    const svg = renderSvg(series, mode)
     const path = join(OUT_DIR, `star-chart-${mode}.svg`)
-    writeFileSync(path, svg)
+    writeFileSync(path, renderSvg(series, mode))
     console.log(`Wrote ${path}`)
   }
 }
