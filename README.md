@@ -230,15 +230,19 @@ cd server && npm start
 
 ## 相关链接
 
-- [逍遥自在轩](https://www.niceshare.site/)
-- [清风明月轩](https://www.lovejade.cn/)
-- [晚晴幽草轩](https://www.jeffjade.com/)
-- [缘知随心庭](https://fine.niceshare.site/)
-- [玉桃文飨轩](https://share.lovejade.cn/)
-- [倾城之链](https://site.lovejade.cn/)
-- [曼妙句子](https://read.lovejade.cn/)
+- [清风明月轩](https://www.lovejade.cn/?ref=github.com)
+- [逍遥自在轩](https://www.niceshare.site/?ref=github.com)
+- [晚晴幽草轩](https://www.jeffjade.com/nicelinks?ref=github.com)
+- [慧悟万象阁](https://meta.niceshare.site/?ref=github.com)
+- [逸趣游乐坊](https://play.niceshare.site/?ref=github.com)
+- [蓝河文档馆](https://blueos.niceshare.site/?ref=github.com)
+- [玉桃文飨轩](https://share.lovejade.cn/?ref=github.com)
+- [缘知随心庭](https://fine.niceshare.site/?ref=github.com)
+- [静轩之别苑](https://quickapp.lovejade.cn/?ref=github.com)
+- [悠然宜想亭](https://forum.lovejade.cn/?ref=github.com)
 - [SegmentFault](https://segmentfault.com/u/jeffjade)
-- [X | MarshalXuan](https://x.com/MarshalXuan)
+- [X（MarshalXuan）](https://x.com/MarshalXuan)
+- [FaceBook（MarshalXuan）](https://www.facebook.com/MarshalXuan/)
 - [@MarshalXuan](https://www.youtube.com/@MarshalXuan)
 
 ## Star 历史
