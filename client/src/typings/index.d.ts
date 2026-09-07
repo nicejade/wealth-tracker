@@ -21,6 +21,8 @@ export interface AssetsItem {
   datetime: string
   note: string
   tags?: string
+  created?: string
+  updated?: string
 }
 
 export interface GoalItem {
