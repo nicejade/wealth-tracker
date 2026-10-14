@@ -39,6 +39,7 @@
   "datetime": "Date",
   "remark": "Remark",
   "currency": "Currency",
+  "latestUpdatedTime": "Updated",
   "insightsNav": "Insights",
   "backToHomepage": "Back to Homepage",
   "high": "High",

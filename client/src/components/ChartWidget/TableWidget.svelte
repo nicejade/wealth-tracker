@@ -1,5 +1,6 @@
 <script>
   import { onMount, createEventDispatcher } from 'svelte'
+  import dayjs from 'dayjs'
   import {
     Button,
     Card,
@@ -147,6 +148,11 @@
       typeSortOrder = 'none'
     }
   }
+
+  const getLatestUpdatedTime = (item) => {
+    const latestTime = item.updated || item.created || item.datetime
+    return latestTime ? dayjs(latestTime).format('YYYY-MM-DD HH:mm') : '--'
+  }
 </script>
 
 <Card
@@ -173,6 +179,7 @@
       </TableHeadCell>
       <TableHeadCell>{$_('amount')}</TableHeadCell>
       <TableHeadCell>{$_('currency')}</TableHeadCell>
+      <TableHeadCell>{$_('latestUpdatedTime')}</TableHeadCell>
       <TableBodyCell><span class="px-4 py-2">{$_('action')}</span></TableBodyCell>
       <TableBodyCell><span class="px-4 py-2">{$_('action')}</span></TableBodyCell>
     </TableHead>
@@ -196,6 +203,7 @@
             <span class:text-mark={isLiability(item)}>{item.amount}</span>
           </TableBodyCell>
           <TableBodyCell>{getCurrencyName(item.currency) + ($language ? '' : '')}</TableBodyCell>
+          <TableBodyCell>{getLatestUpdatedTime(item)}</TableBodyCell>
           <TableBodyCell>
             <Button
               size="sm"
@@ -238,6 +246,7 @@
             {$targetCurrencyName}
           </strong>
         </TableBodyCell>
+        <TableBodyCell>--</TableBodyCell>
         <TableBodyCell>
           <Button size="sm" outline class="border-none focus:ring-0" on:click={onPersistClick}>
             <span class="text-mark hover:text-brand font-bold">{$_('persist')}</span>
