@@ -112,7 +112,8 @@
   "validBitcoinApiTip": "La clé Bitcoin API doit être de 40 caractères",
   "settingFields": {
     "exchangeRateApiKeyLabel": "Clé API des taux de change",
-    "bitcoinApiKeyLabel": "Clé API Bitcoin"
+    "bitcoinApiKeyLabel": "Clé API Bitcoin",
+    "keylessRatesTip": "Sans clé, les taux de référence de la BCE (environ 30 devises) sont fournis par"
   },
   "customCurrency": {
     "managerTitle": "Gestion des devises personnalisées",
