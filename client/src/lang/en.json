@@ -112,7 +112,8 @@
   "validBitcoinApiTip": "Bitcoin API Key must be 40 characters long",
   "settingFields": {
     "exchangeRateApiKeyLabel": "Exchange Rate API Key",
-    "bitcoinApiKeyLabel": "Bitcoin API Key"
+    "bitcoinApiKeyLabel": "Bitcoin API Key",
+    "keylessRatesTip": "Without a key, ECB reference rates (about 30 currencies) are used from"
   },
   "customCurrency": {
     "managerTitle": "Custom Currency Management",

@@ -350,6 +350,26 @@ const fetchLatestRates = async (rateApiKey: string, base: string) => {
   return result.conversion_rates
 }
 
+// 未配置 Key 时：免 Key 的欧洲央行参考汇率（约 30 种货币），由 AllRatesToday 提供；
+// 其余货币仍沿用默认汇率（默认汇率以 CNY 为基准，经 rates['CNY'] 换算到 base）
+const fetchKeylessRates = async (base: string) => {
+  const response = await fetch(`https://allratestoday.com/api/open/latest/${base}`)
+  if (!response.ok) {
+    console.error('Keyless rates request failed:', response.status, response.statusText)
+    return null
+  }
+  const result = await response.json()
+  const cnyPerBase = result.rates?.CNY
+  if (!cnyPerBase) return null
+  const defaults = Object.fromEntries(
+    Object.entries(DEFAULT_EXCHANGE_RATE.conversion_rates).map(([code, rate]) => [
+      code,
+      rate * cnyPerBase,
+    ]),
+  )
+  return { ...defaults, ...result.rates }
+}
+
 const fetchBitcoinPrice = async (apiKey: string): Promise<number | null> => {
   try {
     const response = await fetch('https://api.api-ninjas.com/v1/bitcoin', {
@@ -390,7 +410,7 @@ export async function fetchExchangeRates(base = 'CNY') {
     // 并发请求：汇率与 BTC 价格（若无 key 则优雅降级）
     const ratesPromise = rateApiKey
       ? fetchLatestRates(rateApiKey, base).catch(() => null)
-      : Promise.resolve(null)
+      : fetchKeylessRates(base).catch(() => null)
     const btcPricePromise = bitcoinApiKey
       ? fetchBitcoinPrice(bitcoinApiKey).catch(() => null)
       : Promise.resolve(null)
