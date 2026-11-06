@@ -331,6 +331,17 @@
                 bind:value={rateApiKey}
                 placeholder={$_('validRateApiTip')} />
             </div>
+            {#if !rateApiKey}
+              <p class="-mt-2 w-full pb-4 text-sm text-ink-secondary">
+                {$_('settingFields.keylessRatesTip')}
+                <a
+                  target="_blank"
+                  class="text-link hover:text-mark"
+                  href="https://allratestoday.com">
+                  AllRatesToday
+                </a>
+              </p>
+            {/if}
 
             <div class="module-warp">
               <label for="bitcoinApiKey" class="custom-label !leading-5">

@@ -112,7 +112,8 @@
   "validBitcoinApiTip": "ビットコインAPIキーは40桁のBase64文字列でなければなりません",
   "settingFields": {
     "exchangeRateApiKeyLabel": "為替レート API キー",
-    "bitcoinApiKeyLabel": "ビットコイン API キー"
+    "bitcoinApiKeyLabel": "ビットコイン API キー",
+    "keylessRatesTip": "キー未設定時は、欧州中央銀行の参照レート（約30通貨）を次から取得します："
   },
   "customCurrency": {
     "managerTitle": "カスタム通貨管理",
