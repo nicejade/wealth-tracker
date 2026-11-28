@@ -112,7 +112,8 @@
   "validBitcoinApiTip": "比特币 API Key 必须是 40 位 Base64 字符集",
   "settingFields": {
     "exchangeRateApiKeyLabel": "汇率 API Key",
-    "bitcoinApiKeyLabel": "比特币 API Key"
+    "bitcoinApiKeyLabel": "比特币 API Key",
+    "keylessRatesTip": "未填写 Key 时，使用欧洲央行参考汇率（约 30 种货币），数据来自"
   },
   "customCurrency": {
     "managerTitle": "自定义货币管理",
